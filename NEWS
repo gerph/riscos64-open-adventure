@@ -1,5 +1,8 @@
 = Open Adventure project news =
 
+Repository head::
+  Update the dungeon maker to avoid a deprecation die to security issues
+
 1.8: 2019-04-19::
   Minor typo and capitalization glitches in user-visible text fixed & documented.
   Save format has changed.

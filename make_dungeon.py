@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # This is the open-adventure dungeon generator. It consumes a YAML description of
 # the dungeon and outputs a dungeon.h and dungeon.c pair of C code files.
@@ -523,7 +523,7 @@ def get_travel(travel):
 
 if __name__ == "__main__":
     with open(YAML_NAME, "r") as f:
-        db = yaml.load(f)
+        db = yaml.safe_load(f)
 
     locnames = [x[0] for x in db["locations"]]
     msgnames = [el[0] for el in db["arbitrary_messages"]]
