@@ -1105,8 +1105,14 @@ static phase_codes_t read(command_t command)
 
     if (DARK(game.loc)) {
         sspeak(NO_SEE, command.word[0].raw);
-    } else if (command.obj == OYSTER && !game.clshnt && game.closed) {
-        game.clshnt = yes(arbitrary_messages[CLUE_QUERY], arbitrary_messages[WAYOUT_CLUE], arbitrary_messages[OK_MAN]);
+    } else if (command.obj == OYSTER) {
+	if (!TOTING(OYSTER) || !game.closed) {
+	    rspeak(DONT_UNDERSTAND);
+	} else if (!game.clshnt) {
+	    game.clshnt = yes(arbitrary_messages[CLUE_QUERY], arbitrary_messages[WAYOUT_CLUE], arbitrary_messages[OK_MAN]);
+	} else if (game.clshnt) {
+	    pspeak(OYSTER, hear, true, 1);	// Not really a sound, but oh well.
+	}
     } else if (objects[command.obj].texts[0] == NULL ||
                game.prop[command.obj] == STATE_NOTFOUND) {
         speak(actions[command.verb].message);
