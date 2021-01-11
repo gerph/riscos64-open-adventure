@@ -2762,7 +2762,7 @@ arbitrary_messages:  !!omap
     You'd best take inventory and drop something.
 - CLAM_BLOCKER: 'You can''t fit this five-foot clam through that little passage!'
 - OYSTER_BLOCKER: 'You can''t fit this five-foot oyster through that little passage!'
-#- DROP_CLAM: 'I advise you to put down the clam before opening it.  >STRAIN!<'
+- DROP_CLAM: 'I advise you to put down the clam before opening it.  >STRAIN!<'
 - DROP_OYSTER: 'I advise you to put down the oyster before opening it.  >WRENCH!<'
 - CLAM_OPENER: 'You don''t have anything strong enough to open the clam.'
 - OYSTER_OPENER: 'You don''t have anything strong enough to open the oyster.'

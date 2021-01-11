@@ -1,7 +1,7 @@
 = Open Adventure project news =
 
 1.9: 2020-08-27::
-  Update the dungeon maker to avoid a deprecation die to security issues
+  Update the dungeon maker to avoid a deprecation due to security issues
 
 1.8: 2019-04-19::
   Minor typo and capitalization glitches in user-visible text fixed & documented.

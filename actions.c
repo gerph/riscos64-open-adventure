@@ -998,6 +998,8 @@ static phase_codes_t lock(verb_t verb, obj_t obj)
     case CLAM:
         if (verb == LOCK)
             rspeak(HUH_MAN);
+        else if (TOTING(CLAM))
+	    rspeak(DROP_CLAM);
         else if (!TOTING(TRIDENT))
             rspeak(CLAM_OPENER);
         else {
