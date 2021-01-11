@@ -81,7 +81,9 @@
 #    Order doesn't matter; the logic simply tests every threshold on
 #    the assumption that turn counts never decrease nor skip values.
 #
-# objects: Objects have attributes as follows...
+# objects: Objects that are refernced in C code or the YAML by name
+#    have human-readable names; others are named OBJ with a numeric suffix.
+#    Objects have attributes as follows...
 #      inventory:    A description for use in the inventory command.
 #      states:       A list of state labels for states from 0 up. Each
 #                    becomes a #define, and is also a state label that
@@ -2545,7 +2547,7 @@ locations: !!omap
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN], action: [goto, LOC_CLIFFBASE]},
-      {verbs: [UPWAR], cond: [carry, OBJ_46], action: [goto, LOC_CLIFFTOP]},
+      {verbs: [UPWAR], cond: [carry, RABBITFOOT], action: [goto, LOC_CLIFFTOP]},
       {verbs: [UPWAR], action: [goto, LOC_FOOTSLIP]},
     ]
 - LOC_FOOTSLIP:
@@ -3527,7 +3529,7 @@ objects: !!omap
     changes:
     - 'The waters crash together again.'
     - 'The waters have parted to form a narrow path across the reservoir.'
-- OBJ_46:
+- RABBITFOOT:
     words: ['appen', 'lepor']
     inventory: 'Leporine appendage'
     locations: LOC_FOREST22
