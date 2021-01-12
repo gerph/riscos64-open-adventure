@@ -1,0 +1,10 @@
+# This image is built by the Gitlab CI pipeline to be used in subsequent
+# pipeline steps.
+
+FROM ubuntu:focal
+
+ # tell apt not to ask for any user input
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update
+RUN apt-get install --yes --no-install-recommends make gcc-10 libedit-dev libasan6 libubsan1 python3 python3-yaml lcov asciidoc libxslt1.1 pkg-config docbook-xml xsltproc

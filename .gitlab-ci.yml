@@ -1,15 +1,26 @@
-image: opensuse/tumbleweed
-
 stages:
+  - ci-build
   - build
   - test
   - deploy
 
+default:
+  image: $CI_REGISTRY_IMAGE:ci
+
+# build and push Docker image to be used in subsequent steps
+ci-build:
+  stage: ci-build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile.ci --destination $CI_REGISTRY_IMAGE:ci --cache=true
+
 # build advent itself
 binary:debug:
   stage: build
-  before_script:
-    - zypper install -y make gcc libedit-devel libasan5 libubsan1 python python3-PyYAML lcov
   script:
     - make debug
   artifacts:
@@ -22,8 +33,6 @@ binary:debug:
 
 binary:release:
   stage: build
-  before_script:
-    - zypper install -y make gcc libedit-devel python python3-PyYAML
   script:
     - make advent cheat
   artifacts:
@@ -36,8 +45,6 @@ binary:release:
 
 manpage:
   stage: build
-  before_script:
-    - zypper install -y make asciidoc
   script:
     - make advent.6
   artifacts:
@@ -46,8 +53,6 @@ manpage:
 
 html:
   stage: build
-  before_script:
-    - zypper install -y make asciidoc libxslt
   script:
     - make html
   artifacts:
@@ -56,8 +61,6 @@ html:
 
 dist:
   stage: build
-  before_script:
-    - zypper install -y make asciidoc tar gzip
   script:
     - export VERS=${CI_COMMIT_REF_NAME}
     - make dist -e
@@ -68,8 +71,6 @@ dist:
 # run tests using the binary built before
 test:debug:
   stage: test
-  before_script:
-    - zypper install -y make gcc libedit-devel libasan5 libubsan1 python python3-PyYAML lcov diffutils
   script:
     - make coverage
   artifacts:
@@ -80,8 +81,6 @@ test:debug:
 
 test:release:
   stage: test
-  before_script:
-    - zypper install -y make libedit diffutils
   script:
     - cd tests
     - make
