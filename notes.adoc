@@ -47,6 +47,8 @@ Bug fixes:
 
 * Reading the relocated Witt's End sign in the endgame didn't work right.
 
+* Oyster was readable after first gotten even when not carried.
+
 * Behavior when saying the giant's magic words outside his room wasn't
   quite correct - the game responded as though the player were in
   the room ("...can't you read?"). The new message is "Well, that was
@@ -64,6 +66,8 @@ Bug fixes:
 
 * Under odd circumstances (dropping rug or vase outdoors) the game could
   say "floor" when it should say "ground" (or "dirt", or something).
+
+Enhancements:
 
 By default, advent issues "> " as a command prompt.  This feature
 became common in many variants after the original 350-point version,
@@ -85,7 +89,7 @@ but as a way for game logs to set the PRNG (pseudorandom-number generator) so
 that random events (dwarf & pirate appearances, the bird's magic word)
 will be reproducible.
 
-A "version" command has beem added. This has no effect on gameplay.
+A "version" command has been added. This has no effect on gameplay.
 The text displayed by the "news" command has been updated.
 
 A -l command-line option has been added. When this is given (with a
