@@ -1354,8 +1354,8 @@ phase_codes_t action(command_t command)
             /* FALL THROUGH */;
         else if (command.obj == DWARF && atdwrf(game.loc) > 0)
             /* FALL THROUGH */;
-        else if ((LIQUID() == command.obj && HERE(BOTTLE)) ||
-                 command.obj == LIQLOC(game.loc))
+        else if (!game.closed && ((LIQUID() == command.obj && HERE(BOTTLE)) ||
+				 command.obj == LIQLOC(game.loc)))
             /* FALL THROUGH */;
         else if (command.obj == OIL && HERE(URN) && game.prop[URN] != URN_EMPTY) {
             command.obj = URN;
