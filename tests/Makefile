@@ -98,4 +98,26 @@ regress:
 	done; \
 	rm -f scratch.tmp /tmp/regress$$$$
 
+# Steps towards TAP and parallelization.
+# There's a blocker in that the log tests can't be run concurrently
+# due to isssues with colliding save files.
+
+# The TAP filter. Only affects presentation of the test suite messages
+TAPCONSUMER=tappy
+
+# Fall back to safety if our declared TAP consumer does not exist.
+# This is helpful in the CI environment, where it wiuld be better for
+# the logfiles to carry the raw TAP messages. 
+TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
+
+RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
+$(RUN_TARGETS): run-regress-%: %.log
+	@(test=$(<:.log=); legend=$$(sed -n '/^## /s///p' <"$<" 2>/dev/null || echo "(no description)"); \
+	OPTS=`sed -n /#options:/s///p $<`; \
+	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk")
+
+tap: savecheck count $(RUN_TARGETS)
+count:
+	@echo 1..$(words $(RUN_TARGETS))
+
 # end
