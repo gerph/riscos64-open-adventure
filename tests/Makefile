@@ -1,4 +1,4 @@
-# Test-suite makefile for reposurgeon
+# Test-suite makefile for opeb-adventure
 
 # Use absolute path so tests that change working directory still use
 # scripts from parent directory.  Note that using $PWD seems to fail
