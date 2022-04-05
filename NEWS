@@ -1,5 +1,8 @@
 = Open Adventure project news =
 
+Repository head::
+  Fixed a bug that manifested after two "fly rug" commands - third one fails.
+
 1.9: 2020-08-27::
   Update the dungeon maker to avoid a deprecation due to security issues
 

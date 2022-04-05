@@ -845,15 +845,20 @@ static phase_codes_t fly(verb_t verb, obj_t obj)
         rspeak(RUG_NOTHING1);
         return GO_CLEAROBJ;
     }
-    game.oldlc2 = game.oldloc;
-    game.oldloc = game.loc;
 
-    if (game.prop[SAPPH] == STATE_NOTFOUND) {
-        game.newloc = game.place[SAPPH];
+    if (game.loc == LOC_CLIFF) {
+	game.oldlc2 = game.oldloc;
+	game.oldloc = game.loc;
+        game.newloc = LOC_LEDGE;
         rspeak(RUG_GOES);
-    } else {
+    } else if (game.loc == LOC_LEDGE) {
+	game.oldlc2 = game.oldloc;
+	game.oldloc = game.loc;
         game.newloc = LOC_CLIFF;
         rspeak(RUG_RETURNS);
+    } else {
+	/* should never happen */
+	rspeak(NOTHING_HAPPENS);
     }
     return GO_TERMINATE;
 }
