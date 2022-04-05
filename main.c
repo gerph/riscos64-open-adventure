@@ -11,6 +11,8 @@
 #include <signal.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
+#include <editline/readline.h>
 #include "advent.h"
 #include "dungeon.h"
 
@@ -50,11 +52,11 @@ int main(int argc, char *argv[])
 
 #ifndef ADVENT_NOSAVE
     const char* opts = "l:or:";
-    const char* usage = "Usage: %s [-l logfilename] [-o] [-r restorefilename]\n";
+    const char* usage = "Usage: %s [-l logfilename] [-o] [-r restorefilename] [script...]\n";
     FILE *rfp = NULL;
 #else
     const char* opts = "l:o";
-    const char* usage = "Usage: %s [-l logfilename] [-o]\n";
+    const char* usage = "Usage: %s [-l logfilename] [-o] [script...]\n";
 #endif
     while ((ch = getopt(argc, argv, opts)) != EOF) {
         switch (ch) {
@@ -95,6 +97,11 @@ int main(int argc, char *argv[])
         }
     }
 
+    /* copy inncation line part after switches */
+    settings.argc = argc - optind;
+    settings.argv = argv + optind;
+    settings.optind = 0;
+
     /*  Initialize game variables */
     int seedval = initialise();
 
@@ -127,6 +134,48 @@ int main(int argc, char *argv[])
     }
     /* show score and exit */
     terminate(quitgame);
+}
+
+char *myreadline(const char *prompt)
+{
+    /*
+     * This function isbn't required for gameplay, readline() straight
+     * up would suffice for tat.  It's where we interpret command-line 
+     * logfiles for testing purposes.
+     */
+    /* Normal case - no script arguments */
+    if (settings.argc == 0)
+	return readline(prompt);
+
+    for (;;) {
+	if (settings.scriptfp == NULL || feof(settings.scriptfp)) {
+	    if (settings.optind >= settings.argc) {
+		return NULL;
+	    }
+
+	    char *next = settings.argv[settings.optind++];
+	
+	    if (settings.scriptfp != NULL && feof(settings.scriptfp))
+		fclose(settings.scriptfp);
+	    if (strcmp(next, "-") == 0)
+		settings.scriptfp = stdin;
+	    else
+		settings.scriptfp = fopen(next, "r");
+	}
+
+	if (isatty(fileno(settings.scriptfp))) {
+	    return readline(prompt);
+	} else {
+	    char *ln = fgets(malloc(BUFSIZ), BUFSIZ-1, settings.scriptfp);
+	    if (ln != NULL) {
+		fputs(PROMPT, stdout);
+		fputs(ln, stdout);
+		return ln;
+	    }
+	}
+    }
+
+    return NULL;
 }
 
 /*  Check if this loc is eligible for any hints.  If been here int

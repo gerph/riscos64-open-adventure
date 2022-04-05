@@ -45,6 +45,8 @@
  * which has its own meaning. */
 #define STASHED(obj)	(-1 - game.prop[obj])
 
+#define PROMPT	"> "
+
 /*
  *  DESTROY(N)  = Get rid of an item by putting it in LOC_NOWHERE
  *  MOD(N,M)    = Arithmetic modulus
@@ -194,6 +196,10 @@ struct settings_t {
     FILE *logfp;
     bool oldstyle;
     bool prompt;
+    char **argv;
+    int argc;
+    int optind;
+    FILE *scriptfp;
 };
 
 typedef struct {
@@ -215,6 +221,7 @@ typedef struct {
 extern struct game_t game;
 extern struct settings_t settings;
 
+extern char *myreadline(const char *);
 extern bool get_command_input(command_t *);
 extern void clear_command(command_t *);
 extern void speak(const char*, ...);

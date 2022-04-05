@@ -211,7 +211,7 @@ static int word_count(char* str)
 static char* get_input(void)
 {
     // Set up the prompt
-    char input_prompt[] = "> ";
+    char input_prompt[] = PROMPT;
     if (!settings.prompt)
         input_prompt[0] = '\0';
 
@@ -220,7 +220,7 @@ static char* get_input(void)
 
     char* input;
     while (true) {
-        input = readline(input_prompt);
+        input = myreadline(input_prompt);
 
         if (input == NULL) // Got EOF; return with it.
             return (input);

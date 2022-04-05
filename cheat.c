@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <editline/readline.h>
 #include "advent.h"
 
 int main(int argc, char *argv[])
@@ -96,3 +97,14 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
+
+/* 
+ * Ugh...unused, but required for linkage.
+ * See thje actually useful version of this in main.c
+ */
+
+char *myreadline(const char *prompt)
+{
+    return readline(prompt);
+}
+
