@@ -69,6 +69,9 @@ Bug fixes:
 * Under odd circumstances (dropping rug or vase outdoors) the game could
   say "floor" when it should say "ground" (or "dirt", or something).
 
+* Bird starts uncaged in the endgame. This is an accidental change
+  that doesn't seem worth the effort to fix.
+
 Enhancements:
 
 By default, advent issues "> " as a command prompt.  This feature

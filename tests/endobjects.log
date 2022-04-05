@@ -1,4 +1,4 @@
-## Check that water is unavailable in endgame
+### Check that water is unavailable in endgame
 # Addresses GitLab issue #55: in endgame, some object starting states are incorrect
 no
 seed 11247848
@@ -419,6 +419,7 @@ get bottle
 inven
 sw
 get cage
+# In the original game, the bird is in the cage at this point
 inven
 get bird
 inven
