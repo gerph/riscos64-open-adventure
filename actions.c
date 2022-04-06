@@ -187,9 +187,10 @@ static phase_codes_t attack(command_t command)
 }
 
 static phase_codes_t bigwords(vocab_t id)
-/*  FEE FIE FOE FOO (AND FUM).  Advance to next state if given in proper order.
- *  Look up foo in special section of vocab to determine which word we've got.
- *  Last word zips the eggs back to the giant room (unless already there). */
+/* Only called on FEE FIE FOE FOO (AND FUM).  Advance to next state if given
+ * in proper order. Look up foo in special section of vocab to determine which
+ * word we've got. Last word zips the eggs back to the giant room (unless 
+ * already there). */
 {
     if ((game.foobar == WORD_EMPTY && id == FEE) ||
         (game.foobar == FEE && id == FIE) ||
@@ -228,9 +229,9 @@ static phase_codes_t bigwords(vocab_t id)
         if (game.loc == LOC_GIANTROOM) {
             rspeak(START_OVER);
         } else {
-            /* This is new begavior in Open Adventure - sounds better when
+            /* This is new behavior in Open Adventure - sounds better when
              * player isn't in the Giant Room. */
-            rspeak(WELL_POINTLESS);
+            rspeak(NOTHING_HAPPENS);
         }
         game.foobar = WORD_EMPTY;
         return GO_CLEAROBJ;
