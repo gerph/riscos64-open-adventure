@@ -925,12 +925,13 @@ static phase_codes_t light(verb_t verb, obj_t obj)
 static phase_codes_t listen(void)
 /*  Listen.  Intransitive only.  Print stuff based on object sound proprties. */
 {
+    bool soundlatch = false;
     vocab_t sound = locations[game.loc].sound;
     if (sound != SILENT) {
         rspeak(sound);
         if (!locations[game.loc].loud)
             rspeak(NO_MESSAGE);
-        return GO_CLEAROBJ;
+        soundlatch = true;
     }
     for (obj_t i = 1; i <= NOBJECTS; i++) {
         if (!HERE(i) ||
@@ -949,9 +950,10 @@ static phase_codes_t listen(void)
         rspeak(NO_MESSAGE);
         if (i == BIRD && mi == BIRD_ENDSTATE)
             DESTROY(BIRD);
-        return GO_CLEAROBJ;
+        soundlatch = true;
     }
-    rspeak(ALL_SILENT);
+    if (!soundlatch)
+	rspeak(ALL_SILENT);
     return GO_CLEAROBJ;
 }
 
