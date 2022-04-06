@@ -942,9 +942,9 @@ locations: !!omap
     hints: [*maze]
     travel: [
       {verbs: [EAST], action: [goto, LOC_ALIKE2]},
-      {verbs: [DOWN], action: [goto, LOC_DEADEND3]},
+      {verbs: [DOWN], action: [goto, LOC_MAZEEND3]},
       {verbs: [SOUTH], action: [goto, LOC_ALIKE6]},
-      {verbs: [NORTH], action: [goto, LOC_DEADEND9]},
+      {verbs: [NORTH], action: [goto, LOC_MAZEEND9]},
     ]
 - LOC_ALIKE4:
     description:
@@ -955,11 +955,11 @@ locations: !!omap
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE1]},
       {verbs: [NORTH], action: [goto, LOC_ALIKE2]},
-      {verbs: [EAST], action: [goto, LOC_DEADEND1]},
-      {verbs: [SOUTH], action: [goto, LOC_DEADEND2]},
+      {verbs: [EAST], action: [goto, LOC_MAZEEND1]},
+      {verbs: [SOUTH], action: [goto, LOC_MAZEEND2]},
       {verbs: [UPWAR, DOWN], action: [goto, LOC_ALIKE14]},
     ]
-- LOC_DEADEND1:
+- LOC_MAZEEND1:
     description:
       long: 'Dead end'
       short: !!null
@@ -968,7 +968,7 @@ locations: !!omap
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_ALIKE4]},
     ]
-- LOC_DEADEND2:
+- LOC_MAZEEND2:
     description:
       long: 'Dead end'
       short: !!null
@@ -977,7 +977,7 @@ locations: !!omap
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_ALIKE4]},
     ]
-- LOC_DEADEND3:
+- LOC_MAZEEND3:
     description:
       long: 'Dead end'
       short: !!null
@@ -1032,7 +1032,7 @@ locations: !!omap
       {verbs: [SOUTH], action: [goto, LOC_ALIKE8]},
       {verbs: [UPWAR], action: [goto, LOC_ALIKE9]},
       {verbs: [NORTH], action: [goto, LOC_ALIKE10]},
-      {verbs: [DOWN], action: [goto, LOC_DEADEND11]},
+      {verbs: [DOWN], action: [goto, LOC_MAZEEND11]},
     ]
 - LOC_ALIKE9:
     description:
@@ -1043,9 +1043,9 @@ locations: !!omap
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE7]},
       {verbs: [NORTH], action: [goto, LOC_ALIKE8]},
-      {verbs: [SOUTH], action: [goto, LOC_DEADEND4]},
+      {verbs: [SOUTH], action: [goto, LOC_MAZEEND4]},
     ]
-- LOC_DEADEND4:
+- LOC_MAZEEND4:
     description:
       long: 'Dead end'
       short: !!null
@@ -1063,10 +1063,10 @@ locations: !!omap
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE8]},
       {verbs: [NORTH], action: [goto, LOC_ALIKE10]},
-      {verbs: [DOWN], action: [goto, LOC_DEADEND5]},
+      {verbs: [DOWN], action: [goto, LOC_MAZEEND5]},
       {verbs: [EAST], action: [goto, LOC_PITBRINK]},
     ]
-- LOC_DEADEND5:
+- LOC_MAZEEND5:
     description:
       long: 'Dead end'
       short: !!null
@@ -1086,11 +1086,11 @@ locations: !!omap
     travel: [
       {verbs: [DOWN, CLIMB], action: [goto, LOC_BIRD]},
       {verbs: [WEST], action: [goto, LOC_ALIKE10]},
-      {verbs: [SOUTH], action: [goto, LOC_DEADEND6]},
+      {verbs: [SOUTH], action: [goto, LOC_MAZEEND6]},
       {verbs: [NORTH], action: [goto, LOC_ALIKE12]},
       {verbs: [EAST], action: [goto, LOC_ALIKE13]},
     ]
-- LOC_DEADEND6:
+- LOC_MAZEEND6:
     description:
       long: 'Dead end'
       short: !!null
@@ -1362,9 +1362,9 @@ locations: !!omap
       {verbs: [NORTH], action: [goto, LOC_ALIKE1]},
       {verbs: [WEST], action: [goto, LOC_ALIKE11]},
       {verbs: [SOUTH], action: [goto, LOC_ALIKE11]},
-      {verbs: [EAST], action: [goto, LOC_DEADEND8]},
+      {verbs: [EAST], action: [goto, LOC_MAZEEND8]},
     ]
-- LOC_DEADEND8:
+- LOC_MAZEEND8:
     description:
       long: 'Dead end'
       short: !!null
@@ -1373,7 +1373,7 @@ locations: !!omap
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_ALIKE11]},
     ]
-- LOC_DEADEND9:
+- LOC_MAZEEND9:
     description:
       long: 'Dead end'
       short: !!null
@@ -1390,7 +1390,7 @@ locations: !!omap
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_PITBRINK]},
       {verbs: [EAST], action: [goto, LOC_ALIKE13]},
-      {verbs: [WEST], action: [goto, LOC_DEADEND10]},
+      {verbs: [WEST], action: [goto, LOC_MAZEEND10]},
     ]
 - LOC_ALIKE13:
     description:
@@ -1400,9 +1400,9 @@ locations: !!omap
     travel: [
       {verbs: [NORTH], action: [goto, LOC_PITBRINK]},
       {verbs: [WEST], action: [goto, LOC_ALIKE12]},
-      {verbs: [NW], action: [goto, LOC_DEADEND12]},
+      {verbs: [NW], action: [goto, LOC_MAZEEND12]},
     ]
-- LOC_DEADEND10:
+- LOC_MAZEEND10:
     description:
       long: 'Dead end'
       short: !!null
@@ -1410,7 +1410,7 @@ locations: !!omap
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_ALIKE12]},
     ]
-- LOC_DEADEND11:
+- LOC_MAZEEND11:
     description:
       long: 'Dead end'
       short: !!null
@@ -1762,7 +1762,7 @@ locations: !!omap
       {verbs: [NORTH, ACROS, CROSS], cond: [not, RESER, WATERS_PARTED], action: [speak, BAD_DIRECTION]},
       {verbs: [NORTH], action: [goto, LOC_RESBOTTOM]},
     ]
-- LOC_DEADEND12:
+- LOC_MAZEEND12:
     description:
       long: 'Dead end'
       short: !!null

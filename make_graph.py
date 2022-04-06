@@ -9,7 +9,11 @@ import sys, yaml
 
 def allalike(loc):
     "Select out loci related to the Maze All Alike"
-    return (loc == "LOC_MISTWEST") or ("ALIKE" in loc) or ("DEADEND" in loc) or ("STALACTITE" in loc)
+    return (loc == "LOC_MISTWEST") or ("ALIKE" in loc) or ("MAZEEND" in loc) or ("STALACTITE" in loc)
+
+def abbreviate(d):
+    m = {"NORTH":"N", "EAST":"E", "SOUTH":"S", "WEST":"W", "UPWAR":"U", "DOWN":"D"}
+    return m.get(d, d)
 
 if __name__ == "__main__":
     with open("adventure.yaml", "r") as f:
@@ -22,7 +26,7 @@ if __name__ == "__main__":
         travel = attrs["travel"]
         if len(travel) > 0:
             for dest in travel:
-                verbs = dest["verbs"]
+                verbs = [abbreviate(x) for x in dest["verbs"]]
                 if len(verbs) == 0:
                     continue
                 action = dest["action"]

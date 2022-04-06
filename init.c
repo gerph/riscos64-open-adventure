@@ -31,8 +31,8 @@ struct game_t game = {
      *  chest's eventual location inside the maze. This loc is saved
      *  in chloc for ref. The dead end in the other maze has its
      *  loc stored in chloc2. */
-    .dloc[6] = LOC_DEADEND12,
-    .chloc   = LOC_DEADEND12,
+    .dloc[6] = LOC_MAZEEND12,
+    .chloc   = LOC_MAZEEND12,
     .chloc2  = LOC_DEADEND13,
     .abbnum  = 5,
     .clock1  = WARNTIME,
