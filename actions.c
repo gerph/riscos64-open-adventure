@@ -206,6 +206,8 @@ static phase_codes_t bigwords(vocab_t id)
             (TOTING(EGGS) && game.loc == objects[EGGS].plac)) {
             rspeak(NOTHING_HAPPENS);
             return GO_CLEAROBJ;
+	} else if (id == FUM) {
+	    goto fum;
         } else {
             /*  Bring back troll if we steal the eggs back from him before
              *  crossing. */
@@ -222,6 +224,7 @@ static phase_codes_t bigwords(vocab_t id)
             return GO_CLEAROBJ;
         }
     } else {
+    fum:
         if (game.loc == LOC_GIANTROOM) {
             rspeak(START_OVER);
         } else {
