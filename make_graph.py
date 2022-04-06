@@ -7,9 +7,9 @@
 
 import sys, yaml
 
-def allalike(loc):
+def allalike(loc, dest):
     "Select out loci related to the Maze All Alike"
-    return (loc == "LOC_MISTWEST") or ("ALIKE" in loc) or ("MAZEEND" in loc) or ("STALACTITE" in loc)
+    return ("ALIKE" in loc) or ("MAZEEND" in loc) or ("STALACTITE" in loc) or (loc == "LOC_MISTWEST" and "ALIKE" in dest) 
 
 def abbreviate(d):
     m = {"NORTH":"N", "EAST":"E", "SOUTH":"S", "WEST":"W", "UPWAR":"U", "DOWN":"D"}
@@ -21,8 +21,6 @@ if __name__ == "__main__":
 
     print("digraph G {")
     for (loc, attrs) in db["locations"]:
-        if not allalike(loc):
-            continue
         travel = attrs["travel"]
         if len(travel) > 0:
             for dest in travel:
@@ -31,7 +29,10 @@ if __name__ == "__main__":
                     continue
                 action = dest["action"]
                 if action[0] == "goto":
-                    arc = "%s -> %s" % (loc[4:], action[1][4:])
+                    dest = action[1]
+                    if not allalike(loc, dest):
+                        continue;
+                    arc = "%s -> %s" % (loc[4:], dest[4:])
                     label=",".join(verbs).lower()
                     if len(label) > 0:
                         arc += ' [label="%s"]' % label
