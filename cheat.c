@@ -98,13 +98,18 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
+// LCOV_EXCL_START
 /* 
  * Ugh...unused, but required for linkage.
- * See thje actually useful version of this in main.c
+ * See the actually useful version of this in main.c
  */
 
 char *myreadline(const char *prompt)
 {
     return readline(prompt);
 }
+// LCOV_EXCL_STOP
+
+/* end */
+
 
