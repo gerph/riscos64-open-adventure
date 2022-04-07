@@ -1,7 +1,9 @@
 = Open Adventure project news =
 
-Repository head::
+1.10: 2022-04-06::
   Fixed a bug that manifested after two "fly rug" commands - third one fails.
+  Fix some giltches in processing fee fie foe foo.
+  Correct some object start states and reading-related glitches in the endgame.
 
 1.9: 2020-08-27::
   Update the dungeon maker to avoid a deprecation due to security issues
