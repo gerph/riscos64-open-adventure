@@ -67,6 +67,7 @@ buildregress: savegames
 	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
 	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
 	done; \
+	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
 	rm -f scratch.tmp
 
 savecheck: savegames
@@ -96,17 +97,19 @@ regress:
 	    then diff --text -u $${file}.chk /tmp/regress$$$$ || exit 1; \
 	    else echo "*** Nonzero return status on $${file}!"; exit 1; fi \
 	done; \
+	$(ECHO) "  multifile ## Test multiple file arguments"
+	@(echo "inven" | advent isofoo.log /dev/stdin | diff --text -u multifile.chk -) || exit 1
 	rm -f scratch.tmp /tmp/regress$$$$
 
 # Steps towards TAP and parallelization.
 # There's a blocker in that the log tests can't be run concurrently
-# due to isssues with colliding save files.
+# due to issues with colliding save files.
 
 # The TAP filter. Only affects presentation of the test suite messages
 TAPCONSUMER=tappy
 
 # Fall back to safety if our declared TAP consumer does not exist.
-# This is helpful in the CI environment, where it wiuld be better for
+# This is helpful in the CI environment, where it would be better for
 # the logfiles to carry the raw TAP messages. 
 TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
 

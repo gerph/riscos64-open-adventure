@@ -861,8 +861,10 @@ static phase_codes_t fly(verb_t verb, obj_t obj)
         game.newloc = LOC_CLIFF;
         rspeak(RUG_RETURNS);
     } else {
+// LCOV_EXCL_START
 	/* should never happen */
 	rspeak(NOTHING_HAPPENS);
+// LCOV_EXCL_STOP
     }
     return GO_TERMINATE;
 }
