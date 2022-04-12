@@ -147,9 +147,11 @@ char *myreadline(const char *prompt)
     if (settings.argc == 0)
 	return readline(prompt);
 
+    char *buf = malloc(BUFSIZ);
     for (;;) {
 	if (settings.scriptfp == NULL || feof(settings.scriptfp)) {
 	    if (settings.optind >= settings.argc) {
+		free(buf);
 		return NULL;
 	    }
 
@@ -164,9 +166,10 @@ char *myreadline(const char *prompt)
 	}
 
 	if (isatty(fileno(settings.scriptfp))) {
+	    free(buf);
 	    return readline(prompt);
 	} else {
-	    char *ln = fgets(malloc(BUFSIZ), BUFSIZ-1, settings.scriptfp);
+	    char *ln = fgets(buf, BUFSIZ-1, settings.scriptfp);
 	    if (ln != NULL) {
 		fputs(PROMPT, stdout);
 		fputs(ln, stdout);
@@ -1041,7 +1044,7 @@ static void listobjects(void)
     }
 }
 
-bool preprocess_command(command_t *command) 
+static bool preprocess_command(command_t *command)
 /* Pre-processes a command input to see if we need to tease out a few specific cases:
  * - "enter water" or "enter stream": 
  *   wierd specific case that gets the user wet, and then kicks us back to get another command
@@ -1263,6 +1266,7 @@ static bool do_command()
                     }
                     break;// LCOV_EXCL_LINE
                 default: // LCOV_EXCL_LINE
+		case NO_WORD_TYPE: // LCOV_EXCL_LINE
                     BUG(VOCABULARY_TYPE_N_OVER_1000_NOT_BETWEEN_0_AND_3); // LCOV_EXCL_LINE
                 }
 

@@ -197,7 +197,7 @@ if __name__ == "__main__":
     # load DB
     try:
         with open(YAML_PATH, "r") as f:
-            db = yaml.load(f)
+            db = yaml.safe_load(f)
     except IOError as e:
         print('ERROR: could not load {} ({}})'.format(YAML_PATH, e.strerror))
         exit(-1)
