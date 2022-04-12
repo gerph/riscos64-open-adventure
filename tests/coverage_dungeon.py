@@ -71,10 +71,10 @@ def search(needle, haystack):
     needle_san = re.escape(needle) \
              .replace("\\n", "\n") \
              .replace("\\t", "\t") \
-             .replace("\%S", ".*") \
-             .replace("\%s", ".*") \
-             .replace("\%d", ".*") \
-             .replace("\%V", ".*")
+             .replace("%S", ".*") \
+             .replace("%s", ".*") \
+             .replace("%d", ".*") \
+             .replace("%V", ".*")
 
     return re.search(needle_san, haystack)
 
