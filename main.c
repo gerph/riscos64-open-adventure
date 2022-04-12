@@ -160,14 +160,14 @@ char *myreadline(const char *prompt)
 	    if (settings.scriptfp != NULL && feof(settings.scriptfp))
 		fclose(settings.scriptfp);
 	    if (strcmp(next, "-") == 0)
-		settings.scriptfp = stdin;
+		settings.scriptfp = stdin; // LCOV_EXCL_LINE
 	    else
 		settings.scriptfp = fopen(next, "r");
 	}
 
 	if (isatty(fileno(settings.scriptfp))) {
-	    free(buf);
-	    return readline(prompt);
+	    free(buf); // LCOV_EXCL_LINE
+	    return readline(prompt); // LCOV_EXCL_LINE
 	} else {
 	    char *ln = fgets(buf, BUFSIZ-1, settings.scriptfp);
 	    if (ln != NULL) {
@@ -255,6 +255,7 @@ static void checkhints(void)
                     game.hintlc[hint] = 0;
                     return;
                 default: // LCOV_EXCL_LINE
+		    // Should never hap[pen
                     BUG(HINT_NUMBER_EXCEEDS_GOTO_LIST); // LCOV_EXCL_LINE
                 }
 

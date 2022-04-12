@@ -64,6 +64,8 @@ cheat: $(CHEAT_OBJS) dungeon.o
 check: advent cheat
 	cd tests; $(MAKE) --quiet
 
+# After this, run your browser ob coverage/open-adventure/index.html
+# to see coverage results.
 coverage: debug
 	cd tests; $(MAKE) coverage --quiet
 
