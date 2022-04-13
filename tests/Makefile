@@ -17,10 +17,10 @@ ECHO := /bin/echo
 TESTLOADS := $(shell ls -1 *.log | sed '/.log/s///' | sort)
 
 .PHONY: check coverage clean testlist listcheck savegames buildregress
-.PHONY: savecheck regress
+.PHONY: savecheck regress tap count multifile-regress
 
-check: tapcheck
-	@echo "=== No diff output is good news."
+check: savegames
+	@make tap | $(TAPFILTER)
 
 coverage: check
 	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
@@ -54,19 +54,19 @@ buildregress: savegames
 	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
 	rm -f scratch.tmp
 
-# Generate bogus savegames for coverage testing.
+# Generate bogus savegames for coverage testing.  Needed for one test log as well 
 savegames:
-	@$(ECHO) "cheat: Generate save file with -900 deaths"
+	@# Generate save file with -900 deaths
 	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
-	@$(ECHO) "cheat: Generate save file with -1000 deaths"
+	@# Generate save file with -1000 deaths
 	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
-	@$(ECHO) "cheat: Generate save file with version -1337"
+	@# cheat: Generate save file with version -1337
 	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
-	@$(ECHO) "cheat: Generate save file 1000 saves"
+	@# cheat: Generate save file 1000 saves
 	@$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/cheat_1000saves
-	@$(ECHO) "cheat: Generate save file 1000 turns"
+	@# Generate save file 1000 turns
 	@$(PARDIR)/cheat -t -1000 -o thousand_saves.adv > /tmp/cheat_1000turns
-	@$(ECHO) "cheat: Generate save file 1000 turns"
+	@# cheat: Generate save file 1000 turns
 	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
 	@rm -f /tmp/cheat*
 
@@ -96,24 +96,19 @@ TAPCONSUMER=tapview
 # the logfiles to carry the raw TAP messages. 
 TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
 
-FAILLOG=/tmp/advent-test.log
-
 RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
 $(RUN_TARGETS): run-regress-%: %.log
 	@(test=$(<:.log=); legend=$$(sed -n '/^## /s///p' <"$<" 2>/dev/null || echo "(no description)"); \
 	OPTS=`sed -n /#options:/s///p $<`; \
-	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk") >>$(FAILLOG)
+	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk")
 
 multifile-regress:
-	@(echo "inven" | advent isofoo.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk >>$(FAILLOG)
+	@(echo "inven" | advent isofoo.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk
 
 TEST_TARGETS = $(RUN_TARGETS) multifile-regress
 
 tap: count $(TEST_TARGETS)
 count:
-	@echo 1..$(words $(TEST_TARGETS)) >$(FAILLOG)
-
-tapcheck:
-	@make --no-print-directory tap; tapview <$(FAILLOG)
+	@echo 1..$(words $(TEST_TARGETS))
 
 # end
