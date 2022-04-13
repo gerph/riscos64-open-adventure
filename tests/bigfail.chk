@@ -1340,6 +1340,10 @@ You can't fit this five-foot clam through that little passage!
 
 You're in Shell Room.
 
+> open clam
+
+I advise you to put down the clam before opening it.  >STRAIN!<
+
 > drop clam
 
 OK
@@ -2088,10 +2092,6 @@ OK
 
 > z
 
-OK
-
-> z
-
 Your lamp is getting dim.  You'd best go back for those batteries.
 
 OK
@@ -2100,10 +2100,14 @@ OK
 
 OK
 
-> s
+> z
 
 Tsk!  A wizard wouldn't have to take 350 turns.  This is going to cost
 you a couple of points.
+
+OK
+
+> s
 
 Dead end
 
@@ -2504,7 +2508,7 @@ The wind whistles coldly past your ears.
 
 > score
 
-You have garnered 207 out of a possible 430 points, using 410 turns.
+You have garnered 207 out of a possible 430 points, using 411 turns.
 
 > inven
 
@@ -2514,7 +2518,7 @@ Dwarf's axe
 
 > waste 2443
 
-Game limit is now 30
+Game limit is now 29
 
 You're in Hall of Mists.
 
@@ -2528,7 +2532,7 @@ best start wrapping this up.
 OK
 
 
-You scored 207 out of a possible 430, using 413 turns.
+You scored 207 out of a possible 430, using 414 turns.
 
 You may now consider yourself a "Seasoned Adventurer".
 

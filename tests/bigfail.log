@@ -227,6 +227,7 @@ n
 # Here we are at the Shell Room.  Fail to carry out bivalves
 take clam
 s
+open clam
 drop clam
 open clam
 take oyster
