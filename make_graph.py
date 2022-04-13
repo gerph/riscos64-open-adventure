@@ -15,7 +15,7 @@ import sys, yaml, getopt
 
 def allalike(loc):
     "Select out loci related to the Maze All Alike"
-    return ("ALIKE" in loc) or (loc == "LOC_PITBRINK") or ("MAZEEND" in loc) or ("STALACTITE" in loc) or (loc == "LOC_MISTWEST")
+    return ("ALIKE" in loc) or (loc == "LOC_PITBRINK") or ("MAZEEND" in loc) or ("STALACTITE" in loc)
 
 def surface(attrs):
     "Select out surface locations"
