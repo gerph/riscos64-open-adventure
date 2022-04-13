@@ -1088,7 +1088,7 @@ static bool preprocess_command(command_t *command)
                 if (game.loc == LOC_COBBLE ||
                     game.loc == LOC_DEBRIS ||
                     game.loc == LOC_AWKWARD ||
-                    game.loc == LOC_BIRD ||
+                    game.loc == LOC_BIRDCHAMBER ||
                     game.loc == LOC_PITTOP) {
                     command->word[0].id = ENTRANCE;
                 }

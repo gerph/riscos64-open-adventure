@@ -544,10 +544,10 @@ locations: !!omap
                        action: [goto, LOC_GRATE]},
       {verbs: [ENTRA], action: [goto, LOC_BELOWGRATE]},
       {verbs: [DOWN, EAST, DEBRI], action: [goto, LOC_DEBRIS]},
-      {verbs: [INWAR, UPWAR, WEST], action: [goto, LOC_BIRD]},
+      {verbs: [INWAR, UPWAR, WEST], action: [goto, LOC_BIRDCHAMBER]},
       {verbs: [PIT], action: [goto, LOC_PITTOP]},
     ]
-- LOC_BIRD:
+- LOC_BIRDCHAMBER:
     description:
       long: |-
           You are in a splendid chamber thirty feet high.  The walls are frozen
@@ -576,7 +576,7 @@ locations: !!omap
                        action: [goto, LOC_GRATE]},
       {verbs: [ENTRA], action: [goto, LOC_BELOWGRATE]},
       {verbs: [DEBRI], action: [goto, LOC_DEBRIS]},
-      {verbs: [PASSA, EAST], action: [goto, LOC_BIRD]},
+      {verbs: [PASSA, EAST], action: [goto, LOC_BIRDCHAMBER]},
       {verbs: [DOWN, PIT, STEPS], cond: [carry, NUGGET],
                                action: [goto, LOC_NECKBROKE]},
       {verbs: [DOWN], action: [goto, LOC_MISTHALL]},
@@ -1084,7 +1084,7 @@ locations: !!omap
       short: 'You''re at brink of pit.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
-      {verbs: [DOWN, CLIMB], action: [goto, LOC_BIRD]},
+      {verbs: [DOWN, CLIMB], action: [goto, LOC_BIRDCHAMBER]},
       {verbs: [WEST], action: [goto, LOC_ALIKE10]},
       {verbs: [SOUTH], action: [goto, LOC_MAZEEND6]},
       {verbs: [NORTH], action: [goto, LOC_ALIKE12]},
@@ -3127,7 +3127,7 @@ objects: !!omap
 - BIRD:
     words: ['bird']
     inventory: 'Little bird in cage'
-    locations: LOC_BIRD
+    locations: LOC_BIRDCHAMBER
     states: [BIRD_UNCAGED, BIRD_CAGED, BIRD_FOREST_UNCAGED]
     descriptions:
     - 'A cheerful little bird is sitting here singing.'
