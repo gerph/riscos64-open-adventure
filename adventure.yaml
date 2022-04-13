@@ -23,6 +23,8 @@
 # locations: They have attributes as follows...
 #      long:         Long description, always shown on first encounter.
 #      short:        Short description. If none, use long description.
+#      maptag:       Tag for mapping, not used by the game itself.
+#                    Only used if the "short" propery in !!null.
 #      conditions:   A dictionary of attributes
 #        LIT		Light
 #        OILY		If FLUID flag is on: true for oil, false for water
@@ -367,6 +369,7 @@ locations: !!omap
     description:
       long: !!null
       short: !!null
+      maptag: !!null
     conditions: {}
     travel: [
     ]
@@ -377,6 +380,7 @@ locations: !!omap
           Around you is a forest.  A small stream flows out of the building and
           down a gully.
       short: 'You''re in front of building.'
+      maptag: !!null
     conditions: {FLUID: true, ABOVE: true, LIT: true}
     sound: STREAM_GURGLES
     travel: [
@@ -392,6 +396,7 @@ locations: !!omap
           You have walked up a hill, still in the forest.  The road slopes back
           down the other side of the hill.  There is a building in the distance.
       short: 'You''re at hill in road.'
+      maptag: !!null
     conditions: {ABOVE: true, LIT: true}
     travel: [
       {verbs: [BUILD, EAST], action: [goto, LOC_START]},
@@ -404,6 +409,7 @@ locations: !!omap
     description:
       long: 'You are inside a building, a well house for a large spring.'
       short: 'You''re inside building.'
+      maptag: !!null
     conditions: {FLUID: true, ABOVE: true, LIT: true}
     sound: STREAM_GURGLES
     travel: [
@@ -418,6 +424,7 @@ locations: !!omap
           You are in a valley in the forest beside a stream tumbling along a
           rocky bed.
       short: 'You''re in valley.'
+      maptag: !!null
     conditions: {FLUID: true, ABOVE: true, LIT: true}
     sound: STREAM_GURGLES
     travel: [
@@ -432,6 +439,7 @@ locations: !!omap
     description:
       long: 'The road, which approaches from the east, ends here amid the trees.'
       short: 'You''re at end of road.'
+      maptag: !!null
     conditions: {ABOVE: true, LIT: true}
     travel: [
       {verbs: [ROAD, EAST, UPWAR], action: [goto, LOC_HILL]},
@@ -446,6 +454,7 @@ locations: !!omap
           The forest thins out here to reveal a steep cliff.  There is no way
           down, but a small ledge can be seen to the west across the chasm.
       short: 'You''re at cliff.'
+      maptag: !!null
     conditions: {ABOVE: true, NOBACK: true, LIT: true}
     hints: [*urn]
     travel: [
@@ -459,6 +468,7 @@ locations: !!omap
           At your feet all the water of the stream splashes into a 2-inch slit
           in the rock.  Downstream the streambed is bare rock.
       short: 'You''re at slit in streambed.'
+      maptag: !!null
     conditions: {FLUID: true, ABOVE: true, LIT: true}
     sound: STREAM_GURGLES
     travel: [
@@ -476,6 +486,7 @@ locations: !!omap
           dirt is a strong steel grate mounted in concrete.  A dry streambed
           leads into the depression.
       short: 'You''re outside grate.'
+      maptag: !!null
     conditions: {ABOVE: true, LIT: true}
     hints: [*grate, *jade]
     travel: [
@@ -495,6 +506,7 @@ locations: !!omap
           You are in a small chamber beneath a 3x3 steel grate to the surface.
           A low crawl over cobbles leads inward to the west.
       short: 'You''re below the grate.'
+      maptag: !!null
     conditions: {LIT: true}
     travel: [
       {verbs: [OUT, UPWAR], cond: [not, GRATE, GRATE_CLOSED],
@@ -510,6 +522,7 @@ locations: !!omap
           You are crawling over cobbles in a low passage.  There is a dim light
           at the east end of the passage.
       short: 'You''re in cobble crawl.'
+      maptag: !!null
     conditions: {LIT: true}
     travel: [
       {verbs: [OUT, SURFA, EAST], action: [goto, LOC_BELOWGRATE]},
@@ -524,6 +537,7 @@ locations: !!omap
           here, but an awkward canyon leads upward and west.  In the mud someone
           has scrawled, "MAGIC WORD XYZZY".
       short: 'You''re in debris room.'
+      maptag: !!null
     conditions: {}
     travel: [
       {verbs: [DEPRE], cond: [not, GRATE, GRATE_CLOSED],
@@ -538,6 +552,7 @@ locations: !!omap
     description:
       long: 'You are in an awkward sloping east/west canyon.'
       short: !!null
+      maptag: 'Awkward canyon.'
     conditions: {}
     travel: [
       {verbs: [DEPRE], cond: [not, GRATE, GRATE_CLOSED],
@@ -554,6 +569,7 @@ locations: !!omap
           rivers of orange stone.  An awkward canyon and a good passage exit
           from east and west sides of the chamber.
       short: 'You''re in bird chamber.'
+      maptag: !!null
     conditions: {}
     hints: [*bird] 
     travel: [
@@ -570,6 +586,7 @@ locations: !!omap
           At your feet is a small pit breathing traces of white mist.  An east
           passage ends here except for a small crack leading on.
       short: 'You''re at top of small pit.'
+      maptag: !!null
     conditions: {}
     travel: [
       {verbs: [DEPRE], cond: [not, GRATE, GRATE_CLOSED],
@@ -591,6 +608,7 @@ locations: !!omap
           swaying to and fro almost as if alive.  A cold wind blows up the
           staircase.  There is a passage at the top of a dome behind you.
       short: 'You''re in Hall of Mists.'
+      maptag: !!null
     conditions: {DEEP: true}
     hints: [*jade]
     sound: WIND_WHISTLES
@@ -609,6 +627,7 @@ locations: !!omap
           The crack is far too small for you to follow.  At its widest it is
           barely wide enough to admit your foot.
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_PITTOP]},
@@ -619,6 +638,7 @@ locations: !!omap
           You are on the east bank of a fissure slicing clear across the hall.
           The mist is quite thick here, and the fissure is too wide to jump.
       short: 'You''re on east bank of fissure.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [HALL, EAST], action: [goto, LOC_MISTHALL]},
@@ -637,6 +657,7 @@ locations: !!omap
           This is a low room with a crude note on the wall.  The note says,
           "You won't get it up the steps".
       short: 'You''re in nugget-of-gold room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [HALL, OUT, NORTH], action: [goto, LOC_MISTHALL]},
@@ -647,6 +668,7 @@ locations: !!omap
           You are in the Hall of the Mountain King, with passages off in all
           directions.
       short: 'You''re in Hall of Mt King.'
+      maptag: !!null
     conditions: {DEEP: true}
     hints: [*snake]
     travel: [
@@ -666,6 +688,7 @@ locations: !!omap
     description:
       long: 'You are at the bottom of the pit with a broken neck.'
       short: !!null
+      maptag: 'Pit bottom'
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_NOWHERE]},
@@ -674,6 +697,7 @@ locations: !!omap
     description:
       long: 'You didn''t make it.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_NOWHERE]},
@@ -682,6 +706,7 @@ locations: !!omap
     description:
       long: 'The dome is unclimbable.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_MISTHALL]},
@@ -692,6 +717,7 @@ locations: !!omap
           You are at the west end of the Twopit Room.  There is a large hole in
           the wall above the pit at this end of the room.
       short: 'You''re at west end of Twopit Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST, ACROS], action: [goto, LOC_EASTEND]},
@@ -705,6 +731,7 @@ locations: !!omap
           You are at the bottom of the eastern pit in the Twopit Room.  There is
           a small pool of oil in one corner of the pit.
       short: 'You''re in east pit.'
+      maptag: !!null
     conditions: {FLUID: true, DEEP: true, OILY: true}
     travel: [
       {verbs: [UPWAR, OUT], action: [goto, LOC_EASTEND]},
@@ -715,6 +742,7 @@ locations: !!omap
           You are at the bottom of the western pit in the Twopit Room.  There is
           a large hole in the wall about 25 feet above you.
       short: 'You''re in west pit.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR, OUT], action: [goto, LOC_WESTEND]},
@@ -726,6 +754,7 @@ locations: !!omap
     description:
       long: 'You clamber up the plant and scurry through the hole at the top.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_NARROW]},
@@ -734,6 +763,7 @@ locations: !!omap
     description:
       long: 'You are on the west side of the fissure in the Hall of Mists.'
       short: 'You''re on west bank of fissure.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [JUMP], cond: [not, FISSURE, UNBRIDGED],
@@ -753,6 +783,7 @@ locations: !!omap
           You are in a low n/s passage at a hole in the floor.  The hole goes
           down to an e/w passage.
       short: 'You''re in n/s passage above e/w passage.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [HALL, OUT, SOUTH], action: [goto, LOC_KINGHALL]},
@@ -763,6 +794,7 @@ locations: !!omap
     description:
       long: 'You are in the south side chamber.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [HALL, OUT, NORTH], action: [goto, LOC_KINGHALL]},
@@ -773,6 +805,7 @@ locations: !!omap
           You are in the west side chamber of the Hall of the Mountain King.
           A passage continues west and up here.
       short: 'You''re in the west side chamber.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [HALL, OUT, EAST], action: [goto, LOC_KINGHALL]},
@@ -782,6 +815,7 @@ locations: !!omap
     description:
       long: ''
       short: !!null
+      maptag: 'Middle of plant.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [], cond: [not, PLANT, PLANT_BELLOWING],
@@ -792,6 +826,7 @@ locations: !!omap
     description:
       long: 'You can''t get by the snake.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_KINGHALL]},
@@ -803,6 +838,7 @@ locations: !!omap
           west, and a wall of broken rock to the east.  There is a large "Y2" on
           a rock in the room's center.
       short: 'You''re at "Y2".'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [PLUGH], action: [goto, LOC_FOOF4]},
@@ -816,6 +852,7 @@ locations: !!omap
     description:
       long: 'You are in a jumble of rock, with cracks everywhere.'
       short: !!null
+      maptag: 'Rock jumble'
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN, Y2], action: [goto, LOC_Y2]},
@@ -832,6 +869,7 @@ locations: !!omap
           25 feet away there is a similar window looking into a lighted room.  A
           shadowy figure can be seen there peering back at you.
       short: 'You''re at window on pit.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST, Y2], action: [goto, LOC_Y2]},
@@ -842,7 +880,8 @@ locations: !!omap
       long: |-
           You are in a dirty broken passage.  To the east is a crawl.  To the
           west is a large passage.  Above you is a hole to another passage.
-      short: 'You''re in dirty passage.'
+      short: 'You''re in dirty passage.' 
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST, CRAWL], action: [goto, LOC_SMALLPITBRINK]},
@@ -856,6 +895,7 @@ locations: !!omap
           You are on the brink of a small clean climbable pit.  A crawl leads
           west.
       short: 'You''re at brink of small pit.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [WEST, CRAWL], action: [goto, LOC_BROKEN]},
@@ -867,6 +907,7 @@ locations: !!omap
          You are in the bottom of a small pit with a little stream, which
          enters and exits through tiny slits.
       short: 'You''re at bottom of pit with stream.'
+      maptag: 'Small pit bottom'
     conditions: {FLUID: true, DEEP: true}
     sound: STREAM_GURGLES
     travel: [
@@ -880,6 +921,7 @@ locations: !!omap
           You are in a large room full of dusty rocks.  There is a big hole in
           the floor.  There are cracks everywhere, and a passage leading east.
       short: 'You''re in dusty rock room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST, PASSA], action: [goto, LOC_BROKEN]},
@@ -892,6 +934,7 @@ locations: !!omap
           You have crawled through a very low wide passage parallel to and north
           of the Hall of Mists.
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_MISTWEST]},
@@ -903,6 +946,7 @@ locations: !!omap
           continues west and another goes north.  To the south is a little
           passage 6 feet off the floor.
       short: 'You''re at west end of Hall of Mists.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH, UPWAR, PASSA, CLIMB], action: [goto, LOC_ALIKE1]},
@@ -914,6 +958,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -927,6 +972,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -938,6 +984,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -950,6 +997,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -963,6 +1011,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -972,6 +1021,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -981,6 +1031,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -990,6 +1041,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1000,6 +1052,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1012,6 +1065,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1024,6 +1078,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1038,6 +1093,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1049,6 +1105,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -1058,6 +1115,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1070,6 +1128,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -1082,6 +1141,7 @@ locations: !!omap
           down one wall.  You could climb down here but you could not get back
           up.  The maze continues at this level.
       short: 'You''re at brink of pit.'
+      maptag: !!null
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [DOWN, CLIMB], action: [goto, LOC_BIRDCHAMBER]},
@@ -1094,6 +1154,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {NOARRR: true, DEEP: true}
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_PITBRINK]},
@@ -1104,6 +1165,7 @@ locations: !!omap
           You have crawled through a very low wide passage parallel to and north
           of the Hall of Mists.
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_WESTBANK]},
@@ -1115,6 +1177,7 @@ locations: !!omap
           chambers.  To the east a low wide crawl slants up.  To the north a
           round two foot hole slants down.
       short: 'You''re at east end of long hall.'
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST, UPWAR, CRAWL], action: [goto, LOC_MISTWEST]},
@@ -1127,6 +1190,7 @@ locations: !!omap
           You are at the west end of a very long featureless hall.  The hall
           joins up with a narrow north/south passage.
       short: 'You''re at west end of long hall.'
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_LONGEAST]},
@@ -1137,6 +1201,7 @@ locations: !!omap
     description:
       long: 'You are at a crossover of a high n/s passage and a low e/w one.'
       short: !!null
+      maptag: 'Passage crossover.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [WEST], action: [goto, LOC_LONGEAST]},
@@ -1148,6 +1213,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH, OUT], action: [goto, LOC_CROSSOVER]},
@@ -1159,6 +1225,7 @@ locations: !!omap
           north joins a higher crawl from the east to make a walking passage
           going west.  There is also a large room above.  The air is damp here.
       short: 'You''re at complex junction.'
+      maptag: !!null
     conditions: {DEEP: true}
     hints: [*jade]
     sound: WIND_WHISTLES
@@ -1174,6 +1241,7 @@ locations: !!omap
           You are in Bedquilt, a long east/west passage with holes everywhere.
           To explore at random select north, south, up, or down.
       short: 'You''re in Bedquilt.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_COMPLEX]},
@@ -1196,6 +1264,7 @@ locations: !!omap
           go west, east, ne, and nw.  Part of the room is occupied by a large
           bedrock block.
       short: 'You''re in Swiss Cheese Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [NE], action: [goto, LOC_BEDQUILT]},
@@ -1215,6 +1284,7 @@ locations: !!omap
           and west.  There are holes all over, but the only big one is on the
           wall directly over the west pit where you can't get to it.
       short: 'You''re at east end of Twopit Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_SWISSCHEESE]},
@@ -1230,6 +1300,7 @@ locations: !!omap
           passages go north and south, and the south one quickly bends west
           around the boulders.
       short: 'You''re in Slab Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_WESTEND]},
@@ -1240,6 +1311,7 @@ locations: !!omap
     description:
       long: 'You are in a secret n/s canyon above a large room.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN, SLAB], action: [goto, LOC_SLAB]},
@@ -1252,7 +1324,8 @@ locations: !!omap
 - LOC_SECRET2:
     description:
       long: 'You are in a secret n/s canyon above a sizable passage.'
-      short: !!null
+      short: !!null 
+      maptag: 'Secret canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_THREEJUNCTION]},
@@ -1266,6 +1339,7 @@ locations: !!omap
           north, south, and se.  The north one is as tall as the other two
           combined.
       short: 'You''re at junction of three secret canyons.'
+      maptag: 'Secret canyon junction'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SE], action: [goto, LOC_BEDQUILT]},
@@ -1276,6 +1350,7 @@ locations: !!omap
     description:
       long: 'You are in a large low room.  Crawls lead north, se, and sw.'
       short: 'You''re in large low room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [BEDQU], action: [goto, LOC_BEDQUILT]},
@@ -1287,6 +1362,7 @@ locations: !!omap
     description:
       long: 'Dead end crawl.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH, CRAWL, OUT], action: [goto, LOC_LOWROOM]},
@@ -1298,6 +1374,7 @@ locations: !!omap
           very tight canyon 15 feet below.  If you go down you may not be able
           to get back up.
       short: 'You''re in secret e/w canyon above tight canyon.'
+      maptag: 'Secret e/w canyom'
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_KINGHALL]},
@@ -1309,6 +1386,7 @@ locations: !!omap
     description:
       long: 'You are at a wide place in a very tight n/s canyon.'
       short: !!null
+      maptag: 'Wide place'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_TIGHTPLACE]},
@@ -1318,6 +1396,7 @@ locations: !!omap
     description:
       long: 'The canyon here becomes too tight to go further south.'
       short: !!null
+      maptag: 'Tight canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_WIDEPLACE]},
@@ -1328,6 +1407,7 @@ locations: !!omap
           You are in a tall e/w canyon.  A low tight crawl goes 3 feet north and
           seems to open up.
       short: !!null
+      maptag: 'Tall canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_WIDEPLACE]},
@@ -1338,6 +1418,7 @@ locations: !!omap
     description:
       long: 'The canyon runs into a mass of boulders -- dead end.'
       short: !!null
+      maptag: 'Boulders'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_TALL]},
@@ -1348,6 +1429,7 @@ locations: !!omap
           The stream flows out through a pair of 1 foot diameter sewer pipes.
           It would be advisable to use the exit.
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_BUILDING]},
@@ -1356,6 +1438,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1368,6 +1451,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true}
     hints: [*maze]
     travel: [
@@ -1377,6 +1461,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -1386,6 +1471,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_PITBRINK]},
@@ -1396,6 +1482,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_PITBRINK]},
@@ -1406,6 +1493,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {NOARRR: true, DEEP: true}
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_ALIKE12]},
@@ -1414,6 +1502,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOARRR: true}
     hints: [*maze]
     travel: [
@@ -1423,6 +1512,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
+      maptag: 'Maze all alike.'
     conditions: {DEEP: true, NOBACK: true}
     hints: [*maze]
     travel: [
@@ -1435,6 +1525,7 @@ locations: !!omap
           west.  At the eastern end is a hole through which you can see a
           profusion of leaves.
       short: 'You''re in narrow corridor.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN, CLIMB, EAST], action: [goto, LOC_WESTPIT]},
@@ -1445,6 +1536,7 @@ locations: !!omap
     description:
       long: 'There is nothing here to climb.  Use "up" or "out" to leave the pit.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_WESTPIT]},
@@ -1453,6 +1545,7 @@ locations: !!omap
     description:
       long: 'You have climbed up the plant and out of the pit.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_WESTEND]},
@@ -1464,6 +1557,7 @@ locations: !!omap
           climb down here, but you would not be able to climb up.  There is a
           passage leading back to the north.
       short: 'You''re at steep incline above large room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH, CAVER, PASSA], action: [goto, LOC_WATERFALL]},
@@ -1476,6 +1570,7 @@ locations: !!omap
           lamp to show it.  Cavernous passages lead east, north, and south.  On
           the west wall is scrawled the inscription, "FEE FIE FOE FOO" [sic].
       short: 'You''re in Giant Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_NARROW]},
@@ -1486,6 +1581,7 @@ locations: !!omap
     description:
       long: 'The passage here is blocked by a recent cave-in.'
       short: !!null
+      maptag: 'Cave-in blockage'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH, GIANT, OUT], action: [goto, LOC_GIANTROOM]},
@@ -1494,6 +1590,7 @@ locations: !!omap
     description:
       long: 'You are at one end of an immense north/south passage.'
       short: !!null
+      maptag: 'Immense passage end.'
     conditions: {DEEP: true}
     sound: WIND_WHISTLES
     travel: [
@@ -1509,6 +1606,7 @@ locations: !!omap
           over a sparkling waterfall into a roaring whirlpool which disappears
           through a hole in the floor.  Passages exit to the south and west.
       short: 'You''re in cavern with waterfall.'
+      maptag: !!null
     conditions: {FLUID: true, DEEP: true}
     sound: STREAM_SPLASHES
     travel: [
@@ -1522,6 +1620,7 @@ locations: !!omap
           You are in the Soft Room.  The walls are covered with heavy curtains,
           the floor with a thick pile carpet.  Moss covers the ceiling.
       short: 'You''re in Soft Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_SWISSCHEESE]},
@@ -1533,6 +1632,7 @@ locations: !!omap
           walls.  A gently sloping passage leads upward to the north, another
           passage leads se, and a hands and knees crawl leads west.
       short: 'You''re in Oriental Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SE], action: [goto, LOC_SWISSCHEESE]},
@@ -1547,6 +1647,7 @@ locations: !!omap
           heard.  The mist rises up through a fissure in the ceiling.  The path
           exits to the south and west.
       short: 'You''re in misty cavern.'
+      maptag: !!null
     conditions: {DEEP: true}
     sound: NO_MEANING
     travel: [
@@ -1560,6 +1661,7 @@ locations: !!omap
           distance.  An extremely tight tunnel leads east.  It looks like a very
           tight squeeze.  An eerie light can be seen at the other end.
       short: 'You''re in alcove.'
+      maptag: !!null
     conditions: {DEEP: true}
     hints: [*dark]
     travel: [
@@ -1573,6 +1675,7 @@ locations: !!omap
           You're in a small chamber lit by an eerie green light.  An extremely
           narrow tunnel exits to the west.  A dark corridor leads ne.
       short: 'You''re in Plover Room.'
+      maptag: !!null
     conditions: {DEEP: true, LIT: true}
     hints: [*dark]
     travel: [
@@ -1586,6 +1689,7 @@ locations: !!omap
     description:
       long: 'You''re in the dark-room.  A corridor leading south is the only exit.'
       short: 'You''re in dark-room.'
+      maptag: !!null
     conditions: {DEEP: true}
     hints: [*dark]
     travel: [
@@ -1597,6 +1701,7 @@ locations: !!omap
           You are in an arched hall.  A coral passage once continued up and east
           from here, but is now blocked by debris.  The air smells of sea water.
       short: 'You''re in arched hall.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN, SHELL, OUT], action: [goto, LOC_SHELLROOM]},
@@ -1609,6 +1714,7 @@ locations: !!omap
           shallow passage proceeds downward, and a somewhat steeper one leads
           up.  A low hands and knees passage enters from the south.
       short: 'You''re in Shell Room.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR, HALL], action: [goto, LOC_ARCHED]},
@@ -1623,6 +1729,7 @@ locations: !!omap
     description:
       long: 'You are in a long sloping corridor with ragged sharp walls.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR, SHELL], action: [goto, LOC_SHELLROOM]},
@@ -1632,6 +1739,7 @@ locations: !!omap
     description:
       long: 'You are in a cul-de-sac about eight feet across.'
       short: !!null
+      maptag: 'Cul-de-sac.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR, OUT], action: [goto, LOC_SLOPING1]},
@@ -1645,6 +1753,7 @@ locations: !!omap
           A sign in midair here says "Cave under construction beyond this point.
           Proceed at own risk.  [Witt Construction Company]"
       short: 'You''re in anteroom.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR], action: [goto, LOC_COMPLEX]},
@@ -1655,6 +1764,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisty little passages, all different.'
       short: !!null
+      maptag: 'Maze all different'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_DIFFERENT3]},
@@ -1672,6 +1782,7 @@ locations: !!omap
     description:
       long: 'You are at Witt''s End.  Passages lead off in *ALL* directions.'
       short: 'You''re at Witt''s End.'
+      maptag: !!null
     conditions: {DEEP: true, NOBACK: true}
     hints: [*witt]
     travel: [
@@ -1691,6 +1802,7 @@ locations: !!omap
           for the use of the dwarves who, as you know, are extremely vain.)  A
           small window can be seen in either wall, some fifty feet up.
       short: 'You''re in Mirror Canyon.'
+      maptag: !!null
     conditions: {DEEP: true}
     hints: [*jade]
     sound: WIND_WHISTLES
@@ -1709,6 +1821,7 @@ locations: !!omap
           25 feet away there is a similar window looking into a lighted room.  A
           shadowy figure can be seen there peering back at you.
       short: 'You''re at window on pit.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [WEST], action: [goto, LOC_THREEJUNCTION]},
@@ -1721,6 +1834,7 @@ locations: !!omap
           below.  You could climb down it, and jump from it to the floor, but
           having done so you would be unable to reach it to climb back up.
       short: 'You''re at top of stalactite.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_SECRET2]},
@@ -1733,6 +1847,7 @@ locations: !!omap
     description:
       long: 'You are in a little maze of twisting passages, all different.'
       short: !!null
+      maptag: 'Maze all different'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [SW], action: [goto, LOC_DIFFERENT3]},
@@ -1755,6 +1870,7 @@ locations: !!omap
           overhead and splashes noisily into the water somewhere within the
           mist.  There is a passage going back toward the south.
       short: 'You''re at reservoir.'
+      maptag: !!null
     conditions: {FLUID: true, DEEP: true}
     sound: STREAM_SPLASHES
     travel: [
@@ -1766,6 +1882,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SE], action: [goto, LOC_ALIKE13]},
@@ -1785,6 +1902,7 @@ locations: !!omap
           wall, and stretches to the other end of the room, where various other
           sundry objects can be glimpsed dimly in the distance.
       short: 'You''re at ne end.'
+      maptag: 'Reoisitory ne end'
     conditions: {DEEP: true, LIT: true}
     sound: MURMURING_SNORING
     travel: [
@@ -1802,6 +1920,7 @@ locations: !!omap
           steel grate, next to which is a sign that reads, "Treasure Vault.
           Keys in main office."
       short: 'You''re at sw end.'
+      maptag: 'Repository sw end'
     conditions: {DEEP: true, LIT: true}
     sound: SNAKES_HISSING
     travel: [
@@ -1815,6 +1934,7 @@ locations: !!omap
           up from below obscures all view of the far side.  A sw path leads away
           from the chasm into a winding corridor.
       short: 'You''re on sw side of chasm.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [SW], action: [goto, LOC_WINDING]},
@@ -1833,6 +1953,7 @@ locations: !!omap
           You are in a long winding corridor sloping out of sight in both
           directions.
       short: 'You''re in sloping corridor.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN], action: [goto, LOC_LOWROOM]},
@@ -1844,6 +1965,7 @@ locations: !!omap
     description:
       long: 'You are in a secret canyon which exits to the north and east.'
       short: !!null
+      maptag: 'Secret canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH, OUT], action: [goto, LOC_SECRET1]},
@@ -1853,6 +1975,7 @@ locations: !!omap
     description:
       long: 'You are in a secret canyon which exits to the north and east.'
       short: !!null
+      maptag: 'Secret canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_SECRET1]},
@@ -1862,6 +1985,7 @@ locations: !!omap
     description:
       long: 'You are in a secret canyon which exits to the north and east.'
       short: !!null
+      maptag: 'Secret canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_SECRET3]},
@@ -1873,6 +1997,7 @@ locations: !!omap
            You are on the far side of the chasm.  A ne path leads away from the
            chasm on this side.
       short: 'You''re on ne side of chasm.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     travel: [
       {verbs: [NE], action: [goto, LOC_CORRIDOR]},
@@ -1889,6 +2014,7 @@ locations: !!omap
           You're in a long east/west corridor.  A faint rumbling noise can be
           heard in the distance.
       short: 'You''re in corridor.'
+      maptag: 'e/w canyon'
     conditions: {NOARRR: true, DEEP: true}
     sound: DULL_RUMBLING
     travel: [
@@ -1904,6 +2030,7 @@ locations: !!omap
           seems to get louder in that direction.  The right fork leads southeast
           down a gentle slope.  The main corridor enters from the west.
       short: 'You''re at fork in path.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     sound: DULL_RUMBLING
     travel: [
@@ -1920,6 +2047,7 @@ locations: !!omap
           roar, so loud that the entire cave seems to be trembling.  Another
           passage leads south, and a low crawl goes east.
       short: 'You''re at junction with warm walls.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     sound: LOUD_ROAR
     travel: [
@@ -1950,6 +2078,7 @@ locations: !!omap
           own, which lends an additional infernal splendor to the already
           hellish scene.  A dark, foreboding passage exits to the south.
       short: 'You''re at breath-taking view.'
+      maptag: !!null
     conditions: {NOARRR: true, LIT: true, DEEP: true}
     hints: [*jade]
     sound: TOTAL_ROAR
@@ -1968,6 +2097,7 @@ locations: !!omap
           heat.  The only exit is a crawl heading west, through which is coming
           a low rumbling.
       short: 'You''re in Chamber of Boulders.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     sound: DULL_RUMBLING
     travel: [
@@ -1981,6 +2111,7 @@ locations: !!omap
           You are walking along a gently sloping north/south passage lined with
           oddly shaped limestone formations.
       short: 'You''re in limestone passage.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     travel: [
       {verbs: [NORTH, UPWAR, FORK], action: [goto, LOC_FORK]},
@@ -1993,6 +2124,7 @@ locations: !!omap
           You are standing at the entrance to a large, barren room.  A notice
           above the entrance reads:  "Caution!  Bear in room!"
       short: 'You''re in front of Barren Room.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     travel: [
       {verbs: [WEST, UPWAR], action: [goto, LOC_LIMESTONE]},
@@ -2007,6 +2139,7 @@ locations: !!omap
           empty except for some dust.  Marks in the dust lead away toward the
           far end of the room.  The only exit is the way you came in.
       short: 'You''re in Barren Room.'
+      maptag: !!null
     conditions: {NOARRR: true, DEEP: true}
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_BARRENFRONT]},
@@ -2017,6 +2150,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of twisting little passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [WEST], action: [goto, LOC_DIFFERENT1]},
@@ -2034,6 +2168,7 @@ locations: !!omap
     description:
       long: 'You are in a little maze of twisty passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [NW], action: [goto, LOC_DIFFERENT1]},
@@ -2051,6 +2186,7 @@ locations: !!omap
     description:
       long: 'You are in a twisting maze of little passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [UPWAR], action: [goto, LOC_DIFFERENT1]},
@@ -2068,6 +2204,7 @@ locations: !!omap
     description:
       long: 'You are in a twisting little maze of passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [NE], action: [goto, LOC_DIFFERENT1]},
@@ -2085,6 +2222,7 @@ locations: !!omap
     description:
       long: 'You are in a twisty little maze of passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_DIFFERENT1]},
@@ -2102,6 +2240,7 @@ locations: !!omap
     description:
       long: 'You are in a twisty maze of little passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_DIFFERENT1]},
@@ -2119,6 +2258,7 @@ locations: !!omap
     description:
       long: 'You are in a little twisty maze of passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [SE], action: [goto, LOC_DIFFERENT1]},
@@ -2136,6 +2276,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of little twisting passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [DOWN], action: [goto, LOC_DIFFERENT1]},
@@ -2153,6 +2294,7 @@ locations: !!omap
     description:
       long: 'You are in a maze of little twisty passages, all different.'
       short: !!null
+      maptag: 'Maze all different.'
     conditions: {DEEP: true, NOBACK: true}
     travel: [
       {verbs: [SW], action: [goto, LOC_DIFFERENT1]},
@@ -2170,6 +2312,7 @@ locations: !!omap
     description:
       long: 'Dead end'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH, OUT], action: [goto, LOC_DIFFERENT2]},
@@ -2180,6 +2323,7 @@ locations: !!omap
     description:
       long: 'You are in a long, rough-hewn, north/south corridor.'
       short: !!null
+      maptag: 'Rough-newn corridor'
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_DEADEND13]},
@@ -2189,6 +2333,7 @@ locations: !!omap
     description:
       long: 'There is no way to go that direction.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_DEADEND13]},
@@ -2197,6 +2342,7 @@ locations: !!omap
     description:
       long: 'You are in a large chamber with passages to the west and north.'
       short: !!null
+      maptag: 'Large chamber.'
     conditions: {DEEP: true}
     hints: [*ogre]
     travel: [
@@ -2208,6 +2354,7 @@ locations: !!omap
     description:
       long: 'You are in the ogre''s storeroom.  The only exit is to the south.'
       short: !!null
+      maptag: 'Ogre''s streroom.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH, OUT], action: [goto, LOC_LARGE]},
@@ -2216,6 +2363,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2228,6 +2376,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2240,6 +2389,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2251,6 +2401,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2261,6 +2412,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2272,6 +2424,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2284,6 +2437,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2296,6 +2450,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2308,6 +2463,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2320,6 +2476,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2332,6 +2489,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2344,6 +2502,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2356,6 +2515,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2368,6 +2528,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2380,6 +2541,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2392,6 +2554,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2403,6 +2566,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2414,6 +2578,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2426,6 +2591,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2438,6 +2604,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2450,6 +2617,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2462,6 +2630,7 @@ locations: !!omap
     description:
       long: 'You are wandering aimlessly through the forest.'
       short: !!null
+      maptag: 'Forest.'
     conditions: {FOREST: true, NOBACK: true, LIT: true}
     hints: [*forest]
     travel: [
@@ -2477,6 +2646,7 @@ locations: !!omap
           paths away from the ledge.  Across the chasm is a small clearing
           surrounded by forest.
       short: 'You''re on ledge.'
+      maptag: !!null
     conditions: {ABOVE: true, LIT: true}
     travel: [
       {verbs: [JUMP], action: [goto, LOC_NOMAKE]},
@@ -2488,6 +2658,7 @@ locations: !!omap
           rear up on either side.  The roar of the water cascading past is
           nearly deafening, and the mist is so thick you can barely see.
       short: 'You''re at bottom of reservoir.'
+      maptag: !!null
     conditions: {FLUID: true, DEEP: true}
     sound: TOTAL_ROAR
     loud: true
@@ -2501,6 +2672,7 @@ locations: !!omap
           You are at the northern edge of the reservoir.  A northwest passage
           leads sharply up from here.
       short: 'You''re north of reservoir.'
+      maptag: !!null
     conditions: {FLUID: true, DEEP: true}
     sound: WATERS_CRASHING
     travel: [
@@ -2513,6 +2685,7 @@ locations: !!omap
     description:
       long: 'You are scrambling along a treacherously steep, rocky passage.'
       short: !!null
+      maptag: 'Rocky passage.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR, NW], action: [goto, LOC_STEEP]},
@@ -2522,6 +2695,7 @@ locations: !!omap
     description:
       long: 'You are on a very steep incline, which widens at it goes upward.'
       short: !!null
+      maptag: 'Steep incline'
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN, SE], action: [goto, LOC_TREACHEROUS]},
@@ -2535,6 +2709,7 @@ locations: !!omap
           extremely dangerous.  Here at the base of the cliff lie the remains
           of several earlier adventurers who apparently failed to make it.
       short: 'You''re at base of cliff.'
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN, SE], action: [goto, LOC_STEEP]},
@@ -2544,6 +2719,7 @@ locations: !!omap
     description:
       long: 'You are climbing along a nearly vertical cliff.'
       short: !!null
+      maptag: 'Vertical cliff.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [DOWN], action: [goto, LOC_CLIFFBASE]},
@@ -2556,6 +2732,7 @@ locations: !!omap
           Just as you reach the top, your foot slips on a loose rock and you
           tumble several hundred feet to join the other unlucky adventurers.
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_NOWHERE]},
@@ -2567,6 +2744,7 @@ locations: !!omap
           make one last desperate grab.  Your luck holds, as does your grip.
           With an enormous heave, you lift yourself to the ledge above.
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_CLIFFLEDGE]},
@@ -2577,6 +2755,7 @@ locations: !!omap
           You are on a small ledge at the top of a nearly vertical cliff.
           There is a low crawl leading off to the northeast.
       short: 'You''re at top of cliff.'
+      maptag: 'Cliiftop'
     conditions: {DEEP: true}
     travel: [
       {verbs: [CLIMB, DOWN], action: [goto, LOC_CLIFFACE]},
@@ -2586,6 +2765,7 @@ locations: !!omap
     description:
       long: 'You have reached a dead end.'
       short: !!null
+      maptag: 'Dead end.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SW, OUT, CRAWL], action: [goto, LOC_CLIFFLEDGE]},
@@ -2594,6 +2774,7 @@ locations: !!omap
     description:
       long: 'There is now one more gruesome aspect to the spectacular vista.'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_NOWHERE]},
@@ -2602,6 +2783,7 @@ locations: !!omap
     description:
       long: '>>Foof!<<'
       short: !!null
+      maptag: !!null
     conditions: {}
     travel: [
       {verbs: [], action: [goto, LOC_DEBRIS]},
@@ -2610,6 +2792,7 @@ locations: !!omap
     description:
       long: '>>Foof!<<'
       short: !!null
+      maptag: !!null
     conditions: {ABOVE: true}
     travel: [
       {verbs: [], action: [goto, LOC_BUILDING]},
@@ -2618,6 +2801,7 @@ locations: !!omap
     description:
       long: '>>Foof!<<'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_Y2]},
@@ -2626,6 +2810,7 @@ locations: !!omap
     description:
       long: '>>Foof!<<'
       short: !!null
+      maptag: !!null
     conditions: {ABOVE: true}
     travel: [
       {verbs: [], action: [goto, LOC_BUILDING]},
@@ -2634,6 +2819,7 @@ locations: !!omap
     description:
       long: '>>Foof!<<'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_PLOVER]},
@@ -2642,6 +2828,7 @@ locations: !!omap
     description:
       long: '>>Foof!<<'
       short: !!null
+      maptag: !!null
     conditions: {DEEP: true}
     travel: [
       {verbs: [], action: [goto, LOC_Y2]},

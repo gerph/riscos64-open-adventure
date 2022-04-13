@@ -29,6 +29,33 @@ def abbreviate(d):
     m = {"NORTH":"N", "EAST":"E", "SOUTH":"S", "WEST":"W", "UPWAR":"U", "DOWN":"D"}
     return m.get(d, d)
 
+def roomlabel(loc):
+    "Generate a room label from the description, if possible"
+    loc_descriptions = dict(db["locations"])[loc]['description']
+    description = loc[4:]
+    short = loc_descriptions["short"]
+    maptag = loc_descriptions["maptag"]
+    if short is not None:
+        if short.startswith("You're "):
+            short = short[7:]
+        if short.startswith("You are "):
+            short = short[8 :]
+        if short.startswith("in ") or short.startswith("at ") or short.startswith("on "):
+            short = short[3:]
+        if short[:3] in {"n/s", "e/w"}:
+            short = short[:3].upper() + short[3:]
+        elif short[:2] in {"ne", "sw", "se", "nw"}:
+            short = short[:2].upper() + short[2:]
+        else:
+            short = short[0].upper() + short[1:]
+    elif loc_descriptions["maptag"] is not None:
+        short = loc_descriptions["maptag"]
+    elif loc_descriptions["long"] is not None and len(loc_descriptions["long"]) < 20:
+        short = loc_descriptions["long"]
+    if short is not None:
+        description += "\\n" + short
+    return description
+
 if __name__ == "__main__":
     with open("adventure.yaml", "r") as f:
         db = yaml.safe_load(f)
@@ -78,7 +105,7 @@ if __name__ == "__main__":
             continue
         if subset == "maze" and not allalike(loc):
             continue;
-        node_label = loc[4:]
+        node_label = roomlabel(loc)
         if loc in startlocs:
             node_label += "\\n" + ",".join(startlocs[loc]).lower()
         print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
