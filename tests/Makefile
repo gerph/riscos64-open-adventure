@@ -19,14 +19,15 @@ TESTLOADS := $(shell ls -1 *.log | sed '/.log/s///' | sort)
 .PHONY: check coverage clean testlist listcheck savegames buildregress
 .PHONY: savecheck regress
 
-check: savecheck tapcheck
+check: tapcheck
 	@echo "=== No diff output is good news."
-	@-advent -x 2>/dev/null	# Get usage message into coverage tests
-	@-advent -l /dev/null <pitfall.log >/dev/null
 
 coverage: check
 	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
 	genhtml -o $(PARDIR)/coverage/ $(PARDIR)/advent.info
+	@-advent -x 2>/dev/null	# Get usage message into coverage tests
+	@-advent -l /dev/null <pitfall.log >/dev/null
+	make savecheck
 	./coverage_dungeon.py
 
 .SUFFIXES: .chk
@@ -42,7 +43,18 @@ listcheck:
 	    if ( head -3 $$f | grep -q '^ *##' ); then :; else echo "$$f needs a description"; fi; \
 	done
 
-# Generate bogus savegames.
+# Rebuild characterizing tests
+buildregress: savegames
+	$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/regress1000saves
+	@for file in $(TESTLOADS); do \
+	    echo "Remaking $${file}.chk"; \
+	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
+	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
+	done; \
+	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
+	rm -f scratch.tmp
+
+# Generate bogus savegames for coverage testing.
 savegames:
 	@$(ECHO) "cheat: Generate save file with -900 deaths"
 	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
@@ -58,18 +70,7 @@ savegames:
 	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
 	@rm -f /tmp/cheat*
 
-
-# Rebuild characterizing tests
-buildregress: savegames
-	$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/regress1000saves
-	@for file in $(TESTLOADS); do \
-	    echo "Remaking $${file}.chk"; \
-	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
-	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
-	done; \
-	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
-	rm -f scratch.tmp
-
+# Force coverage of various edge cases
 savecheck: savegames
 	@$(ECHO) "TEST cheat: Bogus option for save file generation"
 	@$(PARDIR)/cheat -QqQ 2> /tmp/coverage_cheat_batopt | true
