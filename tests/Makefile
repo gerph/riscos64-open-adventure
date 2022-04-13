@@ -105,22 +105,47 @@ regress:
 # There's a blocker in that the log tests can't be run concurrently
 # due to issues with colliding save files.
 
+# See https://stackoverflow.com/questions/6481005/how-to-obtain-the-number-of-cpus-cores-in-linux-from-the-command-line
+CONCURRENT_JOBS=$(shell getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN || echo 4)
+
 # The TAP filter. Only affects presentation of the test suite messages
-TAPCONSUMER=tappy
+TAPCONSUMER=tapview
 
 # Fall back to safety if our declared TAP consumer does not exist.
 # This is helpful in the CI environment, where it would be better for
 # the logfiles to carry the raw TAP messages. 
 TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
 
-RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
-$(RUN_TARGETS): run-regress-%: %.log
+# Run specified tests in parallel and ship their output to our TAP consumer after a plan header
+TAPOUT = (echo "1..$(words $(1))"; $(MAKE) --output-sync --no-print-directory -j $(CONCURRENT_JOBS) $(1)) | $(TAPFILTER)
+
+# Parallel make doesn't return a fail status when a single subprocess fails,
+# so we need to log the failures and check the log for nonemptiness in order
+# to hand a real status back. This is important for CI/CD.  
+FAILLOG=/tmp/reposurgeon-make.log
+
+TEST_TARGETS=$(TESTLOADS:%=run-regress-%)
+$(TEST_TARGETS): run-regress-%: %.log
 	@(test=$(<:.log=); legend=$$(sed -n '/^## /s///p' <"$<" 2>/dev/null || echo "(no description)"); \
 	OPTS=`sed -n /#options:/s///p $<`; \
-	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk")
+	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk") >>$(FAILLOG);
 
-tap: savecheck count $(RUN_TARGETS)
+# parallel-tap must not be run in parallel.
+parallel-check:
+	@$(MAKE) -j1 --no-print-directory parallel-tap
+
+# This is the normal way to run the tests interactively,
+# using a TAP consumer.
+parallel-tap: clean disclose
+	@rm -f $(FAILLOG)
+	@$(call TAPOUT,$(TEST_TARGETS)); if [ -s $(FAILLOG) ]; then ( echo "Tests failed:"; cat $(FAILLOG); exit 1); fi; 
+
+disclose:
+	@echo "Running with $(CONCURRENT_JOBS) threads."
+
+tap: savecheck count $(TEST_TARGETS)
+	@echo "# Tests complete"
 count:
-	@echo 1..$(words $(RUN_TARGETS))
+	@echo 1..$(words $(TEST_TARGETS))
 
 # end
