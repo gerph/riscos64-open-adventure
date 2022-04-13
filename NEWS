@@ -1,5 +1,9 @@
 = Open Adventure project news =
 
+Repository head::
+  Restore 100% test coverage.
+  Use TAP reporting for tests.
+
 1.10: 2022-04-06::
   Fixed a bug that manifested after two "fly rug" commands - third one fails.
   Fix some giltches in processing fee fie foe foo.
