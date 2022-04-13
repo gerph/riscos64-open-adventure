@@ -1334,6 +1334,10 @@ There is an enormous clam here with its shell tightly closed.
 
 OK
 
+> unlock clam
+
+I advise you to put down the clam before opening it.  >STRAIN!<
+
 > s
 
 You can't fit this five-foot clam through that little passage!
@@ -1353,6 +1357,10 @@ OK
 A glistening pearl falls out of the clam and rolls away.  Goodness,
 this must really be an oyster.  (I never was very good at identifying
 bivalves.)  Whatever it is, it has now snapped shut again.
+
+> read oyster
+
+I'm afraid I don't understand.
 
 > take oyster
 
@@ -2084,17 +2092,10 @@ southward passage.
 
 > n
 
+Your lamp is getting dim.  I'm taking the liberty of replacing the
+batteries.
+
 You are in a little maze of twisting passages, all different.
-
-> z
-
-OK
-
-> z
-
-Your lamp is getting dim.  You'd best go back for those batteries.
-
-OK
 
 > z
 
@@ -2107,19 +2108,24 @@ you a couple of points.
 
 OK
 
+> z
+
+OK
+
+> z
+
+OK
+
 > s
 
 Dead end
 
-There are fresh batteries here.
+Some worn-out batteries have been discarded nearby.
 
 There is a massive vending machine here, swung back to reveal a
 southward passage.
 
 > take batteries
-
-Your lamp is getting dim.  I'm taking the liberty of replacing the
-batteries.
 
 OK
 
@@ -2508,7 +2514,7 @@ The wind whistles coldly past your ears.
 
 > score
 
-You have garnered 207 out of a possible 430 points, using 411 turns.
+You have garnered 207 out of a possible 430 points, using 413 turns.
 
 > inven
 
@@ -2518,7 +2524,7 @@ Dwarf's axe
 
 > waste 2443
 
-Game limit is now 29
+Game limit is now 27
 
 You're in Hall of Mists.
 
@@ -2532,7 +2538,7 @@ best start wrapping this up.
 OK
 
 
-You scored 207 out of a possible 430, using 414 turns.
+You scored 207 out of a possible 430, using 416 turns.
 
 You may now consider yourself a "Seasoned Adventurer".
 

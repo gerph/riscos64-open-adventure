@@ -226,10 +226,12 @@ e
 n
 # Here we are at the Shell Room.  Fail to carry out bivalves
 take clam
+unlock clam
 s
 open clam
 drop clam
 open clam
+read oyster
 take oyster
 s
 drop oyster
