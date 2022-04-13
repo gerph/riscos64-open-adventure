@@ -7,9 +7,8 @@ remain to be cleaned up:
   made to introduce semantic types, but the job is barely started.
 
 * More possible vase tests:
-  DROP VASE in the Soft Room; DROP VASE in the well house and confirm
-  that you do/don't get points for it; die while carrying the vase and
-  confirm that it doesn't break.
+  DROP VASE in the well house and confirm that you do/don't get points for it;
+  die while carrying the vase and confirm that it doesn't break.
 
 We are aware that the lamp currently used as the project logo is a
 hurricane lamp, not a proper miner's lamp. Submissions of potential
