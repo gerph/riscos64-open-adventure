@@ -19,7 +19,7 @@ TESTLOADS := $(shell ls -1 *.log | sed '/.log/s///' | sort)
 .PHONY: check coverage clean testlist listcheck savegames buildregress
 .PHONY: savecheck regress
 
-check: savecheck regress
+check: savecheck tapcheck
 	@echo "=== No diff output is good news."
 	@-advent -x 2>/dev/null	# Get usage message into coverage tests
 	@-advent -l /dev/null <pitfall.log >/dev/null
@@ -86,22 +86,6 @@ savecheck: savegames
 	@$(ECHO) "TEST advent: Test -r with valid input"
 	@advent -r thousand_saves.adv < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
 	@rm -f /tmp/coverage*
-
-# General regression testing of commands and output; look at the *.log and
-# corresponding *.chk files to see which tests this runs.
-regress:
-	@for file in $(TESTLOADS); do \
-	    $(ECHO) -n "  $${file} "; grep '##' $${file}.log  || echo ' ## (no description)'; \
-	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
-	    if $(advent) $$OPTS < $${file}.log >/tmp/regress$$$$ 2>&1; \
-	    then diff --text -u $${file}.chk /tmp/regress$$$$ || exit 1; \
-	    else echo "*** Nonzero return status on $${file}!"; exit 1; fi \
-	done; \
-	$(ECHO) "  multifile ## Test multiple file arguments"
-	@(echo "inven" | advent isofoo.log /dev/stdin | diff --text -u multifile.chk -) || exit 1
-	rm -f scratch.tmp /tmp/regress$$$$
-
-# Steps towards TAP. savecheck is not yet integrated.
 
 # The TAP filter. Only affects presentation of the test suite messages
 TAPCONSUMER=tapview
