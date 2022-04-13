@@ -472,8 +472,11 @@ e
 e
 e
 e
-# Expecting failure here
 take oyster
+# Test both cases (before and after hint) of reading oyster 
+read oyster
+y
+read oyster
 drop oyster
 open oyster
 sw

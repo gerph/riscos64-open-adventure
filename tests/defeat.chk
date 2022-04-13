@@ -2932,6 +2932,20 @@ OK
 Interesting.  There seems to be something written on the underside of
 the oyster.
 
+> read oyster
+
+Hmmm, this looks like a clue, which means it'll cost you 10 points to
+read it.  Should I go ahead and read it anyway?
+
+> y
+
+It says, "There is a way out of this place.  Do you need any more
+information to escape?  Sorry, but this initial hint is all you get."
+
+> read oyster
+
+It says the same thing it did before.  Hm, maybe it's a pun?
+
 > drop oyster
 
 OK
@@ -3022,8 +3036,8 @@ There is a loud explosion, and a twenty-foot hole appears in the far
 wall, burying the snakes in the rubble.  A river of molten lava pours
 in through the hole, destroying everything in its path, including you!
 
-You scored 399 out of a possible 430, using 480 turns.
+You scored 389 out of a possible 430, using 482 turns.
 
 Your score puts you in Master Adventurer Class B.
 
-To achieve the next higher rating, you need 12 more points.
+To achieve the next higher rating, you need 22 more points.
