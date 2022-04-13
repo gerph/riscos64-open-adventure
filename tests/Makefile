@@ -101,7 +101,7 @@ regress:
 	@(echo "inven" | advent isofoo.log /dev/stdin | diff --text -u multifile.chk -) || exit 1
 	rm -f scratch.tmp /tmp/regress$$$$
 
-# Steps towards TAP. savecheck and the isofoo test are not yet integrated.
+# Steps towards TAP. savecheck is not yet integrated.
 
 # The TAP filter. Only affects presentation of the test suite messages
 TAPCONSUMER=tapview
@@ -111,16 +111,18 @@ TAPCONSUMER=tapview
 # the logfiles to carry the raw TAP messages. 
 TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
 
-# Parallel make doesn't return a fail status when a single subprocess fails,
-# so we need to log the failures and check the log for nonemptiness in order
-# to hand a real status back. This is important for CI/CD.  
 FAILLOG=/tmp/advent-test.log
 
-TEST_TARGETS=$(TESTLOADS:%=run-regress-%)
-$(TEST_TARGETS): run-regress-%: %.log
+RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
+$(RUN_TARGETS): run-regress-%: %.log
 	@(test=$(<:.log=); legend=$$(sed -n '/^## /s///p' <"$<" 2>/dev/null || echo "(no description)"); \
 	OPTS=`sed -n /#options:/s///p $<`; \
 	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk") >>$(FAILLOG)
+
+multifile-regress:
+	@(echo "inven" | advent isofoo.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk >>$(FAILLOG)
+
+TEST_TARGETS = $(RUN_TARGETS) multifile-regress
 
 tap: count $(TEST_TARGETS)
 count:
