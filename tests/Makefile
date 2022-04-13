@@ -101,12 +101,7 @@ regress:
 	@(echo "inven" | advent isofoo.log /dev/stdin | diff --text -u multifile.chk -) || exit 1
 	rm -f scratch.tmp /tmp/regress$$$$
 
-# Steps towards TAP and parallelization.
-# There's a blocker in that the log tests can't be run concurrently
-# due to issues with colliding save files.
-
-# See https://stackoverflow.com/questions/6481005/how-to-obtain-the-number-of-cpus-cores-in-linux-from-the-command-line
-CONCURRENT_JOBS=$(shell getconf _NPROCESSORS_ONLN || getconf NPROCESSORS_ONLN || echo 4)
+# Steps towards TAP. savecheck and the isofoo test are not yet integrated.
 
 # The TAP filter. Only affects presentation of the test suite messages
 TAPCONSUMER=tapview
@@ -116,36 +111,22 @@ TAPCONSUMER=tapview
 # the logfiles to carry the raw TAP messages. 
 TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
 
-# Run specified tests in parallel and ship their output to our TAP consumer after a plan header
-TAPOUT = (echo "1..$(words $(1))"; $(MAKE) --output-sync --no-print-directory -j $(CONCURRENT_JOBS) $(1)) | $(TAPFILTER)
-
 # Parallel make doesn't return a fail status when a single subprocess fails,
 # so we need to log the failures and check the log for nonemptiness in order
 # to hand a real status back. This is important for CI/CD.  
-FAILLOG=/tmp/reposurgeon-make.log
+FAILLOG=/tmp/advent-test.log
 
 TEST_TARGETS=$(TESTLOADS:%=run-regress-%)
 $(TEST_TARGETS): run-regress-%: %.log
 	@(test=$(<:.log=); legend=$$(sed -n '/^## /s///p' <"$<" 2>/dev/null || echo "(no description)"); \
 	OPTS=`sed -n /#options:/s///p $<`; \
-	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk") >>$(FAILLOG);
+	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk") >>$(FAILLOG)
 
-# parallel-tap must not be run in parallel.
-parallel-check:
-	@$(MAKE) -j1 --no-print-directory parallel-tap
-
-# This is the normal way to run the tests interactively,
-# using a TAP consumer.
-parallel-tap: clean disclose
-	@rm -f $(FAILLOG)
-	@$(call TAPOUT,$(TEST_TARGETS)); if [ -s $(FAILLOG) ]; then ( echo "Tests failed:"; cat $(FAILLOG); exit 1); fi; 
-
-disclose:
-	@echo "Running with $(CONCURRENT_JOBS) threads."
-
-tap: savecheck count $(TEST_TARGETS)
-	@echo "# Tests complete"
+tap: count $(TEST_TARGETS)
 count:
-	@echo 1..$(words $(TEST_TARGETS))
+	@echo 1..$(words $(TEST_TARGETS)) >$(FAILLOG)
+
+tapcheck:
+	@make --no-print-directory tap; tapview <$(FAILLOG)
 
 # end
