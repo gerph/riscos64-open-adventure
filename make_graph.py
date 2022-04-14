@@ -65,7 +65,7 @@ def roomlabel(loc):
 # it ships some message (which is the point) then shifts you to a nexr location.
 # A forwarder has a zero-length array of notion verbs in its travel section.
 #
-# Here is an examoke forwarder kocation:
+# Here is an example forwarder declaration:
 #
 # - LOC_GRUESOME:
 #    description:
