@@ -13,21 +13,25 @@ advent?=advent
 # Defeat annoying behavior under Mac OS X - builtin echo doesn't do -n
 ECHO := /bin/echo
 
+# The TAP filter. Only affects presentation of the test suite messages
+TAPCONSUMER=tapview
+
+# Fall back to safety if our declared TAP consumer does not exist.
+# This is helpful in the CI environment, where it would be better for
+# the logfiles to carry the raw TAP messages. 
+TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
+
 # Find all *.log entries to test
 TESTLOADS := $(shell ls -1 *.log | sed '/.log/s///' | sort)
 
-.PHONY: check coverage clean testlist listcheck savegames buildregress
-.PHONY: savecheck regress
+.PHONY: check clean testlist listcheck savegames savecheck coverage
+.PHONY: buildchecks multifile-regress tap count
 
-check: savecheck tapcheck
+check: savecheck
+	@make tap | tapview
 	@echo "=== No diff output is good news."
 	@-advent -x 2>/dev/null	# Get usage message into coverage tests
 	@-advent -l /dev/null <pitfall.log >/dev/null
-
-coverage: check
-	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
-	genhtml -o $(PARDIR)/coverage/ $(PARDIR)/advent.info
-	./coverage_dungeon.py
 
 .SUFFIXES: .chk
 
@@ -58,18 +62,7 @@ savegames:
 	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
 	@rm -f /tmp/cheat*
 
-
-# Rebuild characterizing tests
-buildregress: savegames
-	$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/regress1000saves
-	@for file in $(TESTLOADS); do \
-	    echo "Remaking $${file}.chk"; \
-	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
-	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
-	done; \
-	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
-	rm -f scratch.tmp
-
+# Force coverage of cheat edgecases
 savecheck: savegames
 	@$(ECHO) "TEST cheat: Bogus option for save file generation"
 	@$(PARDIR)/cheat -QqQ 2> /tmp/coverage_cheat_batopt | true
@@ -87,13 +80,21 @@ savecheck: savegames
 	@advent -r thousand_saves.adv < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
 	@rm -f /tmp/coverage*
 
-# The TAP filter. Only affects presentation of the test suite messages
-TAPCONSUMER=tapview
+coverage: check
+	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
+	genhtml -o $(PARDIR)/coverage/ $(PARDIR)/advent.info
+	./coverage_dungeon.py
 
-# Fall back to safety if our declared TAP consumer does not exist.
-# This is helpful in the CI environment, where it would be better for
-# the logfiles to carry the raw TAP messages. 
-TAPFILTER=$(shell command -v $(TAPCONSUMER) || echo cat)
+# Rebuild characterizing tests
+buildchecks: savegames
+	$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/regress1000saves
+	@for file in $(TESTLOADS); do \
+	    echo "Remaking $${file}.chk"; \
+	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
+	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
+	done; \
+	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
+	rm -f scratch.tmp
 
 RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
 $(RUN_TARGETS): run-regress-%: %.log
@@ -109,8 +110,5 @@ TEST_TARGETS = $(RUN_TARGETS) multifile-regress
 tap: count $(TEST_TARGETS)
 count:
 	@echo 1..$(words $(TEST_TARGETS))
-
-tapcheck:
-	@make tap | tapview
 
 # end
