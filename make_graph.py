@@ -22,8 +22,9 @@ def alldifferent(loc):
     "Select out loci related to the Maze All Alike"
     return ("DIFFERENT" in loc) or (loc == "LOC_DEADEND13")
 
-def surface(attrs):
+def surface(loc):
     "Select out surface locations"
+    attrs = location_lookup[loc]
     if ("ABOVE" in attrs["conditions"]) and attrs["conditions"]["ABOVE"]:
         return True
     if ("FOREST" in attrs["conditions"]) and attrs["conditions"]["FOREST"]:
@@ -38,8 +39,10 @@ def roomlabel(loc):
     "Generate a room label from the description, if possible"
     loc_descriptions = location_lookup[loc]['description']
     description = loc[4:]
-    short = loc_descriptions["short"]
-    maptag = loc_descriptions["maptag"]
+    longd = loc_descriptions["long"]
+    short = loc_descriptions["maptag"] or loc_descriptions["short"]
+    if short is None and longd is not None and len(longd) < 20:
+        short = loc_descriptions["long"]
     if short is not None:
         if short.startswith("You're "):
             short = short[7:]
@@ -47,21 +50,18 @@ def roomlabel(loc):
             short = short[8 :]
         if short.startswith("in ") or short.startswith("at ") or short.startswith("on "):
             short = short[3:]
+        if short.startswith("the "):
+            short = short[4:]
         if short[:3] in {"n/s", "e/w"}:
             short = short[:3].upper() + short[3:]
         elif short[:2] in {"ne", "sw", "se", "nw"}:
             short = short[:2].upper() + short[2:]
         else:
             short = short[0].upper() + short[1:]
-    elif loc_descriptions["maptag"] is not None:
-        short = loc_descriptions["maptag"]
-    elif loc_descriptions["long"] is not None and len(loc_descriptions["long"]) < 20:
-        short = loc_descriptions["long"]
-    if short is not None:
         description += "\\n" + short
     return description
 
-# A forwarder is a location tat you can't actually stop in - when you go there
+# A forwarder is a location that you can't actually stop in - when you go there
 # it ships some message (which is the point) then shifts you to a nexr location.
 # A forwarder has a zero-length array of notion verbs in its travel section.
 #
@@ -100,16 +100,16 @@ if __name__ == "__main__":
         print(e)
         sys.exit(1)
 
-    subset = "maze"
+    subset = allalike
     for (switch, val) in options:
         if switch == '-a':
-            subset = "all"
+            subset = lambda loc: True
         elif switch == '-d':
-            subset = "different"
+            subset = alldifferent
         elif switch == '-m':
-            subset = "maze"
+            subset = allalike
         elif switch == '-s':
-            subset = "surface"
+            subset = surface
         else:
             sys.stderr.write(__doc__)
             raise SystemExit(1)        
@@ -139,20 +139,14 @@ if __name__ == "__main__":
     for (loc, attrs) in db["locations"]:
         if is_forwarder(loc):
             continue
-        if subset == "surface" and not surface(attrs):
+        if not subset(loc):
             continue
-        if subset == "maze" and not allalike(loc):
-            continue;
-        if subset == "different" and not alldifferent(loc):
-            continue;
         node_label = roomlabel(loc)
         if loc in startlocs:
             node_label += "\\n" + ",".join(startlocs[loc]).lower()
         print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
         
     for (loc, attrs) in db["locations"]:        
-        if subset == "surface" and not surface(attrs):
-            continue
         travel = attrs["travel"]
         if len(travel) > 0:
             for dest in travel:
@@ -162,9 +156,7 @@ if __name__ == "__main__":
                 action = dest["action"]
                 if action[0] == "goto":
                     dest = forward(action[1])
-                    if subset == "maze" and not (allalike(loc) or allalike(dest)):
-                        continue;
-                    if subset == "different" and not (alldifferent(loc) or alldifferent(dest)):
+                    if not (subset(loc) or subset(dest)):
                         continue;
                     arc = "%s -> %s" % (loc[4:], dest[4:])
                     label=",".join(verbs).lower()

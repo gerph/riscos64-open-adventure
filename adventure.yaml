@@ -838,7 +838,7 @@ locations: !!omap
           west, and a wall of broken rock to the east.  There is a large "Y2" on
           a rock in the room's center.
       short: 'You''re at "Y2".'
-      maptag: !!null
+      maptag: "Y2."
     conditions: {DEEP: true}
     travel: [
       {verbs: [PLUGH], action: [goto, LOC_FOOF4]},
