@@ -17,17 +17,16 @@ ECHO := /bin/echo
 TESTLOADS := $(shell ls -1 *.log | sed '/.log/s///' | sort)
 
 .PHONY: check coverage clean testlist listcheck savegames buildregress
-.PHONY: savecheck regress tap count multifile-regress
+.PHONY: savecheck regress
 
-check: savegames
-	@make tap | $(TAPFILTER)
+check: savecheck tapcheck
+	@echo "=== No diff output is good news."
+	@-advent -x 2>/dev/null	# Get usage message into coverage tests
+	@-advent -l /dev/null <pitfall.log >/dev/null
 
 coverage: check
 	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
 	genhtml -o $(PARDIR)/coverage/ $(PARDIR)/advent.info
-	@-advent -x 2>/dev/null	# Get usage message into coverage tests
-	@-advent -l /dev/null <pitfall.log >/dev/null
-	make savecheck
 	./coverage_dungeon.py
 
 .SUFFIXES: .chk
@@ -43,6 +42,23 @@ listcheck:
 	    if ( head -3 $$f | grep -q '^ *##' ); then :; else echo "$$f needs a description"; fi; \
 	done
 
+# Generate bogus savegames.
+savegames:
+	@$(ECHO) "cheat: Generate save file with -900 deaths"
+	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
+	@$(ECHO) "cheat: Generate save file with -1000 deaths"
+	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
+	@$(ECHO) "cheat: Generate save file with version -1337"
+	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
+	@$(ECHO) "cheat: Generate save file 1000 saves"
+	@$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/cheat_1000saves
+	@$(ECHO) "cheat: Generate save file 1000 turns"
+	@$(PARDIR)/cheat -t -1000 -o thousand_saves.adv > /tmp/cheat_1000turns
+	@$(ECHO) "cheat: Generate save file 1000 turns"
+	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
+	@rm -f /tmp/cheat*
+
+
 # Rebuild characterizing tests
 buildregress: savegames
 	$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/regress1000saves
@@ -54,23 +70,6 @@ buildregress: savegames
 	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
 	rm -f scratch.tmp
 
-# Generate bogus savegames for coverage testing.  Needed for one test log as well 
-savegames:
-	@# Generate save file with -900 deaths
-	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
-	@# Generate save file with -1000 deaths
-	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
-	@# cheat: Generate save file with version -1337
-	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
-	@# cheat: Generate save file 1000 saves
-	@$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/cheat_1000saves
-	@# Generate save file 1000 turns
-	@$(PARDIR)/cheat -t -1000 -o thousand_saves.adv > /tmp/cheat_1000turns
-	@# cheat: Generate save file 1000 turns
-	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
-	@rm -f /tmp/cheat*
-
-# Force coverage of various edge cases
 savecheck: savegames
 	@$(ECHO) "TEST cheat: Bogus option for save file generation"
 	@$(PARDIR)/cheat -QqQ 2> /tmp/coverage_cheat_batopt | true
@@ -110,5 +109,8 @@ TEST_TARGETS = $(RUN_TARGETS) multifile-regress
 tap: count $(TEST_TARGETS)
 count:
 	@echo 1..$(words $(TEST_TARGETS))
+
+tapcheck:
+	@make tap | tapview
 
 # end
