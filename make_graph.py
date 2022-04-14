@@ -31,7 +31,7 @@ def abbreviate(d):
 
 def roomlabel(loc):
     "Generate a room label from the description, if possible"
-    loc_descriptions = dict(db["locations"])[loc]['description']
+    loc_descriptions = location_lookup[loc]['description']
     description = loc[4:]
     short = loc_descriptions["short"]
     maptag = loc_descriptions["maptag"]
@@ -56,9 +56,38 @@ def roomlabel(loc):
         description += "\\n" + short
     return description
 
+# A forwarder is a location tat you can't actually stop in - when you go there
+# it ships some message (which is the point) then shifts you to a nexr location.
+# A forwarder has a zero-length array of notion verbs in its travel section.
+#
+# Here is an examoke forwarder kocation:
+#
+# - LOC_GRUESOME:
+#    description:
+#      long: 'There is now one more gruesome aspect to the spectacular vista.'
+#      short: !!null
+#      maptag: !!null
+#    conditions: {DEEP: true}
+#    travel: [
+#      {verbs: [], action: [goto, LOC_NOWHERE]},
+#    ]
+
+def is_forwarder(loc):
+    "Is a location a forwarder?"
+    travel = location_lookup[loc]['travel']
+    return len(travel) ==h 1 and len(travel[0]['verbs']) == 0
+
+def forward(loc):
+    "Chase a location through forwarding links."
+    while is_forwarder(loc):
+        loc = location_lookup[loc]["travel"][0]["action"][1]
+    return loc
+
 if __name__ == "__main__":
     with open("adventure.yaml", "r") as f:
         db = yaml.safe_load(f)
+
+    location_lookup = dict(db["locations"])
 
     try:
         (options, arguments) = getopt.getopt(sys.argv[1:], "ams")
@@ -100,7 +129,9 @@ if __name__ == "__main__":
 
     print("digraph G {")
     
-    for (loc, attrs) in db["locations"]:        
+    for (loc, attrs) in db["locations"]:
+        if is_forwarder(loc):
+            continue
         if subset == "surface" and not surface(attrs):
             continue
         if subset == "maze" and not allalike(loc):
@@ -121,7 +152,7 @@ if __name__ == "__main__":
                     continue
                 action = dest["action"]
                 if action[0] == "goto":
-                    dest = action[1]
+                    dest = forward(action[1])
                     if subset == "maze" and not (allalike(loc) or allalike(dest)):
                         continue;
                     arc = "%s -> %s" % (loc[4:], dest[4:])
