@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """\
-usage: make-graph.py [-a] [-m] [-s]
+usage: make-graph.py [-a] -d] [-m] [-s]
 
-Make a DOT graph of Colossal Cave
+Make a DOT graph of Colossal Cave.
 
 -a = emit graph of entire dungeon
+-d = emit graoh of mazw all different
 -m = emit graph of maze all alike
 -s = emit graph of surface locations
 """
@@ -16,6 +17,10 @@ import sys, yaml, getopt
 def allalike(loc):
     "Select out loci related to the Maze All Alike"
     return ("ALIKE" in loc) or (loc == "LOC_PITBRINK") or ("MAZEEND" in loc) or ("STALACTITE" in loc)
+
+def alldifferent(loc):
+    "Select out loci related to the Maze All Alike"
+    return ("DIFFERENT" in loc) or (loc == "LOC_DEADEND13")
 
 def surface(attrs):
     "Select out surface locations"
@@ -75,7 +80,7 @@ def roomlabel(loc):
 def is_forwarder(loc):
     "Is a location a forwarder?"
     travel = location_lookup[loc]['travel']
-    return len(travel) ==h 1 and len(travel[0]['verbs']) == 0
+    return len(travel) == 1 and len(travel[0]['verbs']) == 0
 
 def forward(loc):
     "Chase a location through forwarding links."
@@ -90,7 +95,7 @@ if __name__ == "__main__":
     location_lookup = dict(db["locations"])
 
     try:
-        (options, arguments) = getopt.getopt(sys.argv[1:], "ams")
+        (options, arguments) = getopt.getopt(sys.argv[1:], "adms")
     except getopt.GetoptError as e:
         print(e)
         sys.exit(1)
@@ -99,6 +104,8 @@ if __name__ == "__main__":
     for (switch, val) in options:
         if switch == '-a':
             subset = "all"
+        elif switch == '-d':
+            subset = "different"
         elif switch == '-m':
             subset = "maze"
         elif switch == '-s':
@@ -136,6 +143,8 @@ if __name__ == "__main__":
             continue
         if subset == "maze" and not allalike(loc):
             continue;
+        if subset == "different" and not alldifferent(loc):
+            continue;
         node_label = roomlabel(loc)
         if loc in startlocs:
             node_label += "\\n" + ",".join(startlocs[loc]).lower()
@@ -155,9 +164,13 @@ if __name__ == "__main__":
                     dest = forward(action[1])
                     if subset == "maze" and not (allalike(loc) or allalike(dest)):
                         continue;
+                    if subset == "different" and not (alldifferent(loc) or alldifferent(dest)):
+                        continue;
                     arc = "%s -> %s" % (loc[4:], dest[4:])
                     label=",".join(verbs).lower()
                     if len(label) > 0:
                         arc += ' [label="%s"]' % label
                     print("    " + arc)
     print("}")
+
+# end
