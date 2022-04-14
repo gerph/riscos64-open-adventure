@@ -1,6 +1,6 @@
 = Open Adventure project news =
 
-Repository head::
+1.11: 2022-04-14::
   Restore 100% test coverage.
   Use TAP reporting for tests.
 
