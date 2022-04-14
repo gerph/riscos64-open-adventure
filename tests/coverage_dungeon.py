@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
+"""
+This is the open-adventure dungeon text coverage report generator. It
+consumes a YAML description of the dungeon and determines whether the
+various strings contained are present within the test check files.
 
-# This is the open-adventure dungeon text coverage report generator. It
-# consumes a YAML description of the dungeon and determines whether the
-# various strings contained are present within the test check files.
-#
-# The default HTML output is appropriate for use with Gitlab CI.
-# You can override it with a command-line argument.
-#
-# The DANGLING list is for actions that should be considered always found
-# even if the checkfile search doesn't find them. Typically this will because
-# they emit a templated message that can't be regression-tested by equality.
+The default HTML output is appropriate for use with Gitlab CI.
+You can override it with a command-line argument.
+
+The DANGLING list is for actions that should be considered always found
+even if the checkfile search doesn't find them. Typically this will because
+they emit a templated message that can't be regression-tested by equality.
+"""
 
 import os
 import sys
-import yaml
 import re
+import yaml
 
 TEST_DIR = "."
 YAML_PATH = "../adventure.yaml"
@@ -63,11 +64,11 @@ def search(needle, haystack):
     # Search for needle in haystack, first escaping needle for regex, then
     # replacing %s, %d, etc. with regex wildcards, so the variable messages
     # within the dungeon definition will actually match
-        
-    if needle == None or needle == "" or needle == "NO_MESSAGE":
+
+    if needle is None or needle == "" or needle == "NO_MESSAGE":
         # if needle is empty, assume we're going to find an empty string
         return True
-    
+
     needle_san = re.escape(needle) \
              .replace("\\n", "\n") \
              .replace("\\t", "\t") \
@@ -80,7 +81,7 @@ def search(needle, haystack):
 
 def obj_coverage(objects, text, report):
     # objects have multiple descriptions based on state
-    for i, objouter in enumerate(objects):
+    for _, objouter in enumerate(objects):
         (obj_name, obj) = objouter
         if obj["descriptions"]:
             for j, desc in enumerate(obj["descriptions"]):
@@ -88,7 +89,7 @@ def obj_coverage(objects, text, report):
                 if name not in report["messages"]:
                     report["messages"][name] = {"covered" : False}
                     report["total"] += 1
-                if report["messages"][name]["covered"] != True and search(desc, text):
+                if not report["messages"][name]["covered"] and search(desc, text):
                     report["messages"][name]["covered"] = True
                     report["covered"] += 1
 
@@ -100,26 +101,26 @@ def loc_coverage(locations, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"long" : False, "short": False}
             report["total"] += 2
-        if report["messages"][name]["long"] != True and search(desc["long"], text):
+        if not report["messages"][name]["long"] and search(desc["long"], text):
             report["messages"][name]["long"] = True
             report["covered"] += 1
-        if report["messages"][name]["short"] != True and search(desc["short"], text):
+        if not report["messages"][name]["short"] and search(desc["short"], text):
             report["messages"][name]["short"] = True
             report["covered"] += 1
 
 def hint_coverage(obituaries, text, report):
     # hints have a "question" where the hint is offered, followed
     # by the actual hint if the player requests it
-    for i, hintouter in enumerate(obituaries):
+    for _, hintouter in enumerate(obituaries):
         hint = hintouter["hint"]
         name = hint["name"]
         if name not in report["messages"]:
             report["messages"][name] = {"question" : False, "hint": False}
             report["total"] += 2
-        if report["messages"][name]["question"] != True and search(hint["question"], text):
+        if not report["messages"][name]["question"] and search(hint["question"], text):
             report["messages"][name]["question"] = True
             report["covered"] += 1
-        if report["messages"][name]["hint"] != True and search(hint["hint"], text):
+        if not report["messages"][name]["hint"] and search(hint["hint"], text):
             report["messages"][name]["hint"] = True
             report["covered"] += 1
 
@@ -130,10 +131,10 @@ def obit_coverage(obituaries, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"query" : False, "yes_response": False}
             report["total"] += 2
-        if report["messages"][name]["query"] != True and search(obit["query"], text):
+        if not report["messages"][name]["query"] and search(obit["query"], text):
             report["messages"][name]["query"] = True
             report["covered"] += 1
-        if report["messages"][name]["yes_response"] != True and search(obit["yes_response"], text):
+        if not report["messages"][name]["yes_response"] and search(obit["yes_response"], text):
             report["messages"][name]["yes_response"] = True
             report["covered"] += 1
 
@@ -144,7 +145,7 @@ def threshold_coverage(classes, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"covered" : "False"}
             report["total"] += 1
-        if report["messages"][name]["covered"] != True and search(item["message"], text):
+        if not report["messages"][name]["covered"] and search(item["message"], text):
             report["messages"][name]["covered"] = True
             report["covered"] += 1
 
@@ -153,7 +154,7 @@ def arb_coverage(arb_msgs, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"covered" : False}
             report["total"] += 1
-        if report["messages"][name]["covered"] != True and search(message, text):
+        if not report["messages"][name]["covered"] and search(message, text):
             report["messages"][name]["covered"] = True
             report["covered"] += 1
 
@@ -163,7 +164,7 @@ def actions_coverage(items, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"covered" : False}
             report["total"] += 1
-        if report["messages"][name]["covered"] != True and (search(item["message"], text) or name in DANGLING):
+        if not report["messages"][name]["covered"] and (search(item["message"], text) or name in DANGLING):
             report["messages"][name]["covered"] = True
             report["covered"] += 1
 
@@ -199,8 +200,8 @@ if __name__ == "__main__":
         with open(YAML_PATH, "r") as f:
             db = yaml.safe_load(f)
     except IOError as e:
-        print('ERROR: could not load {} ({}})'.format(YAML_PATH, e.strerror))
-        exit(-1)
+        print('ERROR: could not load %s (%s)' % (YAML_PATH, e.strerror))
+        sys.exit(-1)
 
     # get contents of all the check files
     check_file_contents = []
@@ -235,7 +236,7 @@ if __name__ == "__main__":
             for message_id, covered in cat_messages:
                 category_html_row = ""
                 for key, value in covered.items():
-                    category_html_row += HTML_CATEGORY_COVERAGE_CELL.format("uncovered" if value != True else "covered")
+                    category_html_row += HTML_CATEGORY_COVERAGE_CELL.format("uncovered" if not value else "covered")
                 category_html += HTML_CATEGORY_ROW.format(id=message_id,colspan=colspan, cells=category_html_row)
             categories_html += HTML_CATEGORY_SECTION.format(id=name, rows=category_html)
 
@@ -258,7 +259,7 @@ if __name__ == "__main__":
             html_template = f.read()
     except IOError as e:
         print('ERROR: reading HTML report template failed ({})'.format(e.strerror))
-        exit(-1)
+        sys.exit(-1)
 
     # parse template with report and write it out
     try:

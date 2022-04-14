@@ -12,7 +12,7 @@ Make a DOT graph of Colossal Cave.
 # Copyright (c) 2017 by Eric S. Raymond
 # SPDX-License-Identifier: BSD-2-clause
 
-import sys, yaml, getopt
+import sys, getopt, yaml
 
 def allalike(loc):
     "Select out loci related to the Maze All Alike"
@@ -112,7 +112,7 @@ if __name__ == "__main__":
             subset = surface
         else:
             sys.stderr.write(__doc__)
-            raise SystemExit(1)        
+            raise SystemExit(1)
 
     startlocs = {}
     for obj in db["objects"]:
@@ -135,7 +135,7 @@ if __name__ == "__main__":
                 startlocs[location] = [objname]
 
     print("digraph G {")
-    
+
     for (loc, attrs) in db["locations"]:
         if is_forwarder(loc):
             continue
@@ -145,8 +145,8 @@ if __name__ == "__main__":
         if loc in startlocs:
             node_label += "\\n" + ",".join(startlocs[loc]).lower()
         print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
-        
-    for (loc, attrs) in db["locations"]:        
+
+    for (loc, attrs) in db["locations"]:
         travel = attrs["travel"]
         if len(travel) > 0:
             for dest in travel:
@@ -157,7 +157,7 @@ if __name__ == "__main__":
                 if action[0] == "goto":
                     dest = forward(action[1])
                     if not (subset(loc) or subset(dest)):
-                        continue;
+                        continue
                     arc = "%s -> %s" % (loc[4:], dest[4:])
                     label=",".join(verbs).lower()
                     if len(label) > 0:

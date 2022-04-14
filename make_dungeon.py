@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
+"""
+This is the open-adventure dungeon generator. It consumes a YAML description of
+the dungeon and outputs a dungeon.h and dungeon.c pair of C code files.
 
-# This is the open-adventure dungeon generator. It consumes a YAML description of
-# the dungeon and outputs a dungeon.h and dungeon.c pair of C code files.
-#
-# The nontrivial part of this is the compilation of the YAML for
-# movement rules to the travel array that's actually used by
-# playermove().
-#
-# Copyright (c) 2017 by Eric S. Raymond
-# SPDX-License-Identifier: BSD-2-clause
+The nontrivial part of this is the compilation of the YAML for
+movement rules to the travel array that's actually used by
+playermove().
 
+Copyright (c) 2017 by Eric S. Raymond
+SPDX-License-Identifier: BSD-2-clause
+"""
 import sys, yaml
 
 YAML_NAME = "adventure.yaml"
@@ -24,7 +24,7 @@ statedefines = ""
 
 def make_c_string(string):
     """Render a Python string into C string literal format."""
-    if string == None:
+    if string is None:
         return "NULL"
     string = string.replace("\n", "\\n")
     string = string.replace("\t", "\\t")
@@ -143,7 +143,7 @@ def get_objects(obj):
             words_str = get_string_group([])
         i_msg = make_c_string(attr["inventory"])
         descriptions_str = ""
-        if attr["descriptions"] == None:
+        if attr["descriptions"] is None:
             descriptions_str = " " * 12 + "NULL,"
         else:
             labels = []
@@ -159,30 +159,30 @@ def get_objects(obj):
                     statedefines += "#define %s\t%d\n" % (label, n)
                 statedefines += "\n"
         sounds_str = ""
-        if attr.get("sounds") == None:
+        if attr.get("sounds") is None:
             sounds_str = " " * 12 + "NULL,"
         else:
-             for l_msg in attr["sounds"]:
-                 sounds_str += " " * 12 + make_c_string(l_msg) + ",\n"
-             sounds_str = sounds_str[:-1] # trim trailing newline
+            for l_msg in attr["sounds"]:
+                sounds_str += " " * 12 + make_c_string(l_msg) + ",\n"
+            sounds_str = sounds_str[:-1] # trim trailing newline
         texts_str = ""
-        if attr.get("texts") == None:
+        if attr.get("texts") is None:
             texts_str = " " * 12 + "NULL,"
         else:
-             for l_msg in attr["texts"]:
-                 texts_str += " " * 12 + make_c_string(l_msg) + ",\n"
-             texts_str = texts_str[:-1] # trim trailing newline
+            for l_msg in attr["texts"]:
+                texts_str += " " * 12 + make_c_string(l_msg) + ",\n"
+            texts_str = texts_str[:-1] # trim trailing newline
         changes_str = ""
-        if attr.get("changes") == None:
+        if attr.get("changes") is None:
             changes_str = " " * 12 + "NULL,"
         else:
-             for l_msg in attr["changes"]:
-                 changes_str += " " * 12 + make_c_string(l_msg) + ",\n"
-             changes_str = changes_str[:-1] # trim trailing newline
+            for l_msg in attr["changes"]:
+                changes_str += " " * 12 + make_c_string(l_msg) + ",\n"
+            changes_str = changes_str[:-1] # trim trailing newline
         locs = attr.get("locations", ["LOC_NOWHERE", "LOC_NOWHERE"])
         immovable = attr.get("immovable", False)
         try:
-            if type(locs) == str:
+            if isinstance(locs, str):
                 locs = [locs, -1 if immovable else 0]
         except IndexError:
             sys.stderr.write("dungeon: unknown object location in %s\n" % locs)
@@ -255,13 +255,13 @@ def get_motions(motions):
     mot_str = ""
     for motion in motions:
         contents = motion[1]
-        if contents["words"] == None:
+        if contents["words"] is None:
             words_str = get_string_group([])
         else:
             words_str = get_string_group(contents["words"])
         mot_str += template.format(words_str)
         global ignore
-        if contents.get("oldstyle", True) == False:
+        if not contents.get("oldstyle", True):
             for word in contents["words"]:
                 if len(word) == 1:
                     ignore += word.upper()
@@ -278,24 +278,24 @@ def get_actions(actions):
     for action in actions:
         contents = action[1]
 
-        if contents["words"] == None:
+        if contents["words"] is None:
             words_str = get_string_group([])
         else:
             words_str = get_string_group(contents["words"])
 
-        if contents["message"] == None:
+        if contents["message"] is None:
             message = "NULL"
         else:
             message = make_c_string(contents["message"])
 
-        if contents.get("noaction") == None:
+        if contents.get("noaction") is None:
             noaction = "false"
         else:
             noaction = "true"
 
         act_str += template.format(words_str, message, noaction)
         global ignore
-        if contents.get("oldstyle", True) == False:
+        if not contents.get("oldstyle", True):
             for word in contents["words"]:
                 if len(word) == 1:
                     ignore += word.upper()
@@ -304,7 +304,7 @@ def get_actions(actions):
 
 def bigdump(arr):
     out = ""
-    for (i, entry) in enumerate(arr):
+    for (i, _) in enumerate(arr):
         if i % 10 == 0:
             if out and out[-1] == ' ':
                 out = out[:-1]
@@ -374,6 +374,7 @@ def buildtravel(locs, objs):
                 return locnames.index(action[1])
             except ValueError:
                 sys.stderr.write("dungeon: unknown location %s in goto clause of %s\n" % (action[1], name))
+                raise ValueError
         elif action[0] == "special":
             return 300 + action[1]
         elif action[0] == "speak":
@@ -384,10 +385,11 @@ def buildtravel(locs, objs):
         else:
             print(cond)
             raise ValueError
+        return ''	# Pacify pylint
     def cencode(cond, name):
         if cond is None:
             return 0
-        elif cond == ["nodwarves"]:
+        if cond == ["nodwarves"]:
             return 100
         elif cond[0] == "pct":
             return cond[1]
@@ -401,24 +403,24 @@ def buildtravel(locs, objs):
             try:
                 return 200 + objnames.index(cond[1])
             except IndexError:
-                sys.stderr.write("dungeon: unknown object name %s in with clause of \n" % (cond[1], name))
+                sys.stderr.write("dungeon: unknown object name %s in with clause of %s\n" % (cond[1], name))
                 sys.exit(1)
         elif cond[0] == "not":
             try:
                 obj = objnames.index(cond[1])
-                if type(cond[2]) == int:
+                if isinstance(cond[2], int):
                     state = cond[2]
                 elif cond[2] in objs[obj][1].get("states", []):
                     state = objs[obj][1].get("states").index(cond[2])
                 else:
                     for (i, stateclause) in enumerate(objs[obj][1]["descriptions"]):
-                        if type(stateclause) == list:
+                        if isinstance(stateclause, list):
                             if stateclause[0] == cond[2]:
                                 state = i
                                 break
                     else:
                         sys.stderr.write("dungeon: unmatched state symbol %s in not clause of %s\n" % (cond[2], name))
-                        sys.exit(0);
+                        sys.exit(0)
                 return 300 + obj + 100 * state
             except ValueError:
                 sys.stderr.write("dungeon: unknown object name %s in not clause of %s\n" % (cond[1], name))
@@ -451,9 +453,9 @@ def buildtravel(locs, objs):
         newloc = rule.pop(0)
         if loc != oldloc:
             tkey.append(len(travel))
-            oldloc = loc 
+            oldloc = loc
         elif travel:
-            travel[-1][-1] = "false" if travel[-1][-1] == "true" else "true" 
+            travel[-1][-1] = "false" if travel[-1][-1] == "true" else "true"
         while rule:
             cond = newloc // 1000
             nodwarves = (cond == 100)
@@ -482,13 +484,13 @@ def buildtravel(locs, objs):
                 condarg2 = (cond - 300) // 100.
             dest = newloc % 1000
             if dest <= 300:
-                desttype = "dest_goto";
+                desttype = "dest_goto"
                 destval = locnames[dest]
             elif dest > 500:
-                desttype = "dest_speak";
+                desttype = "dest_speak"
                 destval = msgnames[dest - 500]
             else:
-                desttype = "dest_special";
+                desttype = "dest_special"
                 destval = locnames[dest - 300]
             travel.append([len(tkey)-1,
                            locnames[len(tkey)-1],
@@ -542,7 +544,7 @@ if __name__ == "__main__":
             c_template = DONOTEDIT_COMMENT + ctf.read()
     except IOError as e:
         print('ERROR: reading template failed ({})'.format(e.strerror))
-        exit(-1)
+        sys.exit(-1)
 
     c = c_template.format(
         h_file             = H_NAME,
@@ -557,7 +559,7 @@ if __name__ == "__main__":
         motions            = get_motions(db["motions"]),
         actions            = get_actions(db["actions"]),
         tkeys              = bigdump(tkey),
-        travel             = get_travel(travel), 
+        travel             = get_travel(travel),
         ignore             = ignore
     )
 
