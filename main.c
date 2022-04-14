@@ -107,14 +107,14 @@ int main(int argc, char *argv[])
 
 #ifndef ADVENT_NOSAVE
     if (!rfp) {
-        game.novice = yes(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
+        game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
         if (game.novice)
             game.limit = NOVICELIMIT;
     } else {
         restore(rfp);
     }
 #else
-    game.novice = yes(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
+    game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
     if (game.novice)
         game.limit = NOVICELIMIT;
 #endif
@@ -261,10 +261,10 @@ static void checkhints(void)
 
                 /* Fall through to hint display */
                 game.hintlc[hint] = 0;
-                if (!yes(hints[hint].question, arbitrary_messages[NO_MESSAGE], arbitrary_messages[OK_MAN]))
+                if (!yes_or_no(hints[hint].question, arbitrary_messages[NO_MESSAGE], arbitrary_messages[OK_MAN]))
                     return;
                 rspeak(HINT_COST, hints[hint].penalty, hints[hint].penalty);
-                game.hinted[hint] = yes(arbitrary_messages[WANT_HINT], hints[hint].hint, arbitrary_messages[OK_MAN]);
+                game.hinted[hint] = yes_or_no(arbitrary_messages[WANT_HINT], hints[hint].hint, arbitrary_messages[OK_MAN]);
                 if (game.hinted[hint] && game.limit > WARNTIME)
                     game.limit += WARNTIME * hints[hint].penalty;
             }
@@ -519,7 +519,7 @@ static void croak(void)
          *  death and exit. */
         rspeak(DEATH_CLOSING);
         terminate(endgame);
-    } else if (!yes(query, yes_response, arbitrary_messages[OK_MAN])
+    } else if (!yes_or_no(query, yes_response, arbitrary_messages[OK_MAN])
                || game.numdie == NDEATHS) {
         /* Player is asked if he wants to try again. If not, or if 
          * he's already used all of his lives, we end the game */

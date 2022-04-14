@@ -68,7 +68,7 @@ int suspend(void)
     FILE *fp = NULL;
 
     rspeak(SUSPEND_WARNING);
-    if (!yes(arbitrary_messages[THIS_ACCEPTABLE], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
+    if (!yes_or_no(arbitrary_messages[THIS_ACCEPTABLE], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
         return GO_CLEAROBJ;
     game.saved = game.saved + 5;
 
@@ -101,7 +101,7 @@ int resume(void)
     if (game.loc != 1 ||
         game.abbrev[1] != 1) {
         rspeak(RESUME_ABANDON);
-        if (!yes(arbitrary_messages[THIS_ACCEPTABLE], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
+        if (!yes_or_no(arbitrary_messages[THIS_ACCEPTABLE], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
             return GO_CLEAROBJ;
     }
 

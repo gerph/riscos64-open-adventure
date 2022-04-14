@@ -246,7 +246,7 @@ static char* get_input(void)
     return (input);
 }
 
-bool silent_yes(void)
+bool silent_yes_or_no(void)
 {
     bool outcome = false;
 
@@ -295,7 +295,7 @@ bool silent_yes(void)
 }
 
 
-bool yes(const char* question, const char* yes_response, const char* no_response)
+bool yes_or_no(const char* question, const char* yes_response, const char* no_response)
 /*  Print message X, wait for yes/no answer.  If yes, print Y and return true;
  *  if no, print Z and return false. */
 {

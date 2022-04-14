@@ -111,7 +111,7 @@ static phase_codes_t attack(command_t command)
          *  fixed), move rug there (not fixed), and move him there,
          *  too.  Then do a null motion to get new description. */
         rspeak(BARE_HANDS_QUERY);
-        if (!silent_yes()) {
+        if (!silent_yes_or_no()) {
             speak(arbitrary_messages[NASTY_DRAGON]);
             return GO_MOVE;
         }
@@ -1096,7 +1096,7 @@ static phase_codes_t pour(verb_t verb, obj_t obj)
 static phase_codes_t quit(void)
 /*  Quit.  Intransitive only.  Verify intent and exit if that's what he wants. */
 {
-    if (yes(arbitrary_messages[REALLY_QUIT], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
+    if (yes_or_no(arbitrary_messages[REALLY_QUIT], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
         terminate(quitgame);
     return GO_CLEAROBJ;
 }
@@ -1122,8 +1122,8 @@ static phase_codes_t read(command_t command)
 	if (!TOTING(OYSTER) || !game.closed) {
 	    rspeak(DONT_UNDERSTAND);
 	} else if (!game.clshnt) {
-	    game.clshnt = yes(arbitrary_messages[CLUE_QUERY], arbitrary_messages[WAYOUT_CLUE], arbitrary_messages[OK_MAN]);
-	} else if (game.clshnt) {
+	    game.clshnt = yes_or_no(arbitrary_messages[CLUE_QUERY], arbitrary_messages[WAYOUT_CLUE], arbitrary_messages[OK_MAN]);
+	} else {
 	    pspeak(OYSTER, hear, true, 1);	// Not really a sound, but oh well.
 	}
     } else if (objects[command.obj].texts[0] == NULL ||
@@ -1204,7 +1204,7 @@ static phase_codes_t throw_support(vocab_t spk)
     return GO_MOVE;
 }
 
-static phase_codes_t throw (command_t command)
+static phase_codes_t throwit(command_t command)
 /*  Throw.  Same as discard unless axe.  Then same as attack except
  *  ignore bird, and if dwarf is present then one might be killed.
  *  (Only way to do so!)  Axe also special for dragon, bear, and
@@ -1539,7 +1539,7 @@ phase_codes_t action(command_t command)
         case RUB:
             return rub(command.verb, command.obj);
         case THROW:
-            return throw (command);
+            return throwit(command);
         case QUIT: {
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
