@@ -189,7 +189,7 @@ static phase_codes_t attack(command_t command)
 static phase_codes_t bigwords(vocab_t id)
 /* Only called on FEE FIE FOE FOO (AND FUM).  Advance to next state if given
  * in proper order. Look up foo in special section of vocab to determine which
- * word we've got. Last word zips the eggs back to the giant room (unless 
+ * word we've got. Last word zips the eggs back to the giant room (unless
  * already there). */
 {
     if ((game.foobar == WORD_EMPTY && id == FEE) ||
@@ -207,8 +207,8 @@ static phase_codes_t bigwords(vocab_t id)
             (TOTING(EGGS) && game.loc == objects[EGGS].plac)) {
             rspeak(NOTHING_HAPPENS);
             return GO_CLEAROBJ;
-	} else if (id == FUM) {
-	    goto fum;
+        } else if (id == FUM) {
+            goto fum;
         } else {
             /*  Bring back troll if we steal the eggs back from him before
              *  crossing. */
@@ -225,7 +225,7 @@ static phase_codes_t bigwords(vocab_t id)
             return GO_CLEAROBJ;
         }
     } else {
-    fum:
+fum:
         if (game.loc == LOC_GIANTROOM) {
             rspeak(START_OVER);
         } else {
@@ -851,19 +851,19 @@ static phase_codes_t fly(verb_t verb, obj_t obj)
     }
 
     if (game.loc == LOC_CLIFF) {
-	game.oldlc2 = game.oldloc;
-	game.oldloc = game.loc;
+        game.oldlc2 = game.oldloc;
+        game.oldloc = game.loc;
         game.newloc = LOC_LEDGE;
         rspeak(RUG_GOES);
     } else if (game.loc == LOC_LEDGE) {
-	game.oldlc2 = game.oldloc;
-	game.oldloc = game.loc;
+        game.oldlc2 = game.oldloc;
+        game.oldloc = game.loc;
         game.newloc = LOC_CLIFF;
         rspeak(RUG_RETURNS);
     } else {
 // LCOV_EXCL_START
-	/* should never happen */
-	rspeak(NOTHING_HAPPENS);
+        /* should never happen */
+        rspeak(NOTHING_HAPPENS);
 // LCOV_EXCL_STOP
     }
     return GO_TERMINATE;
@@ -959,7 +959,7 @@ static phase_codes_t listen(void)
         soundlatch = true;
     }
     if (!soundlatch)
-	rspeak(ALL_SILENT);
+        rspeak(ALL_SILENT);
     return GO_CLEAROBJ;
 }
 
@@ -1012,7 +1012,7 @@ static phase_codes_t lock(verb_t verb, obj_t obj)
         if (verb == LOCK)
             rspeak(HUH_MAN);
         else if (TOTING(CLAM))
-	    rspeak(DROP_CLAM);
+            rspeak(DROP_CLAM);
         else if (!TOTING(TRIDENT))
             rspeak(CLAM_OPENER);
         else {
@@ -1119,13 +1119,13 @@ static phase_codes_t read(command_t command)
     if (DARK(game.loc)) {
         sspeak(NO_SEE, command.word[0].raw);
     } else if (command.obj == OYSTER) {
-	if (!TOTING(OYSTER) || !game.closed) {
-	    rspeak(DONT_UNDERSTAND);
-	} else if (!game.clshnt) {
-	    game.clshnt = yes_or_no(arbitrary_messages[CLUE_QUERY], arbitrary_messages[WAYOUT_CLUE], arbitrary_messages[OK_MAN]);
-	} else {
-	    pspeak(OYSTER, hear, true, 1);	// Not really a sound, but oh well.
-	}
+        if (!TOTING(OYSTER) || !game.closed) {
+            rspeak(DONT_UNDERSTAND);
+        } else if (!game.clshnt) {
+            game.clshnt = yes_or_no(arbitrary_messages[CLUE_QUERY], arbitrary_messages[WAYOUT_CLUE], arbitrary_messages[OK_MAN]);
+        } else {
+            pspeak(OYSTER, hear, true, 1);	// Not really a sound, but oh well.
+        }
     } else if (objects[command.obj].texts[0] == NULL ||
                game.prop[command.obj] == STATE_NOTFOUND) {
         speak(actions[command.verb].message);
@@ -1368,7 +1368,7 @@ phase_codes_t action(command_t command)
         else if (command.obj == DWARF && atdwrf(game.loc) > 0)
             /* FALL THROUGH */;
         else if (!game.closed && ((LIQUID() == command.obj && HERE(BOTTLE)) ||
-				 command.obj == LIQLOC(game.loc)))
+                                  command.obj == LIQLOC(game.loc)))
             /* FALL THROUGH */;
         else if (command.obj == OIL && HERE(URN) && game.prop[URN] != URN_EMPTY) {
             command.obj = URN;

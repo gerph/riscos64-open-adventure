@@ -107,9 +107,9 @@ int resume(void)
 
     while (fp == NULL) {
         char* name = myreadline("\nFile name: ");
-	// Autocomplete can leave the input with an extra trailing space.
-	if (name != NULL && strlen(name) > 0 && name[strlen(name) - 1] == ' ')
-	    name[strlen(name) - 1] = '\0';
+        // Autocomplete can leave the input with an extra trailing space.
+        if (name != NULL && strlen(name) > 0 && name[strlen(name) - 1] == ' ')
+            name[strlen(name) - 1] = '\0';
         if (name == NULL)
             return GO_TOP;
         fp = fopen(name, READ_MODE);

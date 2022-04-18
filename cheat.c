@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 }
 
 // LCOV_EXCL_START
-/* 
+/*
  * Ugh...unused, but required for linkage.
  * See the actually useful version of this in main.c
  */

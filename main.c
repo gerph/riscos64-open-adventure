@@ -140,42 +140,42 @@ char *myreadline(const char *prompt)
 {
     /*
      * This function isbn't required for gameplay, readline() straight
-     * up would suffice for tat.  It's where we interpret command-line 
+     * up would suffice for tat.  It's where we interpret command-line
      * logfiles for testing purposes.
      */
     /* Normal case - no script arguments */
     if (settings.argc == 0)
-	return readline(prompt);
+        return readline(prompt);
 
-    char *buf = malloc(LINESIZE+1);
+    char *buf = malloc(LINESIZE + 1);
     for (;;) {
-	if (settings.scriptfp == NULL || feof(settings.scriptfp)) {
-	    if (settings.optind >= settings.argc) {
-		free(buf);
-		return NULL;
-	    }
+        if (settings.scriptfp == NULL || feof(settings.scriptfp)) {
+            if (settings.optind >= settings.argc) {
+                free(buf);
+                return NULL;
+            }
 
-	    char *next = settings.argv[settings.optind++];
-	
-	    if (settings.scriptfp != NULL && feof(settings.scriptfp))
-		fclose(settings.scriptfp);
-	    if (strcmp(next, "-") == 0)
-		settings.scriptfp = stdin; // LCOV_EXCL_LINE
-	    else
-		settings.scriptfp = fopen(next, "r");
-	}
+            char *next = settings.argv[settings.optind++];
 
-	if (isatty(fileno(settings.scriptfp))) {
-	    free(buf); // LCOV_EXCL_LINE
-	    return readline(prompt); // LCOV_EXCL_LINE
-	} else {
-	    char *ln = fgets(buf, LINESIZE, settings.scriptfp);
-	    if (ln != NULL) {
-		fputs(PROMPT, stdout);
-		fputs(ln, stdout);
-		return ln;
-	    }
-	}
+            if (settings.scriptfp != NULL && feof(settings.scriptfp))
+                fclose(settings.scriptfp);
+            if (strcmp(next, "-") == 0)
+                settings.scriptfp = stdin; // LCOV_EXCL_LINE
+            else
+                settings.scriptfp = fopen(next, "r");
+        }
+
+        if (isatty(fileno(settings.scriptfp))) {
+            free(buf); // LCOV_EXCL_LINE
+            return readline(prompt); // LCOV_EXCL_LINE
+        } else {
+            char *ln = fgets(buf, LINESIZE, settings.scriptfp);
+            if (ln != NULL) {
+                fputs(PROMPT, stdout);
+                fputs(ln, stdout);
+                return ln;
+            }
+        }
     }
 
     return NULL;
@@ -255,7 +255,7 @@ static void checkhints(void)
                     game.hintlc[hint] = 0;
                     return;
                 default: // LCOV_EXCL_LINE
-		    // Should never hap[pen
+                    // Should never hap[pen
                     BUG(HINT_NUMBER_EXCEEDS_GOTO_LIST); // LCOV_EXCL_LINE
                 }
 
@@ -521,12 +521,12 @@ static void croak(void)
         terminate(endgame);
     } else if (!yes_or_no(query, yes_response, arbitrary_messages[OK_MAN])
                || game.numdie == NDEATHS) {
-        /* Player is asked if he wants to try again. If not, or if 
+        /* Player is asked if he wants to try again. If not, or if
          * he's already used all of his lives, we end the game */
         terminate(endgame);
     } else {
-        /* If player wishes to continue, we empty the liquids in the 
-         * user's inventory, turn off the lamp, and drop all items 
+        /* If player wishes to continue, we empty the liquids in the
+         * user's inventory, turn off the lamp, and drop all items
          * where he died. */
         game.place[WATER] = game.place[OIL] = LOC_NOWHERE;
         if (TOTING(LAMP))
@@ -542,11 +542,11 @@ static void croak(void)
     }
 }
 
-static void describe_location(void) 
+static void describe_location(void)
 /* Describe the location to the user */
 {
     const char* msg = locations[game.loc].description.small;
-    
+
     if (MOD(game.abbrev[game.loc], game.abbnum) == 0 ||
         msg == NO_MESSAGE)
         msg = locations[game.loc].description.big;
@@ -559,7 +559,7 @@ static void describe_location(void)
         rspeak(TAME_BEAR);
 
     speak(msg);
-    
+
     if (game.loc == LOC_Y2 && PCT(25) && !game.closng)
         rspeak(SAYS_PLUGH);
 }
@@ -1047,20 +1047,20 @@ static void listobjects(void)
 
 static bool preprocess_command(command_t *command)
 /* Pre-processes a command input to see if we need to tease out a few specific cases:
- * - "enter water" or "enter stream": 
+ * - "enter water" or "enter stream":
  *   wierd specific case that gets the user wet, and then kicks us back to get another command
  * - <object> <verb>:
- *   Irregular form of input, but should be allowed. We switch back to <verb> <object> form for 
+ *   Irregular form of input, but should be allowed. We switch back to <verb> <object> form for
  *   furtherprocessing.
  * - "grate":
- *   If in location with grate, we move to that grate. If we're in a number of other places, 
+ *   If in location with grate, we move to that grate. If we're in a number of other places,
  *   we move to the entrance.
  * - "water plant", "oil plant", "water door", "oil door":
  *   Change to "pour water" or "pour oil" based on context
  * - "cage bird":
  *   If bird is present, we change to "carry bird"
  *
- * Returns true if pre-processing is complete, and we're ready to move to the primary command 
+ * Returns true if pre-processing is complete, and we're ready to move to the primary command
  * processing, false otherwise. */
 {
     if (command->word[0].type == MOTION && command->word[0].id == ENTER
@@ -1093,7 +1093,7 @@ static bool preprocess_command(command_t *command)
                     command->word[0].id = ENTRANCE;
                 }
             }
-            if ((command->word[0].id == WATER || command->word[0].id == OIL) && 
+            if ((command->word[0].id == WATER || command->word[0].id == OIL) &&
                 (command->word[1].id == PLANT || command->word[1].id == DOOR)) {
                 if (AT(command->word[1].id)) {
                     command->word[1] = command->word[0];
@@ -1109,16 +1109,16 @@ static bool preprocess_command(command_t *command)
         }
 
         /* If no word type is given for the first word, we assume it's a motion. */
-        if(command->word[0].type == NO_WORD_TYPE) 
+        if (command->word[0].type == NO_WORD_TYPE)
             command->word[0].type = MOTION;
-        
+
         command->state = PREPROCESSED;
         return true;
     }
     return false;
 }
 
-static bool do_move(void) 
+static bool do_move(void)
 /* Actually execute the move to the new location and dwarf movement */
 {
     /*  Can't leave cave once it's closing (except by main office). */
@@ -1180,16 +1180,16 @@ static bool do_command()
 
         listobjects();
 
-        /* Command not yet given; keep getting commands from user  
+        /* Command not yet given; keep getting commands from user
          * until valid command is both given and executed. */
         clear_command(&command);
         while (command.state <= GIVEN) {
 
             if (game.closed) {
-            /*  If closing time, check for any objects being toted with
-             *  game.prop < 0 and stash them.  This way objects won't be
-             *  described until they've been picked up and put down
-             *  separate from their respective piles. */
+                /*  If closing time, check for any objects being toted with
+                 *  game.prop < 0 and stash them.  This way objects won't be
+                 *  described until they've been picked up and put down
+                 *  separate from their respective piles. */
                 if (game.prop[OYSTER] < 0 && TOTING(OYSTER))
                     pspeak(OYSTER, look, true, 1);
                 for (size_t i = 1; i <= NOBJECTS; i++) {
@@ -1198,7 +1198,7 @@ static bool do_command()
                 }
             }
 
-            /* Check to see if the room is dark. If the knife is here, 
+            /* Check to see if the room is dark. If the knife is here,
              * and it's dark, the knife permanently disappears */
             game.wzdark = DARK(game.loc);
             if (game.knfloc != LOC_NOWHERE && game.knfloc != game.loc)
@@ -1219,7 +1219,7 @@ static bool do_command()
             }
 
             /* check if game is closed, and exit if it is */
-            if (closecheck() ) 
+            if (closecheck() )
                 return true;
 
             /* loop until all words in command are procesed */
@@ -1267,7 +1267,7 @@ static bool do_command()
                     }
                     break;// LCOV_EXCL_LINE
                 default: // LCOV_EXCL_LINE
-		case NO_WORD_TYPE: // LCOV_EXCL_LINE
+                case NO_WORD_TYPE: // LCOV_EXCL_LINE
                     BUG(VOCABULARY_TYPE_N_OVER_1000_NOT_BETWEEN_0_AND_3); // LCOV_EXCL_LINE
                 }
 
