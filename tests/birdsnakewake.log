@@ -231,8 +231,12 @@ u
 n
 off
 plugh
+# The score commands verify that you do indeed score points
+# for dropping the vase on the pillow in the building.
+score
 drop pillow
 drop vase
+score
 drop trident
 drop emerald
 drop ebony
