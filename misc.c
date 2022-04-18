@@ -633,7 +633,7 @@ void carry(obj_t object, loc_t where)
 
 void drop(obj_t object, loc_t where)
 /*  Place an object at a given loc, prefixing it onto the game.atloc list.  Decr
- *  game.holdng if the object was being toted. */
+ *  game.holdng if the object was being toted. No state change on the object. */
 {
     if (object > NOBJECTS)
         game.fixed[object - NOBJECTS] = where;
