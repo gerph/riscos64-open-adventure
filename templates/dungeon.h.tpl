@@ -12,7 +12,7 @@
 #define COND_FLUID	2	/* Liquid asset, see bit 1 */
 #define COND_NOARRR	3	/* Pirate doesn't go here unless following */
 #define COND_NOBACK	4	/* Cannot use "back" to move away */
-#define COND_ABOVE	5
+#define COND_ABOVE	5	/* Aboveground, but not in forest */
 #define COND_DEEP	6	/* Deep - e.g where dwarves are active */
 #define COND_FOREST	7	/* In the forest */
 #define COND_FORCED	8	/* Only one way in or out of here */

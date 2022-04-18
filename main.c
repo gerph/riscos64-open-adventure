@@ -255,7 +255,7 @@ static void checkhints(void)
                     game.hintlc[hint] = 0;
                     return;
                 default: // LCOV_EXCL_LINE
-                    // Should never hap[pen
+                    // Should never happen
                     BUG(HINT_NUMBER_EXCEEDS_GOTO_LIST); // LCOV_EXCL_LINE
                 }
 

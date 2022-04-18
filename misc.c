@@ -35,6 +35,7 @@ static void* xcalloc(size_t size)
 /*  I/O routines (speak, pspeak, rspeak, sspeak, get_input, yes) */
 
 static void vspeak(const char* msg, bool blank, va_list ap)
+/* Engine for various speak functions */
 {
     // Do nothing if we got a null pointer.
     if (msg == NULL)
@@ -122,6 +123,7 @@ static void vspeak(const char* msg, bool blank, va_list ap)
 }
 
 void speak(const char* msg, ...)
+/* speak a specified string */
 {
     va_list ap;
     va_start(ap, msg);
@@ -130,6 +132,7 @@ void speak(const char* msg, ...)
 }
 
 void sspeak(const int msg, ...)
+/* Speak a message from the arbitrary-messages list */
 {
     va_list ap;
     va_start(ap, msg);
