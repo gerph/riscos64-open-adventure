@@ -136,7 +136,7 @@ debug: CCFLAGS += -fsanitize=address
 debug: CCFLAGS += -fsanitize=undefined
 debug: linty
 
-PYSUPPRESSIONS = --suppress=missingIncludeSystem --suppress=invalidscanf
+CSUPPRESSIONS = --suppress=missingIncludeSystem --suppress=invalidscanf
 cppcheck:
 	cppcheck -I. --template gcc --enable=all $(CSUPPRESSIONS) *.[ch]
 

@@ -147,7 +147,7 @@ char *myreadline(const char *prompt)
     if (settings.argc == 0)
 	return readline(prompt);
 
-    char *buf = malloc(BUFSIZ);
+    char *buf = malloc(LINESIZE+1);
     for (;;) {
 	if (settings.scriptfp == NULL || feof(settings.scriptfp)) {
 	    if (settings.optind >= settings.argc) {
@@ -169,7 +169,7 @@ char *myreadline(const char *prompt)
 	    free(buf); // LCOV_EXCL_LINE
 	    return readline(prompt); // LCOV_EXCL_LINE
 	} else {
-	    char *ln = fgets(buf, BUFSIZ-1, settings.scriptfp);
+	    char *ln = fgets(buf, LINESIZE, settings.scriptfp);
 	    if (ln != NULL) {
 		fputs(PROMPT, stdout);
 		fputs(ln, stdout);
