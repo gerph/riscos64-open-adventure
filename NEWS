@@ -1,5 +1,9 @@
 = Open Adventure project news =
 
+Reposiotory head:
+  The bug and todo list has been cleared.
+  Correctness has been systematically tested against the 1995 code.
+
 1.11: 2022-04-14::
   Restore 100% test coverage.
   Use TAP reporting for tests.
