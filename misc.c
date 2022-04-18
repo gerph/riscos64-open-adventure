@@ -728,8 +728,6 @@ void bug(enum bugtype num, const char *error_string)
 }
 // LCOV_EXCL_STOP
 
-/* end */
-
 void state_change(obj_t obj, int state)
 /* Object must have a change-message list for this to be useful; only some do */
 {
