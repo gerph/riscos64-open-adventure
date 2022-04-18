@@ -81,7 +81,7 @@
 #define FOREST(LOC)  CNDBIT(LOC, COND_FOREST)
 #define OUTSID(LOC)  (CNDBIT(LOC, COND_ABOVE) || FOREST(LOC))
 #define INSIDE(LOC)  (!OUTSID(LOC) || LOC == LOC_BUILDING)
-#define INDEEP(LOC)  ((LOC) >= LOC_MISTHALL && !OUTSID(LOC))
+#define INDEEP(LOC)  CNDBIT((LOC),COND_DEEP)
 #define BUG(x)       bug(x, #x)
 
 enum bugtype {
