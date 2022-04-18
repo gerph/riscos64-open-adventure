@@ -27,4 +27,4 @@ XBS-VC-Tag-Template: %(version)s
 
 XBS-Logo: lamp.png
 
-XBS-Validate: make check
+XBS-Validate: make pylint cppcheck check
