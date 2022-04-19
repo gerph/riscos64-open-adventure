@@ -656,7 +656,7 @@ static void playermove(int motion)
     /* Look for a way to fulfil the motion verb passed in - travel_entry indexes
      * the beginning of the motion entries for here (game.loc). */
     for (;;) {
-        if (T_TERMINATE(travel[travel_entry]) ||
+        if ((travel[travel_entry].motion == HERE) ||
             travel[travel_entry].motion == motion)
             break;
         if (travel[travel_entry].stop) {

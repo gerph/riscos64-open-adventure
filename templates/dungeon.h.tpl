@@ -104,13 +104,6 @@ typedef struct {{
   const bool stop;
 }} travelop_t;
 
-/* Abstract out the encoding of words in the travel array.  Gives us
- * some hope of getting to a less cryptic representation than we
- * inherited from FORTRAN, someday. To understand these, read the
- * encoding description for travel.
- */
-#define T_TERMINATE(entry)	((entry).motion == 1)
-
 extern const location_t locations[];
 extern const object_t objects[];
 extern const char* arbitrary_messages[];

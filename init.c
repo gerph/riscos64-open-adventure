@@ -60,7 +60,7 @@ int initialise(void)
         if (!(locations[i].description.big == 0 ||
               tkey[i] == 0)) {
             int k = tkey[i];
-            if (T_TERMINATE(travel[k]))
+            if (travel[k].motion == HERE)
                 conditions[i] |= (1 << COND_FORCED);
         }
     }
