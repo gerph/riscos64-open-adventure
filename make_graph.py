@@ -59,6 +59,8 @@ def roomlabel(loc):
         else:
             short = short[0].upper() + short[1:]
         description += "\\n" + short
+        if loc in startlocs:
+            description += "\\n(" + ",".join(startlocs[loc]).lower() + ")"
     return description
 
 # A forwarder is a location that you can't actually stop in - when you go there
@@ -124,29 +126,13 @@ if __name__ == "__main__":
             else:
                 startlocs[location] = [objname]
 
-    startlocs = {}
-    for obj in db["objects"]:
-        objname = obj[0]
-        location = obj[1].get("locations")
-        if "OBJ" not in objname and location != "LOC_NOWHERE" and ("immovable" not in obj[1] or not obj[1]["immovable"]):
-            if location in startlocs:
-                startlocs[location].append(objname)
-            else:
-                startlocs[location] = [objname]
-
-    print("digraph G {")
-
+    # Compute reachability, using forwards.
+    # Dictionary ke6y is (from, to) iff its a valid link,
+    # value is correspoinding motion verbs.
+    links = {}
+    nodes = set()
     for (loc, attrs) in db["locations"]:
-        if is_forwarder(loc):
-            continue
-        if not subset(loc):
-            continue
-        node_label = roomlabel(loc)
-        if loc in startlocs:
-            node_label += "\\n" + ",".join(startlocs[loc]).lower()
-        print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
-
-    for (loc, attrs) in db["locations"]:
+        nodes.add(loc)
         travel = attrs["travel"]
         if len(travel) > 0:
             for dest in travel:
@@ -158,11 +144,35 @@ if __name__ == "__main__":
                     dest = forward(action[1])
                     if not (subset(loc) or subset(dest)):
                         continue
-                    arc = "%s -> %s" % (loc[4:], dest[4:])
-                    label=",".join(verbs).lower()
-                    if len(label) > 0:
-                        arc += ' [label="%s"]' % label
-                    print("    " + arc)
+                    links[(loc, dest)] = verbs
+
+    neighbors = set()
+    for loc in nodes:
+        for (f, t) in links:
+            if f == 'LOC_NOWHERE' or t == 'LOC_NOWHERE':
+                continue
+            if (f == loc and subset(t)) or (t == loc and subset(f)):
+                if loc not in neighbors:
+                    neighbors.add(loc)
+
+    print("digraph G {")
+
+    for loc in nodes:
+        if is_forwarder(loc):
+            continue
+        node_label = roomlabel(loc)
+        if subset(loc):
+            print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
+        elif loc in neighbors:
+            print('    %s [label="%s"]' % (loc[4:], node_label))
+
+    # Draw arcs
+    for (f, t) in links:
+        arc = "%s -> %s" % (f[4:], t[4:])
+        label=",".join(links[(f, t)]).lower()
+        if len(label) > 0:
+            arc += ' [label="%s"]' % label
+        print("    " + arc)
     print("}")
 
 # end
