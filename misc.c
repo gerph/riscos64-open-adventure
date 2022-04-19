@@ -283,12 +283,10 @@ bool silent_yes_or_no(void)
 
         free(firstword);
 
-        if (yes == 0 ||
-            y == 0) {
+        if (yes == 0 || y == 0) {
             outcome = true;
             break;
-        } else if (no == 0 ||
-                   n == 0) {
+        } else if (no == 0 || n == 0) {
             outcome = false;
             break;
         } else
@@ -568,7 +566,6 @@ void clear_command(command_t *cmd)
     cmd->obj = NO_OBJECT;
     cmd->state = EMPTY;
 }
-
 
 void juggle(obj_t object)
 /*  Juggle an object by picking it up and putting it down again, the purpose
