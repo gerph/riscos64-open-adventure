@@ -369,7 +369,7 @@ locations: !!omap
     description:
       long: !!null
       short: !!null
-      maptag: !!null
+      maptag: 'Nowhere'
     conditions: {}
     travel: [
     ]

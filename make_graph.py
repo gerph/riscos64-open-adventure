@@ -6,8 +6,9 @@ Make a DOT graph of Colossal Cave.
 
 -a = emit graph of entire dungeon
 -d = emit graoh of mazw all different
+-f = emit graph of forest locations
 -m = emit graph of maze all alike
--s = emit graph of surface locations
+-s = emit graph of non-forest surface locations
 -v = include internal sy,no;s in room labels
 """
 # Copyright (c) 2017 by Eric S. Raymond
@@ -25,12 +26,10 @@ def alldifferent(loc):
 
 def surface(loc):
     "Select out surface locations"
-    attrs = location_lookup[loc]
-    if ("ABOVE" in attrs["conditions"]) and attrs["conditions"]["ABOVE"]:
-        return True
-    if ("FOREST" in attrs["conditions"]) and attrs["conditions"]["FOREST"]:
-        return True
-    return False
+    return location_lookup[loc]["conditions"].get("ABOVE")
+
+def forest(loc):
+    return location_lookup[loc]["conditions"].get("FOREST")
 
 def abbreviate(d):
     m = {"NORTH":"N", "EAST":"E", "SOUTH":"S", "WEST":"W", "UPWAR":"U", "DOWN":"D"}
@@ -112,7 +111,7 @@ if __name__ == "__main__":
     object_lookup = dict(db["objects"])
 
     try:
-        (options, arguments) = getopt.getopt(sys.argv[1:], "admsv")
+        (options, arguments) = getopt.getopt(sys.argv[1:], "adfmsv")
     except getopt.GetoptError as e:
         print(e)
         sys.exit(1)
@@ -124,6 +123,8 @@ if __name__ == "__main__":
             subset = lambda loc: True
         elif switch == '-d':
             subset = alldifferent
+        elif switch == '-f':
+            subset = forest
         elif switch == '-m':
             subset = allalike
         elif switch == '-s':
