@@ -95,11 +95,21 @@ def forward(loc):
         loc = location_lookup[loc]["travel"][0]["action"][1]
     return loc
 
+def reveal(objname):
+    "Should this object be revealed when mappinmg?"
+    if "OBJ_" in objname:
+        return False
+    if objname == "VEND":
+        return True
+    obj = object_lookup[objname]
+    return not obj.get("immovable")
+    
 if __name__ == "__main__":
     with open("adventure.yaml", "r") as f:
         db = yaml.safe_load(f)
 
     location_lookup = dict(db["locations"])
+    object_lookup = dict(db["objects"])
 
     try:
         (options, arguments) = getopt.getopt(sys.argv[1:], "admsv")
@@ -128,7 +138,7 @@ if __name__ == "__main__":
     for obj in db["objects"]:
         objname = obj[0]
         location = obj[1].get("locations")
-        if "OBJ" not in objname and location != "LOC_NOWHERE" and ("immovable" not in obj[1] or not obj[1]["immovable"]):
+        if location != "LOC_NOWHERE" and reveal(objname):
             if location in startlocs:
                 startlocs[location].append(objname)
             else:
@@ -138,9 +148,9 @@ if __name__ == "__main__":
     # Dictionary ke6y is (from, to) iff its a valid link,
     # value is correspoinding motion verbs.
     links = {}
-    nodes = set()
+    nodes = []
     for (loc, attrs) in db["locations"]:
-        nodes.add(loc)
+        nodes.append(loc)
         travel = attrs["travel"]
         if len(travel) > 0:
             for dest in travel:
@@ -166,13 +176,12 @@ if __name__ == "__main__":
     print("digraph G {")
 
     for loc in nodes:
-        if is_forwarder(loc):
-            continue
-        node_label = roomlabel(loc)
-        if subset(loc):
-            print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
-        elif loc in neighbors:
-            print('    %s [label="%s"]' % (loc[4:], node_label))
+        if not is_forwarder(loc):
+            node_label = roomlabel(loc)
+            if subset(loc):
+                print('    %s [shape=box,label="%s"]' % (loc[4:], node_label))
+            elif loc in neighbors:
+                print('    %s [label="%s"]' % (loc[4:], node_label))
 
     # Draw arcs
     for (f, t) in links:
