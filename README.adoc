@@ -30,6 +30,9 @@ If you encounter a bug (not likely; this code is old and well tested)
 please try to make a test log that reproduces it, using the -l option,
 and ship it to the maintainers.
 
+If you find this code useful or amusing, please 
+https://www.patreon.com/esr[support me on Patreon.]
+
 // end
 
 
