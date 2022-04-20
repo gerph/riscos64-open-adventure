@@ -103,7 +103,7 @@ def reveal(objname):
         return True
     obj = object_lookup[objname]
     return not obj.get("immovable")
-    
+
 if __name__ == "__main__":
     with open("adventure.yaml", "r") as f:
         db = yaml.safe_load(f)
