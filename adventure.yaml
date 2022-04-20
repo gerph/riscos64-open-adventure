@@ -31,6 +31,8 @@
 #        FLUID		Liquid asset
 #        NOARRR		Pirate doesn't go here unless following player
 #        NOBACK		Cannot use "back" to move away
+#        ALLDIFFERENT   Part of the maze all different (used in grapher only)
+#        ALLALIKE       Part of the maze all alike (used in grapher only)
 #        HCAVE		Trying to get into cave
 #        HBIRD		Trying to catch bird
 #        HSNAKE		Trying to deal with snake
@@ -959,7 +961,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [UPWAR], action: [goto, LOC_MISTWEST]},
@@ -973,7 +975,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE1]},
@@ -985,7 +987,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [EAST], action: [goto, LOC_ALIKE2]},
@@ -998,7 +1000,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE1]},
@@ -1012,7 +1014,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_ALIKE4]},
@@ -1022,7 +1024,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_ALIKE4]},
@@ -1032,7 +1034,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [UPWAR, OUT], action: [goto, LOC_ALIKE3]},
@@ -1042,7 +1044,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [EAST], action: [goto, LOC_ALIKE6]},
@@ -1053,7 +1055,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [EAST], action: [goto, LOC_ALIKE3]},
@@ -1066,7 +1068,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE5]},
@@ -1079,7 +1081,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE6]},
@@ -1094,7 +1096,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE7]},
@@ -1106,7 +1108,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_ALIKE9]},
@@ -1116,7 +1118,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST], action: [goto, LOC_ALIKE8]},
@@ -1129,7 +1131,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [UPWAR, OUT], action: [goto, LOC_ALIKE10]},
@@ -1142,7 +1144,7 @@ locations: !!omap
           up.  The maze continues at this level.
       short: 'You''re at brink of pit.'
       maptag: !!null
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     travel: [
       {verbs: [DOWN, CLIMB], action: [goto, LOC_BIRDCHAMBER]},
       {verbs: [WEST], action: [goto, LOC_ALIKE10]},
@@ -1155,7 +1157,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {NOARRR: true, DEEP: true}
+    conditions: {NOARRR: true, DEEP: true, ALLALIKE: true}
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_PITBRINK]},
     ]
@@ -1439,7 +1441,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [NORTH], action: [goto, LOC_ALIKE1]},
@@ -1452,7 +1454,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true}
+    conditions: {DEEP: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [WEST, OUT], action: [goto, LOC_ALIKE11]},
@@ -1462,7 +1464,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [SOUTH, OUT], action: [goto, LOC_ALIKE3]},
@@ -1472,7 +1474,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_PITBRINK]},
       {verbs: [EAST], action: [goto, LOC_ALIKE13]},
@@ -1483,7 +1485,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_PITBRINK]},
       {verbs: [WEST], action: [goto, LOC_ALIKE12]},
@@ -1494,7 +1496,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {NOARRR: true, DEEP: true}
+    conditions: {NOARRR: true, DEEP: true, ALLALIKE: true}
     travel: [
       {verbs: [EAST, OUT], action: [goto, LOC_ALIKE12]},
     ]
@@ -1503,7 +1505,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOARRR: true}
+    conditions: {DEEP: true, NOARRR: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [UPWAR, OUT], action: [goto, LOC_ALIKE8]},
@@ -1513,7 +1515,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all alike.'
       short: !!null
       maptag: 'Maze all alike.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLALIKE: true}
     hints: [*maze]
     travel: [
       {verbs: [UPWAR, DOWN], action: [goto, LOC_ALIKE4]},
@@ -1765,7 +1767,7 @@ locations: !!omap
       long: 'You are in a maze of twisty little passages, all different.'
       short: !!null
       maptag: 'Maze all different'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [SOUTH], action: [goto, LOC_DIFFERENT3]},
       {verbs: [SW], action: [goto, LOC_DIFFERENT4]},
@@ -1835,7 +1837,7 @@ locations: !!omap
           having done so you would be unable to reach it to climb back up.
       short: 'You''re at top of stalactite.'
       maptag: !!null
-    conditions: {DEEP: true}
+    conditions: {DEEP: true, ALLALIKE: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_SECRET2]},
       {verbs: [DOWN, JUMP, CLIMB], cond: [pct, 40],
@@ -1848,7 +1850,7 @@ locations: !!omap
       long: 'You are in a little maze of twisting passages, all different.'
       short: !!null
       maptag: 'Maze all different'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [SW], action: [goto, LOC_DIFFERENT3]},
       {verbs: [NORTH], action: [goto, LOC_DIFFERENT4]},
@@ -1883,7 +1885,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: !!null
-    conditions: {DEEP: true}
+    conditions: {DEEP: true, ALLALIKE: true}
     travel: [
       {verbs: [SE], action: [goto, LOC_ALIKE13]},
     ]
@@ -2151,7 +2153,7 @@ locations: !!omap
       long: 'You are in a maze of twisting little passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [WEST], action: [goto, LOC_DIFFERENT1]},
       {verbs: [SE], action: [goto, LOC_DIFFERENT4]},
@@ -2169,7 +2171,7 @@ locations: !!omap
       long: 'You are in a little maze of twisty passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [NW], action: [goto, LOC_DIFFERENT1]},
       {verbs: [UPWAR], action: [goto, LOC_DIFFERENT3]},
@@ -2187,7 +2189,7 @@ locations: !!omap
       long: 'You are in a twisting maze of little passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [UPWAR], action: [goto, LOC_DIFFERENT1]},
       {verbs: [DOWN], action: [goto, LOC_DIFFERENT3]},
@@ -2205,7 +2207,7 @@ locations: !!omap
       long: 'You are in a twisting little maze of passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [NE], action: [goto, LOC_DIFFERENT1]},
       {verbs: [NORTH], action: [goto, LOC_DIFFERENT3]},
@@ -2223,7 +2225,7 @@ locations: !!omap
       long: 'You are in a twisty little maze of passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_DIFFERENT1]},
       {verbs: [SE], action: [goto, LOC_DIFFERENT3]},
@@ -2241,7 +2243,7 @@ locations: !!omap
       long: 'You are in a twisty maze of little passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_DIFFERENT1]},
       {verbs: [WEST], action: [goto, LOC_DIFFERENT3]},
@@ -2259,7 +2261,7 @@ locations: !!omap
       long: 'You are in a little twisty maze of passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [SE], action: [goto, LOC_DIFFERENT1]},
       {verbs: [NE], action: [goto, LOC_DIFFERENT3]},
@@ -2277,7 +2279,7 @@ locations: !!omap
       long: 'You are in a maze of little twisting passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [DOWN], action: [goto, LOC_DIFFERENT1]},
       {verbs: [EAST], action: [goto, LOC_DIFFERENT3]},
@@ -2295,7 +2297,7 @@ locations: !!omap
       long: 'You are in a maze of little twisty passages, all different.'
       short: !!null
       maptag: 'Maze all different.'
-    conditions: {DEEP: true, NOBACK: true}
+    conditions: {DEEP: true, NOBACK: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [SW], action: [goto, LOC_DIFFERENT1]},
       {verbs: [NW], action: [goto, LOC_DIFFERENT3]},
@@ -2313,7 +2315,7 @@ locations: !!omap
       long: 'Dead end'
       short: !!null
       maptag: !!null
-    conditions: {DEEP: true}
+    conditions: {DEEP: true, ALLDIFFERENT: true}
     travel: [
       {verbs: [NORTH, OUT], action: [goto, LOC_DIFFERENT2]},
       {verbs: [SOUTH], cond: [not, VEND, VEND_BLOCKS], action: [goto, LOC_ROUGHHEWN]},

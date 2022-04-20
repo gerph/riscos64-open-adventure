@@ -18,11 +18,11 @@ import sys, getopt, yaml
 
 def allalike(loc):
     "Select out loci related to the Maze All Alike"
-    return ("ALIKE" in loc) or (loc == "LOC_PITBRINK") or ("MAZEEND" in loc) or ("STALACTITE" in loc)
+    return location_lookup[loc]["conditions"].get("ALLALIKE")
 
 def alldifferent(loc):
     "Select out loci related to the Maze All Alike"
-    return ("DIFFERENT" in loc) or (loc == "LOC_DEADEND13")
+    return location_lookup[loc]["conditions"].get("ALLDIFFERENT")
 
 def surface(loc):
     "Select out surface locations"

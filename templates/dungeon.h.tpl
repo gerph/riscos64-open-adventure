@@ -16,18 +16,20 @@
 #define COND_DEEP	6	/* Deep - e.g where dwarves are active */
 #define COND_FOREST	7	/* In the forest */
 #define COND_FORCED	8	/* Only one way in or out of here */
-/* Bits past 10 indicate areas of interest to "hint" routines */
-#define COND_HBASE	10	/* Base for location hint bits */
-#define COND_HCAVE	11	/* Trying to get into cave */
-#define COND_HBIRD	12	/* Trying to catch bird */
-#define COND_HSNAKE	13	/* Trying to deal with snake */
-#define COND_HMAZE	14	/* Lost in maze */
-#define COND_HDARK	15	/* Pondering dark room */
-#define COND_HWITT	16	/* At Witt's End */
-#define COND_HCLIFF	17	/* Cliff with urn */
-#define COND_HWOODS	18	/* Lost in forest */
-#define COND_HOGRE	19	/* Trying to deal with ogre */
-#define COND_HJADE	20	/* Found all treasures except jade */
+#define COND_ALLDIFFERENT	9	/* Room is in maze all different */
+#define COND_ALLALIKE	10	/* Room is in maze all alike */
+/* Bits past 11 indicate areas of interest to "hint" routines */
+#define COND_HBASE	11	/* Base for location hint bits */
+#define COND_HCAVE	12	/* Trying to get into cave */
+#define COND_HBIRD	13	/* Trying to catch bird */
+#define COND_HSNAKE	14	/* Trying to deal with snake */
+#define COND_HMAZE	15	/* Lost in maze */
+#define COND_HDARK	16	/* Pondering dark room */
+#define COND_HWITT	17	/* At Witt's End */
+#define COND_HCLIFF	18	/* Cliff with urn */
+#define COND_HWOODS	19	/* Lost in forest */
+#define COND_HOGRE	20	/* Trying to deal with ogre */
+#define COND_HJADE	21	/* Found all treasures except jade */
 
 typedef struct {{
   const char** strs;
