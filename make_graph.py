@@ -8,6 +8,7 @@ Make a DOT graph of Colossal Cave.
 -d = emit graoh of mazw all different
 -m = emit graph of maze all alike
 -s = emit graph of surface locations
+-v = include internal sy,no;s in room labels
 """
 # Copyright (c) 2017 by Eric S. Raymond
 # SPDX-License-Identifier: BSD-2-clause
@@ -38,7 +39,9 @@ def abbreviate(d):
 def roomlabel(loc):
     "Generate a room label from the description, if possible"
     loc_descriptions = location_lookup[loc]['description']
-    description = loc[4:]
+    description = ""
+    if debug:
+        description = loc[4:]
     longd = loc_descriptions["long"]
     short = loc_descriptions["maptag"] or loc_descriptions["short"]
     if short is None and longd is not None and len(longd) < 20:
@@ -58,7 +61,9 @@ def roomlabel(loc):
             short = short[:2].upper() + short[2:]
         else:
             short = short[0].upper() + short[1:]
-        description += "\\n" + short
+        if debug:
+            description += "\\n"
+        description += short
         if loc in startlocs:
             description += "\\n(" + ",".join(startlocs[loc]).lower() + ")"
     return description
@@ -97,12 +102,13 @@ if __name__ == "__main__":
     location_lookup = dict(db["locations"])
 
     try:
-        (options, arguments) = getopt.getopt(sys.argv[1:], "adms")
+        (options, arguments) = getopt.getopt(sys.argv[1:], "admsv")
     except getopt.GetoptError as e:
         print(e)
         sys.exit(1)
 
     subset = allalike
+    debug = False
     for (switch, val) in options:
         if switch == '-a':
             subset = lambda loc: True
@@ -112,6 +118,8 @@ if __name__ == "__main__":
             subset = allalike
         elif switch == '-s':
             subset = surface
+        elif switch == '-v':
+            debug = True
         else:
             sys.stderr.write(__doc__)
             raise SystemExit(1)
