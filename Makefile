@@ -1,6 +1,6 @@
 # Makefile for the open-source release of adventure 2.5
 
-# To build with save/resume disabled, pass CCFLAGS="-D ADVENT_NOSAVE"
+# To build with save/resume disabled, pass CFLAGS="-DADVENT_NOSAVE"
 
 VERS=$(shell sed -n <NEWS '/^[0-9]/s/:.*//p' | head -1)
 
