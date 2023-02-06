@@ -24,7 +24,7 @@
 #      long:         Long description, always shown on first encounter.
 #      short:        Short description. If none, use long description.
 #      maptag:       Tag for mapping, not used by the game itself.
-#                    Only used if the "short" propery in !!null.
+#                    Only used if the "short" property in !!null.
 #      conditions:   A dictionary of attributes
 #        LIT		Light
 #        OILY		If FLUID flag is on: true for oil, false for water
@@ -81,7 +81,7 @@
 #    Order doesn't matter; the logic simply tests every threshold on
 #    the assumption that turn counts never decrease nor skip values.
 #
-# objects: Objects that are refernced in C code or the YAML by name
+# objects: Objects that are referenced in C code or the YAML by name
 #    have human-readable names; others are named OBJ with a numeric suffix.
 #    Objects have attributes as follows...
 #      inventory:    A description for use in the inventory command.
@@ -1372,7 +1372,7 @@ locations: !!omap
           very tight canyon 15 feet below.  If you go down you may not be able
           to get back up.
       short: 'You''re in secret e/w canyon above tight canyon.'
-      maptag: 'Secret e/w canyom'
+      maptag: 'Secret e/w canyon'
     conditions: {DEEP: true}
     travel: [
       {verbs: [EAST], action: [goto, LOC_KINGHALL]},
@@ -1900,7 +1900,7 @@ locations: !!omap
           wall, and stretches to the other end of the room, where various other
           sundry objects can be glimpsed dimly in the distance.
       short: 'You''re at ne end.'
-      maptag: 'Reoisitory ne end'
+      maptag: 'Repository ne end'
     conditions: {DEEP: true, LIT: true}
     sound: MURMURING_SNORING
     travel: [
@@ -2321,7 +2321,7 @@ locations: !!omap
     description:
       long: 'You are in a long, rough-hewn, north/south corridor.'
       short: !!null
-      maptag: 'Rough-newn corridor'
+      maptag: 'Rough-hewn corridor'
     conditions: {DEEP: true}
     travel: [
       {verbs: [NORTH], action: [goto, LOC_DEADEND13]},
@@ -2352,7 +2352,7 @@ locations: !!omap
     description:
       long: 'You are in the ogre''s storeroom.  The only exit is to the south.'
       short: !!null
-      maptag: 'Ogre''s streroom.'
+      maptag: 'Ogre''s storeroom.'
     conditions: {DEEP: true}
     travel: [
       {verbs: [SOUTH, OUT], action: [goto, LOC_LARGE]},
@@ -2753,7 +2753,7 @@ locations: !!omap
           You are on a small ledge at the top of a nearly vertical cliff.
           There is a low crawl leading off to the northeast.
       short: 'You''re at top of cliff.'
-      maptag: 'Cliiftop'
+      maptag: 'Cliftop'
     conditions: {DEEP: true}
     travel: [
       {verbs: [CLIMB, DOWN], action: [goto, LOC_CLIFFACE]},
@@ -3323,7 +3323,7 @@ objects: !!omap
     - 'The bird does not seem inclined to sing while in the cage.'
     - 'It almost seems as though the bird is trying to tell you something.'
     - |-
-      To your surprise, you can understand the bird''s chirping; it is
+      To your surprise, you can understand the bird's chirping; it is
       singing about the joys of its forest home.
     - 'The bird does not seem inclined to sing while in the cage.'
     - |- 
