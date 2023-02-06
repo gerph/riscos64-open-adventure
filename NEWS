@@ -1,6 +1,6 @@
 = Open Adventure project news =
 
-Reposiotory head:
+1.12: 2023-02-06::
   The bug and todo list has been cleared.
   Correctness has been systematically tested against the 1995 code.
   Typo fixes and documentation polishing.
