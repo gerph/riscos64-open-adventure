@@ -1,7 +1,7 @@
 # This image is built by the Gitlab CI pipeline to be used in subsequent
 # pipeline steps.
 
-FROM ubuntu:focal
+FROM ubuntu
 
  # tell apt not to ask for any user input
 ENV DEBIAN_FRONTEND=noninteractive
