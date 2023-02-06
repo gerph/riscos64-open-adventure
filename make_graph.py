@@ -9,7 +9,7 @@ Make a DOT graph of Colossal Cave.
 -f = emit graph of forest locations
 -m = emit graph of maze all alike
 -s = emit graph of non-forest surface locations
--v = include internal sy,no;s in room labels
+-v = include internal symbols in room labels
 """
 # Copyright (c) 2017 by Eric S. Raymond
 # SPDX-License-Identifier: BSD-2-clause
