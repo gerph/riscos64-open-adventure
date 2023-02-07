@@ -45,7 +45,7 @@ future as a Python or Go translation seems possible, even probable.
 
 Bug fixes:
 
-* The caged bird to be counted as two items in your inventory.
+* The caged bird used to be counted as two items in your inventory.
 
 * Reading the relocated Witt's End sign in the endgame didn't work right.
 
