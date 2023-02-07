@@ -112,12 +112,14 @@
 # message when the message is printed.  These sequences are:
 #       %d = an integer
 #       %s = an ASCII string
-#	%S = The letter 's' or nothing (if a previous %d value is exactly 1)
+#	%S = the letter 's' or nothing (if a previous %d value is exactly 1)
 #	%V = substitute program version string
 #
 # Copyright (c) 2017 by Eric S. Raymond
 # SPDX-License-Identifier: BSD-2-clause
 
+# Motion names of the form MOT_* are not explicitly referenced in the
+# locations YAML, but usually get compiled into generated C.
 motions: !!omap
 - MOT_0:
     words: !!null
