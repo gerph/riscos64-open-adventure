@@ -10,6 +10,9 @@ playermove().
 Copyright (c) 2017 by Eric S. Raymond
 SPDX-License-Identifier: BSD-2-clause
 """
+
+# pylint: disable=consider-using-f-string
+
 import sys, yaml
 
 YAML_NAME = "adventure.yaml"
@@ -524,7 +527,7 @@ def get_travel(travel):
     return out
 
 if __name__ == "__main__":
-    with open(YAML_NAME, "r") as f:
+    with open(YAML_NAME, "r", encoding='ascii', errors='surrogateescape') as f:
         db = yaml.safe_load(f)
 
     locnames = [x[0] for x in db["locations"]]
@@ -536,10 +539,10 @@ if __name__ == "__main__":
                                  db["objects"])
     ignore = ""
     try:
-        with open(H_TEMPLATE_PATH, "r") as htf:
+        with open(H_TEMPLATE_PATH, "r", encoding='ascii', errors='surrogateescape') as htf:
             # read in dungeon.h template
             h_template = DONOTEDIT_COMMENT + htf.read()
-        with open(C_TEMPLATE_PATH, "r") as ctf:
+        with open(C_TEMPLATE_PATH, "r", encoding='ascii', errors='surrogateescape') as ctf:
             # read in dungeon.c template
             c_template = DONOTEDIT_COMMENT + ctf.read()
     except IOError as e:
@@ -587,10 +590,10 @@ if __name__ == "__main__":
         state_definitions  = statedefines
     )
 
-    with open(H_NAME, "w") as hf:
+    with open(H_NAME, "w", encoding='ascii', errors='surrogateescape') as hf:
         hf.write(h)
 
-    with open(C_NAME, "w") as cf:
+    with open(C_NAME, "w", encoding='ascii', errors='surrogateescape') as cf:
         cf.write(c)
 
 # end

@@ -14,6 +14,8 @@ Make a DOT graph of Colossal Cave.
 # Copyright (c) 2017 by Eric S. Raymond
 # SPDX-License-Identifier: BSD-2-clause
 
+# pylint: disable=consider-using-f-string
+
 import sys, getopt, yaml
 
 def allalike(loc):
@@ -104,7 +106,7 @@ def reveal(objname):
     return not obj.get("immovable")
 
 if __name__ == "__main__":
-    with open("adventure.yaml", "r") as f:
+    with open("adventure.yaml", "r", encoding='ascii', errors='surrogateescape') as f:
         db = yaml.safe_load(f)
 
     location_lookup = dict(db["locations"])

@@ -12,6 +12,8 @@ even if the checkfile search doesn't find them. Typically this will because
 they emit a templated message that can't be regression-tested by equality.
 """
 
+# pylint: disable=consider-using-f-string
+
 import os
 import sys
 import re
@@ -197,7 +199,7 @@ def coverage_report(db, check_file_contents):
 if __name__ == "__main__":
     # load DB
     try:
-        with open(YAML_PATH, "r") as f:
+        with open(YAML_PATH, "r", encoding='ascii', errors='surrogateescape') as f:
             db = yaml.safe_load(f)
     except IOError as e:
         print('ERROR: could not load %s (%s)' % (YAML_PATH, e.strerror))
@@ -207,7 +209,7 @@ if __name__ == "__main__":
     check_file_contents = []
     for filename in os.listdir(TEST_DIR):
         if filename.endswith(".chk"):
-            with open(filename, "r") as f:
+            with open(filename, "r", encoding='ascii', errors='surrogateescape') as f:
                 check_file_contents.append(f.read())
 
     # run coverage analysis report on dungeon database
@@ -254,7 +256,7 @@ if __name__ == "__main__":
 
     # render HTML report
     try:
-        with open(HTML_TEMPLATE_PATH, "r") as f:
+        with open(HTML_TEMPLATE_PATH, "r", encoding='ascii', errors='surrogateescape') as f:
             # read in HTML template
             html_template = f.read()
     except IOError as e:
@@ -263,7 +265,7 @@ if __name__ == "__main__":
 
     # parse template with report and write it out
     try:
-        with open(html_output_path, "w") as f:
+        with open(html_output_path, "w", encoding='ascii', errors='surrogateescape') as f:
             f.write(html_template.format(categories=categories_html, summary=summary_html))
     except IOError as e:
         print('ERROR: writing HTML report failed ({})'.format(e.strerror))
