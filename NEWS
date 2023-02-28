@@ -1,5 +1,8 @@
 = Open Adventure project news =
 
+Repository head::
+  Fixed slightly buggy emission of end-of-game messages on a win.
+
 1.12: 2023-02-06::
   The bug and todo list has been cleared.
   Correctness has been systematically tested against the 1995 code.
