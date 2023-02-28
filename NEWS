@@ -1,6 +1,6 @@
 = Open Adventure project news =
 
-Repository head::
+1.13: 2023-02-28::
   Fixed slightly buggy emission of end-of-game messages on a win.
 
 1.12: 2023-02-06::
