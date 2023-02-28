@@ -68,8 +68,12 @@ Bug fixes:
 * Under odd circumstances (dropping rug or vase outdoors) the game could
   say "floor" when it should say "ground" (or "dirt", or something).
 
-* Bird starts uncaged in the endgame. This is an accidental change
-  that doesn't seem worth the effort to fix.
+Bugs (accidental changes that don't seem worth the effort to fix):
+
+* Commands that are not moves (e.g. "look" and "inven") can be used
+  during fee fie fo foo without breaking recognition of the sequence.
+
+* Bird starts uncaged in the endgame.
 
 Enhancements:
 

@@ -1313,7 +1313,7 @@ static bool do_command()
                 default: // LCOV_EXCL_LINE
                     BUG(ACTION_RETURNED_PHASE_CODE_BEYOND_END_OF_SWITCH); // LCOV_EXCL_LINE
                 }
-            } /* while command has nob been fully processed */
+            } /* while command has not been fully processed */
         } /* while command is not yet given */
     } /* while command is not executed */
 
