@@ -126,13 +126,16 @@ void terminate(enum termination mode)
     for (int i = 1; i <= (int)NCLASSES; i++) {
         if (classes[i].threshold >= points) {
             speak(classes[i].message);
-            int nxt = classes[i].threshold + 1 - points;
-            rspeak(NEXT_HIGHER, nxt, nxt);
+	    if (i < (int)NCLASSES) {
+		int nxt = classes[i].threshold + 1 - points;
+		rspeak(NEXT_HIGHER, nxt, nxt);
+	    } else {
+		rspeak(NO_HIGHER);
+	    }
             exit(EXIT_SUCCESS);
         }
     }
     rspeak(OFF_SCALE);
-    rspeak(NO_HIGHER);
     exit(EXIT_SUCCESS);
 }
 
