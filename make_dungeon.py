@@ -21,7 +21,7 @@ C_NAME = "dungeon.c"
 H_TEMPLATE_PATH = "templates/dungeon.h.tpl"
 C_TEMPLATE_PATH = "templates/dungeon.c.tpl"
 
-DONOTEDIT_COMMENT = "/* Generated from adventure.yaml - do not hand-hack! */\n\n"
+DONOTEDIT_COMMENT = "/* Generated from adventure.yaml - do not hand-hack! */\n/* SPDX-License-Identifier: BSD-2-clause */\n\n"
 
 statedefines = ""
 
