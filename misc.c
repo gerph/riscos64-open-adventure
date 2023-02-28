@@ -221,8 +221,8 @@ static char* get_input(void)
     // Print a blank line
     printf("\n");
 
-    char* input;
-    while (true) {
+    char* input = "";
+    for (;;) {
         input = myreadline(input_prompt);
 
         if (input == NULL) // Got EOF; return with it.
