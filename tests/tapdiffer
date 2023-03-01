@@ -16,7 +16,6 @@ trap 'rm /tmp/tapdiff$$' EXIT HUP INT QUIT TERM
 if diff --text -u ${checkfile} - >/tmp/tapdiff$$
 then
 	echo "ok - ${legend}"
-	exit 0
 else
 	echo "not ok - ${checkfile}: ${legend}"
 	if [ ! "${QUIET}" = 1 ]
@@ -25,7 +24,6 @@ else
 		sed </tmp/tapdiff$$ -e 's/^/  /'
 		echo "  ..."
 	fi
-	exit 1
 fi
 
 # end
