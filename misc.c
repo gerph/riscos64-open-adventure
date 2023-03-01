@@ -490,7 +490,7 @@ static void tokenize(char* raw, command_t *cmd)
     /* (ESR) In oldstyle mode, simulate the uppercasing and truncating
      * effect on raw tokens of packing them into sixbit characters, 5
      * to a 32-bit word.  This is something the FORTRAN version did
-     * becuse archaic FORTRAN had no string types.  Don Wood's
+     * because archaic FORTRAN had no string types.  Don Wood's
      * mechanical translation of 2.5 to C retained the packing and
      * thus this misfeature.
      *
