@@ -62,7 +62,7 @@ Bug fixes:
   bridge spans the fissure." (timeless present).
 
 * A few minor typos have been corrected: absence of capitalization on
-  "Swiss" and "Persian", inconsistent selling of "imbedded" vs. "embedded",
+  "Swiss" and "Persian", inconsistent spelling of "imbedded" vs. "embedded",
   "eying" for "eyeing". "thresholds" for "threshholds".
 
 * Under odd circumstances (dropping rug or vase outdoors) the game could
