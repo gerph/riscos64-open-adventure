@@ -226,7 +226,7 @@ static phase_codes_t bigwords(vocab_t id)
         }
     } else {
 fum:
-        if (game.loc == LOC_GIANTROOM) {
+        if (game.loc == LOC_GIANTROOM || settings.oldstyle) {
             rspeak(START_OVER);
         } else {
             /* This is new behavior in Open Adventure - sounds better when
