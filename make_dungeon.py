@@ -11,7 +11,7 @@ Copyright (c) 2017 by Eric S. Raymond
 SPDX-License-Identifier: BSD-2-clause
 """
 
-# pylint: disable=consider-using-f-string
+# pylint: disable=consider-using-f-string,line-too-long,invalid-name,missing-function-docstring,too-many-branches,global-statement,multiple-imports,too-many-locals,too-many-statements,too-many-nested-blocks,no-else-return,raise-missing-from,redefined-outer-name
 
 import sys, yaml
 

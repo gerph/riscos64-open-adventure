@@ -12,7 +12,7 @@ even if the checkfile search doesn't find them. Typically this will because
 they emit a templated message that can't be regression-tested by equality.
 """
 
-# pylint: disable=consider-using-f-string
+# pylint: disable=consider-using-f-string,line-too-long,invalid-name,missing-function-docstring,redefined-outer-name
 
 import os
 import sys

@@ -140,6 +140,5 @@ CSUPPRESSIONS = --suppress=missingIncludeSystem --suppress=invalidscanf
 cppcheck:
 	cppcheck -I. --template gcc --enable=all $(CSUPPRESSIONS) *.[ch]
 
-PYSUPPRESSIONS = line-too-long,invalid-name,missing-function-docstring,too-many-lines,too-many-branches,global-statement,multiple-imports,too-many-locals,too-many-statements,too-many-nested-blocks,no-else-return,raise-missing-from,redefined-outer-name,consider-using-in,dict-iter-missing-items
 pylint:
-	@pylint --score=n --disable=$(PYSUPPRESSIONS) *.py */*.py
+	@pylint --score=n *.py */*.py
