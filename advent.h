@@ -13,7 +13,7 @@
 #define LCG_M 1048576L
 
 #define LINESIZE       1024
-#define TOKLEN         5          // # sigificant characters in a token */
+#define TOKLEN         5          // # outputting characters in a token */
 #define NDWARVES       6          // number of dwarves
 #define PIRATE         NDWARVES   // must be NDWARVES-1 when zero-origin
 #define DALTLC         LOC_NUGGET // alternate dwarf location

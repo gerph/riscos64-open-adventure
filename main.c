@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    /* copy inncation line part after switches */
+    /* copy invocation line part after switches */
     settings.argc = argc - optind;
     settings.argv = argv + optind;
     settings.optind = 0;
@@ -139,8 +139,8 @@ int main(int argc, char *argv[])
 char *myreadline(const char *prompt)
 {
     /*
-     * This function isbn't required for gameplay, readline() straight
-     * up would suffice for tat.  It's where we interpret command-line
+     * This function isn't required for gameplay, readline() straight
+     * up would suffice for that.  It's where we interpret command-line
      * logfiles for testing purposes.
      */
     /* Normal case - no script arguments */
@@ -1048,10 +1048,10 @@ static void listobjects(void)
 static bool preprocess_command(command_t *command)
 /* Pre-processes a command input to see if we need to tease out a few specific cases:
  * - "enter water" or "enter stream":
- *   wierd specific case that gets the user wet, and then kicks us back to get another command
+ *   weird specific case that gets the user wet, and then kicks us back to get another command
  * - <object> <verb>:
  *   Irregular form of input, but should be allowed. We switch back to <verb> <object> form for
- *   furtherprocessing.
+ *   further processing.
  * - "grate":
  *   If in location with grate, we move to that grate. If we're in a number of other places,
  *   we move to the entrance.
@@ -1222,7 +1222,7 @@ static bool do_command()
             if (closecheck() )
                 return true;
 
-            /* loop until all words in command are procesed */
+            /* loop until all words in command are processed */
             while (command.state == PREPROCESSED ) {
                 command.state = PROCESSING;
 

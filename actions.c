@@ -1,5 +1,5 @@
 /*
- * Actions for the duneon-running code.
+ * Actions for the dungeon-running code.
  *
  * Copyright (c) 1977, 2005 by Will Crowther and Don Woods
  * Copyright (c) 2017 by Eric S. Raymond
@@ -929,7 +929,7 @@ static phase_codes_t light(verb_t verb, obj_t obj)
 }
 
 static phase_codes_t listen(void)
-/*  Listen.  Intransitive only.  Print stuff based on object sound proprties. */
+/*  Listen.  Intransitive only.  Print stuff based on object sound properties. */
 {
     bool soundlatch = false;
     vocab_t sound = locations[game.loc].sound;

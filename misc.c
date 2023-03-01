@@ -1,5 +1,5 @@
 /*
- * I/O and support riutines.
+ * I/O and support routines.
  *
  * Copyright (c) 1977, 2005 by Will Crowther and Don Woods
  * Copyright (c) 2017 by Eric S. Raymond
@@ -411,7 +411,7 @@ static bool is_valid_int(const char *str)
     if (!*str)
         return false; // LCOV_EXCL_LINE
 
-    // Check for non-digit chars in the rest of the stirng.
+    // Check for non-digit chars in the rest of the string.
     while (*str) {
         if (!isdigit(*str))
             return false;
@@ -476,7 +476,7 @@ static void get_vocab_metadata(const char* word, vocab_t* id, word_type_t* type)
 static void tokenize(char* raw, command_t *cmd)
 {
     /*
-     * Be caereful about modifing this. We do not want to nuke the
+     * Be careful about modifying this. We do not want to nuke the
      * the speech part or ID from the previous turn.
      */
     memset(&cmd->word[0].raw, '\0', sizeof(cmd->word[0].raw));
