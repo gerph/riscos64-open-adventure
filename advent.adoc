@@ -42,6 +42,8 @@ There have been no gameplay changes.
 
 -r:: Restore game from specified file
 
+-a:: Load from specified file and autosave to it on exit or signal.
+
 -o:: Old-style.  Restores original interface, no prompt or line editing.
      Also ignores new-school one-letter commands l, x, g, z, i. Also
      case-smashes and truncates unrecognized text when echoed.
