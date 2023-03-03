@@ -62,7 +62,7 @@ int suspend(void)
      *  battles or to start over after learning zzword).
      *  If ADVENT_NOSAVE is defined, do nothing instead. */
 
-#ifdef ADVENT_NOSAVE
+#if defined ADVENT_NOSAVE || defined ADVENT_AUTOSAVE
     return GO_UNKNOWN;
 #endif
     FILE *fp = NULL;
@@ -93,7 +93,7 @@ int resume(void)
     /*  Resume.  Read a suspended game back from a file.
      *  If ADVENT_NOSAVE is defined, do nothing instead. */
 
-#ifdef ADVENT_NOSAVE
+#if defined ADVENT_NOSAVE || defined ADVENT_AUTOSAVE
     return GO_UNKNOWN;
 #endif
     FILE *fp = NULL;

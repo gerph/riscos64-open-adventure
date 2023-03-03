@@ -18,6 +18,18 @@
 
 #define DIM(a) (sizeof(a)/sizeof(a[0]))
 
+#if defined ADVENT_AUTOSAVE
+static FILE* autosave_fp;
+void autosave(void)
+{
+    if (autosave_fp != NULL) {
+        rewind(autosave_fp);
+        savefile(autosave_fp, /* version (auto): */0);
+        fflush(autosave_fp);
+    }
+}
+#endif
+
 // LCOV_EXCL_START
 // exclude from coverage analysis because it requires interactivity to test
 static void sig_handler(int signo)
@@ -26,6 +38,11 @@ static void sig_handler(int signo)
         if (settings.logfp != NULL)
             fflush(settings.logfp);
     }
+
+#if defined ADVENT_AUTOSAVE
+    if (signo == SIGHUP || signo == SIGTERM)
+        autosave();
+#endif
     exit(EXIT_FAILURE);
 }
 // LCOV_EXCL_STOP
@@ -50,7 +67,12 @@ int main(int argc, char *argv[])
 
     /*  Options. */
 
-#ifndef ADVENT_NOSAVE
+#if defined ADVENT_AUTOSAVE
+    const char* opts = "l:oa:";
+    const char* usage = "Usage: %s [-l logfilename] [-o] [-a filename] [script...]\n";
+    FILE *rfp = NULL;
+    const char* autosave_filename = NULL;
+#elif !defined ADVENT_NOSAVE
     const char* opts = "l:or:";
     const char* usage = "Usage: %s [-l logfilename] [-o] [-r restorefilename] [script...]\n";
     FILE *rfp = NULL;
@@ -72,7 +94,14 @@ int main(int argc, char *argv[])
             settings.oldstyle = true;
             settings.prompt = false;
             break;
-#ifndef ADVENT_NOSAVE
+#ifdef ADVENT_AUTOSAVE
+        case 'a':
+            rfp = fopen(optarg, READ_MODE);
+            autosave_filename = optarg;
+            signal(SIGHUP, sig_handler);
+            signal(SIGTERM, sig_handler);
+            break;
+#elif !defined ADVENT_NOSAVE
         case 'r':
             rfp = fopen(optarg, "r");
             if (rfp == NULL)
@@ -88,7 +117,10 @@ int main(int argc, char *argv[])
                     "        -l create a log file of your game named as specified'\n");
             fprintf(stderr,
                     "        -o 'oldstyle' (no prompt, no command editing, displays 'Initialising...')\n");
-#ifndef ADVENT_NOSAVE
+#if defined ADVENT_AUTOSAVE
+            fprintf(stderr,
+                    "        -a automatic save/restore from specified saved game file\n");
+#elif !defined ADVENT_NOSAVE
             fprintf(stderr,
                     "        -r restore from specified saved game file\n");
 #endif
@@ -105,14 +137,26 @@ int main(int argc, char *argv[])
     /*  Initialize game variables */
     int seedval = initialise();
 
-#ifndef ADVENT_NOSAVE
+#if !defined ADVENT_NOSAVE
     if (!rfp) {
         game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
         if (game.novice)
             game.limit = NOVICELIMIT;
     } else {
         restore(rfp);
+#if defined ADVENT_AUTOSAVE
+        score(scoregame);
+#endif
     }
+#if defined ADVENT_AUTOSAVE
+    if (autosave_filename != NULL) {
+        if ((autosave_fp = fopen(autosave_filename, WRITE_MODE)) == NULL) {
+            perror(autosave_filename);
+            return EXIT_FAILURE;
+        }
+        autosave();
+    }
+#endif
 #else
     game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
     if (game.novice)

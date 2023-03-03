@@ -244,6 +244,9 @@ extern int32_t randrange(int32_t);
 extern int score(enum termination);
 extern void terminate(enum termination) __attribute__((noreturn));
 extern int savefile(FILE *, int32_t);
+#if defined ADVENT_AUTOSAVE
+extern void autosave(void);
+#endif
 extern int suspend(void);
 extern int resume(void);
 extern int restore(FILE *);

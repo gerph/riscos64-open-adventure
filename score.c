@@ -117,6 +117,9 @@ void terminate(enum termination mode)
 /* End of game.  Let's tell him all about it. */
 {
     int points = score(mode);
+#if defined ADVENT_AUTOSAVE
+    autosave();
+#endif
 
     if (points + game.trnluz + 1 >= mxscor && game.trnluz != 0)
         rspeak(TOOK_LONG);
