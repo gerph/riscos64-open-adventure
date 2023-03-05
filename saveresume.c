@@ -60,10 +60,11 @@ int suspend(void)
     /*  Suspend.  Offer to save things in a file, but charging
      *  some points (so can't win by using saved games to retry
      *  battles or to start over after learning zzword).
-     *  If ADVENT_NOSAVE is defined, do nothing instead. */
+     *  If ADVENT_NOSAVE is defined, gripe instead. */
 
 #if defined ADVENT_NOSAVE || defined ADVENT_AUTOSAVE
-    return GO_UNKNOWN;
+    rspeak(SAVERESUME_DISABLED)
+    return GO_TOP;
 #endif
     FILE *fp = NULL;
 
@@ -91,10 +92,11 @@ int suspend(void)
 int resume(void)
 {
     /*  Resume.  Read a suspended game back from a file.
-     *  If ADVENT_NOSAVE is defined, do nothing instead. */
+     *  If ADVENT_NOSAVE is defined, gripe instead. */
 
 #if defined ADVENT_NOSAVE || defined ADVENT_AUTOSAVE
-    return GO_UNKNOWN;
+    rspeak(SAVERESUME_DISABLED)
+    return GO_TOP;
 #endif
     FILE *fp = NULL;
 
@@ -125,9 +127,10 @@ int restore(FILE* fp)
 {
     /*  Read and restore game state from file, assuming
      *  sane initial state.
-     *  If ADVENT_NOSAVE is defined, do nothing instead. */
+     *  If ADVENT_NOSAVE is defined, gripe instead. */
 #ifdef ADVENT_NOSAVE
-    return GO_UNKNOWN;
+    rspeak(SAVERESUME_DISABLED)
+    return GO_TOP;
 #endif
 
     IGNORE(fread(&save, sizeof(struct save_t), 1, fp));

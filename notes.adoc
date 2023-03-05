@@ -126,6 +126,10 @@ tamper-proofing saves when everyone has the source code.
 A -r command-line option has been added. When it is given (with a file
 path argument) it is functionally equivalent to a RESTORE command.
 
+The game can be built in a mode that entirely disables save/resume, or
+thart autosaves only on a termination signal (for use in BBS doort
+systems).  There is a new nmessage to inform the user about this.
+
 == Translation ==
 
 The 2.5 code was a mechanical C translation of a FORTRAN original.

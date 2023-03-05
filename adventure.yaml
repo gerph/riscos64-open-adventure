@@ -3173,6 +3173,7 @@ arbitrary_messages:  !!omap
     To achieve the next higher rating would be a neat trick!
     Congratulations!!
 - OFF_SCALE: 'You just went off my scale!!'
+- SAVERESUME_DISABLED: 'Save abd resume are disabled.'
 - RESUME_HELP: 'To resume your Adventure, start a new game and then say "RESUME".'
 # This message is not currently used
 #- TABLE_SPACE: |-
