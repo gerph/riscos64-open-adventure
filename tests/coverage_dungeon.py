@@ -7,9 +7,10 @@ various strings contained are present within the test check files.
 The default HTML output is appropriate for use with Gitlab CI.
 You can override it with a command-line argument.
 
-The DANGLING list is for actions that should be considered always found
-even if the checkfile search doesn't find them. Typically this will because
-they emit a templated message that can't be regression-tested by equality.
+The DANGLING lists are for actions and messages that should be 
+considered always found even if the checkfile search doesn't find them.
+Typically this will because an action emit a templated message that
+can't be regression-tested by equality.
 """
 
 # pylint: disable=consider-using-f-string,line-too-long,invalid-name,missing-function-docstring,redefined-outer-name
@@ -23,7 +24,8 @@ TEST_DIR = "."
 YAML_PATH = "../adventure.yaml"
 HTML_TEMPLATE_PATH = "../templates/coverage_dungeon.html.tpl"
 DEFAULT_HTML_OUTPUT_PATH = "../coverage/adventure.yaml.html"
-DANGLING = ["ACT_VERSION"]
+DANGLING_ACTIONS = ["ACT_VERSION"]
+DANGLING_MESSAGES = ["SAVERESUME_DISABLED"]
 
 STDOUT_REPORT_CATEGORY = "  {name:.<19}: {percent:5.1f}% covered ({covered} of {total})\n"
 
@@ -156,7 +158,7 @@ def arb_coverage(arb_msgs, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"covered" : False}
             report["total"] += 1
-        if not report["messages"][name]["covered"] and search(message, text):
+        if not report["messages"][name]["covered"] and search(message, text) or name in DANGLING_MESSAGES:
             report["messages"][name]["covered"] = True
             report["covered"] += 1
 
@@ -166,7 +168,7 @@ def actions_coverage(items, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"covered" : False}
             report["total"] += 1
-        if not report["messages"][name]["covered"] and (search(item["message"], text) or name in DANGLING):
+        if not report["messages"][name]["covered"] and (search(item["message"], text) or name in DANGLING_ACTIONS):
             report["messages"][name]["covered"] = True
             report["covered"] += 1
 
