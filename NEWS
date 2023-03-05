@@ -1,13 +1,13 @@
 = Open Adventure project news =
 
 Repository head::
-  Added BBS option for BBS door systems.
+  Added -a option for BBS door systems.
 
 1.13: 2023-02-28::
   Fixed slightly buggy emission of end-of-game messages on a win.
 
 1.12: 2023-02-06::
-  The bug and todo list has been cleared.
+  The bug and todo list has been cleared; project declared finished.
   Correctness has been systematically tested against the 1995 code.
   Typo fixes and documentation polishing.
 

@@ -196,7 +196,7 @@ messages with the objects that conceptually own them.
 We consider this project finished. All issues and TODOs have been
 cleared, behavior has been carefully checked against original ADVENT,
 no future demand for new features is expected, and the test suite has
-100% code coverage.  If the toolchain bit-rots out from under it,
-we will fix that.
+100% code coverage.  If new bugs appear the toolchain bit-rots out
+from under underneath, we will fix those problems.
 
 // end
