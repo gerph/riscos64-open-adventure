@@ -47,139 +47,6 @@ static void sig_handler(int signo)
 }
 // LCOV_EXCL_STOP
 
-/*
- * MAIN PROGRAM
- *
- *  Adventure (rev 2: 20 treasures)
- *  History: Original idea & 5-treasure version (adventures) by Willie Crowther
- *           15-treasure version (adventure) by Don Woods, April-June 1977
- *           20-treasure version (rev 2) by Don Woods, August 1978
- *		Errata fixed: 78/12/25
- *	     Revived 2017 as Open Adventure.
- */
-
-static bool do_command(void);
-static bool do_move(void);
-
-int main(int argc, char *argv[])
-{
-    int ch;
-
-    /*  Options. */
-
-#if defined ADVENT_AUTOSAVE
-    const char* opts = "l:oa:";
-    const char* usage = "Usage: %s [-l logfilename] [-o] [-a filename] [script...]\n";
-    FILE *rfp = NULL;
-    const char* autosave_filename = NULL;
-#elif !defined ADVENT_NOSAVE
-    const char* opts = "l:or:";
-    const char* usage = "Usage: %s [-l logfilename] [-o] [-r restorefilename] [script...]\n";
-    FILE *rfp = NULL;
-#else
-    const char* opts = "l:o";
-    const char* usage = "Usage: %s [-l logfilename] [-o] [script...]\n";
-#endif
-    while ((ch = getopt(argc, argv, opts)) != EOF) {
-        switch (ch) {
-        case 'l':
-            settings.logfp = fopen(optarg, "w");
-            if (settings.logfp == NULL)
-                fprintf(stderr,
-                        "advent: can't open logfile %s for write\n",
-                        optarg);
-            signal(SIGINT, sig_handler);
-            break;
-        case 'o':
-            settings.oldstyle = true;
-            settings.prompt = false;
-            break;
-#ifdef ADVENT_AUTOSAVE
-        case 'a':
-            rfp = fopen(optarg, READ_MODE);
-            autosave_filename = optarg;
-            signal(SIGHUP, sig_handler);
-            signal(SIGTERM, sig_handler);
-            break;
-#elif !defined ADVENT_NOSAVE
-        case 'r':
-            rfp = fopen(optarg, "r");
-            if (rfp == NULL)
-                fprintf(stderr,
-                        "advent: can't open save file %s for read\n",
-                        optarg);
-            break;
-#endif
-        default:
-            fprintf(stderr,
-                    usage, argv[0]);
-            fprintf(stderr,
-                    "        -l create a log file of your game named as specified'\n");
-            fprintf(stderr,
-                    "        -o 'oldstyle' (no prompt, no command editing, displays 'Initialising...')\n");
-#if defined ADVENT_AUTOSAVE
-            fprintf(stderr,
-                    "        -a automatic save/restore from specified saved game file\n");
-#elif !defined ADVENT_NOSAVE
-            fprintf(stderr,
-                    "        -r restore from specified saved game file\n");
-#endif
-            exit(EXIT_FAILURE);
-            break;
-        }
-    }
-
-    /* copy invocation line part after switches */
-    settings.argc = argc - optind;
-    settings.argv = argv + optind;
-    settings.optind = 0;
-
-    /*  Initialize game variables */
-    int seedval = initialise();
-
-#if !defined ADVENT_NOSAVE
-    if (!rfp) {
-        game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
-        if (game.novice)
-            game.limit = NOVICELIMIT;
-    } else {
-        restore(rfp);
-#if defined ADVENT_AUTOSAVE
-        score(scoregame);
-#endif
-    }
-#if defined ADVENT_AUTOSAVE
-    if (autosave_filename != NULL) {
-        if ((autosave_fp = fopen(autosave_filename, WRITE_MODE)) == NULL) {
-            perror(autosave_filename);
-            return EXIT_FAILURE;
-        }
-        autosave();
-    }
-#endif
-#else
-    game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
-    if (game.novice)
-        game.limit = NOVICELIMIT;
-#endif
-
-    if (settings.logfp)
-        fprintf(settings.logfp, "seed %d\n", seedval);
-
-    /* interpret commands until EOF or interrupt */
-    for (;;) {
-        // if we're supposed to move, move
-        if (!do_move())
-            continue;
-
-        // get command
-        if (!do_command())
-            break;
-    }
-    /* show score and exit */
-    terminate(quitgame);
-}
-
 char *myreadline(const char *prompt)
 {
     /*
@@ -1363,6 +1230,136 @@ static bool do_command()
 
     /* command completely executed; we return true. */
     return true;
+}
+
+/*
+ * MAIN PROGRAM
+ *
+ *  Adventure (rev 2: 20 treasures)
+ *  History: Original idea & 5-treasure version (adventures) by Willie Crowther
+ *           15-treasure version (adventure) by Don Woods, April-June 1977
+ *           20-treasure version (rev 2) by Don Woods, August 1978
+ *		Errata fixed: 78/12/25
+ *	     Revived 2017 as Open Adventure.
+ */
+
+int main(int argc, char *argv[])
+{
+    int ch;
+
+    /*  Options. */
+
+#if defined ADVENT_AUTOSAVE
+    const char* opts = "l:oa:";
+    const char* usage = "Usage: %s [-l logfilename] [-o] [-a filename] [script...]\n";
+    FILE *rfp = NULL;
+    const char* autosave_filename = NULL;
+#elif !defined ADVENT_NOSAVE
+    const char* opts = "l:or:";
+    const char* usage = "Usage: %s [-l logfilename] [-o] [-r restorefilename] [script...]\n";
+    FILE *rfp = NULL;
+#else
+    const char* opts = "l:o";
+    const char* usage = "Usage: %s [-l logfilename] [-o] [script...]\n";
+#endif
+    while ((ch = getopt(argc, argv, opts)) != EOF) {
+        switch (ch) {
+        case 'l':
+            settings.logfp = fopen(optarg, "w");
+            if (settings.logfp == NULL)
+                fprintf(stderr,
+                        "advent: can't open logfile %s for write\n",
+                        optarg);
+            signal(SIGINT, sig_handler);
+            break;
+        case 'o':
+            settings.oldstyle = true;
+            settings.prompt = false;
+            break;
+#ifdef ADVENT_AUTOSAVE
+        case 'a':
+            rfp = fopen(optarg, READ_MODE);
+            autosave_filename = optarg;
+            signal(SIGHUP, sig_handler);
+            signal(SIGTERM, sig_handler);
+            break;
+#elif !defined ADVENT_NOSAVE
+        case 'r':
+            rfp = fopen(optarg, "r");
+            if (rfp == NULL)
+                fprintf(stderr,
+                        "advent: can't open save file %s for read\n",
+                        optarg);
+            break;
+#endif
+        default:
+            fprintf(stderr,
+                    usage, argv[0]);
+            fprintf(stderr,
+                    "        -l create a log file of your game named as specified'\n");
+            fprintf(stderr,
+                    "        -o 'oldstyle' (no prompt, no command editing, displays 'Initialising...')\n");
+#if defined ADVENT_AUTOSAVE
+            fprintf(stderr,
+                    "        -a automatic save/restore from specified saved game file\n");
+#elif !defined ADVENT_NOSAVE
+            fprintf(stderr,
+                    "        -r restore from specified saved game file\n");
+#endif
+            exit(EXIT_FAILURE);
+            break;
+        }
+    }
+
+    /* copy invocation line part after switches */
+    settings.argc = argc - optind;
+    settings.argv = argv + optind;
+    settings.optind = 0;
+
+    /*  Initialize game variables */
+    int seedval = initialise();
+
+#if !defined ADVENT_NOSAVE
+    if (!rfp) {
+        game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
+        if (game.novice)
+            game.limit = NOVICELIMIT;
+    } else {
+        restore(rfp);
+#if defined ADVENT_AUTOSAVE
+        score(scoregame);
+#endif
+    }
+#if defined ADVENT_AUTOSAVE
+    if (autosave_filename != NULL) {
+        if ((autosave_fp = fopen(autosave_filename, WRITE_MODE)) == NULL) {
+            perror(autosave_filename);
+            return EXIT_FAILURE;
+        }
+        autosave();
+    }
+#endif
+#else
+    game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
+    if (game.novice)
+        game.limit = NOVICELIMIT;
+#endif
+
+    if (settings.logfp)
+        fprintf(settings.logfp, "seed %d\n", seedval);
+
+    /* interpret commands until EOF or interrupt */
+    for (;;) {
+        // if we're supposed to move, move
+        if (!do_move())
+            continue;
+
+        // get command
+        if (!do_command())
+            break;
+    }
+    /* show score and exit */
+    terminate(quitgame);
 }
 
 /* end */
