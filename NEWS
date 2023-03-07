@@ -2,6 +2,7 @@
 
 Repository head::
   Added -a option for BBS door systems.
+  -o reverts to the old message on some failed magic words. 
 
 1.13: 2023-02-28::
   Fixed slightly buggy emission of end-of-game messages on a win.
@@ -17,7 +18,7 @@ Repository head::
 
 1.10: 2022-04-06::
   Fixed a bug that manifested after two "fly rug" commands - third one fails.
-  Fix some giltches in processing fee fie foe foo.
+  Fix some glitches in processing fee fie foe foo.
   Correct some object start states and reading-related glitches in the endgame.
 
 1.9: 2020-08-27::
