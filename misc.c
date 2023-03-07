@@ -617,6 +617,13 @@ void carry(obj_t object, loc_t where)
             return;
         game.place[object] = CARRIED;
 
+	/*
+	 * Without this conditional your inventory is overcounted
+	 * when you pick up the bird while it's caged. This fixes
+	 * a cosmetic bug in the original.
+	 *
+	 * Possibly this check should be skipped whwn oldstyle is on.
+	 */
         if (object != BIRD)
             ++game.holdng;
     }
@@ -641,7 +648,7 @@ void drop(obj_t object, loc_t where)
         if (game.place[object] == CARRIED)
             if (object != BIRD)
                 /* The bird has to be weightless.  This ugly hack (and the
-                 * corresponding code in the drop function) brought to you
+                 * corresponding code in the carry function) brought to you
                  * by the fact that when the bird is caged, we need to be able
                  * to either 'take bird' or 'take cage' and have the right thing
                  * happen.
