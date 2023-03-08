@@ -2755,7 +2755,7 @@ locations: !!omap
           You are on a small ledge at the top of a nearly vertical cliff.
           There is a low crawl leading off to the northeast.
       short: 'You''re at top of cliff.'
-      maptag: 'Cliftop'
+      maptag: 'Clifftop'
     conditions: {DEEP: true}
     travel: [
       {verbs: [CLIMB, DOWN], action: [goto, LOC_CLIFFACE]},
@@ -3173,7 +3173,7 @@ arbitrary_messages:  !!omap
     To achieve the next higher rating would be a neat trick!
     Congratulations!!
 - OFF_SCALE: 'You just went off my scale!!'
-- SAVERESUME_DISABLED: 'Save abd resume are disabled.'
+- SAVERESUME_DISABLED: 'Save and resume are disabled.'
 - RESUME_HELP: 'To resume your Adventure, start a new game and then say "RESUME".'
 # This message is not currently used
 #- TABLE_SPACE: |-

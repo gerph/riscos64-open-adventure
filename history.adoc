@@ -163,9 +163,9 @@ even as primitive as Adventure's.
 
 - [[[SN]]]
   http://www.digitalhumanities.org/dhq/vol/1/2/000009/000009.html[Digital
-  Humanties Quarterly]
+  Humanities Quarterly]
 
-- [[[DND]]] https://en.wikipedia.org/wiki/Dnd_(video_game)[dnd (ivdeo game)]
+- [[[DND]]] https://en.wikipedia.org/wiki/Dnd_(video_game)[dnd (video game)]
 
 - [[[WUMPUS]]] https://en.wikipedia.org/wiki/Hunt_the_Wumpus[Hunt The Wumpus]
 

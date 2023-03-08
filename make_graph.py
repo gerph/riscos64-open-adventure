@@ -5,7 +5,7 @@ usage: make-graph.py [-a] -d] [-m] [-s]
 Make a DOT graph of Colossal Cave.
 
 -a = emit graph of entire dungeon
--d = emit graoh of mazw all different
+-d = emit graph of maze all different
 -f = emit graph of forest locations
 -m = emit graph of maze all alike
 -s = emit graph of non-forest surface locations
@@ -70,7 +70,7 @@ def roomlabel(loc):
     return description
 
 # A forwarder is a location that you can't actually stop in - when you go there
-# it ships some message (which is the point) then shifts you to a nexr location.
+# it ships some message (which is the point) then shifts you to a next location.
 # A forwarder has a zero-length array of notion verbs in its travel section.
 #
 # Here is an example forwarder declaration:
@@ -97,7 +97,7 @@ def forward(loc):
     return loc
 
 def reveal(objname):
-    "Should this object be revealed when mappinmg?"
+    "Should this object be revealed when mapping?"
     if "OBJ_" in objname:
         return False
     if objname == "VEND":
@@ -148,8 +148,8 @@ if __name__ == "__main__":
                 startlocs[location] = [objname]
 
     # Compute reachability, using forwards.
-    # Dictionary ke6y is (from, to) iff its a valid link,
-    # value is correspoinding motion verbs.
+    # Dictionary key is (from, to) iff its a valid link,
+    # value is corresponding motion verbs.
     links = {}
     nodes = []
     for (loc, attrs) in db["locations"]:
