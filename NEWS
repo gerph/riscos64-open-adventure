@@ -1,8 +1,9 @@
 = Open Adventure project news =
 
-Repository head::
+1.14: 2023-03-09::
   Added -a option for BBS door systems.
   -o reverts to the old message on some failed magic words. 
+  Typo fixes and documentation polishing.
 
 1.13: 2023-02-28::
   Fixed slightly buggy emission of end-of-game messages on a win.
