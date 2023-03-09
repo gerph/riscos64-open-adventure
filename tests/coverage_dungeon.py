@@ -147,7 +147,7 @@ def threshold_coverage(classes, text, report):
     # property
     for name, item in enumerate(classes):
         if name not in report["messages"]:
-            report["messages"][name] = {"covered" : "False"}
+            report["messages"][name] = {"covered" : False}
             report["total"] += 1
         if not report["messages"][name]["covered"] and search(item["message"], text):
             report["messages"][name]["covered"] = True
