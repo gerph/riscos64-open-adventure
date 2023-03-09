@@ -73,11 +73,11 @@ savecheck: savegames
 	@$(ECHO) "TEST cheat: Fail to save to invalid path"
 	@$(PARDIR)/cheat -o / 2> /tmp/coverage_cheat_badoutput | true
 	@$(ECHO) "TEST advent: Start with invalid file with -r"
-	@advent -r /badfilename < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
+	@$(advent) -r /badfilename < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
 	@$(ECHO) "TEST advent: Start with invalid file with -l"
-	@advent -l / < pitfall.log > /tmp/coverage_advent_logfail 2>&1 || exit 1
+	@$(advent) -l / < pitfall.log > /tmp/coverage_advent_logfail 2>&1 || exit 1
 	@$(ECHO) "TEST advent: Test -r with valid input"
-	@advent -r thousand_saves.adv < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
+	@$(advent) -r thousand_saves.adv < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
 	@rm -f /tmp/coverage*
 
 coverage: check
