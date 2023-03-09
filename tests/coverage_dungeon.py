@@ -7,7 +7,7 @@ various strings contained are present within the test check files.
 The default HTML output is appropriate for use with Gitlab CI.
 You can override it with a command-line argument.
 
-The DANGLING lists are for actions and messages that should be 
+The DANGLING lists are for actions and messages that should be
 considered always found even if the checkfile search doesn't find them.
 Typically this will because an action emit a templated message that
 can't be regression-tested by equality.
