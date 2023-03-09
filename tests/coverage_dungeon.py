@@ -158,7 +158,7 @@ def arb_coverage(arb_msgs, text, report):
         if name not in report["messages"]:
             report["messages"][name] = {"covered" : False}
             report["total"] += 1
-        if not report["messages"][name]["covered"] and search(message, text) or name in DANGLING_MESSAGES:
+        if not report["messages"][name]["covered"] and (search(message, text) or name in DANGLING_MESSAGES):
             report["messages"][name]["covered"] = True
             report["covered"] += 1
 
