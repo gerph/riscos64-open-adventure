@@ -192,11 +192,13 @@ static phase_codes_t bigwords(vocab_t id)
  * word we've got. Last word zips the eggs back to the giant room (unless
  * already there). */
 {
-    if ((game.foobar == WORD_EMPTY && id == FEE) ||
-        (game.foobar == FEE && id == FIE) ||
-        (game.foobar == FIE && id == FOE) ||
-        (game.foobar == FOE && id == FOO) ||
-        (game.foobar == FOE && id == FUM)) {
+    int foobar = abs(game.foobar);
+
+    if ((foobar == WORD_EMPTY && id == FEE) ||
+        (foobar == FEE && id == FIE) ||
+        (foobar == FIE && id == FOE) ||
+        (foobar == FOE && id == FOO) ||
+        (foobar == FOE && id == FUM)) {
         game.foobar = id;
         if ((id != FOO) && (id != FUM)) {
             rspeak(OK_MAN);

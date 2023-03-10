@@ -1125,6 +1125,12 @@ static bool do_command()
                 if (!get_command_input(&command))
                     return false;
 
+                /* Every input, check "foobar" flag. If zero, nothing's going
+                 * on. If pos, make neg. If neg, he skipped a word, so make it
+                 * zero.
+                 */
+                game.foobar = (game.foobar > WORD_EMPTY) ? -game.foobar : WORD_EMPTY;
+
                 ++game.turns;
                 preprocess_command(&command);
             }

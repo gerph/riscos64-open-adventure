@@ -1,5 +1,5 @@
 ## Test interpersing commands amidst magic words
-# Check for "Done" or "Nothing happens." in game output.
+# Check for "Nothing happens." in game output indicatung sequence interrupt.
 no
 seed 1318612053
 e
