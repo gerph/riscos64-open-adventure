@@ -71,9 +71,6 @@ Bug fixes:
 
 Bugs (accidental changes that don't seem worth the effort to fix):
 
-* Commands that are not moves (e.g. "look" and "inven") can be used
-  during fee fie fo foo without breaking recognition of the sequence.
-
 * Bird starts uncaged in the endgame.
 
 Enhancements:
