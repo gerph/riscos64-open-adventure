@@ -2435,11 +2435,12 @@ OK
 
 You are currently holding the following:
 Wicker cage
+Little bird in cage
 Small bottle
 
 > get bird
 
-OK
+You are already carrying it!
 
 > inven
 

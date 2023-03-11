@@ -602,7 +602,7 @@ loc_t put(obj_t object, loc_t where, int pval)
  *  negated game.prop values for the repository objects. */
 {
     move(object, where);
-    return STASHED(pval);
+    return (-1) - pval;;
 }
 
 void carry(obj_t object, loc_t where)
