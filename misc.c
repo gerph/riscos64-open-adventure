@@ -221,7 +221,7 @@ static char* get_input(void)
     // Print a blank line
     printf("\n");
 
-    char* input = "";
+    char* input;
     for (;;) {
         input = myreadline(input_prompt);
 
