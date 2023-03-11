@@ -1074,7 +1074,7 @@ static bool do_move(void)
     return true;
 }
 
-static bool do_command()
+static bool do_command(void)
 /* Get and execute a command */
 {
     static command_t command;
