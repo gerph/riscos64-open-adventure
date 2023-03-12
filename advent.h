@@ -32,7 +32,7 @@
 #define WRITE_MODE     "wb"       // b is not needed for POSIX but harmless
 
 /* Special object-state values - integers > 0 are object-specific */
-#define STATE_NOTFOUND  -1	  // 'Not found" state of treasures */
+#define STATE_NOTFOUND  -1	  // 'Not found" state of treasures
 #define STATE_FOUND	0	  // After discovered, before messed with
 #define STATE_IN_CAVITY	1	  // State value common to all gemstones
 
@@ -42,7 +42,7 @@
 
 /* Map a state property value to a negative range, where the object cannot be
  * picked up but the value can be recovered later.  Avoid colliding with -1,
- * which has its own meaning. */
+ * which has its own meaning as STATE_NOTFOUND. */
 #define STASHED(obj)	(-1 - game.prop[obj])
 
 #define PROMPT	"> "

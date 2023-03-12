@@ -219,7 +219,8 @@ bool is_valid(struct game_t valgame)
 
     /* Check that properties of objects aren't beyond expected */
     for (obj_t obj = 0; obj <= NOBJECTS; obj++) {
-        if (valgame.prop[obj] < STATE_NOTFOUND || valgame.prop[obj] > 1) {
+	/* Magic number -2 allows a STASHED version of state 1 */
+        if (valgame.prop[obj] < -2 || valgame.prop[obj] > 1) {
             switch (obj) {
             case RUG:
             case DRAGON:
