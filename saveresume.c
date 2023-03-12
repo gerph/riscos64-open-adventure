@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <time.h>
 #include <inttypes.h>
 
@@ -55,6 +56,25 @@ int savefile(FILE *fp, int32_t version)
 }
 
 /* Suspend and resume */
+
+char *strip(char *name)
+{
+    // Trim leading whitespace
+    while(isspace((unsigned char)*name))
+	name++;	// LCOV_EXCL_LINE
+    if(*name != '\0') {
+	// Trim trailing whitespace;
+	// might be left there by autocomplete
+	char *end = name + strlen(name) - 1;
+	while(end > name && isspace((unsigned char)*end))
+	    end--;
+	// Write new null terminator character
+	end[1] = '\0';
+    }
+
+    return name;
+}
+
 int suspend(void)
 {
     /*  Suspend.  Offer to save things in a file, but charging
@@ -77,7 +97,10 @@ int suspend(void)
         char* name = myreadline("\nFile name: ");
         if (name == NULL)
             return GO_TOP;
-        fp = fopen(name, WRITE_MODE);
+	name = strip(name);
+	if (strlen(name) == 0)
+            return GO_TOP;	// LCOV_EXCL_LINE
+        fp = fopen(strip(name), WRITE_MODE);
         if (fp == NULL)
             printf("Can't open file %s, try again.\n", name);
         free(name);
@@ -109,12 +132,12 @@ int resume(void)
 
     while (fp == NULL) {
         char* name = myreadline("\nFile name: ");
-        // Autocomplete can leave the input with an extra trailing space.
-        if (name != NULL && strlen(name) > 0 && name[strlen(name) - 1] == ' ')
-            name[strlen(name) - 1] = '\0';
         if (name == NULL)
             return GO_TOP;
-        fp = fopen(name, READ_MODE);
+	name = strip(name);
+	if (strlen(name) == 0)
+            return GO_TOP;	// LCOV_EXCL_LINE
+	fp = fopen(name, READ_MODE);
         if (fp == NULL)
             printf("Can't open file %s, try again.\n", name);
         free(name);
@@ -138,8 +161,8 @@ int restore(FILE* fp)
     if (save.version != VRSION) {
         rspeak(VERSION_SKEW, save.version / 10, MOD(save.version, 10), VRSION / 10, MOD(VRSION, 10));
     } else if (!is_valid(save.game)) {
-	rspeak(SAVE_TAMPERING);
-	exit(EXIT_SUCCESS);
+	rspeak(SAVE_TAMPERING);	// LCOV_EXCL_LINE
+	exit(EXIT_SUCCESS);	// LCOV_EXCL_LINE
     } else {
         game = save.game;
     }
