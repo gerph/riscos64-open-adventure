@@ -52,6 +52,8 @@ savegames:
 	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
 	@$(ECHO) "cheat: Generate save file with -1000 deaths"
 	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
+	@$(ECHO) "cheat: Generate tamper-detection test"
+	@$(PARDIR)/cheat -d 2000 -o cheat_savetamper.adv > /tmp/cheat_savetamper
 	@$(ECHO) "cheat: Generate save file with version -1337"
 	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
 	@$(ECHO) "cheat: Generate save file 1000 saves"
