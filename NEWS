@@ -2,6 +2,7 @@
 
 Repository head::
   Commands in magic-word sequence now interrupt it, as in original.
+  Bug fix for bird not starting caged in endgame.
 
 1.14: 2023-03-09::
   Added -a option for BBS door systems.
