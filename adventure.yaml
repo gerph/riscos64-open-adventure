@@ -3189,13 +3189,13 @@ arbitrary_messages:  !!omap
     save file format, and this program uses Version %d.%d.  You must find an instance
     using that other version in order to resume that Adventure.
 # This message is not currently used
-#- SAVE_TAMPERING: |-
-#    A dark fog creeps in to surround you.  From somewhere in the fog you
-#    hear a stern voice.  "This Adventure has been tampered with!  You have
-#    been dabbling in magic, knowing not the havoc you might cause thereby.
-#    Leave at once, before you do irrevocable harm!"  The fog thickens,
-#    until at last you can see nothing at all.  Your vision then clears,
-#    and you find yourself back in The Real World.
+- SAVE_TAMPERING: |-
+    A dark fog creeps in to surround you.  From somewhere in the fog you
+    hear a stern voice.  "This Adventure has been tampered with!  You have
+    been dabbling in magic, knowing not the havoc you might cause thereby.
+    Leave at once, before you do irrevocable harm!"  The fog thickens,
+    until at last you can see nothing at all.  Your vision then clears,
+    and you find yourself back in The Real World.
 - TWIST_TURN: |-
     Sorry, but the path twisted and turned so much that I can't figure
     out which way to go to get back.

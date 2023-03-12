@@ -137,7 +137,10 @@ int restore(FILE* fp)
     fclose(fp);
     if (save.version != VRSION) {
         rspeak(VERSION_SKEW, save.version / 10, MOD(save.version, 10), VRSION / 10, MOD(VRSION, 10));
-    } else if (is_valid(save.game)) {
+    } else if (!is_valid(save.game)) {
+	rspeak(SAVE_TAMPERING);
+	exit(EXIT_SUCCESS);
+    } else {
         game = save.game;
     }
     return GO_TOP;
