@@ -93,7 +93,7 @@ buildchecks: savegames
 	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
 	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
 	done; \
-	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk
+	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk; \
 	rm -f scratch.tmp
 
 RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
@@ -108,6 +108,7 @@ multifile-regress:
 TEST_TARGETS = $(RUN_TARGETS) multifile-regress
 
 tap: count $(TEST_TARGETS)
+	rm -f scratch.tmp
 count:
 	@echo 1..$(words $(TEST_TARGETS))
 
