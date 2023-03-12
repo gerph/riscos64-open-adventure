@@ -64,7 +64,7 @@ Bug fixes:
 
 * A few minor typos have been corrected: absence of capitalization on
   "Swiss" and "Persian", inconsistent spelling of "imbedded" vs. "embedded",
-  "eying" for "eyeing". "thresholds" for "threshholds".
+  "eying" for "eyeing", "thresholds" for "threshholds".
 
 * Under odd circumstances (dropping rug or vase outdoors) the game could
   formerly say "floor" when it should say "ground" (or "dirt", or something).
@@ -116,14 +116,24 @@ FORTRAN-derived code that formerly implemented the save/restore
 functions; without C's fread(3)/fwrite() and structs it was
 necessarily pretty ugly by modern standards. Encryption and
 checksumming have been discarded - it's pointless to try
-tamper-proofing saves when everyone has the source code.
+tamper-proofing saves when everyone has the source code. However
+the game still integrity-checks savefiles on resume.
+
+Save and resume filenames are stripped of leading and trailing
+whitespace before processing.
 
 A -r command-line option has been added. When it is given (with a file
 path argument) it is functionally equivalent to a RESTORE command.
 
-The game can be built in a mode that entirely disables save/resume, or
-thart autosaves only on a termination signal (for use in BBS doort
-systems).  There is a new nmessage to inform the user about this.
+An -a command-line option has been added (comditionally on
+ADVENT_AUTOSAVE) for use in BBS door systems.  When this option is
+given, the game roads from the specified filename argument on startup
+and saves to it on quit or a received signal. There is a new nmessage
+to inform the user about this.
+
+The game can be built in a mode that entirely disables save/resume
+(-DADVENT_NOSAVE). If the game had been built this way, a diagnostic is
+emitted if you try to save or resume.
 
 == Translation ==
 
