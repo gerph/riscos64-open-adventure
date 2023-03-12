@@ -24,7 +24,7 @@
 #      long:         Long description, always shown on first encounter.
 #      short:        Short description. If none, use long description.
 #      maptag:       Tag for mapping, not used by the game itself.
-#                    Only used if the "short" property in !!null.
+#                    Only used if the "short" property is !!null.
 #      conditions:   A dictionary of attributes
 #        LIT		Light
 #        OILY		If FLUID flag is on: true for oil, false for water
@@ -3188,7 +3188,6 @@ arbitrary_messages:  !!omap
     I'm sorry, but that Adventure was begun using Version %d.%d of the
     save file format, and this program uses Version %d.%d.  You must find an instance
     using that other version in order to resume that Adventure.
-# This message is not currently used
 - SAVE_TAMPERING: |-
     A dark fog creeps in to surround you.  From somewhere in the fog you
     hear a stern voice.  "This Adventure has been tampered with!  You have
