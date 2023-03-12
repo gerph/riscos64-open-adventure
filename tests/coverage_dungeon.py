@@ -25,7 +25,7 @@ YAML_PATH = "../adventure.yaml"
 HTML_TEMPLATE_PATH = "../templates/coverage_dungeon.html.tpl"
 DEFAULT_HTML_OUTPUT_PATH = "../coverage/adventure.yaml.html"
 DANGLING_ACTIONS = ["ACT_VERSION"]
-DANGLING_MESSAGES = ["SAVERESUME_DISABLED"]
+DANGLING_MESSAGES = ["SAVERESUME_DISABLED", "SAVE_TAMPERING"]
 
 STDOUT_REPORT_CATEGORY = "  {name:.<19}: {percent:5.1f}% covered ({covered} of {total})\n"
 
