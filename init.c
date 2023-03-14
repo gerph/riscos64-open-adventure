@@ -95,7 +95,7 @@ int initialise(void)
             game.tally = game.tally - game.prop[treasure];
         }
     }
-    game.conds = setbit(11);
+    game.conds = setbit(COND_HBASE);
 
     return seedval;
 }
