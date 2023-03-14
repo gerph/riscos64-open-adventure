@@ -57,7 +57,7 @@ int savefile(FILE *fp, int32_t version)
 
 /* Suspend and resume */
 
-char *strip(char *name)
+static char *strip(char *name)
 {
     // Trim leading whitespace
     while(isspace((unsigned char)*name))
