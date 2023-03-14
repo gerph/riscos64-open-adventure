@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Filter the output from advent430 to make it compatible with
+# newer ones
+sed \
+    -e '/ *$/s///' \
+    -e '/bridge now spans the fissure/s//bridge spans the fissure/' \
+    -e '/imbedded/s//embedded/' \
+    -e '/persian/s//Persian/' \
+    -e '/swiss/s//Swiss/' \
+    -e '/eying/s//eyeing/' \
+    -e '/swiss/s//Swiss/' \
+    -e '/thresholds/s//threshholds/' \
+
+
+#end
+    

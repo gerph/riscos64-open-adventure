@@ -36,7 +36,7 @@ check: savecheck
 .SUFFIXES: .chk
 
 clean:
-	rm -fr *~ adventure.text *.adv scratch.tmp
+	rm -fr *~ *.adv scratch.tmp *.ochk
 
 # Show summary lines for all tests.
 testlist:
@@ -113,5 +113,13 @@ tap: count $(TEST_TARGETS)
 	rm -f scratch.tmp
 count:
 	@echo 1..$(words $(TEST_TARGETS))
+
+# The following machinery tests the gane against a binary made from the advent430 branch
+# The diff file produced has new spellings in it.
+
+ancient:
+	for x in *.log; do stem=$${x%.log}; echo $${stem}; ./advent430 <$${stem}.log | ./oldfilter >$${stem}.ochk; done 
+	for x in *.log; do stem=$${x%.log}; diff -u $${stem}.chk $${stem}.log; done
+	rm *.ochk
 
 # end
