@@ -83,7 +83,7 @@ int suspend(void)
      *  If ADVENT_NOSAVE is defined, gripe instead. */
 
 #if defined ADVENT_NOSAVE || defined ADVENT_AUTOSAVE
-    rspeak(SAVERESUME_DISABLED)
+    rspeak(SAVERESUME_DISABLED);
     return GO_TOP;
 #endif
     FILE *fp = NULL;
@@ -118,7 +118,7 @@ int resume(void)
      *  If ADVENT_NOSAVE is defined, gripe instead. */
 
 #if defined ADVENT_NOSAVE || defined ADVENT_AUTOSAVE
-    rspeak(SAVERESUME_DISABLED)
+    rspeak(SAVERESUME_DISABLED);
     return GO_TOP;
 #endif
     FILE *fp = NULL;
