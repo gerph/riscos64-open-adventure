@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     char *savefilename = NULL;
     int version = 0;
     FILE *fp = NULL;
+    char *tapmessage = NULL;
 
     // Initialize game variables
     initialise();
@@ -31,14 +32,15 @@ int main(int argc, char *argv[])
     game.saved = 1;
 
     /*  Options. */
-    const char* opts = "d:l:s:t:v:o:";
+    const char* opts = "d:l:s:t:v:o:m:";
     const char* usage = "Usage: %s [-d numdie] [-s numsaves] [-v version] -o savefilename \n"
                         "        -d number of deaths. Signed integer.\n"
                         "        -l lifetime of lamp in turns. Signed integer.\n"
                         "        -s number of saves. Signed integer.\n"
                         "        -t number of turns. Signed integer.\n"
                         "        -v version number of save format.\n"
-                        "        -o required. File name of save game to write.\n";
+                        "        -o required. File name of save game to write.\n"
+	                "        -m specify message for YAP output\n";
 
     while ((ch = getopt(argc, argv, opts)) != EOF) {
         switch (ch) {
@@ -65,6 +67,9 @@ int main(int argc, char *argv[])
         case 'o':
             savefilename = optarg;
             break;
+        case 'm':
+            tapmessage = optarg;
+            break;
         default:
             fprintf(stderr,
                     usage, argv[0]);
@@ -75,26 +80,33 @@ int main(int argc, char *argv[])
 
     // Save filename required; the point of cheat is to generate save file
     if (savefilename == NULL) {
-        fprintf(stderr,
-                usage, argv[0]);
-        fprintf(stderr,
-                "ERROR: filename required\n");
-        exit(EXIT_FAILURE);
+	if (tapmessage != NULL) {
+	    printf("not ok - %s: filename required\n", tapmessage);
+	} else {
+	    printf("not ok - filename required\n");
+	    exit(EXIT_FAILURE);
+	}
     }
 
     fp = fopen(savefilename, WRITE_MODE);
     if (fp == NULL) {
-        fprintf(stderr,
-                "Can't open file %s. Exiting.\n", savefilename);
-        exit(EXIT_FAILURE);
+	if (tapmessage != NULL) {
+	    printf("not ok - %s: can't open file %s. Exiting.\n", tapmessage, savefilename);
+	} else {
+	    printf("not ok - can't open file %s.\n", savefilename);
+	    exit(EXIT_FAILURE);
+	}
     }
 
     savefile(fp, version);
 
     fclose(fp);
 
-    printf("cheat: %s created.\n", savefilename);
-
+    if (tapmessage != NULL) {
+	printf("ok - %s\n", tapmessage);
+    } else {
+	printf("cheat: %s created.\n", savefilename);
+    }
     return EXIT_SUCCESS;
 }
 
