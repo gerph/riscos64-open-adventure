@@ -47,40 +47,52 @@ listcheck:
 	done
 
 # Generate bogus savegames.
-savegames:
-	@$(ECHO) "cheat: Generate save file with -900 deaths"
+sgame1:
 	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
-	@$(ECHO) "cheat: Generate save file with -1000 deaths"
+	@./outcheck.sh "cheat: Generate save file with -900 deaths"
+sgame2:
 	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
-	@$(ECHO) "cheat: Generate tamper-detection test"
+	@./outcheck.sh "cheat: Generate save file with -1000 deaths"
+sgame3:
 	@$(PARDIR)/cheat -d 2000 -o cheat_savetamper.adv > /tmp/cheat_savetamper
-	@$(ECHO) "cheat: Generate save file with version -1337"
+	@./outcheck.sh "cheat: Generate tamper-detection test"
+sgame4:
 	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
-	@$(ECHO) "cheat: Generate save file 1000 saves"
+	@./outcheck.sh "cheat: Generate save file with version -1337"
+sgame5:
 	@$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/cheat_1000saves
-	@$(ECHO) "cheat: Generate save file 1000 turns"
+	@./outcheck.sh "cheat: Generate save file 1000 saves"
+sgame6:
 	@$(PARDIR)/cheat -t -1000 -o thousand_saves.adv > /tmp/cheat_1000turns
-	@$(ECHO) "cheat: Generate save file 1000 turns"
+	@./outcheck.sh "cheat: Generate save file 1000 turns"
+sgame7:
 	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
-	@rm -f /tmp/cheat*
+	@./outcheck.sh "cheat: Generate save file 1000 turns"
+SGAMES = sgame1 sgame2 sgame3 sgame4 sgame5 sgame6 sgame7
 
 # Force coverage of cheat edgecases
-savecheck: savegames
-	@$(ECHO) "TEST cheat: Bogus option for save file generation"
+scheck1:
 	@$(PARDIR)/cheat -QqQ 2> /tmp/coverage_cheat_batopt | true
-	@$(ECHO) "TEST cheat: No save file specified"
+	@./outcheck.sh "cheat: bogus option for save file generation"
+scheck2:
 	@$(PARDIR)/cheat 2>/dev/null | true
-	@$(ECHO) "TEST cheat: Fail to save because we omit -o"
+	@./outcheck.sh "cheat: No save file specified"
+scheck3:
 	@$(PARDIR)/cheat -d 1 2> /tmp/coverage_cheat_nooutput | true
-	@$(ECHO) "TEST cheat: Fail to save to invalid path"
+	@./outcheck.sh "cheat: doesn't save because we omit -o"
+scheck4:
 	@$(PARDIR)/cheat -o / 2> /tmp/coverage_cheat_badoutput | true
-	@$(ECHO) "TEST advent: Start with invalid file with -r"
+	@./outcheck.sh "cheat: doesn't save to invalid path"
+scheck5:
 	@$(advent) -r /badfilename < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
-	@$(ECHO) "TEST advent: Start with invalid file with -l"
+	@./outcheck.sh "cheat: doesn't start with invalid file with -r"
+scheck6:
 	@$(advent) -l / < pitfall.log > /tmp/coverage_advent_logfail 2>&1 || exit 1
-	@$(ECHO) "TEST advent: Test -r with valid input"
+	@./outcheck.sh "cheat: doesn't start with invalid file passed to -l"
+scheck7:
 	@$(advent) -r thousand_saves.adv < pitfall.log > /tmp/coverage_advent_readfail 2>&1 || exit 1
-	@rm -f /tmp/coverage*
+	@./outcheck.sh "test -r with valid input"
+SCHECKS = scheck1 scheck2 scheck3 scheck4 scheck5 scheck6 scheck7
 
 coverage: check
 	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
@@ -107,10 +119,10 @@ $(RUN_TARGETS): run-regress-%: %.log
 multifile-regress:
 	@(echo "inven" | advent isofoo.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk
 
-TEST_TARGETS = $(RUN_TARGETS) multifile-regress
+TEST_TARGETS = $(SGAMES) $(SCHECKS) $(RUN_TARGETS) multifile-regress
 
 tap: count $(TEST_TARGETS)
-	rm -f scratch.tmp
+	@rm -f scratch.tmp /tmp/coverage* /tmp/cheat*
 count:
 	@echo 1..$(words $(TEST_TARGETS))
 
