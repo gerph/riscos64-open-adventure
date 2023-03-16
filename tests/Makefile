@@ -29,9 +29,7 @@ TESTLOADS := $(shell ls -1 *.log | sed '/.log/s///' | sort)
 
 check: savecheck
 	@make tap | tapview
-	@echo "=== No diff output is good news."
 	@-advent -x 2>/dev/null	|| exit 0 # Get usage message into coverage tests
-	@-advent -l /dev/null <pitfall.log >/dev/null
 
 .SUFFIXES: .chk
 
