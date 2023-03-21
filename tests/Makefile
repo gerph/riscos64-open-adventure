@@ -34,7 +34,7 @@ check: savecheck
 .SUFFIXES: .chk
 
 clean:
-	rm -fr *~ *.adv scratch.tmp *.ochk
+	rm -fr *~ *.adv scratch.tmp *.ochk advent430 adventure.data
 
 # Show summary lines for all tests.
 testlist:
@@ -124,12 +124,20 @@ tap: count $(TEST_TARGETS)
 count:
 	@echo 1..$(words $(TEST_TARGETS))
 
-# The following machinery tests the gane against a binary made from the advent430 branch
-# The diff file produced has new spellings in it.
+# The following machinery tests the gane against a binary made from
+# the advent430 branch To use it, switch to that branch, build the
+# binary, sand run it once to generate adventure.data, then switch
+# back to master leaving advent430 and adventure.data in place (make
+# clean does not remove them).
+#
+# The diff file produced has corrected spellings in it. That's what oldfilter
+# is for, to massage out the orioginal dpellings and avoid noise diffs.
+# Diffs in amount of whitespace and trailing whitespace are ignored
 
-ancient:
-	for x in *.log; do stem=$${x%.log}; echo $${stem}; ./advent430 <$${stem}.log | ./oldfilter >$${stem}.ochk; done 
-	for x in *.log; do stem=$${x%.log}; diff -u $${stem}.chk $${stem}.log; done
-	rm *.ochk
+ancient: $(SGAMES)
+	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
+	@for x in *.log; do stem=$${x%.log}; echo $${stem}; ./advent430 <$${stem}.log | ./oldfilter >$${stem}.ochk; done 
+	@for x in *.log; do stem=$${x%.log}; ./newfilter <$${stem}.chk | diff -ubZ $${stem}.ochk -; done
+	@rm *.ochk advent430 adventure.data
 
 # end
