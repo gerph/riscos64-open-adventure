@@ -2107,7 +2107,7 @@ locations: !!omap
     ]
 - LOC_LIMESTONE:
     description:
-      long:
+      long: |-
           You are walking along a gently sloping north/south passage lined with
           oddly shaped limestone formations.
       short: 'You''re in limestone passage.'
