@@ -9,8 +9,11 @@ sed \
     -e '/persian/s//Persian/' \
     -e '/swiss/s//Swiss/' \
     -e '/eying/s//eyeing/' \
-    -e '/swiss/s//Swiss/' \
-    -e '/thresholds/s//threshholds/' \
+    -e '/threshhold/s//threshold/' \
+    -e '/NAGGING/s//nagging/' \
+    -e '/DOING/s//doing/' \
+    -e '/SOMETHING/s//something/' \
+    -e '/EW/s//ew/' \
 
 
 #end

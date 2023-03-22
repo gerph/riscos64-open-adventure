@@ -962,7 +962,7 @@ There is a huge beanstalk growing out of the west pit up to the hole.
 You are at the bottom of the eastern pit in the Twopit Room.  There is
 a small pool of oil in one corner of the pit.
 
-> g oil
+> get oil
 
 Your bottle is now full of oil.
 
@@ -1325,7 +1325,7 @@ You're in Giant Room.
 
 There is a large nest here, full of golden eggs!
 
-> g
+> get
 
 OK
 
@@ -1545,7 +1545,7 @@ There is a huge beanstalk growing out of the west pit up to the hole.
 
 You're in east pit.
 
-> g oil
+> get oil
 
 Your bottle is now full of oil.
 

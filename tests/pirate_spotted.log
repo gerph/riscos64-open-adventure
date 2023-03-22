@@ -156,7 +156,7 @@ u
 drop appen
 e
 d
-g oil
+get oil
 u
 w
 d
@@ -220,7 +220,7 @@ w
 d
 climb
 w
-g
+get
 n
 take bottl
 n
@@ -250,7 +250,7 @@ se
 se
 w
 d
-g oil
+get oil
 u
 e
 w
