@@ -55,8 +55,13 @@ char *myreadline(const char *prompt)
      * logfiles for testing purposes.
      */
     /* Normal case - no script arguments */
-    if (settings.argc == 0)
-        return readline(prompt);
+    if (settings.argc == 0) {
+	char *ln = readline(prompt);
+	if (ln == NULL) {
+	    fputs(prompt, stdout);
+	}
+        return ln;
+    }
 
     char *buf = malloc(LINESIZE + 1);
     for (;;) {
