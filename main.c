@@ -82,9 +82,9 @@ char *myreadline(const char *prompt)
         } else {
             char *ln = fgets(buf, LINESIZE, settings.scriptfp);
             if (ln != NULL) {
-                fputs(PROMPT, stdout);
+		fputs(prompt, stdout);
                 fputs(ln, stdout);
-                return ln;
+		return ln;
             }
         }
     }
