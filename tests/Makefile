@@ -136,8 +136,8 @@ count:
 
 ancient: $(SGAMES)
 	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
-	@for x in *.log; do stem=$${x%.log}; echo $${stem}; ./advent430 <$${stem}.log | ./oldfilter >$${stem}.ochk; done 
-	@for x in *.log; do stem=$${x%.log}; ./newfilter <$${stem}.chk | diff -ubZ $${stem}.ochk -; done
+	@-for x in *.log; do stem=$${x%.log}; echo $${stem}; ./advent430 <$${stem}.log | ./oldfilter >$${stem}.ochk; done
+	@-(for x in *.log; do stem=$${x%.log}; legend=$$(sed -n '/^## /s///p' <$$x 2>/dev/null || echo "(no description)"); ./newfilter <$${stem}.chk | tapdiffer -w "$${legend}" $${stem}.ochk; done; echo 1..$(words $(shell ls *.log))) | tapview
 	@rm *.ochk advent430 adventure.data
 
 # end

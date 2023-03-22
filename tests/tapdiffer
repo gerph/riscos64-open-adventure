@@ -8,12 +8,20 @@
 # A nonempty diff is shipped as a TAP YAML block following "not ok" 
 # unless QUIET=1 in the environment.
 #
+if [ "$1" = "-w" ]
+then
+    diffopts=-ubZ
+    shift
+else
+    diffopts=-u
+fi
+
 legend=$1
 checkfile=$2
 
 trap 'rm /tmp/tapdiff$$' EXIT HUP INT QUIT TERM
 
-if diff --text -u ${checkfile} - >/tmp/tapdiff$$
+if diff --text "${diffopts}" ${checkfile} - >/tmp/tapdiff$$
 then
 	echo "ok - ${legend}"
 else
