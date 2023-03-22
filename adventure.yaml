@@ -3227,10 +3227,10 @@ classes:
   message: 'All of Adventuredom gives tribute to you, Adventurer Grandmaster!'
 - threshold: 9999
   message: |-
-    'Adventuredom stands in awe -- you have now joined the ranks of the
+    Adventuredom stands in awe -- you have now joined the ranks of the
            W O R L D   C H A M P I O N   A D V E N T U R E R S !
     It may interest you to know that the Dungeon-Master himself has, to
-    my knowledge, never achieved this threshold in fewer than 330 turns.'
+    my knowledge, never achieved this threshold in fewer than 330 turns.
 
 turn_thresholds:
 - threshold: 350
@@ -4144,7 +4144,7 @@ actions: !!omap
     message: |-
       Mist is a white vapor, usually water, seen from time to time in
       caverns.  It can be found anywhere but is frequently a sign of a deep
-      pit leading down to water.'
+      pit leading down to water.
     words: ['mist']
     noaction: true
 - FBOMB:
