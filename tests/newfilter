@@ -4,5 +4,7 @@
 # the filtered versions of logs made from advent430.
 sed \
     -e '/bridge now spans the fissure/s//bridge spans the fissure/' \
+    -e '/ground/s//surface/' \
+    -e '/floor/s//surface/' \
 
 # end
