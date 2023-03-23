@@ -1,4 +1,5 @@
-## Resume from from generated save with  version mismatch error
+## Resume from from generated save with version mismatch error
+#NOCOMPARE Reveals a bug in advent430 handling of saves with invalid versions.
 n
 resume
 y

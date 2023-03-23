@@ -133,11 +133,23 @@ count:
 # The diff file produced has corrected spellings in it. That's what oldfilter
 # is for, to massage out the orioginal dpellings and avoid noise diffs.
 # Diffs in amount of whitespace and trailing whitespace are ignored
-
+#
+# A magic comment of NOCOMPARE in a log file excludes it from this comparison.
+# First use of this is to avoid a spurious mismatch on the news text.
+TAPFILTER=tapview
 ancient: $(SGAMES)
 	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
-	@-for x in *.log; do stem=$${x%.log}; echo $${stem}; ./advent430 <$${stem}.log | ./oldfilter >$${stem}.ochk; done
-	@-(for x in *.log; do stem=$${x%.log}; legend=$$(sed -n '/^## /s///p' <$$x 2>/dev/null || echo "(no description)"); ./newfilter <$${stem}.chk | tapdiffer -w "$${legend}" $${stem}.ochk; done; echo 1..$(words $(shell ls *.log))) | tapview
+	@-(for x in *.log; do \
+		stem=$${x%.log}; \
+		legend=$$(sed -n '/^## /s///p' <$$x 2>/dev/null || echo "(no description)"); \
+		if grep NOCOMPARE $$x >/dev/null; \
+			then echo "not ok - $${stem}.ochk: $${legend} # SKIP"; \
+			else \
+				./advent430 <$${stem}.log | oldfilter >$${stem}.ochk; \
+				./newfilter <$${stem}.chk | tapdiffer -w "$${stem}: $${legend}" $${stem}.ochk; \
+			fi; \
+	done; \
+	echo 1..$(words $(shell ls *.log))) | $(TAPFILTER)
 	@rm *.ochk advent430 adventure.data
 
 # end

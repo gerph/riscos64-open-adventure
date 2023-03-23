@@ -1,4 +1,5 @@
 ## Save right after starting to invalid filename
+#NOCOMPARE advent430 crashes on save to invalid filename and we don't care.
 n
 seed 1240742801
 save

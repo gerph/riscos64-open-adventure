@@ -1,6 +1,7 @@
 ## Resume, then win
 # Here to get class threshold of 426
 # Note, savefile name has trailing space
+#NOCOMPARE Reveals that advent430 does not resume in endgame gracefully.
 n
 resume
 y

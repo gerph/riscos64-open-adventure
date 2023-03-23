@@ -1,5 +1,6 @@
 ## Almost win, then save
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
+#NOCOMPARE seems to reveal a bug in advent430
 n
 seed 1838473132
 in
