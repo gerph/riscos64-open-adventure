@@ -392,14 +392,6 @@ You are in the south side chamber.
 
 There is precious jewelry here!
 
->  
-
-I don't know how to apply that word here.
-
-You are in the south side chamber.
-
-There is precious jewelry here!
-
 > s
 
 There is no way to go that direction.
@@ -447,8 +439,6 @@ There are bars of silver here!
 > n
 
 You're at "Y2".
-
-A hollow voice says "PLUGH".
 
 There is a little axe here.
 
@@ -556,8 +546,6 @@ Your bottle is now full of water.
 
 > s
 
-There is a threatening little dwarf in the room with you!
-
 You are in a north/south canyon about 25 feet across.  The floor is
 covered by white mist seeping in from the north.  The walls extend
 upward for well over 100 feet.  Suspended from some unseen point far
@@ -568,7 +556,27 @@ small window can be seen in either wall, some fifty feet up.
 
 > s
 
-A little dwarf with a big knife blocks your way.
+There is a threatening little dwarf in the room with you!
+
+One sharp nasty knife is thrown at you!
+
+It misses!
+
+You are in a secret n/s canyon above a large room.
+
+> s
+
+There is a threatening little dwarf in the room with you!
+
+You are in a secret canyon which exits to the north and east.
+
+There is a Persian rug spread out on the floor!
+
+The blood-specked body of a huge green dead dragon lies to one side.
+
+> d
+
+There is no way to go that direction.
 
 There is a threatening little dwarf in the room with you!
 
@@ -576,34 +584,34 @@ One sharp nasty knife is thrown at you!
 
 It misses!
 
-You're in Mirror Canyon.
+You are in a secret canyon which exits to the north and east.
+
+There is a Persian rug spread out on the floor!
+
+The blood-specked body of a huge green dead dragon lies to one side.
 
 > s
 
-There is a threatening little dwarf in the room with you!
-
-You are in a secret n/s canyon above a large room.
-
-> d
+There is no way to go that direction.
 
 There is a threatening little dwarf in the room with you!
 
-You're in Slab Room.
+One sharp nasty knife is thrown at you!
 
-> s
+It misses!
 
-There is a threatening little dwarf in the room with you!
+You are in a secret canyon which exits to the north and east.
 
-You're at west end of Twopit Room.
+There is a Persian rug spread out on the floor!
 
-The top of a 12-foot-tall beanstalk is poking out of the west pit.
+The blood-specked body of a huge green dead dragon lies to one side.
 
 > water plant
 
 What do you want to do with the water?
 
 > 
-You scored 65 out of a possible 430, using 85 turns.
+You scored 65 out of a possible 430, using 84 turns.
 
 Your score qualifies you as a novice class adventurer.
 
