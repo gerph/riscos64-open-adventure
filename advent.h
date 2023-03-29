@@ -200,6 +200,7 @@ struct settings_t {
     int argc;
     int optind;
     FILE *scriptfp;
+    int debug;
 };
 
 typedef struct {

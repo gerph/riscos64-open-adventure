@@ -699,7 +699,7 @@ bool tstbit(int mask, int bit)
 }
 
 void set_seed(int32_t seedval)
-/* Set the LCG seed */
+/* Set the LCG1 seed */
 {
     game.lcg_x = seedval % LCG_M;
     if (game.lcg_x < 0) {
@@ -718,6 +718,9 @@ static int32_t get_next_lcg_value(void)
 {
     int32_t old_x = game.lcg_x;
     game.lcg_x = (LCG_A * game.lcg_x + LCG_C) % LCG_M;
+    if (settings.debug) {
+	printf("# random %d\n", old_x);
+    }
     return old_x;
 }
 

@@ -1261,20 +1261,23 @@ int main(int argc, char *argv[])
     /*  Options. */
 
 #if defined ADVENT_AUTOSAVE
-    const char* opts = "l:oa:";
+    const char* opts = "dl:oa:";
     const char* usage = "Usage: %s [-l logfilename] [-o] [-a filename] [script...]\n";
     FILE *rfp = NULL;
     const char* autosave_filename = NULL;
 #elif !defined ADVENT_NOSAVE
-    const char* opts = "l:or:";
+    const char* opts = "dl:or:";
     const char* usage = "Usage: %s [-l logfilename] [-o] [-r restorefilename] [script...]\n";
     FILE *rfp = NULL;
 #else
-    const char* opts = "l:o";
+    const char* opts = "dl:o";
     const char* usage = "Usage: %s [-l logfilename] [-o] [script...]\n";
 #endif
     while ((ch = getopt(argc, argv, opts)) != EOF) {
         switch (ch) {
+	case 'd':
+	    settings.debug +=1;
+	    break;
         case 'l':
             settings.logfp = fopen(optarg, "w");
             if (settings.logfp == NULL)
