@@ -1275,9 +1275,9 @@ int main(int argc, char *argv[])
 #endif
     while ((ch = getopt(argc, argv, opts)) != EOF) {
         switch (ch) {
-	case 'd':
-	    settings.debug +=1;
-	    break;
+	case 'd': // LCOV_EXCL_LINE
+	    settings.debug +=1; // LCOV_EXCL_LINE
+	    break; // LCOV_EXCL_LINE
         case 'l':
             settings.logfp = fopen(optarg, "w");
             if (settings.logfp == NULL)

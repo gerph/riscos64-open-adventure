@@ -719,7 +719,7 @@ static int32_t get_next_lcg_value(void)
     int32_t old_x = game.lcg_x;
     game.lcg_x = (LCG_A * game.lcg_x + LCG_C) % LCG_M;
     if (settings.debug) {
-	printf("# random %d\n", old_x);
+	printf("# random %d\n", old_x); // LCOV_EXCL_LINE
     }
     return old_x;
 }
