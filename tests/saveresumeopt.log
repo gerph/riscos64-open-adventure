@@ -1,2 +1,3 @@
 ## Simple quit
+#NOCOMPARE New feature, -r option
 #options: -r saveresume.adv
