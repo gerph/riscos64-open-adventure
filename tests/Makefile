@@ -92,6 +92,9 @@ scheck7:
 	@./outcheck.sh "test -r with valid input"
 SCHECKS = scheck1 scheck2 scheck3 scheck4 scheck5 scheck6 scheck7
 
+# Don't run this from here, you'll get ctyptic warnings and no good result
+# if the advent binary wasn't built with covrage flags.  Do "make clean covetage"
+# from the top-level directory.
 coverage: check
 	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
 	genhtml -o $(PARDIR)/coverage/ $(PARDIR)/advent.info
@@ -124,18 +127,20 @@ tap: count $(TEST_TARGETS)
 count:
 	@echo 1..$(words $(TEST_TARGETS))
 
-# The following machinery tests the gane against a binary made from
+# The following machinery tests the game against a binary made from
 # the advent430 branch To use it, switch to that branch, build the
-# binary, sand run it once to generate adventure.data, then switch
-# back to master leaving advent430 and adventure.data in place (make
-# clean does not remove them).
+# binary, run it once to generate adventure.data, then switch back to
+# master leaving advent430 and adventure.data in place (make clean
+# does not remove them).
 #
 # The diff file produced has corrected spellings in it. That's what oldfilter
 # is for, to massage out the orioginal dpellings and avoid noise diffs.
 # Diffs in amount of whitespace and trailing whitespace are ignored
 #
 # A magic comment of NOCOMPARE in a log file excludes it from this comparison.
-# First use of this is to avoid a spurious mismatch on the news text.
+# making it a skipped test in the TAP view. First use of this was to avoid a
+# spurious mismatch on the news text. Other uses avoid spurios mismatches due
+# to bug fixes.
 TAPFILTER=tapview
 ancient: $(SGAMES)
 	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
