@@ -51,6 +51,8 @@ Bug fixes:
 
 * Oyster was readable after first gotten even when not carried.
 
+* Response to an attempt to unlock the oyster while carrying it was incorrect. 
+
 * Behavior when saying the giant's magic words outside his room wasn't
   quite correct - the game responded as though the player were in
   the room ("...can't you read?"). The new message is "Nothing happens."

@@ -467,14 +467,16 @@ e
 e
 cave
 e
-# Everything to here is from endgame428
+# Everything to here is from endgame428,
+# except we drop the oyster before trying
+# to unlock it rather than after.
 attack
 take oyster
 find oyster
 lock
 lock oyster
-unlock oyster
 drop oyster
+unlock oyster
 take oyster
 read oyster
 y
@@ -482,4 +484,3 @@ sw
 attack bird
 find bird
 break mirror
-
