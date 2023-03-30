@@ -73,19 +73,11 @@ Sorry, but I no longer seem to remember how it was you got here.
 
 You're in front of building.
 
-> seed
-
-This command requires a numeric argument.
-
-You're in front of building.
-
 > waste
 
 This command requires a numeric argument.
 
-You are standing at the end of a road before a small brick building.
-Around you is a forest.  A small stream flows out of the building and
-down a gully.
+You're in front of building.
 
 > eat grate
 
@@ -238,7 +230,9 @@ There is a bottle of water here.
 
 > out
 
-You're in front of building.
+You are standing at the end of a road before a small brick building.
+Around you is a forest.  A small stream flows out of the building and
+down a gully.
 
 > stream
 
@@ -622,7 +616,7 @@ Okay, "boo".
 
 > score
 
-You have garnered 27 out of a possible 430 points, using 118 turns.
+You have garnered 27 out of a possible 430 points, using 117 turns.
 
 > z
 
@@ -630,7 +624,7 @@ OK
 
 > score
 
-You have garnered 27 out of a possible 430 points, using 120 turns.
+You have garnered 27 out of a possible 430 points, using 119 turns.
 
 > quit keys
 

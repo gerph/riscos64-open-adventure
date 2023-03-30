@@ -1,0 +1,4 @@
+# Check that argumentless seed command throws an error
+#NOCOMPARE The word "seed" alone is mot recognized in advent430
+n
+seed
