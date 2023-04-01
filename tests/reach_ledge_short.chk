@@ -555,11 +555,9 @@ The ogre, distracted by your rush, is struck by the knife.  With a
 blood-curdling yell he turns and bounds after the dwarf, who flees
 in panic.  You are left alone in the room.
 
->  
+> z
 
-I don't know how to apply that word here.
-
-You are in a large chamber with passages to the west and north.
+OK
 
 > s
 
@@ -622,10 +620,6 @@ A crystal bridge spans the fissure.
 
 There is a threatening little dwarf in the room with you!
 
-One sharp nasty knife is thrown at you!
-
-It misses!
-
 You are at one end of a vast hall stretching forward out of sight to
 the west.  There are openings to either side.  Nearby, a wide stone
 staircase leads downward.  The hall is filled with wisps of white mist
@@ -657,11 +651,19 @@ A cheerful little bird is sitting here singing.
 
 > n
 
+There is a threatening little dwarf in the room with you!
+
+One sharp nasty knife is thrown at you!
+
+It misses!
+
 You're in n/s passage above e/w passage.
 
 There are bars of silver here!
 
 > n
+
+There is a threatening little dwarf in the room with you!
 
 You are in a large room, with a passage to the south, a passage to the
 west, and a wall of broken rock to the east.  There is a large "Y2" on
@@ -693,13 +695,13 @@ There is food here.
 
 It is now pitch dark.  If you proceed you will likely fall into a pit.
 
+A hollow voice says "PLUGH".
+
 > on
 
 Your lamp is now on.
 
 You're at "Y2".
-
-A hollow voice says "PLUGH".
 
 > s
 
@@ -716,11 +718,19 @@ A cheerful little bird is sitting here singing.
 
 > u
 
+There is a threatening little dwarf in the room with you!
+
+One sharp nasty knife is thrown at you!
+
+It misses!
+
 You're in Hall of Mists.
 
 Rough stone steps lead up the dome.
 
 > n
+
+There is a threatening little dwarf in the room with you!
 
 You are in the Hall of the Mountain King, with passages off in all
 directions.
@@ -729,11 +739,15 @@ A cheerful little bird is sitting here singing.
 
 > n
 
+There is a threatening little dwarf in the room with you!
+
 You're in n/s passage above e/w passage.
 
 There are bars of silver here!
 
 > d
+
+There is a threatening little dwarf in the room with you!
 
 You are in a dirty broken passage.  To the east is a crawl.  To the
 west is a large passage.  Above you is a hole to another passage.
@@ -747,7 +761,13 @@ To explore at random select north, south, up, or down.
 
 > throw axe
 
-You killed a little dwarf.
+You attack a little dwarf, but he dodges out of the way.
+
+There is a threatening little dwarf in the room with you!
+
+One sharp nasty knife is thrown at you!
+
+It misses!
 
 You're in Bedquilt.
 
@@ -755,9 +775,11 @@ There is a little axe here.
 
 > take
 
-OK
+Take what?
 
 > slab
+
+There is a threatening little dwarf in the room with you!
 
 You are in a large low circular chamber whose floor is an immense slab
 fallen from the ceiling (Slab Room).  East and west there once were
@@ -767,10 +789,14 @@ around the boulders.
 
 > s
 
+There is a threatening little dwarf in the room with you!
+
 You are at the west end of the Twopit Room.  There is a large hole in
 the wall above the pit at this end of the room.
 
 > d
+
+There is a threatening little dwarf in the room with you!
 
 You are at the bottom of the western pit in the Twopit Room.  There is
 a large hole in the wall about 25 feet above you.
@@ -781,6 +807,12 @@ There is a tiny little plant in the pit, murmuring "water, water, ..."
 
 The plant spurts into furious growth for a few seconds.
 
+There is a threatening little dwarf in the room with you!
+
+One sharp nasty knife is thrown at you!
+
+It misses!
+
 You're in west pit.
 
 There is a 12-foot-tall beanstalk stretching up out of the pit,
@@ -788,19 +820,27 @@ bellowing "WATER!! WATER!!"
 
 > u
 
+There is a threatening little dwarf in the room with you!
+
 You're at west end of Twopit Room.
 
 The top of a 12-foot-tall beanstalk is poking out of the west pit.
 
 > west
 
+There is a threatening little dwarf in the room with you!
+
 You're in Slab Room.
 
 > u
 
+There is a threatening little dwarf in the room with you!
+
 You are in a secret n/s canyon above a large room.
 
 > reser
+
+There is a threatening little dwarf in the room with you!
 
 You are at the edge of a large underground reservoir.  An opaque cloud
 of white mist fills the room and rises rapidly upward.  The lake is
@@ -814,11 +854,15 @@ The waters have parted to form a narrow path across the reservoir.
 
 > n
 
+There is a threatening little dwarf in the room with you!
+
 You are walking across the bottom of the reservoir.  Walls of water
 rear up on either side.  The roar of the water cascading past is
 nearly deafening, and the mist is so thick you can barely see.
 
 > n
+
+There is a threatening little dwarf in the room with you!
 
 You are at the northern edge of the reservoir.  A northwest passage
 leads sharply up from here.
@@ -827,13 +871,19 @@ The waters have parted to form a narrow path across the reservoir.
 
 > u
 
+There is a threatening little dwarf in the room with you!
+
 You are scrambling along a treacherously steep, rocky passage.
 
 > u
 
+There is a threatening little dwarf in the room with you!
+
 You are on a very steep incline, which widens at it goes upward.
 
 > u
+
+There is a threatening little dwarf in the room with you!
 
 You are at the base of a nearly vertical cliff.  There are some
 slim footholds which would enable you to climb up, but it looks
@@ -842,642 +892,222 @@ of several earlier adventurers who apparently failed to make it.
 
 > u
 
-You are climbing along a nearly vertical cliff.
-
-> e
-
-There is no way to go that direction.
+There is a threatening little dwarf in the room with you!
 
 You are climbing along a nearly vertical cliff.
 
-> w
-
-There is no way to go that direction.
-
-You are climbing along a nearly vertical cliff.
-
-> d
-
-You're at base of cliff.
-
-> d
-
-You are on a very steep incline, which widens at it goes upward.
-
-> d
-
-You are scrambling along a treacherously steep, rocky passage.
-
-> d
-
-You're north of reservoir.
-
-The waters have parted to form a narrow path across the reservoir.
-
-> d
-
-There is no way to go that direction.
-
-You're north of reservoir.
-
-The waters have parted to form a narrow path across the reservoir.
-
-> take water
-
-Your bottle is now full of water.
-
-> s
-
-You're at bottom of reservoir.
-
-> s
-
-You're at reservoir.
-
-The waters have parted to form a narrow path across the reservoir.
-
-> s
-
-You are in a north/south canyon about 25 feet across.  The floor is
-covered by white mist seeping in from the north.  The walls extend
-upward for well over 100 feet.  Suspended from some unseen point far
-above you, an enormous two-sided mirror is hanging parallel to and
-midway between the canyon walls.  (The mirror is obviously provided
-for the use of the dwarves who, as you know, are extremely vain.)  A
-small window can be seen in either wall, some fifty feet up.
-
-> s
-
-You are in a secret n/s canyon above a large room.
-
-> d
-
-You're in Slab Room.
-
-> s
-
-You're at west end of Twopit Room.
-
-The top of a 12-foot-tall beanstalk is poking out of the west pit.
-
-> d
-
-You're in west pit.
-
-There is a 12-foot-tall beanstalk stretching up out of the pit,
-bellowing "WATER!! WATER!!"
-
-> water plant
-
-The plant grows explosively, almost filling the bottom of the pit.
-
-You're in west pit.
-
-There is a gigantic beanstalk stretching all the way up to the hole.
-
-> u
-
-You're at west end of Twopit Room.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
-
-> e
-
-You are at the east end of the Twopit Room.  The floor here is
-littered with thin rock slabs, which make it easy to descend the pits.
-There is a path here bypassing the pits to connect passages from east
-and west.  There are holes all over, but the only big one is on the
-wall directly over the west pit where you can't get to it.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
-
-> d
-
-You are at the bottom of the eastern pit in the Twopit Room.  There is
-a small pool of oil in one corner of the pit.
-
-> get oil
-
-Your bottle is now full of oil.
-
-> u
-
-You're at east end of Twopit Room.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
-
-> west
-
-You're at west end of Twopit Room.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
-
-> d
-
-You're in west pit.
-
-There is a gigantic beanstalk stretching all the way up to the hole.
-
-> climb
-
-You clamber up the plant and scurry through the hole at the top.
-
-You are in a long, narrow corridor stretching out of sight to the
-west.  At the eastern end is a hole through which you can see a
-profusion of leaves.
-
-> west
-
-You are in the Giant Room.  The ceiling here is too high up for your
-lamp to show it.  Cavernous passages lead east, north, and south.  On
-the west wall is scrawled the inscription, "FEE FIE FOE FOO" [sic].
-
-There is a large nest here, full of golden eggs!
-
-> n
-
-You are at one end of an immense north/south passage.
-
-The way north is barred by a massive, rusty, iron door.
-
-> oil door
-
-The oil has freed up the hinges so that the door will now move,
-although it requires some effort.
-
-> drop bottl
-
-OK
-
-> n
-
-You are in a magnificent cavern with a rushing stream, which cascades
-over a sparkling waterfall into a roaring whirlpool which disappears
-through a hole in the floor.  Passages exit to the south and west.
-
-There is a jewel-encrusted trident here!
-
-> west
-
-You are at the top of a steep incline above a large room.  You could
-climb down here, but you would not be able to climb up.  There is a
-passage leading back to the north.
-
-> d
-
-You are in a large low room.  Crawls lead north, se, and sw.
-
-> se
-
-This is the Oriental Room.  Ancient oriental cave drawings cover the
-walls.  A gently sloping passage leads upward to the north, another
-passage leads se, and a hands and knees crawl leads west.
-
-There is a delicate, precious, ming vase here!
-
-> n
-
-You are following a wide path around the outer edge of a large cavern.
-Far below, through a heavy white mist, strange splashing noises can be
-heard.  The mist rises up through a fissure in the ceiling.  The path
-exits to the south and west.
-
-> west
-
-You are in an alcove.  A small nw path seems to widen after a short
-distance.  An extremely tight tunnel leads east.  It looks like a very
-tight squeeze.  An eerie light can be seen at the other end.
-
-> drop axe
-
-OK
-
-> drop lante
-
-OK
-
-> e
-
-You're in Plover Room.
-
-There is an emerald here the size of a plover's egg!
-
-> take emera
-
-OK
-
-> west
-
-You're in alcove.
-
-There is a lamp shining nearby.
-
-There is a little axe here.
-
-> take lamp
-
-OK
-
-> take
-
-OK
-
-> nw
-
-You're in misty cavern.
-
-> s
-
-You're in Oriental Room.
-
-There is a delicate, precious, ming vase here!
-
 > e
 
 There is no way to go that direction.
-
-You're in Oriental Room.
-
-There is a delicate, precious, ming vase here!
-
-> se
 
 There is a threatening little dwarf in the room with you!
 
-You are in a room whose walls resemble Swiss cheese.  Obvious passages
-go west, east, ne, and nw.  Part of the room is occupied by a large
-bedrock block.
+One sharp nasty knife is thrown at you!
 
-> throw axe
+It gets you!
 
-You killed a little dwarf.
-
-You're in Swiss Cheese Room.
-
-There is a little axe here.
-
-> e
-
-You are in the Soft Room.  The walls are covered with heavy curtains,
-the floor with a thick pile carpet.  Moss covers the ceiling.
-
-A small velvet pillow lies on the floor.
-
-> west
-
-You're in Swiss Cheese Room.
-
-There is a little axe here.
-
-> d
-
-There is no way to go that direction.
-
-You're in Swiss Cheese Room.
-
-There is a little axe here.
-
-> ne
-
-You're in Bedquilt.
-
-> e
-
-You are at a complex junction.  A low hands and knees passage from the
-north joins a higher crawl from the east to make a walking passage
-going west.  There is also a large room above.  The air is damp here.
-
-> u
-
-You are in a large room full of dusty rocks.  There is a big hole in
-the floor.  There are cracks everywhere, and a passage leading east.
-
-> e
-
-You're in dirty passage.
-
-> u
-
-You're in n/s passage above e/w passage.
-
-There are bars of silver here!
-
-> n
-
-You're at "Y2".
-
-> plugh
-
->>Foof!<<
-
-You are inside a building, a well house for a large spring.
-
-There is a Persian rug spread out on the floor!
-
-There are some keys on the ground here.
-
-There is food here.
-
-> take key
-
-OK
-
-> take food
-
-OK
-
-> plugh
-
->>Foof!<<
-
-You're at "Y2".
-
-> s
-
-You're in n/s passage above e/w passage.
-
-There are bars of silver here!
-
-> d
-
-You're in dirty passage.
-
-> west
-
-You're in dusty rock room.
-
-> d
-
-You're at complex junction.
-
-> n
-
-You're in a large room carved out of sedimentary rock.  The floor and
-walls are littered with bits of shells embedded in the stone.  A
-shallow passage proceeds downward, and a somewhat steeper one leads
-up.  A low hands and knees passage enters from the south.
-
-There is an enormous clam here with its shell tightly closed.
-
-> d
-
-You are in a long sloping corridor with ragged sharp walls.
-
-> d
-
-You are in a cul-de-sac about eight feet across.
-
-> u
-
-You are in a long sloping corridor with ragged sharp walls.
-
-> u
-
-You're in Shell Room.
-
-There is an enormous clam here with its shell tightly closed.
-
-> s
-
-You're at complex junction.
-
-> west
-
-You're in Bedquilt.
-
-> west
-
-You're in Swiss Cheese Room.
-
-There is a little axe here.
-
-> west
-
-You're at east end of Twopit Room.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
-
-> west
-
-You are at the west end of the Twopit Room.  There is a large hole in
-the wall above the pit at this end of the room.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
-
-> d
-
-You are at the bottom of the western pit in the Twopit Room.  There is
-a large hole in the wall about 25 feet above you.
-
-There is a gigantic beanstalk stretching all the way up to the hole.
-
-> climb
-
-You clamber up the plant and scurry through the hole at the top.
-
-You're in narrow corridor.
-
-> west
-
-You're in Giant Room.
-
-There is a large nest here, full of golden eggs!
-
-> n
-
-You are at one end of an immense north/south passage.
-
-There is an empty bottle here.
-
-The way north leads through a massive, rusty, iron door.
-
-> take bottl
-
-OK
-
-> n
-
-You're in cavern with waterfall.
-
-There is a jewel-encrusted trident here!
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > w
 
-You're at steep incline above large room.
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > d
 
-You're in large low room.
+Please answer the question.
 
-> se
-
-You're in Oriental Room.
-
-There is a delicate, precious, ming vase here!
-
-> se
-
-You are in a room whose walls resemble Swiss cheese.  Obvious passages
-go west, east, ne, and nw.  Part of the room is occupied by a large
-bedrock block.
-
-There is a little axe here.
-
-> west
-
-You're at east end of Twopit Room.
-
-There is a huge beanstalk growing out of the west pit up to the hole.
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > d
 
-You're in east pit.
+Please answer the question.
 
-> get oil
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-Your bottle is now full of oil.
+> d
 
-> u
+Please answer the question.
 
-You're at east end of Twopit Room.
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-There is a huge beanstalk growing out of the west pit up to the hole.
+> d
 
-> west
+Please answer the question.
 
-You're at west end of Twopit Room.
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-There is a huge beanstalk growing out of the west pit up to the hole.
+> d
 
-> west
+Please answer the question.
 
-You're in Slab Room.
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-> u
+> take water
 
-You are in a secret n/s canyon above a large room.
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > s
 
-You are in a secret canyon which exits to the north and east.
+Please answer the question.
 
-The blood-specked body of a huge green dead dragon lies to one side.
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> s
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> s
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> s
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> d
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> s
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> d
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> water plant
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> u
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > e
 
-You're in secret e/w canyon above tight canyon.
+Please answer the question.
 
-> e
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-You're in Hall of Mt King.
+> d
 
-A cheerful little bird is sitting here singing.
+Please answer the question.
 
-> n
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-You're in n/s passage above e/w passage.
+> get oil
 
-There are bars of silver here!
+Please answer the question.
 
-> n
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
-You're at "Y2".
+> u
 
-> plugh
+Please answer the question.
 
->>Foof!<<
-
-You're inside building.
-
-There is a Persian rug spread out on the floor!
-
-> take
-
-OK
-
-> out
-
-You're in front of building.
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > west
 
-You have walked up a hill, still in the forest.  The road slopes back
-down the other side of the hill.  There is a building in the distance.
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> d
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> climb
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
+
+> west
+
+Please answer the question.
+
+Oh dear, you seem to have gotten yourself killed.  I might be able to
+help you out, but I've never really done this before.  Do you want me
+to try to reincarnate you?
 
 > n
-
-You are wandering aimlessly through the forest.
-
-> n
-
-You are wandering aimlessly through the forest.
-
-> n
-
-The forest thins out here to reveal a steep cliff.  There is no way
-down, but a small ledge can be seen to the west across the chasm.
-
-A small urn is embedded in the rock.
-
-> fill urn
-
-Your bottle is now empty and the urn is full of oil.
-
-> light
-
-The urn is now lit.
-
-> rub urn
-
-As you rub the urn, there is a flash of light and a genie appears.
-His aspect is stern as he advises: "One who wouldst traffic in
-precious stones must first learn to recognize the signals thereof."
-He wrests the urn from the stone, leaving a small cavity.  Turning to
-face you again, he fixes you with a steely eye and intones: "Caution!"
-Genie and urn vanish in a cloud of amber smoke.  The smoke condenses
-to form a rare amber gemstone, resting in the cavity in the rock.
-
-> take amber
 
 OK
 
-> drop rug
-
-OK
-
-> drop emera
-
-The gem fits easily into the cavity.
-
-The Persian rug stiffens and rises a foot or so off the ground.
-
-> fly
-
-You board the Persian rug, which promptly whisks you across the chasm.
-You have time for a fleeting glimpse of a two thousand foot drop to a
-mighty river; then you find yourself on the other side.
-
-You are on a small ledge on one face of a sheer cliff.  There are no
-paths away from the ledge.  Across the chasm is a small clearing
-surrounded by forest.
-
-There is a Persian rug here, hovering in mid-air!
-
-A brilliant blue star sapphire is here!
-
-> e
-
-There is no way to go that direction.
-
-You're on ledge.
-
-There is a Persian rug here, hovering in mid-air!
-
-A brilliant blue star sapphire is here!
-
-> 
-You scored 81 out of a possible 430, using 237 turns.
+You scored 79 out of a possible 430, using 128 turns.
 
 Your score qualifies you as a novice class adventurer.
 
-To achieve the next higher rating, you need 40 more points.
+To achieve the next higher rating, you need 42 more points.
