@@ -141,6 +141,11 @@ count:
 # making it a skipped test in the TAP view. First use of this was to avoid a
 # spurious mismatch on the news text. Other uses avoid spurios mismatches due
 # to bug fixes.
+#
+# When adding more tests, bear in mind that any game that continues after a
+# resurrection will need a NOCOMPARE. At some point in the forward port,
+# resurrection was accidentally changed in a way that messed wil the LCG chain.
+#
 TAPFILTER=tapview
 ancient: $(SGAMES)
 	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
