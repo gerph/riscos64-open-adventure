@@ -1,5 +1,5 @@
 ## Resume from invalid filename
-#NOCOMPARE advent430 crashes on resume fom invalid filename and we don't care.
+#NOCOMPARE advent430 crashes on resume from invalid filename and we don't care.
 n
 seed 1240742801
 resume

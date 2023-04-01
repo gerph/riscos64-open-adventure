@@ -1,6 +1,6 @@
 ### Check that water is unavailable in endgame
 # Addresses GitLab issue #55: in endgame, some object starting states are incorrect
-#NOCOMPARE Bird was not weightless in cade in advent430, this test depends on that.
+#NOCOMPARE Bird was not weightless in cage in advent430, this test depends on that.
 no
 seed 11247848
 no
