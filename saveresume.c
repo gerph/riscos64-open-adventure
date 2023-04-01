@@ -172,7 +172,7 @@ int restore(FILE* fp)
 bool is_valid(struct game_t valgame)
 {
     /*  Save files can be roughly grouped into three groups:
-     *  With valid, reacheable state, with valid, but unreachable
+     *  With valid, reachable state, with valid, but unreachable
      *  state and with invalid state. We check that state is
      *  valid: no states are outside minimal or maximal value
      */

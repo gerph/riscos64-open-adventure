@@ -99,7 +99,7 @@ def obj_coverage(objects, text, report):
 
 def loc_coverage(locations, text, report):
     # locations have a long and a short description, that each have to
-    # be checked seperately
+    # be checked separately
     for name, loc in locations:
         desc = loc["description"]
         if name not in report["messages"]:
@@ -173,7 +173,7 @@ def actions_coverage(items, text, report):
             report["covered"] += 1
 
 def coverage_report(db, check_file_contents):
-    # Create report for each catagory, including total items,  number of items
+    # Create report for each category, including total items,  number of items
     # covered, and a list of the covered messages
     report = {}
     for name in db.keys():

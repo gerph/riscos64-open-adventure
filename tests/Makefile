@@ -1,4 +1,4 @@
-# Test-suite makefile for opeb-adventure
+# Test-suite makefile for open-adventure
 
 # Use absolute path so tests that change working directory still use
 # scripts from parent directory.  Note that using $PWD seems to fail
@@ -92,8 +92,8 @@ scheck7:
 	@./outcheck.sh "test -r with valid input"
 SCHECKS = scheck1 scheck2 scheck3 scheck4 scheck5 scheck6 scheck7
 
-# Don't run this from here, you'll get ctyptic warnings and no good result
-# if the advent binary wasn't built with covrage flags.  Do "make clean covetage"
+# Don't run this from here, you'll get cryptic warnings and no good result
+# if the advent binary wasn't built with coverage flags.  Do "make clean coverage"
 # from the top-level directory.
 coverage: check
 	lcov -t "advent" -o $(PARDIR)/advent.info -c -d $(PARDIR) --gcov-tool=$(GCOV)
@@ -134,12 +134,12 @@ count:
 # does not remove them).
 #
 # The diff file produced has corrected spellings in it. That's what oldfilter
-# is for, to massage out the original dpellings and avoid noise diffs.
+# is for, to massage out the original spellings and avoid noise diffs.
 # Diffs in amount of whitespace and trailing whitespace are ignored
 #
 # A magic comment of NOCOMPARE in a log file excludes it from this comparison.
 # making it a skipped test in the TAP view. First use of this was to avoid a
-# spurious mismatch on the news text. Other uses avoid spurios mismatches due
+# spurious mismatch on the news text. Other uses avoid spurious mismatches due
 # to bug fixes.
 #
 # When adding more tests, bear in mind that any game that continues after a
