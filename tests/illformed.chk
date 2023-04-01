@@ -79,6 +79,14 @@ This command requires a numeric argument.
 
 You're in front of building.
 
+> seed
+
+This command requires a numeric argument.
+
+You are standing at the end of a road before a small brick building.
+Around you is a forest.  A small stream flows out of the building and
+down a gully.
+
 > eat grate
 
 I see no grate here.
@@ -154,7 +162,7 @@ There is a bottle of water here.
 What do you want to do with the keys?
 
 > 
-You scored 27 out of a possible 430, using 20 turns.
+You scored 27 out of a possible 430, using 21 turns.
 
 You are obviously a rank amateur.  Better luck next time.
 

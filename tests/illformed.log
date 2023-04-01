@@ -16,6 +16,8 @@ _
 back
 # advent430 doesn't have this command
 waste
+# seed should cause a compint when argumentless,
+seed
 eat grate
 23
 eat building
