@@ -134,7 +134,7 @@ count:
 # does not remove them).
 #
 # The diff file produced has corrected spellings in it. That's what oldfilter
-# is for, to massage out the orioginal dpellings and avoid noise diffs.
+# is for, to massage out the original dpellings and avoid noise diffs.
 # Diffs in amount of whitespace and trailing whitespace are ignored
 #
 # A magic comment of NOCOMPARE in a log file excludes it from this comparison.
@@ -146,8 +146,10 @@ count:
 # resurrection will need a NOCOMPARE. At some point in the forward port,
 # resurrection was accidentally changed in a way that messed wil the LCG chain.
 #
+# The *.chk files need not be up-to-date for this to work.
+#
 TAPFILTER=tapview
-ancient: $(SGAMES)
+oldcompare: $(SGAMES)
 	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
 	@-(for x in *.log; do \
 		stem=$${x%.log}; \
@@ -156,10 +158,11 @@ ancient: $(SGAMES)
 			then echo "not ok - $${stem}.ochk: $${legend} # SKIP"; \
 			else \
 				./advent430 <$${stem}.log | oldfilter >$${stem}.ochk; \
-				./newfilter <$${stem}.chk | tapdiffer -w "$${stem}: $${legend}" $${stem}.ochk; \
+				../advent <$${stem}.log >$${stem}.log-new; \
+				./newfilter <$${stem}.log-new | tapdiffer -w "$${stem}: $${legend}" $${stem}.ochk; \
 			fi; \
 	done; \
 	echo 1..$(words $(shell ls *.log))) | $(TAPFILTER)
-	@rm *.ochk advent430 adventure.data
+	@rm *.ochk rm *-new advent430 adventure.data
 
 # end
