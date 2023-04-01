@@ -1,5 +1,5 @@
 ## Save right after starting
-#NOCOMPARE Can't compare to asvent430 die to version skew
+#NOCOMPARE Can't compare to asvent430 due to version skew
 n
 seed 1240742801
 save

@@ -1,4 +1,5 @@
 ## Qualify for ogre hint but fail due to dwarves dead (fuzzed)
+#NOCOMPARE Fails due uninteresting difference in whitespace process. 
 n
 seed 1838473132
 in

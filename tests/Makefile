@@ -163,6 +163,10 @@ oldcompare: $(SGAMES)
 			fi; \
 	done; \
 	echo 1..$(words $(shell ls *.log))) | $(TAPFILTER)
-	@rm *.ochk rm *-new advent430 adventure.data
+	@rm *.ochk *-new advent430 adventure.data
+
+# List all NOMPARE tests.
+residuals:
+	@grep -n NOCOMPARE *.log
 
 # end

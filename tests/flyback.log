@@ -1,4 +1,4 @@
-## Test fix for issue #51: rug flying is broken
+## Test fix for issue 51: rug flying is broken
 #NOCOMPARE Behavior differs due to a bug fix.
 n
 seed 1838473132

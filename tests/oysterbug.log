@@ -1,5 +1,5 @@
 # Demonstrate fix of buggy response to unlocking oyster while carrying it.
-#NOCOMPARE This fixes a bug in advent430
+#NOCOMPARE This fails due to a known bug in advent430
 n
 seed 1838473132
 in

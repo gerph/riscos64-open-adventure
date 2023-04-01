@@ -1,4 +1,5 @@
 ## Check that pour correctly switches among plant states (fuzzed)
+#NOCOMPARE Behavior differs due to a parser bug fix.
 n
 seed 183847312
 in

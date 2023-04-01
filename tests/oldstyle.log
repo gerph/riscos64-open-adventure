@@ -1,5 +1,6 @@
 ## Simple quit
 #options: -o
+#NOCOMPARE Comment not interpreted by advent430
 n
 i
 l

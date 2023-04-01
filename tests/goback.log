@@ -1,6 +1,7 @@
 ## Test many nonlethal failure conditions
 # This variant elicits the prompt to go back for batteries
 # See comments in this log
+#NOCOMPARE Relies on "waste"
 n
 seed 1838473132
 in

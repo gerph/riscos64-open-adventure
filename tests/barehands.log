@@ -1,4 +1,5 @@
 ## Get to dragon, refuse to use bare hands
+#NOCOMPARE Fails due uninteresting difference in whitespace process. 
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
 n
 seed 1635997320
