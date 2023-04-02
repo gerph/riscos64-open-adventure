@@ -13,14 +13,6 @@ Seed set to 1838473132
 
 You're in front of building.
 
-> foo
-
-What's the matter, can't you read?  Now you'd best start over.
-
-> say foo
-
-What's the matter, can't you read?  Now you'd best start over.
-
 > in
 
 You are inside a building, a well house for a large spring.
@@ -65,17 +57,9 @@ OK
 
 OK
 
-> say fum
-
-Nothing happens.
-
 > z
 
 OK
-
-> find foo
-
-What's the matter, can't you read?  Now you'd best start over.
 
 > z
 
@@ -1879,7 +1863,7 @@ OK
 What's the matter, can't you read?  Now you'd best start over.
 
 > 
-You scored 253 out of a possible 430, using 317 turns.
+You scored 253 out of a possible 430, using 313 turns.
 
 You have reached "Junior Master" status.
 
