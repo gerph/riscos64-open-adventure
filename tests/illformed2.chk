@@ -247,10 +247,6 @@ I believe what you want is right here with you.
 
 You can't unlock the keys.
 
-> find foo
-
-Nothing happens.
-
 > find bar
 
 Sorry, I don't know the word "bar".
@@ -492,7 +488,7 @@ Okay, "boo".
 
 > score
 
-You have garnered 32 out of a possible 430 points, using 102 turns.
+You have garnered 32 out of a possible 430 points, using 101 turns.
 
 > z
 
@@ -500,7 +496,7 @@ OK
 
 > score
 
-You have garnered 32 out of a possible 430 points, using 104 turns.
+You have garnered 32 out of a possible 430 points, using 103 turns.
 
 > quit keys
 
@@ -550,7 +546,7 @@ You're outside grate.
 The grate is locked.
 
 > 
-You scored 32 out of a possible 430, using 111 turns.
+You scored 32 out of a possible 430, using 110 turns.
 
 You are obviously a rank amateur.  Better luck next time.
 

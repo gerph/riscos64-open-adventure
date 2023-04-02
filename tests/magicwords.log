@@ -1,4 +1,4 @@
-## Test processing of fee fie foe fum
+## Test processing of variuus fee fie foe foo fum cases.
 #
 # How thry're supposed to work:
 #
@@ -30,11 +30,26 @@
 # to clarify, a second "fee" in the sequence triggers the admonishment,
 # it does not restart the sequence
 #
-# Now that we're at the Giant's Room, actual testing can start
-#
 n
 seed 1838473132
+# Test isolated 'foo' word
+foo
+say foo
 in
+# Say bigwords ending with foo when not in Giant's Room
+say fee
+say fie
+say foe
+say foo
+z
+# Say bigwords ending with fum when not in Giant's Room
+say fee
+say fie
+say foe
+say fum
+z
+find foo
+z
 take lamp
 xyzzy
 on
@@ -335,10 +350,8 @@ w
 d
 climb
 w
-# We're at Giant Room
+# Now that we're at the Giant's Room, actual testing can start
 fee
 fie
 foe
 fum
-quit
-yes

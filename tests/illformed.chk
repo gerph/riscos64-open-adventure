@@ -126,22 +126,6 @@ There is a bottle of water here.
 
 Nothing happens.
 
-> say fee
-
-OK
-
-> say fie
-
-OK
-
-> say foe
-
-OK
-
-> say fum
-
-Nothing happens.
-
 > in
 
 I don't know in from out here.  Use compass points or name something
@@ -162,7 +146,7 @@ There is a bottle of water here.
 What do you want to do with the keys?
 
 > 
-You scored 27 out of a possible 430, using 21 turns.
+You scored 27 out of a possible 430, using 17 turns.
 
 You are obviously a rank amateur.  Better luck next time.
 

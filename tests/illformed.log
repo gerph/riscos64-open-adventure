@@ -24,11 +24,6 @@ eat building
 in
 # Z'ZZZ Word correct, but does nothing
 say F'UNJ
-# Say bigwords when giant isn't around
-say fee
-say fie
-say foe
-say fum
 # Meant to evoke "I don't know in from out here."
 in
 keys

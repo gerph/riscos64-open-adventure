@@ -108,7 +108,7 @@ buildchecks: savegames
 	    OPTS=`sed -n /#options:/s///p <$${file}.log`; \
 	    advent $$OPTS <$${file}.log >$${file}.chk 2>&1 || exit 1; \
 	done; \
-	echo "inven" | advent isofoo.log /dev/stdin >multifile.chk; \
+	echo "inven" | advent issue36.log /dev/stdin >multifile.chk; \
 	rm -f scratch.tmp
 
 RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
@@ -118,7 +118,7 @@ $(RUN_TARGETS): run-regress-%: %.log
 	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk")
 
 multifile-regress:
-	@(echo "inven" | advent isofoo.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk
+	@(echo "inven" | advent issue36.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk
 
 TEST_TARGETS = $(SGAMES) $(SCHECKS) $(RUN_TARGETS) multifile-regress
 

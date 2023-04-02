@@ -13,6 +13,14 @@ Seed set to 1838473132
 
 You're in front of building.
 
+> foo
+
+Nothing happens.
+
+> say foo
+
+Nothing happens.
+
 > in
 
 You are inside a building, a well house for a large spring.
@@ -24,6 +32,54 @@ There is a shiny brass lamp nearby.
 There is food here.
 
 There is a bottle of water here.
+
+> say fee
+
+OK
+
+> say fie
+
+OK
+
+> say foe
+
+OK
+
+> say foo
+
+Nothing happens.
+
+> z
+
+OK
+
+> say fee
+
+OK
+
+> say fie
+
+OK
+
+> say foe
+
+OK
+
+> say fum
+
+Nothing happens.
+
+> z
+
+OK
+
+> find foo
+
+Nothing happens.
+
+> z
+
+OK
 
 > take lamp
 
@@ -1822,15 +1878,8 @@ OK
 
 What's the matter, can't you read?  Now you'd best start over.
 
-> quit
-
-Do you really want to quit now?
-
-> yes
-
-OK
-
-You scored 253 out of a possible 430, using 304 turns.
+> 
+You scored 253 out of a possible 430, using 317 turns.
 
 You have reached "Junior Master" status.
 

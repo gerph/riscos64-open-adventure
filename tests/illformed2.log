@@ -61,7 +61,6 @@ in
 listen
 find keys
 unlock keys
-find foo
 find bar
 carry
 blast
