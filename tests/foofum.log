@@ -1,4 +1,37 @@
 ## Test processing of fee fie foe fum
+#
+# How thry're supposed to work:
+#
+# 1. The word "fum", from the famous phrase, "fee fie foe fum" is treated
+# as a red herring for the player and is handled differently in the
+# logic of the game
+#
+# 2. Each word of the magic phrase and the word "fum" can be preceded by
+# the word "say", so "say fee", "say fie", etc. will work, as
+# well. For "say fum", 'Okay, "FUM"' should NOT be the response,
+# similar to what is seen when other non-magic words are uttered with
+# "say"
+#
+# 3. The sequence is triggered by the first word "fee" only. If any of
+# the other words of the phrase or "fum" are said before "fee",
+# "nothing happens"
+#
+# 4. The phrase "fee fie foe foo" must be entered as four separate
+# commands, in order, without interruption. A move, like "east" or a
+# non-move, like "look", are both considered interruptions
+#
+# 5.  Once the sequence has begun, if any of the words of the phrase,
+# including a second "fee", are said out of order, or "fum" is spoken at
+# all during the sequence, the player is admonished for not being able
+# to read. The assumption here is the player at some point in the time
+# had previously read the phrase, but then messes up the order and/or
+# thinks "fum" was a part of the phrase when they attempt to speak
+# it. The player then must say "fee" again to restart the sequence. And
+# to clarify, a second "fee" in the sequence triggers the admonishment,
+# it does not restart the sequence
+#
+# Now that we're at the Giant's Room, actual testing can start
+#
 n
 seed 1838473132
 in
@@ -302,6 +335,7 @@ w
 d
 climb
 w
+# We're at Giant Room
 fee
 fie
 foe
