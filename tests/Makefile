@@ -149,7 +149,7 @@ count:
 # The *.chk files need not be up-to-date for this to work.
 #
 TAPFILTER=tapview
-oldcompare: $(SGAMES)
+oldcompare:
 	@if [ -f ../advent430 ]; then cp ../advent430 ../adventure.data .; else echo "advent430 nonexistent"; exit 1; fi
 	@-(for x in *.log; do \
 		stem=$${x%.log}; \
