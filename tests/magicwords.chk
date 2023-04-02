@@ -15,11 +15,11 @@ You're in front of building.
 
 > foo
 
-Nothing happens.
+What's the matter, can't you read?  Now you'd best start over.
 
 > say foo
 
-Nothing happens.
+What's the matter, can't you read?  Now you'd best start over.
 
 > in
 
@@ -75,7 +75,7 @@ OK
 
 > find foo
 
-Nothing happens.
+What's the matter, can't you read?  Now you'd best start over.
 
 > z
 
