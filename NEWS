@@ -1,6 +1,6 @@
 = Open Adventure project news =
 
-Repository head::
+1.15: 2023-04-03::
   Commands in magic-word sequence now interrupt it, as in original.
   Bug fix for bird not starting caged in endgame.
 
