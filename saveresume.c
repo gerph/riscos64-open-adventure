@@ -19,7 +19,7 @@
 #include "dungeon.h"
 
 /*
- * Use this to detect endianness mismatch.  Can't be unchanges by byte-swapping.
+ * Use this to detect endianness mismatch.  Can't be unchanged by byte-swapping.
  */
 #define ENDIAN_MAGIC	2317
 

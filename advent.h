@@ -178,7 +178,7 @@ struct game_t {
     int saved;                   // point penalty for saves
     int tally;                   // count of treasures gained
     int thresh;                  // current threshold for endgame scoring tier
-    bool seenbigwords;           // have we red the grafitti in the Giant's Room? 
+    bool seenbigwords;           // have we red the graffiti in the Giant's Room? 
     turn_t trnluz;               // # points lost so far due to turns used
     turn_t turns;                // counts commands given (ignores yes/no)
     char zzword[TOKLEN + 1];     // randomly generated magic word from bird
@@ -236,7 +236,7 @@ typedef struct {
 #define SAVE_VERSION	30
 
 /*
- * Goes at start of gile so sabes can be identified by file(1) and the like.
+ * Goes at start of file so saves can be identified by file(1) and the like.
  */
 #define ADVENT_MAGIC	"open-adventure\n"
 
