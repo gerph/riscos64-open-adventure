@@ -1,5 +1,5 @@
 ## Elicit the maze hint.
-# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 n
 seed 1071883378

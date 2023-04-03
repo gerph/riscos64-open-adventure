@@ -1,5 +1,5 @@
 ## Test for various cases not found in walkthroughs (advent430-compatible).
-# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 # Commented-out lines cause troble in advent430
 n

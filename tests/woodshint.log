@@ -1,5 +1,5 @@
 ## Test hinting logic - elicit forest hint
-# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE Behavior differs due to a parser bug fix.
 # Also some tests of intransitive-verb cases

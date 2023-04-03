@@ -1,5 +1,5 @@
 ## Test filling urn when you have no bottle
-# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 # Also, try to lock door after oiling it
 n

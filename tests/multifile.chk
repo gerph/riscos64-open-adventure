@@ -2,7 +2,7 @@
 Welcome to Adventure!!  Would you like instructions?
 
 > ## Test handling of object after transitive verb.
-> # SPDX-FileCopyrightText: Eric S. Raymond
+> # SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 > # SPDX-License-Identifier: BSD-2-Clause
 > n
 > n
