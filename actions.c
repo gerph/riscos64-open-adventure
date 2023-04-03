@@ -194,6 +194,11 @@ static phase_codes_t bigwords(vocab_t id)
 {
     int foobar = abs(game.foobar);
 
+    if ((foobar == WORD_EMPTY) && (id == FIE || id == FOE || id == FOO || id == FUM)) {
+	rspeak(NOTHING_HAPPENS);
+	return GO_CLEAROBJ;
+    }
+    
     if ((foobar == WORD_EMPTY && id == FEE) ||
         (foobar == FEE && id == FIE) ||
         (foobar == FIE && id == FOE) ||

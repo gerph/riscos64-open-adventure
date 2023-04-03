@@ -13,6 +13,14 @@ Seed set to 1838473132
 
 You're in front of building.
 
+> foo
+
+Nothing happens.
+
+> say foo
+
+Nothing happens.
+
 > in
 
 You are inside a building, a well house for a large spring.
@@ -1863,7 +1871,7 @@ OK
 What's the matter, can't you read?  Now you'd best start over.
 
 > 
-You scored 253 out of a possible 430, using 313 turns.
+You scored 253 out of a possible 430, using 315 turns.
 
 You have reached "Junior Master" status.
 
