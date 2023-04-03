@@ -17,9 +17,9 @@ To see summary lines from all tests, 'make testlist'.  The summary lines
 are those led with ##; you should have one such descriptive line at the
 head of each file.
 
-To run the tests, "make regress".
+To run the tests, "make check".
 
-To remake the check files, "make buildregress".
+To remake the check files, "make buildchecks".
 
 == Composing tests ==
 
@@ -29,12 +29,8 @@ option giving a log path.  Commands will be captured to that log.
 To re-use a command sequence from an existing log, run advent and
 paste it to the advent command log from the clipboard.
 
-To see where we can use more tests, have a look at our test coverage
-report:
+To see where we can use more tests, "make coverage".
 
-http://esr.gitlab.io/open-adventure/coverage/
-
-Improvements in test coverage are always welcome.
 
 // end
 
