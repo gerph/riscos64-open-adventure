@@ -194,6 +194,7 @@ static phase_codes_t bigwords(vocab_t id)
 {
     int foobar = abs(game.foobar);
 
+    /* Only FEE can start a magic-word sequence. */
     if ((foobar == WORD_EMPTY) && (id == FIE || id == FOE || id == FOO || id == FUM)) {
 	rspeak(NOTHING_HAPPENS);
 	return GO_CLEAROBJ;
@@ -229,6 +230,7 @@ static phase_codes_t bigwords(vocab_t id)
             return GO_CLEAROBJ;
         }
     } else {
+	/* Magic-word sequebce was started but is incorrect */
 	rspeak(START_OVER);
         game.foobar = WORD_EMPTY;
         return GO_CLEAROBJ;
