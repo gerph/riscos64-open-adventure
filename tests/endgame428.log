@@ -1,4 +1,6 @@
 ## 428-point walkthrough
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
 n
 seed 1838473132

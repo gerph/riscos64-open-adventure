@@ -1,4 +1,6 @@
 ## Test many nonlethal failure conditions
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # This variant elicits the prompt to go back for batteries
 # See comments in this log
 #NOCOMPARE Relies on "waste"

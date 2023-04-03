@@ -1,3 +1,5 @@
 ## Simple quit
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE New feature, -r option
 #options: -r saveresume.adv

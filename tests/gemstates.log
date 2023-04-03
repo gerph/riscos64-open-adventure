@@ -1,4 +1,6 @@
 ## Observe amber, ruby, sapphire after state change
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 1635997320
 in

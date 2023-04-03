@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
+#
 # This YAML file gets processed into a collection of data structures and
 # variable initializers describing Colossal Cave.  It replaces an ad-hoc
 # text database shipped with Adventure versions up to 2.5.  The format
@@ -115,8 +118,6 @@
 #	%S = the letter 's' or nothing (if a previous %d value is exactly 1)
 #	%V = substitute program version string
 #
-# Copyright (c) 2017 by Eric S. Raymond
-# SPDX-License-Identifier: BSD-2-clause
 
 # Motion names of the form MOT_* are not explicitly referenced in the
 # locations YAML, but usually get compiled into generated C.

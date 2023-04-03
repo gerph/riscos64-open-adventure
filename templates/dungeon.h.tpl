@@ -1,3 +1,7 @@
+/*
+SPDX-FileCopyrightText: Eric S. Raymond
+SPDX-License-Identifier: BSD-2-Clause
+*/
 #ifndef DUNGEON_H
 #define DUNGEON_H
 

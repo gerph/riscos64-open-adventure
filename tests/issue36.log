@@ -1,4 +1,6 @@
 ## Test handling of object after transitive verb.
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 826186526
 in

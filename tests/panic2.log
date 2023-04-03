@@ -1,4 +1,6 @@
 ## Panic test - attempt to xyzzy out after game is closed.
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 1838473132
 in

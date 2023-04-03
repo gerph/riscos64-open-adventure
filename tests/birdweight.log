@@ -1,4 +1,6 @@
 ## Verify that the bird is weightless in inventory
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Checks fix for GitLab issue #40
 #NOCOMPARE Bird was not weightless in cage in advent430 so this test is invalid.
 n

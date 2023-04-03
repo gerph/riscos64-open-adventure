@@ -1,5 +1,8 @@
 # Makefile for the open-source release of adventure 2.5
 
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
+
 # To build with save/resume disabled, pass CFLAGS="-DADVENT_NOSAVE"
 # To build with auto-save/resume enabled, pass CFLAGS="-DADVENT_AUTOSAVE"
 

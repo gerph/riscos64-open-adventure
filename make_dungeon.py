@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 """
 This is the open-adventure dungeon generator. It consumes a YAML description of
 the dungeon and outputs a dungeon.h and dungeon.c pair of C code files.
@@ -6,9 +8,6 @@ the dungeon and outputs a dungeon.h and dungeon.c pair of C code files.
 The nontrivial part of this is the compilation of the YAML for
 movement rules to the travel array that's actually used by
 playermove().
-
-Copyright (c) 2017 by Eric S. Raymond
-SPDX-License-Identifier: BSD-2-clause
 """
 
 # pylint: disable=consider-using-f-string,line-too-long,invalid-name,missing-function-docstring,too-many-branches,global-statement,multiple-imports,too-many-locals,too-many-statements,too-many-nested-blocks,no-else-return,raise-missing-from,redefined-outer-name
@@ -21,7 +20,7 @@ C_NAME = "dungeon.c"
 H_TEMPLATE_PATH = "templates/dungeon.h.tpl"
 C_TEMPLATE_PATH = "templates/dungeon.c.tpl"
 
-DONOTEDIT_COMMENT = "/* Generated from adventure.yaml - do not hand-hack! */\n/* SPDX-License-Identifier: BSD-2-clause */\n\n"
+DONOTEDIT_COMMENT = "/* Generated from adventure.yaml - do not hand-hack! */\n\n"
 
 statedefines = ""
 

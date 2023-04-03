@@ -1,5 +1,8 @@
 # Test-suite makefile for open-adventure
 
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
+
 # Use absolute path so tests that change working directory still use
 # scripts from parent directory.  Note that using $PWD seems to fail
 # here under Gitlab's CI environment.

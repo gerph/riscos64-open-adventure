@@ -1,4 +1,6 @@
 ## Check that dwarf spawns in alternative location (fuzzed)
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 383847
 in

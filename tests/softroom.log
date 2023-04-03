@@ -1,4 +1,6 @@
 ## Drop vase in soft room after pillow removed
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Verify that the vase does not break
 n
 seed 1838473132

@@ -1,4 +1,6 @@
 ### Check that water is unavailable in endgame
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Addresses GitLab issue #55: in endgame, some object starting states are incorrect
 #NOCOMPARE Bird was not weightless in cage in advent430, this test depends on that.
 no

@@ -1,9 +1,9 @@
 /*
  * Actions for the dungeon-running code.
  *
- * Copyright (c) 1977, 2005 by Will Crowther and Don Woods
- * Copyright (c) 2017 by Eric S. Raymond
- * SPDX-License-Identifier: BSD-2-clause
+ * SPDX-FileCopyrightText: 1977, 2005 by Will Crowther and Don Woods
+ * SPDX-FileCopyrightText 2017 by Eric S. Raymond
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 #include <stdlib.h>

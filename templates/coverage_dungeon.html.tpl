@@ -1,3 +1,7 @@
+<--
+SPDX-FileCopyrightText: Eric S. Raymond
+SPDX-License-Identifier: BSD-2-Clause
+-->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 <head>

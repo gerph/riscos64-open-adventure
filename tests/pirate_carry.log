@@ -1,4 +1,6 @@
 ## Check that pirate steals loose treasure from ground (fuzzed)
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 1837473132
 in

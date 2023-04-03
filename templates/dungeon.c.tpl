@@ -1,3 +1,8 @@
+/*
+SPDX-FileCopyrightText: Eric S. Raymond
+SPDX-License-Identifier: BSD-2-Clause
+*/
+
 #include "{h_file}"
 
 const char* arbitrary_messages[] = {{

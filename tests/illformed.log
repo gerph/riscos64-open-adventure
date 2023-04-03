@@ -1,4 +1,6 @@
 ## Test for various cases not found in walkthroughs.
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE This is busted under advent430 -- see comments within.
 foo
 

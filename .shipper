@@ -1,3 +1,7 @@
+<--
+SPDX-FileCopyrightText: Eric S. Raymond
+SPDX-License-Identifier: BSD-2-Clause
+-->
 extralines="""
 <p>There is a <a href="http://esr.gitlab.io/open-adventure/coverage/">code coverage analysis</a> and a <a href="http://esr.gitlab.io/open-adventure/coverage/adventure.yaml.html">symbol coverage analysis</p>
 """

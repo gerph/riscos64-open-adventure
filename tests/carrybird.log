@@ -1,4 +1,6 @@
 ## Try to carry bird without cage, then kill bird
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 1071883378
 in

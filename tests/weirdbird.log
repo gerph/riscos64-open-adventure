@@ -1,4 +1,6 @@
 ## Do pointless things to the bird to test odd cases.
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 694608006
 in

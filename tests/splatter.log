@@ -1,4 +1,6 @@
 ## Adventurer fall down go boom. Also tests 'say' verb on magic words.
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
 n
 seed 1838473132

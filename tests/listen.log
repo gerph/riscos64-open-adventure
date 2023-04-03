@@ -1,4 +1,6 @@
 ## Check that listen command hears all objects as well as location sound
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 no
 seed 1181530211
 e

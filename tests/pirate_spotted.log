@@ -1,4 +1,6 @@
 ## Spot pirate to manifest chest before last treasure (fuzzed)
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 seed 1838473132
 in

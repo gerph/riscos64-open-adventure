@@ -1,4 +1,6 @@
 ## Test fix for issue 51: rug flying is broken
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE Behavior differs due to a bug fix.
 n
 seed 1838473132

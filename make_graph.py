@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 """\
 usage: make-graph.py [-a] -d] [-m] [-s]
 
@@ -11,8 +13,6 @@ Make a DOT graph of Colossal Cave.
 -s = emit graph of non-forest surface locations
 -v = include internal symbols in room labels
 """
-# Copyright (c) 2017 by Eric S. Raymond
-# SPDX-License-Identifier: BSD-2-clause
 
 # pylint: disable=consider-using-f-string,line-too-long,invalid-name,missing-function-docstring,multiple-imports,redefined-outer-name
 

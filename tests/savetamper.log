@@ -1,4 +1,6 @@
 ## Resume from artificial "corrupted" save
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE Can't compare to advent430 due to version skew
 n
 resume

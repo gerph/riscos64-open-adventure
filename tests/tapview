@@ -1,14 +1,13 @@
 #! /bin/sh
 # tapview - a TAP (Test Anything Protocol) viewer in pure POSIX shell
 #
-# Copyright by Eric S. Raymond
-#
 # This code is intended to be embedded in your project. The author
 # grants permission for it to be distributed under the prevailing
 # license of your project if you choose, provided that license is
 # OSD-compliant; otherwise the following SPDX tag incorporates a
 # license by reference.
 #
+# SPDX-FileCopyrightText: Eric S. Raymond
 # SPDX-License-Identifier: BSD-2-Clause
 #
 # This is version 1.6

@@ -1,4 +1,6 @@
 ## Test throwing axe at non-dwarves.
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Added coverage of LOC_DEADCRAWL and CROSS_BRIDGE
 n
 seed 1838473132

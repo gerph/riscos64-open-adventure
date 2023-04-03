@@ -1,4 +1,6 @@
 ## Almost win, then save
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
 #NOCOMPARE Seems to reveal a bug in advent430's save function.
 n

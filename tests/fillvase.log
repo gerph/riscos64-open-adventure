@@ -1,4 +1,6 @@
 ## Fill the vase
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Arthur O'Dwyer <arthur.j.odwyer@gmail.com> writes:
 #
 # (4) Lastly, here's a test case for you! Go get the VASE; then get the

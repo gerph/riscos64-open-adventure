@@ -1,4 +1,6 @@
 ## Test access to emerald room and plover teleport
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
 n
 seed 1495951709

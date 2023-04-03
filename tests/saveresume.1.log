@@ -1,4 +1,6 @@
 ## Save right after starting
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE Can't compare to advent430 due to version skew
 n
 seed 1240742801

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 """
 This is the open-adventure dungeon text coverage report generator. It
 consumes a YAML description of the dungeon and determines whether the

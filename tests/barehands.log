@@ -1,4 +1,6 @@
 ## Get to dragon, refuse to use bare hands
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE Fails due uninteresting difference in whitespace process. 
 # Based on walkthrough at http://www.ecsoftwareconsulting.com/node/56
 n

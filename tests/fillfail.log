@@ -1,4 +1,6 @@
 ## Attempt to fill lamp, attempt to fill bottle with no source
+# SPDX-FileCopyrightText: Eric S. Raymond
+# SPDX-License-Identifier: BSD-2-Clause
 n
 in
 carry lamp
