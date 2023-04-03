@@ -202,10 +202,9 @@ static phase_codes_t bigwords(vocab_t id)
     if ((foobar == WORD_EMPTY && id == FEE) ||
         (foobar == FEE && id == FIE) ||
         (foobar == FIE && id == FOE) ||
-        (foobar == FOE && id == FOO) ||
-        (foobar == FOE && id == FUM)) {
+        (foobar == FOE && id == FOO)) {
         game.foobar = id;
-        if ((id != FOO) && (id != FUM)) {
+        if (id != FOO) {
             rspeak(OK_MAN);
             return GO_CLEAROBJ;
         }
@@ -214,8 +213,6 @@ static phase_codes_t bigwords(vocab_t id)
             (TOTING(EGGS) && game.loc == objects[EGGS].plac)) {
             rspeak(NOTHING_HAPPENS);
             return GO_CLEAROBJ;
-        } else if (id == FUM) {
-            goto fum;
         } else {
             /*  Bring back troll if we steal the eggs back from him before
              *  crossing. */
@@ -232,7 +229,6 @@ static phase_codes_t bigwords(vocab_t id)
             return GO_CLEAROBJ;
         }
     } else {
-fum:
 	rspeak(START_OVER);
         game.foobar = WORD_EMPTY;
         return GO_CLEAROBJ;
