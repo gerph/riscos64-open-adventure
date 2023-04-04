@@ -162,7 +162,7 @@ oldcompare:
 			else \
 				./advent430 <$${stem}.log | oldfilter >$${stem}.ochk; \
 				../advent <$${stem}.log >$${stem}.log-new; \
-				./newfilter <$${stem}.log-new | tapdiffer -w "$${stem}: $${legend}" $${stem}.ochk; \
+				./newfilter <$${stem}.log-new | tapdiffer -b "$${stem}: $${legend}" $${stem}.ochk; \
 			fi; \
 	done; \
 	echo 1..$(words $(shell ls *.log))) | $(TAPFILTER)

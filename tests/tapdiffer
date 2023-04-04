@@ -1,6 +1,6 @@
 #! /bin/sh
 # SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
-# SPDX-License-Identifier: BSD-2-Clause
+# SPDX-License-Identifier: MIT-0
 #
 # tapdiffer - Render diff between input and checkfile as a TAP report
 #
@@ -10,9 +10,19 @@
 # A nonempty diff is shipped as a TAP YAML block following "not ok" 
 # unless QUIET=1 in the environment.
 #
-if [ "$1" = "-w" ]
+# This code is intended to be embedded in your project. The author
+# grants permission for it to be distributed under the prevailing
+# license of your project if you choose, provided that license is
+# OSD-compliant; otherwise the following SPDX tag incorporates the
+# MIT No Attribution license by reference.
+#
+# A newer version may be available at https://gitlab.com/esr/tapview
+# Check your last commit dqte for this file against the commit list
+# there to see if it might be a good idea to update.
+#
+if [ "$1" = "-b" ]
 then
-    diffopts=-ubZ
+    diffopts=-ub
     shift
 else
     diffopts=-u
@@ -23,7 +33,7 @@ checkfile=$2
 
 trap 'rm /tmp/tapdiff$$' EXIT HUP INT QUIT TERM
 
-if diff --text "${diffopts}" ${checkfile} - >/tmp/tapdiff$$
+if diff --text "${diffopts}" "${checkfile}" - >/tmp/tapdiff$$
 then
 	echo "ok - ${legend}"
 else
