@@ -136,6 +136,14 @@ count:
 # master leaving advent430 and adventure.data in place (make clean
 # does not remove them).
 #
+# make clean                 # Clean up object files, laving a bare source tree
+# git checkout advent430     # Check out the advent430 branch
+# make                       # Build the advent430 binary
+# advent430                  # Run it.  Answer the novice question and quit
+# make clean                 # Remove .o files
+# git checkout master        # Go back to master branch
+# make                       # Rebuild advent.
+#
 # The diff file produced has corrected spellings in it. That's what oldfilter
 # is for, to massage out the original spellings and avoid noise diffs.
 # Diffs in amount of whitespace and trailing whitespace are ignored
