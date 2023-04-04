@@ -118,7 +118,7 @@ RUN_TARGETS=$(TESTLOADS:%=run-regress-%)
 $(RUN_TARGETS): run-regress-%: %.log
 	@(test=$(<:.log=); legend=$$(sed -n '/^## /s///p' <"$<" 2>/dev/null || echo "(no description)"); \
 	OPTS=`sed -n /#options:/s///p $<`; \
-	$(advent) $$OPTS <$< | tapdiffer "$<: $${legend}" "$${test}.chk")
+	$(advent) $$OPTS <$< | tapdiffer "$${test}: $${legend}" "$${test}.chk")
 
 multifile-regress:
 	@(echo "inven" | advent issue36.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk
