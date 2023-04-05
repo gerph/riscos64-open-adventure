@@ -115,7 +115,6 @@ typedef enum scorebonus {none, splatter, defeat, victory} score_t;
 
 /* Phase codes for action returns.
  * These were at one time FORTRAN line numbers.
- * The values don't matter, but perturb their order at your peril.
  */
 typedef enum {
     GO_TERMINATE,
