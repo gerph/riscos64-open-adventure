@@ -231,7 +231,10 @@ static phase_codes_t bigwords(vocab_t id)
         }
     } else {
 	/* Magic-word sequebce was started but is incorrect */
-	rspeak(START_OVER);
+	if (settings.oldstyle || game.seenbigwords)
+	    rspeak(START_OVER);
+	else
+	    rspeak(WELL_POINTLESS);
         game.foobar = WORD_EMPTY;
         return GO_CLEAROBJ;
     }

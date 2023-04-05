@@ -935,6 +935,8 @@ static void listobjects(void)
                     game.prop[RUG] = RUG_DRAGON;
                 if (obj == CHAIN)
                     game.prop[CHAIN] = CHAINING_BEAR;
+		if (obj == EGGS)
+		    game.seenbigwords = true;
                 --game.tally;
                 /*  Note: There used to be a test here to see whether the
                  *  player had blown it so badly that he could never ever see

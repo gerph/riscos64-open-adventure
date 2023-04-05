@@ -178,7 +178,7 @@ struct game_t {
     int saved;                   // point penalty for saves
     int tally;                   // count of treasures gained
     int thresh;                  // current threshold for endgame scoring tier
-    turn_t trndex;               // FIXME: not used, remove on next format bump
+    bool seenbigwords;           // have we red the grafitti in the Giant's Room? 
     turn_t trnluz;               // # points lost so far due to turns used
     turn_t turns;                // counts commands given (ignores yes/no)
     char zzword[TOKLEN + 1];     // randomly generated magic word from bird

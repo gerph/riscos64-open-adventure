@@ -53,6 +53,11 @@ Bug fixes:
 
 * Response to an attempt to unlock the oyster while carrying it was incorrect. 
 
+* Behavior when saying the giant's magic words before having seen them wasn't
+  quite correct - the game responded as though the player had already
+  read them ("...can't you read?"). The new message is "Nothing happens."
+  The -o option reverts this change.
+
 * Attempting to extinguish an unlit urn caused it to lose its oil.
 
 * "A crystal bridge now spans the fissure." (progressive present) was
