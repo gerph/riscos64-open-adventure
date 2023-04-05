@@ -1069,7 +1069,7 @@ static bool do_move(void)
 
     /* The easiest way to get killed is to fall into a pit in
      * pitch darkness. */
-    if (!FORCED(game.loc) && DARK(game.loc) && game.wzdark && PCT(35)) { // FIXME: magic number
+    if (!FORCED(game.loc) && DARK(game.loc) && game.wzdark && PCT(PIT_KILL_PROB)) {
         rspeak(PIT_FALL);
         game.oldlc2 = game.loc;
         croak();
