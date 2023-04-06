@@ -24,7 +24,7 @@ void autosave(void)
 {
     if (autosave_fp != NULL) {
         rewind(autosave_fp);
-        savefile(autosave_fp, /* version (auto): */0);
+        savefile(autosave_fp);
         fflush(autosave_fp);
     }
 }

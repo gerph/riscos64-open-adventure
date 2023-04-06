@@ -248,6 +248,7 @@ typedef struct {
 struct save_t {
     char magic[sizeof(ADVENT_MAGIC)];
     int32_t version;
+    int32_t canary;
     struct game_t game;
 };
 
@@ -277,7 +278,7 @@ extern void set_seed(int32_t);
 extern int32_t randrange(int32_t);
 extern int score(enum termination);
 extern void terminate(enum termination) __attribute__((noreturn));
-extern int savefile(FILE *, int32_t);
+extern int savefile(FILE *);
 #if defined ADVENT_AUTOSAVE
 extern void autosave(void);
 #endif

@@ -22,11 +22,12 @@ struct save_t save;
 
 #define IGNORE(r) do{if (r){}}while(0)
 
-int savefile(FILE *fp, int32_t version)
+int savefile(FILE *fp)
 /* Save game to file. No input or output from user. */
 {
     memcpy(&save.magic, ADVENT_MAGIC, sizeof(ADVENT_MAGIC));
-    save.version = (version == 0) ? SAVE_VERSION : version;
+    if (save.version == 0)
+	save.version = SAVE_VERSION;
 
     save.game = game;
     IGNORE(fwrite(&save, sizeof(struct save_t), 1, fp));
@@ -84,7 +85,7 @@ int suspend(void)
         free(name);
     }
 
-    savefile(fp, SAVE_VERSION);
+    savefile(fp);
     fclose(fp);
     rspeak(RESUME_HELP);
     exit(EXIT_SUCCESS);

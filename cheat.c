@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 {
     int ch;
     char *savefilename = NULL;
-    int version = 0;
     FILE *fp = NULL;
 
     // Initialize game variables
@@ -59,8 +58,8 @@ int main(int argc, char *argv[])
             printf("cheat: game.turns = %d\n", game.turns);
             break;
         case 'v':
-            version = atoi(optarg);
-            printf("cheat: version = %d\n", version);
+            save.version = atoi(optarg);
+            printf("cheat: version = %d\n", save.version);
             break;
         case 'o':
             savefilename = optarg;
@@ -89,7 +88,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    savefile(fp, version);
+    savefile(fp);
 
     fclose(fp);
 
