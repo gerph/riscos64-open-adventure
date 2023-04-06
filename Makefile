@@ -6,7 +6,7 @@
 # To build with save/resume disabled, pass CFLAGS="-DADVENT_NOSAVE"
 # To build with auto-save/resume enabled, pass CFLAGS="-DADVENT_AUTOSAVE"
 
-VERS=$(shell sed -n <NEWS '/^[0-9]/s/:.*//p' | head -1)
+VERS=$(shell sed -n <NEWS.adoc '/^[0-9]/s/:.*//p' | head -1)
 
 .PHONY: debug indent release refresh dist linty html clean
 .PHONY: check coverage
@@ -89,7 +89,7 @@ coverage: clean debug
 html: advent.html history.html hints.html
 
 # README.adoc exists because that filename is magic on GitLab.
-DOCS=COPYING NEWS README.adoc advent.adoc history.adoc notes.adoc hints.adoc advent.6 INSTALL.adoc
+DOCS=COPYING NEWS.adoc README.adoc advent.adoc history.adoc notes.adoc hints.adoc advent.6 INSTALL.adoc
 TESTFILES=tests/*.log tests/*.chk tests/README tests/decheck tests/Makefile
 
 # Can't use GNU tar's --transform, needs to build under Alpine Linux.

@@ -1,4 +1,6 @@
 = Open Adventure project news =
+// SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: CC-BY-4.0
 
 1.15: 2023-04-03::
   Commands in magic-word sequence now interrupt it, as in original.
