@@ -15,7 +15,9 @@ the game; Jason signed on early in the process to help. The assistance
 of Peje Nilsson in restructuring some particularly grotty gotos is
 gratefully acknowledged. Petr Voropaev contributed fuzz testing and
 code cleanups. Aaron Traas did a lot of painstaking work to improve
-test coverage, and factored out the last handful of gotos.
+test coverage, and factored out the last handful of gotos.  Ryan
+Sarson nudged us into fixing a longstannding minor bug in the
+handling of incorrect magic-word sequebcesm, 
 
 == Nomenclature ==
 
@@ -55,10 +57,10 @@ Bug fixes:
 
 * Response to an attempt to unlock the oyster while carrying it was incorrect. 
 
-* Behavior when saying the giant's magic words before having seen them wasn't
-  quite correct - the game responded as though the player had already
-  read them ("...can't you read?"). The new message is "Nothing happens."
-  The -o option reverts this change.
+* Behavior when saying the giant's magic words before having seen them
+  wasn't quite correct - the game responded as though the player had
+  already read them ("...can't you read?"). The new message is "Well,
+  that was remarkably pointless!"  The -o option reverts this change.
 
 * Attempting to extinguish an unlit urn caused it to lose its oil.
 
@@ -121,7 +123,10 @@ functions; without C's fread(3)/fwrite() and structs it was
 necessarily pretty ugly by modern standards. Encryption and
 checksumming have been discarded - it's pointless to try
 tamper-proofing saves when everyone has the source code. However
-the game still integrity-checks savefiles on resume.
+the game still integrity-checks savefiles on resume, including an
+abort if the endianness of the restoring machine does not match that of
+the saving machine.  There is a magic-cookie header on the saves so
+in theory they could be identified by programs like file(1).
 
 Save and resume filenames are stripped of leading and trailing
 whitespace before processing.
