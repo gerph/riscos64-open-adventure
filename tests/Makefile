@@ -48,28 +48,29 @@ listcheck:
 	done
 
 # Generate bogus savegames.
-sgame1:
+cheat_numdie.adv:
 	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
 	@./outcheck.sh "cheat: Generate save file with -900 deaths"
-sgame2:
+cheat_numdie1000.adv:
 	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
 	@./outcheck.sh "cheat: Generate save file with -1000 deaths"
-sgame3:
+cheat_savetamper.adv:
 	@$(PARDIR)/cheat -d 2000 -o cheat_savetamper.adv > /tmp/cheat_savetamper
 	@./outcheck.sh "cheat: Generate tamper-detection test"
-sgame4:
+resume_badversion.adv:
 	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
 	@./outcheck.sh "cheat: Generate save file with version -1337"
-sgame5:
+thousand_saves.adv:
 	@$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/cheat_1000saves
 	@./outcheck.sh "cheat: Generate save file 1000 saves"
-sgame6:
-	@$(PARDIR)/cheat -t -1000 -o thousand_saves.adv > /tmp/cheat_1000turns
+thousand_turns.adv:
+	@$(PARDIR)/cheat -t -1000 -o thousand_turns.adv > /tmp/cheat_1000turns
 	@./outcheck.sh "cheat: Generate save file 1000 turns"
-sgame7:
-	@$(PARDIR)/cheat -l -1000 -o thousand_lamp.adv > /tmp/cheat_1000lamp
-	@./outcheck.sh "cheat: Generate save file 1000 turns"
-SGAMES = sgame1 sgame2 sgame3 sgame4 sgame5 sgame6 sgame7
+thousand_limit.adv:
+	@$(PARDIR)/cheat -l -1000 -o thousand_limit.adv > /tmp/cheat_1000limit
+	@./outcheck.sh "cheat: Generate save file with game limot 1000"
+SGAMES = cheat_numdie.adv cheat_numdie1000.adv cheat_savetamper.adv resume_badversion.adv \
+	thousand_saves.adv thousand_turns.adv thousand_limit.adv
 
 # Force coverage of cheat edgecases
 scheck1:
@@ -123,12 +124,16 @@ $(RUN_TARGETS): run-regress-%: %.log
 multifile-regress:
 	@(echo "inven" | advent issue36.log /dev/stdin) | tapdiffer "multifile: multiple-file test" multifile.chk
 
-TEST_TARGETS = $(SGAMES) $(SCHECKS) $(RUN_TARGETS) multifile-regress
+TEST_TARGETS = $(SCHECKS) $(RUN_TARGETS) multifile-regress
 
-tap: count $(TEST_TARGETS)
+tap: count $(SGAMES) $(TEST_TARGETS)
 	@rm -f scratch.tmp /tmp/coverage* /tmp/cheat*
 count:
 	@echo 1..$(words $(TEST_TARGETS))
+
+foobar:
+	exit 1
+
 
 # The following machinery tests the game against a binary made from
 # the advent430 branch To use it, switch to that branch, build the
