@@ -18,6 +18,11 @@
 #include "advent.h"
 #include "dungeon.h"
 
+/*
+ * Use this to detect endianness mismatch.  Can't be unchanges by byte-swapping.
+ */
+#define ENDIAN_MAGIC	2317
+
 struct save_t save;
 
 #define IGNORE(r) do{if (r){}}while(0)
@@ -28,6 +33,8 @@ int savefile(FILE *fp)
     memcpy(&save.magic, ADVENT_MAGIC, sizeof(ADVENT_MAGIC));
     if (save.version == 0)
 	save.version = SAVE_VERSION;
+    if (save.canary == 0)
+	save.canary = ENDIAN_MAGIC;
 
     save.game = game;
     IGNORE(fwrite(&save, sizeof(struct save_t), 1, fp));
@@ -136,7 +143,7 @@ int restore(FILE* fp)
 
     IGNORE(fread(&save, sizeof(struct save_t), 1, fp));
     fclose(fp);
-    if (memcmp(save.magic, ADVENT_MAGIC, sizeof(ADVENT_MAGIC)) != 0)
+    if (memcmp(save.magic, ADVENT_MAGIC, sizeof(ADVENT_MAGIC)) != 0 || save.canary != ENDIAN_MAGIC)
 	rspeak(BAD_SAVE);
     else if (save.version != SAVE_VERSION) {
         rspeak(VERSION_SKEW, save.version / 10, MOD(save.version, 10), SAVE_VERSION / 10, MOD(SAVE_VERSION, 10));

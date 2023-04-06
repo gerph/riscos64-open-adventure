@@ -2,6 +2,10 @@
 // SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
+Reoisitory head::
+  Savefiles now have an identigting magic cookie at the front.
+  Resume detects if a save has incompatible endianness.
+
 1.15: 2023-04-03::
   Commands in magic-word sequence now interrupt it, as in original.
   Bug fix for bird not starting caged in endgame.
