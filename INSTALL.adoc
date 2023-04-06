@@ -1,4 +1,6 @@
 = Installing Open Adventure =
+// SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: CC-BY-4.0
 
 Installation now requires Python3 due to a security issue
 with the YAML library.

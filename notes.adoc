@@ -1,5 +1,7 @@
 = Open Adventure Maintainer's Notes =
 by Eric S. Raymond
+// SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: CC-BY-4.0
 
 In which we explain what has been done to this code since Don Woods
 authorized us to ship it under an open-source license.  There's a

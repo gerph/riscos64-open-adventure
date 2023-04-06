@@ -1,5 +1,7 @@
 = A brief history of Colossal Cave Adventure =
 by Eric S. Raymond
+// SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: CC-BY-4.0
 
 Adventure is the fons et origo of all later dungeon-crawling computer
 games, the granddaddy of interactive fiction, and one of the hallowed

@@ -1,4 +1,6 @@
 = README for Open Adventure =
+// SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: CC-BY-4.0
 
 If you are reading this anywhere but at http://www.catb.org/~esr/open-adventure
 you can go there for tarball downloads and other resources.
