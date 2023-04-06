@@ -29,8 +29,7 @@
 
 /*
  * If you change the first three members, the resume function may not properly
- * reject saves from older versions.  Yes, this glues us to a hardware-
- * dependent length of int.  Later members can change, but bump the version
+ * reject saves from older versions. Later members can change, but bump the version
  * when you do that.
  */
 struct save_t {
@@ -123,8 +122,7 @@ int resume(void)
 #endif
     FILE *fp = NULL;
 
-    if (game.loc != 1 ||
-        game.abbrev[1] != 1) {
+    if (game.loc != LOC_START || game.abbrev[LOC_START] != 1) {
         rspeak(RESUME_ABANDON);
         if (!yes_or_no(arbitrary_messages[THIS_ACCEPTABLE], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
             return GO_CLEAROBJ;

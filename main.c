@@ -463,8 +463,7 @@ static void describe_location(void)
 {
     const char* msg = locations[game.loc].description.small;
 
-    if (MOD(game.abbrev[game.loc], game.abbnum) == 0 ||
-        msg == NO_MESSAGE)
+    if (MOD(game.abbrev[game.loc], game.abbnum) == 0 || msg == NO_MESSAGE)
         msg = locations[game.loc].description.big;
 
     if (!FORCED(game.loc) && DARK(game.loc)) {
