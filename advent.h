@@ -233,7 +233,12 @@ typedef struct {
  * files afterwards.  Otherwise you will get a spurious failure due to the old version
  * having been generated into a check file.
  */
-#define SAVE_VERSION	29
+#define SAVE_VERSION	30
+
+/*
+ * Goes at start of gile so sabes can be identified by file(1) and the like.
+ */
+#define ADVENT_MAGIC	"open-adventure\n"
 
 /*
  * If you change the first three members, the resume function may not properly
@@ -241,8 +246,7 @@ typedef struct {
  * when you do that.
  */
 struct save_t {
-    int64_t savetime;
-    int32_t mode;		/* not used, must be present for version detection */
+    char magic[sizeof(ADVENT_MAGIC)];
     int32_t version;
     struct game_t game;
 };

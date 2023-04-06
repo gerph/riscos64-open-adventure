@@ -25,8 +25,7 @@ struct save_t save;
 int savefile(FILE *fp, int32_t version)
 /* Save game to file. No input or output from user. */
 {
-    save.savetime = time(NULL);
-    save.mode = -1;
+    memcpy(&save.magic, ADVENT_MAGIC, sizeof(ADVENT_MAGIC));
     save.version = (version == 0) ? SAVE_VERSION : version;
 
     save.game = game;
