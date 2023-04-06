@@ -226,7 +226,29 @@ typedef struct {
     command_state_t state;
 } command_t;
 
+/*
+ * Bump on save format change.
+ *
+ * Note: Verify that the tests run clean before bumping this, then rebuild the check
+ * files afterwards.  Otherwise you will get a spurious failure due to the old version
+ * having been generated into a check file.
+ */
+#define SAVE_VERSION	29
+
+/*
+ * If you change the first three members, the resume function may not properly
+ * reject saves from older versions. Later members can change, but bump the version
+ * when you do that.
+ */
+struct save_t {
+    int64_t savetime;
+    int32_t mode;		/* not used, must be present for version detection */
+    int32_t version;
+    struct game_t game;
+};
+
 extern struct game_t game;
+extern struct save_t save;
 extern struct settings_t settings;
 
 extern char *myreadline(const char *);
@@ -262,8 +284,7 @@ extern int initialise(void);
 extern phase_codes_t action(command_t);
 extern void state_change(obj_t, int);
 extern bool is_valid(struct game_t);
-
-void bug(enum bugtype, const char *) __attribute__((__noreturn__));
+extern void bug(enum bugtype, const char *) __attribute__((__noreturn__));
 
 /* represent an empty command word */
 static const command_word_t empty_command_word = {

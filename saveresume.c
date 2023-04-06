@@ -18,26 +18,6 @@
 #include "advent.h"
 #include "dungeon.h"
 
-/*
- * Bump on save format change.
- *
- * Note: Verify that the tests run clean before bumping this, then rebuild the check
- * files afterwards.  Otherwise you will get a spurious failure due to the old version
- * having been generated into a check file.
- */
-#define VRSION	29
-
-/*
- * If you change the first three members, the resume function may not properly
- * reject saves from older versions. Later members can change, but bump the version
- * when you do that.
- */
-struct save_t {
-    int64_t savetime;
-    int32_t mode;		/* not used, must be present for version detection */
-    int32_t version;
-    struct game_t game;
-};
 struct save_t save;
 
 #define IGNORE(r) do{if (r){}}while(0)
@@ -47,7 +27,7 @@ int savefile(FILE *fp, int32_t version)
 {
     save.savetime = time(NULL);
     save.mode = -1;
-    save.version = (version == 0) ? VRSION : version;
+    save.version = (version == 0) ? SAVE_VERSION : version;
 
     save.game = game;
     IGNORE(fwrite(&save, sizeof(struct save_t), 1, fp));
@@ -105,7 +85,7 @@ int suspend(void)
         free(name);
     }
 
-    savefile(fp, VRSION);
+    savefile(fp, SAVE_VERSION);
     fclose(fp);
     rspeak(RESUME_HELP);
     exit(EXIT_SUCCESS);
@@ -156,8 +136,8 @@ int restore(FILE* fp)
 
     IGNORE(fread(&save, sizeof(struct save_t), 1, fp));
     fclose(fp);
-    if (save.version != VRSION) {
-        rspeak(VERSION_SKEW, save.version / 10, MOD(save.version, 10), VRSION / 10, MOD(VRSION, 10));
+    if (save.version != SAVE_VERSION) {
+        rspeak(VERSION_SKEW, save.version / 10, MOD(save.version, 10), SAVE_VERSION / 10, MOD(SAVE_VERSION, 10));
     } else if (!is_valid(save.game)) {
 	rspeak(SAVE_TAMPERING);
 	exit(EXIT_SUCCESS);
