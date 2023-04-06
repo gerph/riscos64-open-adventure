@@ -135,7 +135,9 @@ int restore(FILE* fp)
 
     IGNORE(fread(&save, sizeof(struct save_t), 1, fp));
     fclose(fp);
-    if (save.version != SAVE_VERSION) {
+    if (memcmp(save.magic, ADVENT_MAGIC, sizeof(ADVENT_MAGIC)) != 0)
+	rspeak(BAD_SAVE);
+    else if (save.version != SAVE_VERSION) {
         rspeak(VERSION_SKEW, save.version / 10, MOD(save.version, 10), SAVE_VERSION / 10, MOD(SAVE_VERSION, 10));
     } else if (!is_valid(save.game)) {
 	rspeak(SAVE_TAMPERING);

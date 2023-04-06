@@ -3186,6 +3186,7 @@ arbitrary_messages:  !!omap
 #    %d of %d "random" messages   %d of %d "class" messages
 #    %d of %d hints               %d of %d turn thresholds'
 - RESUME_ABANDON: 'To resume an earlier Adventure, you must abandon the current one.'
+- BAD_SAVE: 'Oops, that does not look like a valid save file.'
 - VERSION_SKEW: |-
     I'm sorry, but that Adventure was begun using Version %d.%d of the
     save file format, and this program uses Version %d.%d.  You must find an instance
