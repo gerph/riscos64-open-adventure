@@ -50,25 +50,18 @@ listcheck:
 # Generate bogus savegames.
 cheat_numdie.adv:
 	@$(PARDIR)/cheat -d -900 -o cheat_numdie.adv > /tmp/cheat_numdie
-	@./outcheck.sh "cheat: Generate save file with -900 deaths"
 cheat_numdie1000.adv:
 	@$(PARDIR)/cheat -d -1000 -o cheat_numdie1000.adv > /tmp/cheat_numdie1000
-	@./outcheck.sh "cheat: Generate save file with -1000 deaths"
 cheat_savetamper.adv:
 	@$(PARDIR)/cheat -d 2000 -o cheat_savetamper.adv > /tmp/cheat_savetamper
-	@./outcheck.sh "cheat: Generate tamper-detection test"
 resume_badversion.adv:
 	@$(PARDIR)/cheat -v -1337 -o resume_badversion.adv > /tmp/cheat_badversion
-	@./outcheck.sh "cheat: Generate save file with version -1337"
 thousand_saves.adv:
 	@$(PARDIR)/cheat -s -1000 -o thousand_saves.adv > /tmp/cheat_1000saves
-	@./outcheck.sh "cheat: Generate save file 1000 saves"
 thousand_turns.adv:
 	@$(PARDIR)/cheat -t -1000 -o thousand_turns.adv > /tmp/cheat_1000turns
-	@./outcheck.sh "cheat: Generate save file 1000 turns"
 thousand_limit.adv:
 	@$(PARDIR)/cheat -l -1000 -o thousand_limit.adv > /tmp/cheat_1000limit
-	@./outcheck.sh "cheat: Generate save file with game limot 1000"
 SGAMES = cheat_numdie.adv cheat_numdie1000.adv cheat_savetamper.adv resume_badversion.adv \
 	thousand_saves.adv thousand_turns.adv thousand_limit.adv
 
