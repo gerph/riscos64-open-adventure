@@ -190,8 +190,8 @@ struct game_t {
     loc_t fixed[NOBJECTS + 1];   // fixed location of object (if  not IS_FREE)
     obj_t link[NOBJECTS * 2 + 1];// object-list links
     loc_t place[NOBJECTS + 1];   // location of object
-    int hinted[NHINTS];          // hinted[i] = true iff hint i has been used.
-    int hintlc[NHINTS];          // hintlc[i] = how int at LOC with cond bit i
+    bool hinted[NHINTS];         // hinted[i] = true iff hint i has been used.
+    int hintlc[NHINTS];          // hintlc[i] = show int at LOC with cond bit i
     int prop[NOBJECTS + 1];      // object state array */
 };
 
