@@ -191,14 +191,16 @@ struct game_t {
 	loc_t loc;               // location of dwarves, initially hard-wired in
 	loc_t oldloc;            // prior loc of each dwarf, initially garbage
     } dwarves[NDWARVES + 1];
-    struct object {
+    struct {
 	loc_t fixed;             // fixed location of object (if not IS_FREE)
         int prop;                // object state */
 	loc_t place;             // location of object
     } objects[NOBJECTS + 1];
+    struct { 
+	bool used;               // hints[i].used = true iff hint i has been used.
+	int lc;                 // hints[i].lc = show int at LOC with cond bit i
+    } hints[NHINTS];
     obj_t link[NOBJECTS * 2 + 1];// object-list links
-    bool hinted[NHINTS];         // hinted[i] = true iff hint i has been used.
-    int hintlc[NHINTS];          // hintlc[i] = show int at LOC with cond bit i
 };
 
 /*

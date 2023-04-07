@@ -96,7 +96,7 @@ int score(enum termination mode)
 
     /* Deduct for hints/turns/saves. Hints < 4 are special; see database desc. */
     for (int i = 0; i < NHINTS; i++) {
-        if (game.hinted[i])
+        if (game.hints[i].used)
             score = score - hints[i].penalty;
     }
     if (game.novice)

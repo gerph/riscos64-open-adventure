@@ -104,14 +104,14 @@ static void checkhints(void)
 {
     if (conditions[game.loc] >= game.conds) {
         for (int hint = 0; hint < NHINTS; hint++) {
-            if (game.hinted[hint])
+            if (game.hints[hint].used)
                 continue;
             if (!CNDBIT(game.loc, hint + 1 + COND_HBASE))
-                game.hintlc[hint] = -1;
-            ++game.hintlc[hint];
+                game.hints[hint].lc = -1;
+            ++game.hints[hint].lc;
             /*  Come here if he's been int enough at required loc(s) for some
              *  unused hint. */
-            if (game.hintlc[hint] >= hints[hint].turns) {
+            if (game.hints[hint].lc >= hints[hint].turns) {
                 int i;
 
                 switch (hint) {
@@ -119,7 +119,7 @@ static void checkhints(void)
                     /* cave */
                     if (game.objects[GRATE].prop == GRATE_CLOSED && !HERE(KEYS))
                         break;
-                    game.hintlc[hint] = 0;
+                    game.hints[hint].lc = 0;
                     return;
                 case 1:	/* bird */
                     if (game.objects[BIRD].place == game.loc && TOTING(ROD) && game.oldobj == BIRD)
@@ -128,7 +128,7 @@ static void checkhints(void)
                 case 2:	/* snake */
                     if (HERE(SNAKE) && !HERE(BIRD))
                         break;
-                    game.hintlc[hint] = 0;
+                    game.hints[hint].lc = 0;
                     return;
                 case 3:	/* maze */
                     if (game.locs[game.loc].atloc == NO_OBJECT &&
@@ -136,19 +136,19 @@ static void checkhints(void)
                         game.locs[game.oldlc2].atloc == NO_OBJECT &&
                         game.holdng > 1)
                         break;
-                    game.hintlc[hint] = 0;
+                    game.hints[hint].lc = 0;
                     return;
                 case 4:	/* dark */
                     if (game.objects[EMERALD].prop != STATE_NOTFOUND && game.objects[PYRAMID].prop == STATE_NOTFOUND)
                         break;
-                    game.hintlc[hint] = 0;
+                    game.hints[hint].lc = 0;
                     return;
                 case 5:	/* witt */
                     break;
                 case 6:	/* urn */
                     if (game.dflag == 0)
                         break;
-                    game.hintlc[hint] = 0;
+                    game.hints[hint].lc = 0;
                     return;
                 case 7:	/* woods */
                     if (game.locs[game.loc].atloc == NO_OBJECT &&
@@ -159,7 +159,7 @@ static void checkhints(void)
                 case 8:	/* ogre */
                     i = atdwrf(game.loc);
                     if (i < 0) {
-                        game.hintlc[hint] = 0;
+                        game.hints[hint].lc = 0;
                         return;
                     }
                     if (HERE(OGRE) && i == 0)
@@ -168,7 +168,7 @@ static void checkhints(void)
                 case 9:	/* jade */
                     if (game.tally == 1 && game.objects[JADE].prop < 0)
                         break;
-                    game.hintlc[hint] = 0;
+                    game.hints[hint].lc = 0;
                     return;
                 default: // LCOV_EXCL_LINE
                     // Should never happen
@@ -176,12 +176,12 @@ static void checkhints(void)
                 }
 
                 /* Fall through to hint display */
-                game.hintlc[hint] = 0;
+                game.hints[hint].lc = 0;
                 if (!yes_or_no(hints[hint].question, arbitrary_messages[NO_MESSAGE], arbitrary_messages[OK_MAN]))
                     return;
                 rspeak(HINT_COST, hints[hint].penalty, hints[hint].penalty);
-                game.hinted[hint] = yes_or_no(arbitrary_messages[WANT_HINT], hints[hint].hint, arbitrary_messages[OK_MAN]);
-                if (game.hinted[hint] && game.limit > WARNTIME)
+                game.hints[hint].used = yes_or_no(arbitrary_messages[WANT_HINT], hints[hint].hint, arbitrary_messages[OK_MAN]);
+                if (game.hints[hint].used && game.limit > WARNTIME)
                     game.limit += WARNTIME * hints[hint].penalty;
             }
         }
