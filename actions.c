@@ -303,11 +303,11 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj)
 {
     if (obj == INTRANSITIVE) {
         /*  Carry, no object given yet.  OK if only one object present. */
-        if (game.atloc[game.loc] == NO_OBJECT ||
-            game.link[game.atloc[game.loc]] != 0 ||
+        if (game.locs[game.loc].atloc == NO_OBJECT ||
+            game.link[game.locs[game.loc].atloc] != 0 ||
             atdwrf(game.loc) > 0)
             return GO_UNKNOWN;
-        obj = game.atloc[game.loc];
+        obj = game.locs[game.loc].atloc;
     }
 
     if (TOTING(obj)) {

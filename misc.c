@@ -581,7 +581,7 @@ void move(obj_t object, loc_t where)
 /*  Place any object anywhere by picking it up and dropping it.  May
  *  already be toting, in which case the carry is a no-op.  Mustn't
  *  pick up objects which are not at any loc, since carry wants to
- *  remove objects from game.atloc chains. */
+ *  remove objects from game atloc chains. */
 {
     loc_t from;
 
@@ -625,11 +625,11 @@ void carry(obj_t object, loc_t where)
         if (object != BIRD)
             ++game.holdng;
     }
-    if (game.atloc[where] == object) {
-        game.atloc[where] = game.link[object];
+    if (game.locs[where].atloc == object) {
+        game.locs[where].atloc = game.link[object];
         return;
     }
-    temp = game.atloc[where];
+    temp = game.locs[where].atloc;
     while (game.link[temp] != object) {
         temp = game.link[temp];
     }
@@ -637,7 +637,7 @@ void carry(obj_t object, loc_t where)
 }
 
 void drop(obj_t object, loc_t where)
-/*  Place an object at a given loc, prefixing it onto the game.atloc list.  Decr
+/*  Place an object at a given loc, prefixing it onto the game atloc list.  Decr
  *  game.holdng if the object was being toted. No state change on the object. */
 {
     if (object > NOBJECTS)
@@ -656,8 +656,8 @@ void drop(obj_t object, loc_t where)
     }
     if (where == LOC_NOWHERE || where == CARRIED)
         return;
-    game.link[object] = game.atloc[where];
-    game.atloc[where] = object;
+    game.link[object] = game.locs[where].atloc;
+    game.locs[where].atloc = object;
 }
 
 int atdwrf(loc_t where)

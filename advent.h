@@ -182,8 +182,10 @@ struct game_t {
     turn_t trnluz;               // # points lost so far due to turns used
     turn_t turns;                // counts commands given (ignores yes/no)
     char zzword[TOKLEN + 1];     // randomly generated magic word from bird
-    int abbrev[NLOCATIONS + 1];  // has location been seen?
-    int atloc[NLOCATIONS + 1];   // head of object linked list per location
+    struct {
+	int abbrev;              // has location been seen?
+	int atloc;               // head of object linked list per location
+    } locs[NLOCATIONS + 1];
     struct {
 	int seen;                // true if dwarf has seen him
 	loc_t loc;               // location of dwarves, initially hard-wired in

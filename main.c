@@ -131,9 +131,9 @@ static void checkhints(void)
                     game.hintlc[hint] = 0;
                     return;
                 case 3:	/* maze */
-                    if (game.atloc[game.loc] == NO_OBJECT &&
-                        game.atloc[game.oldloc] == NO_OBJECT &&
-                        game.atloc[game.oldlc2] == NO_OBJECT &&
+                    if (game.locs[game.loc].atloc == NO_OBJECT &&
+                        game.locs[game.oldloc].atloc == NO_OBJECT &&
+                        game.locs[game.oldlc2].atloc == NO_OBJECT &&
                         game.holdng > 1)
                         break;
                     game.hintlc[hint] = 0;
@@ -151,9 +151,9 @@ static void checkhints(void)
                     game.hintlc[hint] = 0;
                     return;
                 case 7:	/* woods */
-                    if (game.atloc[game.loc] == NO_OBJECT &&
-                        game.atloc[game.oldloc] == NO_OBJECT &&
-                        game.atloc[game.oldlc2] == NO_OBJECT)
+                    if (game.locs[game.loc].atloc == NO_OBJECT &&
+                        game.locs[game.oldloc].atloc == NO_OBJECT &&
+                        game.locs[game.oldlc2].atloc == NO_OBJECT)
                         break;
                     return;
                 case 8:	/* ogre */
@@ -458,7 +458,7 @@ static void describe_location(void)
 {
     const char* msg = locations[game.loc].description.small;
 
-    if (MOD(game.abbrev[game.loc], game.abbnum) == 0 || msg == NO_MESSAGE)
+    if (MOD(game.locs[game.loc].abbrev, game.abbnum) == 0 || msg == NO_MESSAGE)
         msg = locations[game.loc].description.big;
 
     if (!FORCED(game.loc) && DARK(game.loc)) {
@@ -551,7 +551,7 @@ static void playermove(int motion)
             rspeak(NO_MORE_DETAIL);
         ++game.detail;
         game.wzdark = false;
-        game.abbrev[game.loc] = 0;
+        game.locs[game.loc].abbrev = 0;
         return;
     } else if (motion == CAVE) {
         /*  Cave.  Different messages depending on whether above ground. */
@@ -910,8 +910,8 @@ static void listobjects(void)
  *  get full score. */
 {
     if (!DARK(game.loc)) {
-        ++game.abbrev[game.loc];
-        for (int i = game.atloc[game.loc]; i != 0; i = game.link[i]) {
+        ++game.locs[game.loc].abbrev;
+        for (int i = game.locs[game.loc].atloc; i != 0; i = game.link[i]) {
             obj_t obj = i;
             if (obj > NOBJECTS)
                 obj = obj - NOBJECTS;

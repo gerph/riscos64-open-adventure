@@ -109,7 +109,7 @@ int resume(void)
 #endif
     FILE *fp = NULL;
 
-    if (game.loc != LOC_START || game.abbrev[LOC_START] != 1) {
+    if (game.loc != LOC_START || game.locs[LOC_START].abbrev != 1) {
         rspeak(RESUME_ABANDON);
         if (!yes_or_no(arbitrary_messages[THIS_ACCEPTABLE], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
             return GO_CLEAROBJ;
@@ -258,7 +258,7 @@ bool is_valid(struct game_t valgame)
 
     /* Check that values in linked lists for objects in locations are inside bounds */
     for (loc_t loc = LOC_NOWHERE; loc <= NLOCATIONS; loc++) {
-        if (valgame.atloc[loc] < NO_OBJECT || valgame.atloc[loc] > NOBJECTS * 2) {
+        if (valgame.locs[loc].atloc < NO_OBJECT || valgame.locs[loc].atloc > NOBJECTS * 2) {
             return false;	// LCOV_EXCL_LINE
         }
     }

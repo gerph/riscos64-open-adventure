@@ -64,7 +64,7 @@ int initialise(void)
         }
     }
 
-    /*  Set up the game.atloc and game.link arrays.
+    /*  Set up the game.locs atloc and game.link arrays.
      *  We'll use the DROP subroutine, which prefaces new objects on the
      *  lists.  Since we want things in the other order, we'll run the
      *  loop backwards.  If the object is in two locs, we drop it twice.
