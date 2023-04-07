@@ -600,7 +600,7 @@ void put(obj_t object, loc_t where, int pval)
  *  negated game.prop values for the repository objects. */
 {
     move(object, where);
-    game.objects[object].prop = (-1) - pval;;	// Needs to stay synchronized with STASHED
+    game.objects[object].prop = (-1) - pval;;	// Needs to stay synchronized with PROP_STASHED
 }
 
 void carry(obj_t object, loc_t where)

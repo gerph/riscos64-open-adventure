@@ -139,7 +139,7 @@ static void checkhints(void)
                     game.hints[hint].lc = 0;
                     return;
                 case 4:	/* dark */
-                    if (game.objects[EMERALD].prop != STATE_NOTFOUND && game.objects[PYRAMID].prop == STATE_NOTFOUND)
+                    if (!PROP_IS_NOTFOUND(EMERALD) && PROP_IS_NOTFOUND(PYRAMID))
                         break;
                     game.hints[hint].lc = 0;
                     return;
@@ -166,7 +166,7 @@ static void checkhints(void)
                         break;
                     return;
                 case 9:	/* jade */
-                    if (game.tally == 1 && game.objects[JADE].prop < 0)
+                    if (game.tally == 1 && PROP_IS_STASHED_OR_UNSEEN(JADE))
                         break;
                     game.hints[hint].lc = 0;
                     return;
@@ -196,10 +196,10 @@ static bool spotted_by_pirate(int i)
     /*  The pirate's spotted him.  Pirate leaves him alone once we've
      *  found chest.  K counts if a treasure is here.  If not, and
      *  tally=1 for an unseen chest, let the pirate be spotted.  Note
-     *  that game.place[CHEST] = LOC_NOWHERE might mean that he's thrown
+     *  that game.objexts,place[CHEST] = LOC_NOWHERE might mean that he's thrown
      *  it to the troll, but in that case he's seen the chest
-     *  (game.prop[CHEST] == STATE_FOUND). */
-    if (game.loc == game.chloc || game.objects[CHEST].prop != STATE_NOTFOUND)
+     *  PROP_IS_FOUND(CHEST) == true. */
+    if (game.loc == game.chloc || !PROP_IS_NOTFOUND(CHEST))
         return true;
     int snarfed = 0;
     bool movechest = false, robplayer = false;
@@ -917,10 +917,10 @@ static void listobjects(void)
                 obj = obj - NOBJECTS;
             if (obj == STEPS && TOTING(NUGGET))
                 continue;
-            if (game.objects[obj].prop < 0) {
+            if (PROP_IS_STASHED_OR_UNSEEN(obj)) {
                 if (game.closed)
                     continue;
-                game.objects[obj].prop = STATE_FOUND;
+                PROP_SET_FOUND(obj);
                 if (obj == RUG)
                     game.objects[RUG].prop = RUG_DRAGON;
                 if (obj == CHAIN)
@@ -1102,7 +1102,7 @@ static bool do_command(void)
                     pspeak(OYSTER, look, true, 1);
                 for (size_t i = 1; i <= NOBJECTS; i++) {
                     if (TOTING(i) && game.objects[i].prop < 0)
-                        game.objects[i].prop = STASHED(i);
+                        game.objects[i].prop = PROP_STASHED(i);
                 }
             }
 

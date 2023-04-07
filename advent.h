@@ -48,10 +48,19 @@
 #define IS_FIXED -1
 #define IS_FREE 0
 
-/* Map a state property value to a negative range, where the object cannot be
+/* STASH map a state property value to a negative range, where the object cannot be
  * picked up but the value can be recovered later.  Avoid colliding with -1,
  * which has its own meaning as STATE_NOTFOUND. */
-#define STASHED(obj)	(-1 - game.objects[obj].prop)
+#define PROP_STASHED(obj)	(STATE_NOTFOUND - game.objects[obj].prop)
+#define PROP_IS_STASHED(obj)	(game.objects[obj].prop < STATE_NOTFOUND)
+#define PROP_IS_NOTFOUND(obj)	(game.objects[obj].prop == STATE_NOTFOUND)
+/* Don't use this on an object wi nore thab 2 (unstashed) states */ 
+#define PROP_IS_FOUND(obj)	(game.objects[obj].prop == STATE_FOUND)
+/* Magic number -2 allows a PROP_STASHED version of state 1 */
+#define PROP_IS_INVALID(val)	(val < -2 || val > 1)
+#define PROP_IS_STASHED_OR_UNSEEN(obj)	(game.objects[obj].prop < 0)
+#define PROP_SET_FOUND(obj)	(game.objects[obj].prop = STATE_FOUND)
+#define PROP_SET_NOT_FOUND(obj)	(game.objects[obj].prop = STATE_NOTFOUND)
 
 #define PROMPT	"> "
 

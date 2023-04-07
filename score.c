@@ -50,7 +50,7 @@ int score(enum termination mode)
                 k = 16;
             if (game.objects[i].prop > STATE_NOTFOUND)
                 score += 2;
-            if (game.objects[i].place == LOC_BUILDING && game.objects[i].prop == STATE_FOUND)
+            if (game.objects[i].place == LOC_BUILDING && PROP_IS_FOUND(i))
                 score += k - 2;
             mxscor += k;
         }
