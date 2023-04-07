@@ -145,10 +145,10 @@ static phase_codes_t attack(command_t command)
         DESTROY(OGRE);
         int dwarves = 0;
         for (int i = 1; i < PIRATE; i++) {
-            if (game.dloc[i] == game.loc) {
+            if (game.dwarves[i].loc == game.loc) {
                 ++dwarves;
-                game.dloc[i] = LOC_LONGWEST;
-                game.dseen[i] = false;
+                game.dwarves[i].loc = LOC_LONGWEST;
+                game.dwarves[i].seen = false;
             }
         }
         rspeak((dwarves > 1) ?
@@ -1245,8 +1245,8 @@ static phase_codes_t throwit(command_t command)
             return throw_support(DWARF_DODGES);
         } else {
             int i = atdwrf(game.loc);
-            game.dseen[i] = false;
-            game.dloc[i] = LOC_NOWHERE;
+            game.dwarves[i].seen = false;
+            game.dwarves[i].loc = LOC_NOWHERE;
             return throw_support((++game.dkill == 1) ?
                                  DWARF_SMOKE :
                                  KILLED_DWARF);

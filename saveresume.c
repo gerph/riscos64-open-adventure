@@ -190,8 +190,8 @@ bool is_valid(struct game_t valgame)
     }
     /*  Bounds check for location arrays */
     for (int i = 0; i <= NDWARVES; i++) {
-        if (valgame.dloc[i]  < -1 || valgame.dloc[i]  > NLOCATIONS  ||
-            valgame.odloc[i] < -1 || valgame.odloc[i] > NLOCATIONS) {
+        if (valgame.dwarves[i].loc  < -1 || valgame.dwarves[i].loc  > NLOCATIONS  ||
+            valgame.dwarves[i].oldloc < -1 || valgame.dwarves[i].oldloc > NLOCATIONS) {
             return false;	// LCOV_EXCL_LINE
         }
     }

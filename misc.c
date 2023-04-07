@@ -672,9 +672,9 @@ int atdwrf(loc_t where)
         return at;
     at = -1;
     for (int i = 1; i <= NDWARVES - 1; i++) {
-        if (game.dloc[i] == where)
+        if (game.dwarves[i].loc == where)
             return i;
-        if (game.dloc[i] != 0)
+        if (game.dwarves[i].loc != 0)
             at = 0;
     }
     return at;

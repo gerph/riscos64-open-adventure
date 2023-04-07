@@ -184,9 +184,11 @@ struct game_t {
     char zzword[TOKLEN + 1];     // randomly generated magic word from bird
     int abbrev[NLOCATIONS + 1];  // has location been seen?
     int atloc[NLOCATIONS + 1];   // head of object linked list per location
-    int dseen[NDWARVES + 1];     // true if dwarf has seen him
-    loc_t dloc[NDWARVES + 1];    // location of dwarves, initially hard-wired in
-    loc_t odloc[NDWARVES + 1];   // prior loc of each dwarf, initially garbage
+    struct {
+	int seen;                // true if dwarf has seen him
+	loc_t loc;               // location of dwarves, initially hard-wired in
+	loc_t oldloc;            // prior loc of each dwarf, initially garbage
+    } dwarves[NDWARVES + 1];
     loc_t fixed[NOBJECTS + 1];   // fixed location of object (if  not IS_FREE)
     obj_t link[NOBJECTS * 2 + 1];// object-list links
     loc_t place[NOBJECTS + 1];   // location of object

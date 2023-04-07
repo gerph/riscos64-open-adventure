@@ -229,13 +229,13 @@ static bool spotted_by_pirate(int i)
     if (movechest) {
         move(CHEST, game.chloc);
         move(MESSAG, game.chloc2);
-        game.dloc[PIRATE] = game.chloc;
-        game.odloc[PIRATE] = game.chloc;
-        game.dseen[PIRATE] = false;
+        game.dwarves[PIRATE].loc = game.chloc;
+        game.dwarves[PIRATE].oldloc = game.chloc;
+        game.dwarves[PIRATE].seen = false;
     } else {
         /* You might get a hint of the pirate's presence even if the
          * chest doesn't move... */
-        if (game.odloc[PIRATE] != game.dloc[PIRATE] && PCT(20))
+        if (game.dwarves[PIRATE].oldloc != game.dwarves[PIRATE].loc && PCT(20))
             rspeak(PIRATE_RUSTLES);
     }
     if (robplayer) {
@@ -295,15 +295,15 @@ static bool dwarfmove(void)
         for (int i = 1; i <= 2; i++) {
             int j = 1 + randrange(NDWARVES - 1);
             if (PCT(50))
-                game.dloc[j] = 0;
+                game.dwarves[j].loc = 0;
         }
 
         /* Alternate initial loc for dwarf, in case one of them
         *  starts out on top of the adventurer. */
         for (int i = 1; i <= NDWARVES - 1; i++) {
-            if (game.dloc[i] == game.loc)
-                game.dloc[i] = DALTLC; //
-            game.odloc[i] = game.dloc[i];
+            if (game.dwarves[i].loc == game.loc)
+                game.dwarves[i].loc = DALTLC; //
+            game.dwarves[i].oldloc = game.dwarves[i].loc;
         }
         rspeak(DWARF_RAN);
         drop(AXE, game.loc);
@@ -320,11 +320,11 @@ static bool dwarfmove(void)
     attack = 0;
     stick = 0;
     for (int i = 1; i <= NDWARVES; i++) {
-        if (game.dloc[i] == 0)
+        if (game.dwarves[i].loc == 0)
             continue;
         /*  Fill tk array with all the places this dwarf might go. */
         unsigned int j = 1;
-        kk = tkey[game.dloc[i]];
+        kk = tkey[game.dwarves[i].loc];
         if (kk != 0)
             do {
                 enum desttype_t desttype = travel[kk].desttype;
@@ -334,14 +334,14 @@ static bool dwarfmove(void)
                     continue;
                 else if (!INDEEP(game.newloc))
                     continue;
-                else if (game.newloc == game.odloc[i])
+                else if (game.newloc == game.dwarves[i].oldloc)
                     continue;
                 else if (j > 1 && game.newloc == tk[j - 1])
                     continue;
                 else if (j >= DIM(tk) - 1)
                     /* This can't actually happen. */
                     continue; // LCOV_EXCL_LINE
-                else if (game.newloc == game.dloc[i])
+                else if (game.newloc == game.dwarves[i].loc)
                     continue;
                 else if (FORCED(game.newloc))
                     continue;
@@ -352,23 +352,23 @@ static bool dwarfmove(void)
                 tk[j++] = game.newloc;
             } while
             (!travel[kk++].stop);
-        tk[j] = game.odloc[i];
+        tk[j] = game.dwarves[i].oldloc;
         if (j >= 2)
             --j;
         j = 1 + randrange(j);
-        game.odloc[i] = game.dloc[i];
-        game.dloc[i] = tk[j];
-        game.dseen[i] = (game.dseen[i] && INDEEP(game.loc)) ||
-                        (game.dloc[i] == game.loc ||
-                         game.odloc[i] == game.loc);
-        if (!game.dseen[i])
+        game.dwarves[i].oldloc = game.dwarves[i].loc;
+        game.dwarves[i].loc = tk[j];
+        game.dwarves[i].seen = (game.dwarves[i].seen && INDEEP(game.loc)) ||
+                        (game.dwarves[i].loc == game.loc ||
+                         game.dwarves[i].oldloc == game.loc);
+        if (!game.dwarves[i].seen)
             continue;
-        game.dloc[i] = game.loc;
+        game.dwarves[i].loc = game.loc;
         if (spotted_by_pirate(i))
             continue;
         /* This threatening little dwarf is in the room with him! */
         ++game.dtotal;
-        if (game.odloc[i] == game.dloc[i]) {
+        if (game.dwarves[i].oldloc == game.dwarves[i].loc) {
             ++attack;
             if (game.knfloc >= LOC_NOWHERE)
                 game.knfloc = game.loc;
@@ -827,8 +827,8 @@ static bool closecheck(void)
         game.prop[GRATE] = GRATE_CLOSED;
         game.prop[FISSURE] = UNBRIDGED;
         for (int i = 1; i <= NDWARVES; i++) {
-            game.dseen[i] = false;
-            game.dloc[i] = LOC_NOWHERE;
+            game.dwarves[i].seen = false;
+            game.dwarves[i].loc = LOC_NOWHERE;
         }
         DESTROY(TROLL);
         move(TROLL + NOBJECTS, IS_FREE);
@@ -1044,7 +1044,7 @@ static bool do_move(void)
      *  place) let him get out (and attacked). */
     if (game.newloc != game.loc && !FORCED(game.loc) && !CNDBIT(game.loc, COND_NOARRR)) {
         for (size_t i = 1; i <= NDWARVES - 1; i++) {
-            if (game.odloc[i] == game.newloc && game.dseen[i]) {
+            if (game.dwarves[i].oldloc == game.newloc && game.dwarves[i].seen) {
                 game.newloc = game.loc;
                 rspeak(DWARF_BLOCK);
                 break;

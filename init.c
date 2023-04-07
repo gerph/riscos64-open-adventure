@@ -21,17 +21,17 @@ struct settings_t settings = {
 };
 
 struct game_t game = {
-    .dloc[1] = LOC_KINGHALL,
-    .dloc[2] = LOC_WESTBANK,
-    .dloc[3] = LOC_Y2,
-    .dloc[4] = LOC_ALIKE3,
-    .dloc[5] = LOC_COMPLEX,
+    .dwarves[1].loc = LOC_KINGHALL,
+    .dwarves[2].loc = LOC_WESTBANK,
+    .dwarves[3].loc = LOC_Y2,
+    .dwarves[4].loc = LOC_ALIKE3,
+    .dwarves[5].loc = LOC_COMPLEX,
 
     /*  Sixth dwarf is special (the pirate).  He always starts at his
      *  chest's eventual location inside the maze. This loc is saved
      *  in chloc for ref. The dead end in the other maze has its
      *  loc stored in chloc2. */
-    .dloc[6] = LOC_MAZEEND12,
+    .dwarves[6].loc = LOC_MAZEEND12,
     .chloc   = LOC_MAZEEND12,
     .chloc2  = LOC_DEADEND13,
     .abbnum  = 5,
