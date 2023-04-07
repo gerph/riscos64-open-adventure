@@ -117,12 +117,12 @@ static void checkhints(void)
                 switch (hint) {
                 case 0:
                     /* cave */
-                    if (game.prop[GRATE] == GRATE_CLOSED && !HERE(KEYS))
+                    if (game.objects[GRATE].prop == GRATE_CLOSED && !HERE(KEYS))
                         break;
                     game.hintlc[hint] = 0;
                     return;
                 case 1:	/* bird */
-                    if (game.place[BIRD] == game.loc && TOTING(ROD) && game.oldobj == BIRD)
+                    if (game.objects[BIRD].place == game.loc && TOTING(ROD) && game.oldobj == BIRD)
                         break;
                     return;
                 case 2:	/* snake */
@@ -139,7 +139,7 @@ static void checkhints(void)
                     game.hintlc[hint] = 0;
                     return;
                 case 4:	/* dark */
-                    if (game.prop[EMERALD] != STATE_NOTFOUND && game.prop[PYRAMID] == STATE_NOTFOUND)
+                    if (game.objects[EMERALD].prop != STATE_NOTFOUND && game.objects[PYRAMID].prop == STATE_NOTFOUND)
                         break;
                     game.hintlc[hint] = 0;
                     return;
@@ -166,7 +166,7 @@ static void checkhints(void)
                         break;
                     return;
                 case 9:	/* jade */
-                    if (game.tally == 1 && game.prop[JADE] < 0)
+                    if (game.tally == 1 && game.objects[JADE].prop < 0)
                         break;
                     game.hintlc[hint] = 0;
                     return;
@@ -199,7 +199,7 @@ static bool spotted_by_pirate(int i)
      *  that game.place[CHEST] = LOC_NOWHERE might mean that he's thrown
      *  it to the troll, but in that case he's seen the chest
      *  (game.prop[CHEST] == STATE_FOUND). */
-    if (game.loc == game.chloc || game.prop[CHEST] != STATE_NOTFOUND)
+    if (game.loc == game.chloc || game.objects[CHEST].prop != STATE_NOTFOUND)
         return true;
     int snarfed = 0;
     bool movechest = false, robplayer = false;
@@ -220,7 +220,7 @@ static bool spotted_by_pirate(int i)
         }
     }
     /* Force chest placement before player finds last treasure */
-    if (game.tally == 1 && snarfed == 0 && game.place[CHEST] == LOC_NOWHERE && HERE(LAMP) && game.prop[LAMP] == LAMP_BRIGHT) {
+    if (game.tally == 1 && snarfed == 0 && game.objects[CHEST].place == LOC_NOWHERE && HERE(LAMP) && game.objects[LAMP].prop == LAMP_BRIGHT) {
         rspeak(PIRATE_SPOTTED);
         movechest = true;
     }
@@ -245,7 +245,7 @@ static bool spotted_by_pirate(int i)
                 continue;
             if (!(treasure == PYRAMID && (game.loc == objects[PYRAMID].plac ||
                                           game.loc == objects[EMERALD].plac))) {
-                if (AT(treasure) && game.fixed[treasure] == IS_FREE)
+                if (AT(treasure) && game.objects[treasure].fixed == IS_FREE)
                     carry(treasure, game.loc);
                 if (TOTING(treasure))
                     drop(treasure, game.chloc);
@@ -439,9 +439,9 @@ static void croak(void)
         /* If player wishes to continue, we empty the liquids in the
          * user's inventory, turn off the lamp, and drop all items
          * where he died. */
-        game.place[WATER] = game.place[OIL] = LOC_NOWHERE;
+        game.objects[WATER].place = game.objects[OIL].place = LOC_NOWHERE;
         if (TOTING(LAMP))
-            game.prop[LAMP] = LAMP_DARK;
+            game.objects[LAMP].prop = LAMP_DARK;
         for (int j = 1; j <= NOBJECTS; j++) {
             int i = NOBJECTS + 1 - j;
             if (TOTING(i)) {
@@ -628,7 +628,7 @@ static void playermove(int motion)
                     else if (TOTING(condarg1) || (condtype == cond_with && AT(condarg1)))
                         break;
                     /* else fall through to check [not OBJ STATE] */
-                } else if (game.prop[condarg1] != condarg2)
+                } else if (game.objects[condarg1].prop != condarg2)
                     break;
 
                 /* We arrive here on conditional failure.
@@ -698,9 +698,9 @@ static void playermove(int motion)
                      * (standard travel entries check for
                      * game.prop[TROLL]=TROLL_UNPAID.)  Special stuff
                      * for bear. */
-                    if (game.prop[TROLL] == TROLL_PAIDONCE) {
+                    if (game.objects[TROLL].prop == TROLL_PAIDONCE) {
                         pspeak(TROLL, look, true, TROLL_PAIDONCE);
-                        game.prop[TROLL] = TROLL_UNPAID;
+                        game.objects[TROLL].prop = TROLL_UNPAID;
                         DESTROY(TROLL2);
                         move(TROLL2 + NOBJECTS, IS_FREE);
                         move(TROLL, objects[TROLL].plac);
@@ -710,15 +710,15 @@ static void playermove(int motion)
                         return;
                     } else {
                         game.newloc = objects[TROLL].plac + objects[TROLL].fixd - game.loc;
-                        if (game.prop[TROLL] == TROLL_UNPAID)
-                            game.prop[TROLL] = TROLL_PAIDONCE;
+                        if (game.objects[TROLL].prop == TROLL_UNPAID)
+                            game.objects[TROLL].prop = TROLL_PAIDONCE;
                         if (!TOTING(BEAR))
                             return;
                         state_change(CHASM, BRIDGE_WRECKED);
-                        game.prop[TROLL] = TROLL_GONE;
+                        game.objects[TROLL].prop = TROLL_GONE;
                         drop(BEAR, game.newloc);
-                        game.fixed[BEAR] = IS_FIXED;
-                        game.prop[BEAR] = BEAR_DEAD;
+                        game.objects[BEAR].fixed = IS_FIXED;
+                        game.objects[BEAR].prop = BEAR_DEAD;
                         game.oldlc2 = game.newloc;
                         croak();
                         return;
@@ -736,7 +736,7 @@ static void playermove(int motion)
 static void lampcheck(void)
 /* Check game limit and lamp timers */
 {
-    if (game.prop[LAMP] == LAMP_BRIGHT)
+    if (game.objects[LAMP].prop == LAMP_BRIGHT)
         --game.limit;
 
     /*  Another way we can force an end to things is by having the
@@ -746,9 +746,9 @@ static void lampcheck(void)
      *  Second is for other cases of lamp dying.  Even after it goes
      *  out, he can explore outside for a while if desired. */
     if (game.limit <= WARNTIME) {
-        if (HERE(BATTERY) && game.prop[BATTERY] == FRESH_BATTERIES && HERE(LAMP)) {
+        if (HERE(BATTERY) && game.objects[BATTERY].prop == FRESH_BATTERIES && HERE(LAMP)) {
             rspeak(REPLACE_BATTERIES);
-            game.prop[BATTERY] = DEAD_BATTERIES;
+            game.objects[BATTERY].prop = DEAD_BATTERIES;
 #ifdef __unused__
             /* This code from the original game seems to have been faulty.
              * No tests ever passed the guard, and with the guard removed
@@ -761,9 +761,9 @@ static void lampcheck(void)
             game.lmwarn = false;
         } else if (!game.lmwarn && HERE(LAMP)) {
             game.lmwarn = true;
-            if (game.prop[BATTERY] == DEAD_BATTERIES)
+            if (game.objects[BATTERY].prop == DEAD_BATTERIES)
                 rspeak(MISSING_BATTERIES);
-            else if (game.place[BATTERY] == LOC_NOWHERE)
+            else if (game.objects[BATTERY].place == LOC_NOWHERE)
                 rspeak(LAMP_DIM);
             else
                 rspeak(GET_BATTERIES);
@@ -771,7 +771,7 @@ static void lampcheck(void)
     }
     if (game.limit == 0) {
         game.limit = -1;
-        game.prop[LAMP] = LAMP_DARK;
+        game.objects[LAMP].prop = LAMP_DARK;
         if (HERE(LAMP))
             rspeak(LAMP_OUT);
     }
@@ -824,8 +824,8 @@ static bool closecheck(void)
      *  know the bivalve is an oyster.  *And*, the dwarves must
      *  have been activated, since we've found chest. */
     if (game.clock1 == 0) {
-        game.prop[GRATE] = GRATE_CLOSED;
-        game.prop[FISSURE] = UNBRIDGED;
+        game.objects[GRATE].prop = GRATE_CLOSED;
+        game.objects[FISSURE].prop = UNBRIDGED;
         for (int i = 1; i <= NDWARVES; i++) {
             game.dwarves[i].seen = false;
             game.dwarves[i].loc = LOC_NOWHERE;
@@ -835,12 +835,12 @@ static bool closecheck(void)
         move(TROLL2, objects[TROLL].plac);
         move(TROLL2 + NOBJECTS, objects[TROLL].fixd);
         juggle(CHASM);
-        if (game.prop[BEAR] != BEAR_DEAD)
+        if (game.objects[BEAR].prop != BEAR_DEAD)
             DESTROY(BEAR);
-        game.prop[CHAIN] = CHAIN_HEAP;
-        game.fixed[CHAIN] = IS_FREE;
-        game.prop[AXE] = AXE_HERE;
-        game.fixed[AXE] = IS_FREE;
+        game.objects[CHAIN].prop = CHAIN_HEAP;
+        game.objects[CHAIN].fixed = IS_FREE;
+        game.objects[AXE].prop = AXE_HERE;
+        game.objects[AXE].fixed = IS_FREE;
         rspeak(CAVE_CLOSING);
         game.clock1 = -1;
         game.closng = true;
@@ -863,12 +863,12 @@ static bool closecheck(void)
          *  objects he might be carrying (lest he have some which
          *  could cause trouble, such as the keys).  We describe the
          *  flash of light and trundle back. */
-        game.prop[BOTTLE] = put(BOTTLE, LOC_NE, EMPTY_BOTTLE);
-        game.prop[PLANT] = put(PLANT, LOC_NE, PLANT_THIRSTY);
-        game.prop[OYSTER] = put(OYSTER, LOC_NE, STATE_FOUND);
-        game.prop[LAMP] = put(LAMP, LOC_NE, LAMP_DARK);
-        game.prop[ROD] = put(ROD, LOC_NE, STATE_FOUND);
-        game.prop[DWARF] = put(DWARF, LOC_NE, 0);
+        game.objects[BOTTLE].prop = put(BOTTLE, LOC_NE, EMPTY_BOTTLE);
+        game.objects[PLANT].prop = put(PLANT, LOC_NE, PLANT_THIRSTY);
+        game.objects[OYSTER].prop = put(OYSTER, LOC_NE, STATE_FOUND);
+        game.objects[LAMP].prop = put(LAMP, LOC_NE, LAMP_DARK);
+        game.objects[ROD].prop = put(ROD, LOC_NE, STATE_FOUND);
+        game.objects[DWARF].prop = put(DWARF, LOC_NE, 0);
         game.loc = LOC_NE;
         game.oldloc = LOC_NE;
         game.newloc = LOC_NE;
@@ -876,15 +876,15 @@ static bool closecheck(void)
          *  Reuse sign. */
         put(GRATE, LOC_SW, 0);
         put(SIGN, LOC_SW, 0);
-        game.prop[SIGN] = ENDGAME_SIGN;
-        game.prop[SNAKE] = put(SNAKE, LOC_SW, SNAKE_CHASED);
-        game.prop[BIRD] = put(BIRD, LOC_SW, BIRD_CAGED);
-        game.prop[CAGE] = put(CAGE, LOC_SW, STATE_FOUND);
-        game.prop[ROD2] = put(ROD2, LOC_SW, STATE_FOUND);
-        game.prop[PILLOW] = put(PILLOW, LOC_SW, STATE_FOUND);
+        game.objects[SIGN].prop = ENDGAME_SIGN;
+        game.objects[SNAKE].prop = put(SNAKE, LOC_SW, SNAKE_CHASED);
+        game.objects[BIRD].prop = put(BIRD, LOC_SW, BIRD_CAGED);
+        game.objects[CAGE].prop = put(CAGE, LOC_SW, STATE_FOUND);
+        game.objects[ROD2].prop = put(ROD2, LOC_SW, STATE_FOUND);
+        game.objects[PILLOW].prop = put(PILLOW, LOC_SW, STATE_FOUND);
 
-        game.prop[MIRROR] = put(MIRROR, LOC_NE, STATE_FOUND);
-        game.fixed[MIRROR] = LOC_SW;
+        game.objects[MIRROR].prop = put(MIRROR, LOC_NE, STATE_FOUND);
+        game.objects[MIRROR].fixed = LOC_SW;
 
         for (int i = 1; i <= NOBJECTS; i++) {
             if (TOTING(i))
@@ -917,14 +917,14 @@ static void listobjects(void)
                 obj = obj - NOBJECTS;
             if (obj == STEPS && TOTING(NUGGET))
                 continue;
-            if (game.prop[obj] < 0) {
+            if (game.objects[obj].prop < 0) {
                 if (game.closed)
                     continue;
-                game.prop[obj] = STATE_FOUND;
+                game.objects[obj].prop = STATE_FOUND;
                 if (obj == RUG)
-                    game.prop[RUG] = RUG_DRAGON;
+                    game.objects[RUG].prop = RUG_DRAGON;
                 if (obj == CHAIN)
-                    game.prop[CHAIN] = CHAINING_BEAR;
+                    game.objects[CHAIN].prop = CHAINING_BEAR;
 		if (obj == EGGS)
 		    game.seenbigwords = true;
                 --game.tally;
@@ -943,9 +943,9 @@ static void listobjects(void)
                  *  gross blunder isn't likely to find everything else anyway
                  *  (so goes the rationalisation). */
             }
-            int kk = game.prop[obj];
+            int kk = game.objects[obj].prop;
             if (obj == STEPS)
-                kk = (game.loc == game.fixed[STEPS])
+                kk = (game.loc == game.objects[STEPS].fixed)
                      ? STEPS_UP
                      : STEPS_DOWN;
             pspeak(obj, look, true, kk);
@@ -1098,11 +1098,11 @@ static bool do_command(void)
                  *  game.prop < 0 and stash them.  This way objects won't be
                  *  described until they've been picked up and put down
                  *  separate from their respective piles. */
-                if (game.prop[OYSTER] < 0 && TOTING(OYSTER))
+                if (game.objects[OYSTER].prop < 0 && TOTING(OYSTER))
                     pspeak(OYSTER, look, true, 1);
                 for (size_t i = 1; i <= NOBJECTS; i++) {
-                    if (TOTING(i) && game.prop[i] < 0)
-                        game.prop[i] = STASHED(i);
+                    if (TOTING(i) && game.objects[i].prop < 0)
+                        game.objects[i].prop = STASHED(i);
                 }
             }
 

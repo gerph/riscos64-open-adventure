@@ -53,7 +53,7 @@ int initialise(void)
     set_seed(seedval);
 
     for (int i = 1; i <= NOBJECTS; i++) {
-        game.place[i] = LOC_NOWHERE;
+        game.objects[i].place = LOC_NOWHERE;
     }
 
     for (int i = 1; i <= NLOCATIONS; i++) {
@@ -79,7 +79,7 @@ int initialise(void)
 
     for (int i = 1; i <= NOBJECTS; i++) {
         int k = NOBJECTS + 1 - i;
-        game.fixed[k] = objects[k].fixd;
+        game.objects[k].fixed = objects[k].fixd;
         if (objects[k].plac != 0 && objects[k].fixd <= 0)
             drop(k, objects[k].plac);
     }
@@ -90,8 +90,8 @@ int initialise(void)
     for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
         if (objects[treasure].is_treasure) {
             if (objects[treasure].inventory != 0)
-                game.prop[treasure] = STATE_NOTFOUND;
-            game.tally = game.tally - game.prop[treasure];
+                game.objects[treasure].prop = STATE_NOTFOUND;
+            game.tally = game.tally - game.objects[treasure].prop;
         }
     }
     game.conds = setbit(COND_HBASE);

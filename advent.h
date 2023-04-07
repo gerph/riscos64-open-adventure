@@ -51,7 +51,7 @@
 /* Map a state property value to a negative range, where the object cannot be
  * picked up but the value can be recovered later.  Avoid colliding with -1,
  * which has its own meaning as STATE_NOTFOUND. */
-#define STASHED(obj)	(-1 - game.prop[obj])
+#define STASHED(obj)	(-1 - game.objects[obj].prop)
 
 #define PROMPT	"> "
 
@@ -76,14 +76,14 @@
  */
 #define DESTROY(N)   move(N, LOC_NOWHERE)
 #define MOD(N,M)     ((N) % (M))
-#define TOTING(OBJ)  (game.place[OBJ] == CARRIED)
-#define AT(OBJ)      (game.place[OBJ] == game.loc || game.fixed[OBJ] == game.loc)
+#define TOTING(OBJ)  (game.objects[OBJ].place == CARRIED)
+#define AT(OBJ)      (game.objects[OBJ].place == game.loc || game.objects[OBJ].fixed == game.loc)
 #define HERE(OBJ)    (AT(OBJ) || TOTING(OBJ))
 #define CNDBIT(L,N)  (tstbit(conditions[L],N))
-#define LIQUID()     (game.prop[BOTTLE] == WATER_BOTTLE? WATER : game.prop[BOTTLE] == OIL_BOTTLE ? OIL : NO_OBJECT )
+#define LIQUID()     (game.objects[BOTTLE].prop == WATER_BOTTLE? WATER : game.objects[BOTTLE].prop == OIL_BOTTLE ? OIL : NO_OBJECT )
 #define LIQLOC(LOC)  (CNDBIT((LOC),COND_FLUID)? CNDBIT((LOC),COND_OILY) ? OIL : WATER : NO_OBJECT)
 #define FORCED(LOC)  CNDBIT(LOC, COND_FORCED)
-#define DARK(DUMMY)  (!CNDBIT(game.loc,COND_LIT) && (game.prop[LAMP] == LAMP_DARK || !HERE(LAMP)))
+#define DARK(DUMMY)  (!CNDBIT(game.loc,COND_LIT) && (game.objects[LAMP].prop == LAMP_DARK || !HERE(LAMP)))
 #define PCT(N)       (randrange(100) < (N))
 #define GSTONE(OBJ)  ((OBJ) == EMERALD || (OBJ) == RUBY || (OBJ) == AMBER || (OBJ) == SAPPH)
 #define FOREST(LOC)  CNDBIT(LOC, COND_FOREST)
@@ -191,12 +191,14 @@ struct game_t {
 	loc_t loc;               // location of dwarves, initially hard-wired in
 	loc_t oldloc;            // prior loc of each dwarf, initially garbage
     } dwarves[NDWARVES + 1];
-    loc_t fixed[NOBJECTS + 1];   // fixed location of object (if  not IS_FREE)
+    struct object {
+	loc_t fixed;             // fixed location of object (if not IS_FREE)
+        int prop;                // object state */
+	loc_t place;             // location of object
+    } objects[NOBJECTS + 1];
     obj_t link[NOBJECTS * 2 + 1];// object-list links
-    loc_t place[NOBJECTS + 1];   // location of object
     bool hinted[NHINTS];         // hinted[i] = true iff hint i has been used.
     int hintlc[NHINTS];          // hintlc[i] = show int at LOC with cond bit i
-    int prop[NOBJECTS + 1];      // object state array */
 };
 
 /*

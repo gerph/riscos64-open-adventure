@@ -571,8 +571,8 @@ void juggle(obj_t object)
 {
     loc_t i, j;
 
-    i = game.place[object];
-    j = game.fixed[object];
+    i = game.objects[object].place;
+    j = game.objects[object].fixed;
     move(object, i);
     move(object + NOBJECTS, j);
 }
@@ -586,9 +586,9 @@ void move(obj_t object, loc_t where)
     loc_t from;
 
     if (object > NOBJECTS)
-        from = game.fixed[object - NOBJECTS];
+        from = game.objects[object - NOBJECTS].fixed;
     else
-        from = game.place[object];
+        from = game.objects[object].place;
     /* (ESR) Used to check for !SPECIAL(from). I *think* that was wrong... */
     if (from != LOC_NOWHERE && from != CARRIED)
         carry(object, from);
@@ -611,9 +611,9 @@ void carry(obj_t object, loc_t where)
     int temp;
 
     if (object <= NOBJECTS) {
-        if (game.place[object] == CARRIED)
+        if (game.objects[object].place == CARRIED)
             return;
-        game.place[object] = CARRIED;
+        game.objects[object].place = CARRIED;
 
 	/*
 	 * Without this conditional your inventory is overcounted
@@ -641,9 +641,9 @@ void drop(obj_t object, loc_t where)
  *  game.holdng if the object was being toted. No state change on the object. */
 {
     if (object > NOBJECTS)
-        game.fixed[object - NOBJECTS] = where;
+        game.objects[object - NOBJECTS].fixed = where;
     else {
-        if (game.place[object] == CARRIED)
+        if (game.objects[object].place == CARRIED)
             if (object != BIRD)
                 /* The bird has to be weightless.  This ugly hack (and the
                  * corresponding code in the carry function) brought to you
@@ -652,7 +652,7 @@ void drop(obj_t object, loc_t where)
                  * happen.
                  */
                 --game.holdng;
-        game.place[object] = where;
+        game.objects[object].place = where;
     }
     if (where == LOC_NOWHERE || where == CARRIED)
         return;
@@ -738,7 +738,7 @@ void bug(enum bugtype num, const char *error_string)
 void state_change(obj_t obj, int state)
 /* Object must have a change-message list for this to be useful; only some do */
 {
-    game.prop[obj] = state;
+    game.objects[obj].prop = state;
     pspeak(obj, change, true, state);
 }
 

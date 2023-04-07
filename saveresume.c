@@ -197,8 +197,8 @@ bool is_valid(struct game_t valgame)
     }
 
     for (int i = 0; i <= NOBJECTS; i++) {
-        if (valgame.place[i] < -1 || valgame.place[i] > NLOCATIONS  ||
-            valgame.fixed[i] < -1 || valgame.fixed[i] > NLOCATIONS) {
+        if (valgame.objects[i].place < -1 || valgame.objects[i].place > NLOCATIONS  ||
+            valgame.objects[i].fixed < -1 || valgame.objects[i].fixed > NLOCATIONS) {
             return false;	// LCOV_EXCL_LINE
         }
     }
@@ -218,7 +218,7 @@ bool is_valid(struct game_t valgame)
     int temp_tally = 0;
     for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
         if (objects[treasure].is_treasure) {
-            if (valgame.prop[treasure] == STATE_NOTFOUND) {
+            if (valgame.objects[treasure].prop == STATE_NOTFOUND) {
                 ++temp_tally;
             }
         }
@@ -230,7 +230,7 @@ bool is_valid(struct game_t valgame)
     /* Check that properties of objects aren't beyond expected */
     for (obj_t obj = 0; obj <= NOBJECTS; obj++) {
 	/* Magic number -2 allows a STASHED version of state 1 */
-        if (valgame.prop[obj] < -2 || valgame.prop[obj] > 1) {
+        if (valgame.objects[obj].prop < -2 || valgame.objects[obj].prop > 1) {
             switch (obj) {
             case RUG:
             case DRAGON:
@@ -243,11 +243,11 @@ bool is_valid(struct game_t valgame)
             case EGGS:
             case VASE:
             case CHAIN:
-                if (valgame.prop[obj] == 2) // There are multiple different states, but it's convenient to clump them together
+                if (valgame.objects[obj].prop == 2) // There are multiple different states, but it's convenient to clump them together
                     continue;	// LCOV_EXCL_LINE
             /* FALLTHRU */
             case BEAR:
-                if (valgame.prop[BEAR] == CONTENTED_BEAR || valgame.prop[BEAR] == BEAR_DEAD)
+                if (valgame.objects[BEAR].prop == CONTENTED_BEAR || valgame.objects[BEAR].prop == BEAR_DEAD)
                     continue;
             /* FALLTHRU */
             default:
