@@ -199,8 +199,7 @@ static bool spotted_by_pirate(int i)
      *  that game.place[CHEST] = LOC_NOWHERE might mean that he's thrown
      *  it to the troll, but in that case he's seen the chest
      *  (game.prop[CHEST] == STATE_FOUND). */
-    if (game.loc == game.chloc ||
-        game.prop[CHEST] != STATE_NOTFOUND)
+    if (game.loc == game.chloc || game.prop[CHEST] != STATE_NOTFOUND)
         return true;
     int snarfed = 0;
     bool movechest = false, robplayer = false;
@@ -213,8 +212,7 @@ static bool spotted_by_pirate(int i)
                                     game.loc == objects[EMERALD].plac)) {
             continue;
         }
-        if (TOTING(treasure) ||
-            HERE(treasure))
+        if (TOTING(treasure) || HERE(treasure))
             ++snarfed;
         if (TOTING(treasure)) {
             movechest = true;
@@ -276,9 +274,7 @@ static bool dwarfmove(void)
      *  steal return toll, and dwarves can't meet the bear.  Also
      *  means dwarves won't follow him into dead end in maze, but
      *  c'est la vie.  They'll wait for him outside the dead end. */
-    if (game.loc == LOC_NOWHERE ||
-        FORCED(game.loc) ||
-        CNDBIT(game.newloc, COND_NOARRR))
+    if (game.loc == LOC_NOWHERE || FORCED(game.loc) || CNDBIT(game.newloc, COND_NOARRR))
         return true;
 
     /* Dwarf activity level ratchets up */
@@ -293,8 +289,7 @@ static bool dwarfmove(void)
      *  replace him with the alternate. */
     if (game.dflag == 1) {
         if (!INDEEP(game.loc) ||
-            (PCT(95) && (!CNDBIT(game.loc, COND_NOBACK) ||
-                         PCT(85))))
+            (PCT(95) && (!CNDBIT(game.loc, COND_NOBACK) || PCT(85))))
             return true;
         game.dflag = 2;
         for (int i = 1; i <= 2; i++) {
@@ -571,8 +566,7 @@ static void playermove(int motion)
     /* Look for a way to fulfil the motion verb passed in - travel_entry indexes
      * the beginning of the motion entries for here (game.loc). */
     for (;;) {
-        if ((travel[travel_entry].motion == HERE) ||
-            travel[travel_entry].motion == motion)
+        if ((travel[travel_entry].motion == HERE) || travel[travel_entry].motion == motion)
             break;
         if (travel[travel_entry].stop) {
             /*  Couldn't find an entry matching the motion word passed
@@ -626,14 +620,12 @@ static void playermove(int motion)
                 if (condtype < cond_not) {
                     /* YAML N and [pct N] conditionals */
                     if (condtype == cond_goto || condtype == cond_pct) {
-                        if (condarg1 == 0 ||
-                            PCT(condarg1))
+                        if (condarg1 == 0 || PCT(condarg1))
                             break;
                         /* else fall through */
                     }
                     /* YAML [with OBJ] clause */
-                    else if (TOTING(condarg1) ||
-                             (condtype == cond_with && AT(condarg1)))
+                    else if (TOTING(condarg1) || (condtype == cond_with && AT(condarg1)))
                         break;
                     /* else fall through to check [not OBJ STATE] */
                 } else if (game.prop[condarg1] != condarg2)
@@ -672,8 +664,7 @@ static void playermove(int motion)
                     game.newloc = (game.loc == LOC_PLOVER)
                                   ? LOC_ALCOVE
                                   : LOC_PLOVER;
-                    if (game.holdng > 1 ||
-                        (game.holdng == 1 && !TOTING(EMERALD))) {
+                    if (game.holdng > 1 || (game.holdng == 1 && !TOTING(EMERALD))) {
                         game.newloc = game.loc;
                         rspeak(MUST_DROP);
                     }

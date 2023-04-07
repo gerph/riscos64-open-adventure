@@ -335,13 +335,11 @@ bool yes_or_no(const char* question, const char* yes_response, const char* no_re
 
         free(firstword);
 
-        if (yes == 0 ||
-            y == 0) {
+        if (yes == 0 || y == 0) {
             speak(yes_response);
             outcome = true;
             break;
-        } else if (no == 0 ||
-                   n == 0) {
+        } else if (no == 0 || n == 0) {
             speak(no_response);
             outcome = false;
             break;
@@ -656,8 +654,7 @@ void drop(obj_t object, loc_t where)
                 --game.holdng;
         game.place[object] = where;
     }
-    if (where == LOC_NOWHERE ||
-        where == CARRIED)
+    if (where == LOC_NOWHERE || where == CARRIED)
         return;
     game.link[object] = game.atloc[where];
     game.atloc[where] = object;

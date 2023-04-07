@@ -57,8 +57,7 @@ int initialise(void)
     }
 
     for (int i = 1; i <= NLOCATIONS; i++) {
-        if (!(locations[i].description.big == 0 ||
-              tkey[i] == 0)) {
+        if (!(locations[i].description.big == 0 || tkey[i] == 0)) {
             int k = tkey[i];
             if (travel[k].motion == HERE)
                 conditions[i] |= (1 << COND_FORCED);

@@ -243,8 +243,7 @@ static phase_codes_t bigwords(vocab_t id)
 static void blast(void)
 /*  Blast.  No effect unless you've got dynamite, which is a neat trick! */
 {
-    if (game.prop[ROD2] == STATE_NOTFOUND ||
-        !game.closed)
+    if (game.prop[ROD2] == STATE_NOTFOUND || !game.closed)
         rspeak(REQUIRES_DYNAMITE);
     else {
         if (HERE(ROD2)) {
@@ -355,10 +354,8 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj)
         return GO_CLEAROBJ;
     }
 
-    if (obj == WATER ||
-        obj == OIL) {
-        if (!HERE(BOTTLE) ||
-            LIQUID() != obj) {
+    if (obj == WATER || obj == OIL) {
+        if (!HERE(BOTTLE) || LIQUID() != obj) {
             if (!TOTING(BOTTLE)) {
                 rspeak(NO_CONTAINER);
                 return GO_CLEAROBJ;
@@ -394,8 +391,7 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj)
         }
         game.prop[BIRD] = BIRD_CAGED;
     }
-    if ((obj == BIRD ||
-         obj == CAGE) &&
+    if ((obj == BIRD || obj == CAGE) &&
         (game.prop[BIRD] == BIRD_CAGED || STASHED(BIRD) == BIRD_CAGED)) {
         /* expression maps BIRD to CAGE and CAGE to BIRD */
         carry(BIRD + CAGE - obj, game.loc);
@@ -815,10 +811,8 @@ static phase_codes_t find(verb_t verb, obj_t obj)
         return GO_CLEAROBJ;
     }
 
-    if (AT(obj) ||
-        (LIQUID() == obj && AT(BOTTLE)) ||
-        obj == LIQLOC(game.loc) ||
-        (obj == DWARF && atdwrf(game.loc) > 0)) {
+    if (AT(obj) || (LIQUID() == obj && AT(BOTTLE)) ||
+        obj == LIQLOC(game.loc) || (obj == DWARF && atdwrf(game.loc) > 0)) {
         rspeak(YOU_HAVEIT);
         return GO_CLEAROBJ;
     }
@@ -876,8 +870,7 @@ static phase_codes_t inven(void)
 {
     bool empty = true;
     for (obj_t i = 1; i <= NOBJECTS; i++) {
-        if (i == BEAR ||
-            !TOTING(i))
+        if (i == BEAR || !TOTING(i))
             continue;
         if (empty) {
             rspeak(NOW_HOLDING);
@@ -942,9 +935,7 @@ static phase_codes_t listen(void)
         soundlatch = true;
     }
     for (obj_t i = 1; i <= NOBJECTS; i++) {
-        if (!HERE(i) ||
-            objects[i].sounds[0] == NULL ||
-            game.prop[i] < 0)
+        if (!HERE(i) || objects[i].sounds[0] == NULL || game.prop[i] < 0)
             continue;
         int mi =  game.prop[i];
         /* (ESR) Some unpleasant magic on object states here. Ideally
@@ -1054,9 +1045,8 @@ static phase_codes_t pour(verb_t verb, obj_t obj)
 /*  Pour.  If no object, or object is bottle, assume contents of bottle.
  *  special tests for pouring water or oil on plant or rusty door. */
 {
-    if (obj == BOTTLE ||
-        obj == INTRANSITIVE)
-        obj = LIQUID();
+    if (obj == BOTTLE || obj == INTRANSITIVE)
+	obj = LIQUID();
     if (obj == NO_OBJECT)
         return GO_UNKNOWN;
     if (!TOTING(obj)) {
@@ -1072,8 +1062,7 @@ static phase_codes_t pour(verb_t verb, obj_t obj)
         return fill(verb, URN);
     game.prop[BOTTLE] = EMPTY_BOTTLE;
     game.place[obj] = LOC_NOWHERE;
-    if (!(AT(PLANT) ||
-          AT(DOOR))) {
+    if (!(AT(PLANT) || AT(DOOR))) {
         rspeak(GROUND_WET);
         return GO_CLEAROBJ;
     }
@@ -1112,9 +1101,7 @@ static phase_codes_t read(command_t command)
             if (HERE(i) && objects[i].texts[0] != NULL && game.prop[i] >= 0)
                 command.obj = command.obj * NOBJECTS + i;
         }
-        if (command.obj > NOBJECTS ||
-            command.obj == NO_OBJECT ||
-            DARK(game.loc))
+        if (command.obj > NOBJECTS || command.obj == NO_OBJECT || DARK(game.loc))
             return GO_UNKNOWN;
     }
 
@@ -1270,8 +1257,7 @@ static phase_codes_t throwit(command_t command)
 static phase_codes_t wake(verb_t verb, obj_t obj)
 /* Wake.  Only use is to disturb the dwarves. */
 {
-    if (obj != DWARF ||
-        !game.closed) {
+    if (obj != DWARF || !game.closed) {
         speak(actions[verb].message);
         return GO_CLEAROBJ;
     } else {
@@ -1301,11 +1287,7 @@ static phase_codes_t waste(verb_t verb, turn_t turns)
 static phase_codes_t wave(verb_t verb, obj_t obj)
 /* Wave.  No effect unless waving rod at fissure or at bird. */
 {
-    if (obj != ROD ||
-        !TOTING(obj) ||
-        (!HERE(BIRD) &&
-         (game.closng ||
-          !AT(FISSURE)))) {
+    if (obj != ROD || !TOTING(obj) || (!HERE(BIRD) && (game.closng || !AT(FISSURE)))) {
         speak(((!TOTING(obj)) && (obj != ROD ||
                                   !TOTING(ROD2))) ?
               arbitrary_messages[ARENT_CARRYING] :
@@ -1326,8 +1308,7 @@ static phase_codes_t wave(verb_t verb, obj_t obj)
                    FREE_FLY);
             return GO_DWARFWAKE;
         }
-        if (game.closng ||
-            !AT(FISSURE)) {
+        if (game.closng || !AT(FISSURE)) {
             rspeak((game.prop[BIRD] == BIRD_CAGED) ?
                    CAGE_FLY :
                    FREE_FLY);
@@ -1406,8 +1387,7 @@ phase_codes_t action(command_t command)
              * will do here. We're preventing interpretation as an intransitive
              * verb when the word is unknown. */
             command.obj = command.word[1].raw[0] != '\0' ? KEYS : NO_OBJECT;
-        if (command.obj == NO_OBJECT ||
-            command.obj == INTRANSITIVE) {
+        if (command.obj == NO_OBJECT || command.obj == INTRANSITIVE) {
             /*  Analyse an intransitive verb (ie, no object given yet). */
             switch (command.verb) {
             case CARRY:
