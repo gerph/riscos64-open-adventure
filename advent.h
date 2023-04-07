@@ -167,7 +167,7 @@ struct game_t {
     int holdng;                  // number of objects being carried
     int igo;                     // # uses of "go" instead of a direction
     int iwest;                   // # times he's said "west" instead of "w"
-    int knfloc;                  // knife location; 0 if none, -1 after caveat
+    loc_t knfloc;                // knife location; LOC_NOWERE if none, -1 after caveat
     turn_t limit;                // lifetime of lamp
     loc_t loc;                   // where player is now
     loc_t newloc;                // where player is going

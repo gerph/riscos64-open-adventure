@@ -370,7 +370,7 @@ static bool dwarfmove(void)
         ++game.dtotal;
         if (game.odloc[i] == game.dloc[i]) {
             ++attack;
-            if (game.knfloc >= 0)
+            if (game.knfloc >= LOC_NOWHERE)
                 game.knfloc = game.loc;
             if (randrange(1000) < 95 * (game.dflag - 2))
                 ++stick;
