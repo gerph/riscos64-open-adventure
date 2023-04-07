@@ -230,7 +230,7 @@ static phase_codes_t bigwords(vocab_t id)
             return GO_CLEAROBJ;
         }
     } else {
-	/* Magic-word sequebce was started but is incorrect */
+	/* Magic-word sequence was started but is incorrect */
 	if (settings.oldstyle || game.seenbigwords)
 	    rspeak(START_OVER);
 	else
