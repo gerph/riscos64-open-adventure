@@ -874,8 +874,8 @@ static bool closecheck(void)
         game.newloc = LOC_NE;
         /*  Leave the grate with normal (non-negative) property.
          *  Reuse sign. */
-        put(GRATE, LOC_SW, 0);
-        put(SIGN, LOC_SW, 0);
+        move(GRATE, LOC_SW);
+        move(SIGN, LOC_SW);
         game.objects[SIGN].prop = ENDGAME_SIGN;
         game.objects[SNAKE].prop = put(SNAKE, LOC_SW, SNAKE_CHASED);
         game.objects[BIRD].prop = put(BIRD, LOC_SW, BIRD_CAGED);
