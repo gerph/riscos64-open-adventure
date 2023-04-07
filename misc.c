@@ -595,12 +595,12 @@ void move(obj_t object, loc_t where)
     drop(object, where);
 }
 
-loc_t put(obj_t object, loc_t where, int pval)
+void put(obj_t object, loc_t where, int pval)
 /*  put() is the same as move(), except it returns a value used to set up the
  *  negated game.prop values for the repository objects. */
 {
     move(object, where);
-    return (-1) - pval;;	// Needs to stay sinchronized with STASHED
+    game.objects[object].prop = (-1) - pval;;	// Needs to stay synchronized with STASHED
 }
 
 void carry(obj_t object, loc_t where)

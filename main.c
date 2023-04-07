@@ -863,12 +863,12 @@ static bool closecheck(void)
          *  objects he might be carrying (lest he have some which
          *  could cause trouble, such as the keys).  We describe the
          *  flash of light and trundle back. */
-        game.objects[BOTTLE].prop = put(BOTTLE, LOC_NE, EMPTY_BOTTLE);
-        game.objects[PLANT].prop = put(PLANT, LOC_NE, PLANT_THIRSTY);
-        game.objects[OYSTER].prop = put(OYSTER, LOC_NE, STATE_FOUND);
-        game.objects[LAMP].prop = put(LAMP, LOC_NE, LAMP_DARK);
-        game.objects[ROD].prop = put(ROD, LOC_NE, STATE_FOUND);
-        game.objects[DWARF].prop = put(DWARF, LOC_NE, 0);
+        put(BOTTLE, LOC_NE, EMPTY_BOTTLE);
+        put(PLANT, LOC_NE, PLANT_THIRSTY);
+        put(OYSTER, LOC_NE, STATE_FOUND);
+        put(LAMP, LOC_NE, LAMP_DARK);
+        put(ROD, LOC_NE, STATE_FOUND);
+        put(DWARF, LOC_NE, 0);
         game.loc = LOC_NE;
         game.oldloc = LOC_NE;
         game.newloc = LOC_NE;
@@ -877,13 +877,13 @@ static bool closecheck(void)
         move(GRATE, LOC_SW);
         move(SIGN, LOC_SW);
         game.objects[SIGN].prop = ENDGAME_SIGN;
-        game.objects[SNAKE].prop = put(SNAKE, LOC_SW, SNAKE_CHASED);
-        game.objects[BIRD].prop = put(BIRD, LOC_SW, BIRD_CAGED);
-        game.objects[CAGE].prop = put(CAGE, LOC_SW, STATE_FOUND);
-        game.objects[ROD2].prop = put(ROD2, LOC_SW, STATE_FOUND);
-        game.objects[PILLOW].prop = put(PILLOW, LOC_SW, STATE_FOUND);
+        put(SNAKE, LOC_SW, SNAKE_CHASED);
+        put(BIRD, LOC_SW, BIRD_CAGED);
+        put(CAGE, LOC_SW, STATE_FOUND);
+        put(ROD2, LOC_SW, STATE_FOUND);
+        put(PILLOW, LOC_SW, STATE_FOUND);
 
-        game.objects[MIRROR].prop = put(MIRROR, LOC_NE, STATE_FOUND);
+        put(MIRROR, LOC_NE, STATE_FOUND);
         game.objects[MIRROR].fixed = LOC_SW;
 
         for (int i = 1; i <= NOBJECTS; i++) {

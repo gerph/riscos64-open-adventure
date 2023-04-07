@@ -276,7 +276,7 @@ extern bool silent_yes_or_no(void);
 extern bool yes_or_no(const char*, const char*, const char*);
 extern void juggle(obj_t);
 extern void move(obj_t, loc_t);
-extern loc_t put(obj_t, loc_t, int);
+extern void put(obj_t, loc_t, int);
 extern void carry(obj_t, loc_t);
 extern void drop(obj_t, loc_t);
 extern int atdwrf(loc_t);
