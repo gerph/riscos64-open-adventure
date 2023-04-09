@@ -48,7 +48,7 @@ int score(enum termination mode)
                 k = 14;
             if (i > CHEST)
                 k = 16;
-            if (game.objects[i].prop > STATE_NOTFOUND)
+            if (!PROP_IS_STASHED(i) && !PROP_IS_NOTFOUND(i))
                 score += 2;
             if (game.objects[i].place == LOC_BUILDING && PROP_IS_FOUND(i))
                 score += k - 2;
