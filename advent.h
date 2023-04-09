@@ -61,6 +61,7 @@
 #define PROP_IS_STASHED_OR_UNSEEN(obj)	(game.objects[obj].prop < 0)
 #define PROP_SET_FOUND(obj)	(game.objects[obj].prop = STATE_FOUND)
 #define PROP_SET_NOT_FOUND(obj)	(game.objects[obj].prop = STATE_NOTFOUND)
+#define PROP_IS_NOTFOUND2(g, o)	(g.objects[o].prop == STATE_NOTFOUND)
 
 #define PROMPT	"> "
 

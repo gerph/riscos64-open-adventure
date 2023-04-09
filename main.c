@@ -859,8 +859,8 @@ static bool closecheck(void)
          *  objects come from known locations and/or states (e.g. the
          *  snake is known to have been destroyed and needn't be
          *  carried away from its old "place"), making the various
-         *  objects be handled differently.  We also drop all other
-         *  objects he might be carrying (lest he have some which
+         *  objects be handled differently.  We also drop all other 
+         *  objects he might be acrrying (lest he have some which
          *  could cause trouble, such as the keys).  We describe the
          *  flash of light and trundle back. */
         put(BOTTLE, LOC_NE, EMPTY_BOTTLE);
@@ -868,7 +868,7 @@ static bool closecheck(void)
         put(OYSTER, LOC_NE, STATE_FOUND);
         put(LAMP, LOC_NE, LAMP_DARK);
         put(ROD, LOC_NE, STATE_FOUND);
-        put(DWARF, LOC_NE, 0);
+        put(DWARF, LOC_NE, STATE_FOUND);
         game.loc = LOC_NE;
         game.oldloc = LOC_NE;
         game.newloc = LOC_NE;
