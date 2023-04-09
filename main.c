@@ -1098,10 +1098,10 @@ static bool do_command(void)
                  *  game.prop < 0 and stash them.  This way objects won't be
                  *  described until they've been picked up and put down
                  *  separate from their respective piles. */
-                if (game.objects[OYSTER].prop < 0 && TOTING(OYSTER))
+                if ((PROP_IS_NOTFOUND(OYSTER) || PROP_IS_STASHED(OYSTER)) && TOTING(OYSTER))
                     pspeak(OYSTER, look, true, 1);
                 for (size_t i = 1; i <= NOBJECTS; i++) {
-                    if (TOTING(i) && game.objects[i].prop < 0)
+                    if (TOTING(i) && (PROP_IS_NOTFOUND(i) || PROP_IS_STASHED(i)))
                         game.objects[i].prop = PROP_STASHED(i);
                 }
             }
