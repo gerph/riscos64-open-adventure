@@ -1099,7 +1099,7 @@ static phase_codes_t read(command_t command)
     if (command.obj == INTRANSITIVE) {
         command.obj = NO_OBJECT;
         for (int i = 1; i <= NOBJECTS; i++) {
-            if (HERE(i) && objects[i].texts[0] != NULL && game.objects[i].prop >= 0)
+            if (HERE(i) && objects[i].texts[0] != NULL && !PROP_IS_STASHED(i))
                 command.obj = command.obj * NOBJECTS + i;
         }
         if (command.obj > NOBJECTS || command.obj == NO_OBJECT || DARK(game.loc))
