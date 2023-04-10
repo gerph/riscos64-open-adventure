@@ -783,19 +783,19 @@ static bool closecheck(void)
  *  chest, which may of course never show up).  Note that the
  *  treasures need not have been taken yet, just located.  Hence
  *  clock1 must be large enough to get out of the cave (it only ticks
- *  while inside the cave).  When it hits zero, we branch to 10000 to
- *  start closing the cave, and then sit back and wait for him to try
- *  to get out.  If he doesn't within clock2 turns, we close the cave;
- *  if he does try, we assume he panics, and give him a few additional
- *  turns to get frantic before we close.  When clock2 hits zero, we
- *  transport him into the final puzzle.  Note that the puzzle depends
- *  upon all sorts of random things.  For instance, there must be no
- *  water or oil, since there are beanstalks which we don't want to be
- *  able to water, since the code can't handle it.  Also, we can have
- *  no keys, since there is a grate (having moved the fixed object!)
- *  there separating him from all the treasures.  Most of these
- *  problems arise from the use of negative prop numbers to suppress
- *  the object descriptions until he's actually moved the objects. */
+ *  while inside the cave).  When it hits zero, we start closing the
+ *  cave, and then sit back and wait for him to try to get out.  If he
+ *  doesn't within clock2 turns, we close the cave; if he does try, we
+ *  assume he panics, and give him a few additional turns to get
+ *  frantic before we close.  When clock2 hits zero, we transport him
+ *  into the final puzzle.  Note that the puzzle depends upon all
+ *  sorts of random things.  For instance, there must be no water or
+ *  oil, since there are beanstalks which we don't want to be able to
+ *  water, since the code can't handle it.  Also, we can have no keys,
+ *  since there is a grate (having moved the fixed object!)  there
+ *  separating him from all the treasures.  Most of these problems
+ *  arise from the use of negative prop numbers to suppress the object
+ *  descriptions until he's actually moved the objects. */
 {
     /* If a turn threshold has been met, apply penalties and tell
      * the player about it. */
