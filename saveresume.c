@@ -230,28 +230,7 @@ bool is_valid(struct game_t valgame)
     /* Check that properties of objects aren't beyond expected */
     for (obj_t obj = 0; obj <= NOBJECTS; obj++) {
         if (PROP_IS_INVALID(valgame.objects[obj].prop)) {
-            switch (obj) {
-            case RUG:
-            case DRAGON:
-            case BIRD:
-            case BOTTLE:
-            case PLANT:
-            case PLANT2:
-            case TROLL:
-            case URN:
-            case EGGS:
-            case VASE:
-            case CHAIN:
-                if (valgame.objects[obj].prop == 2) // There are multiple different states, but it's convenient to clump them together
-                    continue;	// LCOV_EXCL_LINE
-            /* FALLTHRU */
-            case BEAR:
-                if (valgame.objects[BEAR].prop == CONTENTED_BEAR || valgame.objects[BEAR].prop == BEAR_DEAD)
-                    continue;
-            /* FALLTHRU */
-            default:
-                return false;	// LCOV_EXCL_LINE
-            }
+	    return false;	// LCOV_EXCL_LINE
         }
     }
 

@@ -136,6 +136,7 @@ def get_objects(obj):
         }},
     }},
 """
+    max_state = 0
     obj_str = ""
     for (i, item) in enumerate(obj):
         attr = item[1]
@@ -159,6 +160,7 @@ def get_objects(obj):
                 statedefines += "/* States for %s */\n" % item[0]
                 for (n, label) in enumerate(labels):
                     statedefines += "#define %s\t%d\n" % (label, n)
+                    max_state = max(max_state, n)
                 statedefines += "\n"
         sounds_str = ""
         if attr.get("sounds") is None:
@@ -192,6 +194,7 @@ def get_objects(obj):
         treasure = "true" if attr.get("treasure") else "false"
         obj_str += template.format(i, item[0], words_str, i_msg, locs[0], locs[1], treasure, descriptions_str, sounds_str, texts_str, changes_str)
     obj_str = obj_str[:-1] # trim trailing newline
+    statedefines += "/* Maximum state value */\n#define MAX_STATE %d\n" % max_state
     return obj_str
 
 def get_obituaries(obit):

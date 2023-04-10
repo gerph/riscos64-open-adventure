@@ -61,6 +61,7 @@
 #define PROP_SET_FOUND(obj)	(game.objects[obj].prop = STATE_FOUND)
 #define PROP_SET_NOT_FOUND(obj)	(game.objects[obj].prop = STATE_NOTFOUND)
 #define PROP_IS_NOTFOUND2(g, o)	(g.objects[o].prop == STATE_NOTFOUND)
+#define PROP_IS_INVALID(val)	(val < -MAX_STATE - 1 || val > MAX_STATE)
 #else
 #define PROP_STASHED(obj)	(-game.objects[obj].prop)
 #define PROP_IS_STASHED(obj)	(game.objects[obj].prop < 0)
@@ -70,9 +71,8 @@
 #define PROP_SET_FOUND(obj)	do {game.objects[obj].found = true; game.objects[obj].prop = STATE_FOUND;} while(0)
 #define PROP_SET_NOT_FOUND(obj)	game.objects[obj].found = false
 #define PROP_IS_NOTFOUND2(g, o)	(!g.objects[o].found)
+#define PROP_IS_INVALID(val)	(val < -MAX_STATE || val > MAX_STATE)
 #endif
-/* Magic number -2 allows a PROP_STASHED version of state 1 */
-#define PROP_IS_INVALID(val)	(val < -2 || val > 1)
 
 #define PROMPT	"> "
 
