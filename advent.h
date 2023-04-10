@@ -48,20 +48,31 @@
 #define IS_FIXED -1
 #define IS_FREE 0
 
-/* STASH map a state property value to a negative range, where the object cannot be
- * picked up but the value can be recovered later.  Avoid colliding with -1,
+/* PROP_STASHED maps a state property value to a negative range, where the object
+ * cannot be picked up but the value can be recovered later. */
+#ifndef FOUNDBOOL
+/* PROP_STASHED needs ro avoid colliding with -1,
  * which has its own meaning as STATE_NOTFOUND. */
 #define PROP_STASHED(obj)	(STATE_NOTFOUND - game.objects[obj].prop)
 #define PROP_IS_STASHED(obj)	(game.objects[obj].prop < STATE_NOTFOUND)
 #define PROP_IS_NOTFOUND(obj)	(game.objects[obj].prop == STATE_NOTFOUND)
-/* Don't use this on an object wi nore thab 2 (unstashed) states */ 
 #define PROP_IS_FOUND(obj)	(game.objects[obj].prop == STATE_FOUND)
-/* Magic number -2 allows a PROP_STASHED version of state 1 */
-#define PROP_IS_INVALID(val)	(val < -2 || val > 1)
 #define PROP_IS_STASHED_OR_UNSEEN(obj)	(game.objects[obj].prop < 0)
 #define PROP_SET_FOUND(obj)	(game.objects[obj].prop = STATE_FOUND)
 #define PROP_SET_NOT_FOUND(obj)	(game.objects[obj].prop = STATE_NOTFOUND)
 #define PROP_IS_NOTFOUND2(g, o)	(g.objects[o].prop == STATE_NOTFOUND)
+#else
+#define PROP_STASHED(obj)	(-game.objects[obj].prop)
+#define PROP_IS_STASHED(obj)	(game.objects[obj].prop < 0)
+#define PROP_IS_NOTFOUND(obj)	(!game.objects[obj].found)
+#define PROP_IS_FOUND(obj)	(game.objects[obj].found && game.objects[obj].prop == 0)
+#define PROP_IS_STASHED_OR_UNSEEN(obj)	(!game.objects[obj].found || game.objects[obj].prop < 0)
+#define PROP_SET_FOUND(obj)	do {game.objects[obj].found = true; game.objects[obj].prop = STATE_FOUND;} while(0)
+#define PROP_SET_NOT_FOUND(obj)	game.objects[obj].found = false
+#define PROP_IS_NOTFOUND2(g, o)	(!g.objects[o].found)
+#endif
+/* Magic number -2 allows a PROP_STASHED version of state 1 */
+#define PROP_IS_INVALID(val)	(val < -2 || val > 1)
 
 #define PROMPT	"> "
 
@@ -202,13 +213,20 @@ struct game_t {
 	loc_t oldloc;            // prior loc of each dwarf, initially garbage
     } dwarves[NDWARVES + 1];
     struct {
+#ifdef FOUNDBOOL
+	bool found;	         // has the location of this object bween found?
+#endif
 	loc_t fixed;             // fixed location of object (if not IS_FREE)
         int prop;                // object state */
 	loc_t place;             // location of object
     } objects[NOBJECTS + 1];
     struct { 
 	bool used;               // hints[i].used = true iff hint i has been used.
+#ifndef FOUNDBOOL
 	int lc;                 // hints[i].lc = show int at LOC with cond bit i
+#else
+	int lc;                  // hints[i].lc = show int at LOC with cond bit i
+#endif
     } hints[NHINTS];
     obj_t link[NOBJECTS * 2 + 1];// object-list links
 };
