@@ -89,9 +89,9 @@ int initialise(void)
      *  not yet found, so we know when to close the cave. */
     for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
         if (objects[treasure].is_treasure) {
+            ++game.tally;
             if (objects[treasure].inventory != 0)
                 PROP_SET_NOT_FOUND(treasure);
-            game.tally = game.tally - game.objects[treasure].prop;
         }
     }
     game.conds = setbit(COND_HBASE);
