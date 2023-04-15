@@ -84,9 +84,10 @@ int initialise(void)
             drop(k, objects[k].plac);
     }
 
-    /*  Treasure props are initially -1, and are set to 0 the first time
-     *  they are described.  game.tally keeps track of how many are
-     *  not yet found, so we know when to close the cave. */
+    /*  Treasure props are initially STATE_NOTFOUND, and are set to
+     *  STATE_FOUND the first time they are described.  game.tally
+     *  keeps track of how many are not yet found, so we know when to
+     *  close the cave. */
     for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
         if (objects[treasure].is_treasure) {
             ++game.tally;

@@ -68,7 +68,7 @@
  * the cave starts to close. On;y seems to be signifucant for the bird 
  * and readable objects, notably the clam/oyster - but the code around
  * those test is difficult to read. */
-#define PROP_STASHED(obj)	(-1 - game.objects[obj].prop)
+#define PROP_STASHIFY(n)	(-1 - (n))
 #define PROP_IS_STASHED(obj)	(game.objects[obj].prop < STATE_NOTFOUND)
 #define PROP_IS_NOTFOUND(obj)	(game.objects[obj].prop == STATE_NOTFOUND)
 #define PROP_IS_FOUND(obj)	(game.objects[obj].prop == STATE_FOUND)
@@ -81,11 +81,13 @@
 /* (ESR) Only the boldest of adventurers will explore here.  This
  * alternate set of definitions for the macros above was an attempt to
  * break from out of the state encoding a per-object "found" member
- * telling whether or not the player has seen the object. These is one
- * accompanying change in misc.c.  What's broken when you try to use
- * thus is PROP_IS_STASHED_OR_UNSEEN.
+ * telling whether or not the player has seen the object. 
+ *
+ * What's broken when you try to use thus is
+ * PROP_IS_STASHED_OR_UNSEEN. The symptom is game.tally getting
+ * decremented on non-treasures.
  */
-#define PROP_STASHED(obj)	(-game.objects[obj].prop)
+#define PROP_STASHIFY(n)	(-(n))
 #define PROP_IS_STASHED(obj)	(game.objects[obj].prop < 0)
 #define PROP_IS_NOTFOUND(obj)	(!game.objects[obj].found)
 #define PROP_IS_FOUND(obj)	(game.objects[obj].found && game.objects[obj].prop == 0)
@@ -94,7 +96,9 @@
 #define PROP_SET_NOT_FOUND(obj)	game.objects[obj].found = false
 #define PROP_IS_NOTFOUND2(g, o)	(!g.objects[o].found)
 #define PROP_IS_INVALID(val)	(val < -MAX_STATE || val > MAX_STATE)
+#define PROP_SET_SEEN(obj)	game.objects[object].found = true
 #endif
+#define PROP_STASHED(obj)	PROP_STASHIFY(game.objects[obj].prop)
 
 #define PROMPT	"> "
 

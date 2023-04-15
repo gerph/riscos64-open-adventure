@@ -602,11 +602,9 @@ void put(obj_t object, loc_t where, int pval)
     move(object, where);
     /* (ESR) Read this in combination with the macro defintions in advebt.h.
      */
-#ifndef FOUNDBOOL
-    game.objects[object].prop = (-1) - pval;	// Needs to stay synchronized with PROP_STASHED
-#else
-    game.objects[object].prop = - pval;;	// Needs to stay synchronized with PROP_STASHED
-    game.objects[object].found = true;
+    game.objects[object].prop = PROP_STASHIFY(pval);
+#ifdef PROP_SET_SEEN
+    PROP_SET_SEEN(object);
 #endif
 }
 
