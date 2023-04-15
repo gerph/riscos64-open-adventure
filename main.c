@@ -1098,10 +1098,11 @@ static bool do_command(void)
         while (command.state <= GIVEN) {
 
             if (game.closed) {
-                /*  If closing time, check for any objects being toted with
-                 *  game.prop < 0 and stash them.  This way objects won't be
-                 *  described until they've been picked up and put down
-                 *  separate from their respective piles. */
+                /*  If closing time, check for any stashed objects
+                 *  being toted and unstash them.  This way objects
+                 *  won't be described until they've been picked up
+                 *  and put down separate from their respective
+                 *  piles. */
                 if ((PROP_IS_NOTFOUND(OYSTER) || PROP_IS_STASHED(OYSTER)) && TOTING(OYSTER))
                     pspeak(OYSTER, look, true, 1);
                 for (size_t i = 1; i <= NOBJECTS; i++) {
