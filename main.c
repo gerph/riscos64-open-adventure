@@ -917,6 +917,10 @@ static void listobjects(void)
                 obj = obj - NOBJECTS;
             if (obj == STEPS && TOTING(NUGGET))
                 continue;
+	    /* (ESR) Warning: it looks like you could get away with
+	     * running this code only on objects with the treasure
+	     * property set. Nope.  There is mystery here.
+	     */
             if (PROP_IS_STASHED_OR_UNSEEN(obj)) {
                 if (game.closed)
                     continue;

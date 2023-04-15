@@ -48,12 +48,27 @@
 #define IS_FIXED -1
 #define IS_FREE 0
 
-/* PROP_STASHED maps a state property value to a negative range, where the object
- * cannot be picked up but the value can be recovered later. */
 #ifndef FOUNDBOOL
-/* PROP_STASHED needs ro avoid colliding with -1,
- * which has its own meaning as STATE_NOTFOUND. */
-#define PROP_STASHED(obj)	(STATE_NOTFOUND - game.objects[obj].prop)
+/* (ESR) It is fitting that translation of the original ADVENT should
+ * have left us a maze of twisty little conditionals that resists all
+ * understanding.  Setting and use of what is now the per-object state
+ * member (which used to be an array of its own) is our mystery. This
+ * state tangles together information about whether the object is a
+ * treasure, whether the player has seen it yet, and its activation
+ * state.
+ *
+ * Things we think we know:
+ *
+ * STATE_NOTFOUND is only set on treasures. Non-treasures start the
+ * game in STATE_FOUND.
+ *
+ * PROP_STASHED is supposed to map a state property value to a
+ * negative range, where the object cannot be picked up but the value
+ * can be recovered later.  Various objects get this peoperty when
+ * the cave starts to close. On;y seems to be signifucant for the bird 
+ * and readable objects, notably the clam/oyster - but the code around
+ * those test is difficult to read. */
+#define PROP_STASHED(obj)	(-1 - game.objects[obj].prop)
 #define PROP_IS_STASHED(obj)	(game.objects[obj].prop < STATE_NOTFOUND)
 #define PROP_IS_NOTFOUND(obj)	(game.objects[obj].prop == STATE_NOTFOUND)
 #define PROP_IS_FOUND(obj)	(game.objects[obj].prop == STATE_FOUND)
@@ -63,6 +78,13 @@
 #define PROP_IS_NOTFOUND2(g, o)	(g.objects[o].prop == STATE_NOTFOUND)
 #define PROP_IS_INVALID(val)	(val < -MAX_STATE - 1 || val > MAX_STATE)
 #else
+/* (ESR) Only the boldest of adventurers will explore here.  This
+ * alternate set of definitions for the macros above was an attempt to
+ * break from out of the state encoding a per-object "found" member
+ * telling whether or not the player has seen the object. These is one
+ * accompanying change in misc.c.  What's broken when you try to use
+ * thus is PROP_IS_STASHED_OR_UNSEEN.
+ */
 #define PROP_STASHED(obj)	(-game.objects[obj].prop)
 #define PROP_IS_STASHED(obj)	(game.objects[obj].prop < 0)
 #define PROP_IS_NOTFOUND(obj)	(!game.objects[obj].found)

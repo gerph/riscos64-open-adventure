@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
-Reoisitory head::
+Repository head::
   Savefiles now have an identifying magic cookie at the front.
   Resume detects if a save has incompatible endianness.
 
