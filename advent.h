@@ -249,11 +249,7 @@ struct game_t {
     } objects[NOBJECTS + 1];
     struct { 
 	bool used;               // hints[i].used = true iff hint i has been used.
-#ifndef FOUNDBOOL
 	int lc;                 // hints[i].lc = show int at LOC with cond bit i
-#else
-	int lc;                  // hints[i].lc = show int at LOC with cond bit i
-#endif
     } hints[NHINTS];
     obj_t link[NOBJECTS * 2 + 1];// object-list links
 };
