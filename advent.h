@@ -176,30 +176,32 @@ typedef enum {
     GO_DWARFWAKE,
 } phase_codes_t;
 
-typedef int vocab_t;  // index into a vocabulary array */
-typedef int verb_t;   // index into an actions array */
-typedef int obj_t;    // index into the object array */
-typedef int loc_t;    // index into the locations array */
-typedef int turn_t;   // turn counter or threshold */
+/* Use fixed-lwength types to make the save format moore portable */
+typedef int32_t vocab_t;  // index into a vocabulary array */
+typedef int32_t verb_t;   // index into an actions array */
+typedef int32_t obj_t;    // index into the object array */
+typedef int32_t loc_t;    // index into the locations array */
+typedef int32_t turn_t;   // turn counter or threshold */
+typedef int32_t bool32_t; // turn counter or threshold */
 
 struct game_t {
     int32_t lcg_x;
-    int abbnum;                  // How often to print int descriptions
+    int32_t abbnum;              // How often to print int descriptions
     score_t bonus;               // What kind of finishing bonus we are getting
     loc_t chloc;                 // pirate chest location
     loc_t chloc2;                // pirate chest alternate location
     turn_t clock1;               // # turns from finding last treasure to close
     turn_t clock2;               // # turns from warning till blinding flash
-    bool clshnt;                 // has player read the clue in the endgame?
-    bool closed;                 // whether we're all the way closed
-    bool closng;                 // whether it's closing time yet
-    bool lmwarn;                 // has player been warned about lamp going dim?
-    bool novice;                 // asked for instructions at start-up?
-    bool panic;                  // has player found out he's trapped?
-    bool wzdark;                 // whether the loc he's leaving was dark
-    bool blooded;                // has player drunk of dragon's blood?
-    int conds;                   // min value for cond[loc] if loc has any hints
-    int detail;                  // level of detail in descriptions
+    bool32_t clshnt;             // has player read the clue in the endgame?
+    bool32_t closed;             // whether we're all the way closed
+    bool32_t closng;             // whether it's closing time yet
+    bool32_t lmwarn;             // has player been warned about lamp going dim?
+    bool32_t novice;             // asked for instructions at start-up?
+    bool32_t panic;              // has player found out he's trapped?
+    bool32_t wzdark;             // whether the loc he's leaving was dark
+    bool32_t blooded;            // has player drunk of dragon's blood?
+    int32_t conds;               // min value for cond[loc] if loc has any hints
+    int32_t detail;              // level of detail in descriptions
 
     /*  dflag controls the level of activation of dwarves:
      *	0	No dwarf stuff yet (wait until reaches Hall Of Mists)
@@ -207,14 +209,14 @@ struct game_t {
      *	2	Met first dwarf, others start moving, no knives thrown yet
      *	3	A knife has been thrown (first set always misses)
      *	3+	Dwarves are mad (increases their accuracy) */
-    int dflag;
+    int32_t dflag;
 
-    int dkill;                   // dwarves killed
-    int dtotal;                  // total dwarves (including pirate) in loc
-    int foobar;                  // progress in saying "FEE FIE FOE FOO".
-    int holdng;                  // number of objects being carried
-    int igo;                     // # uses of "go" instead of a direction
-    int iwest;                   // # times he's said "west" instead of "w"
+    int32_t dkill;               // dwarves killed
+    int32_t dtotal;              // total dwarves (including pirate) in loc
+    int32_t foobar;              // progress in saying "FEE FIE FOE FOO".
+    int32_t holdng;              // number of objects being carried
+    int32_t igo;                 // # uses of "go" instead of a direction
+    int32_t iwest;               // # times he's said "west" instead of "w"
     loc_t knfloc;                // knife location; LOC_NOWERE if none, -1 after caveat
     turn_t limit;                // lifetime of lamp
     loc_t loc;                   // where player is now
@@ -223,33 +225,33 @@ struct game_t {
     loc_t oldloc;                // where player was
     loc_t oldlc2;                // where player was two moves ago
     obj_t oldobj;                // last object player handled
-    int saved;                   // point penalty for saves
-    int tally;                   // count of treasures gained
-    int thresh;                  // current threshold for endgame scoring tier
-    bool seenbigwords;           // have we red the graffiti in the Giant's Room? 
+    int32_t saved;               // point penalty for saves
+    int32_t tally;               // count of treasures gained
+    int32_t thresh;              // current threshold for endgame scoring tier
+    bool32_t seenbigwords;       // have we red the graffiti in the Giant's Room? 
     turn_t trnluz;               // # points lost so far due to turns used
     turn_t turns;                // counts commands given (ignores yes/no)
     char zzword[TOKLEN + 1];     // randomly generated magic word from bird
     struct {
-	int abbrev;              // has location been seen?
-	int atloc;               // head of object linked list per location
+	int32_t abbrev;          // has location been seen?
+	int32_t atloc;           // head of object linked list per location
     } locs[NLOCATIONS + 1];
     struct {
-	int seen;                // true if dwarf has seen him
+	int32_t seen;            // true if dwarf has seen him
 	loc_t loc;               // location of dwarves, initially hard-wired in
 	loc_t oldloc;            // prior loc of each dwarf, initially garbage
     } dwarves[NDWARVES + 1];
     struct {
 #ifdef FOUNDBOOL
-	bool found;	         // has the location of this object bween found?
+	bool32_t found;	         // has the location of this object bween found?
 #endif
 	loc_t fixed;             // fixed location of object (if not IS_FREE)
-        int prop;                // object state */
+        int32_t prop;            // object state */
 	loc_t place;             // location of object
     } objects[NOBJECTS + 1];
     struct { 
-	bool used;               // hints[i].used = true iff hint i has been used.
-	int lc;                 // hints[i].lc = show int at LOC with cond bit i
+	bool32_t used;           // hints[i].used = true iff hint i has been used.
+	int32_t lc;              // hints[i].lc = show int at LOC with cond bit i
     } hints[NHINTS];
     obj_t link[NOBJECTS * 2 + 1];// object-list links
 };
@@ -292,7 +294,7 @@ typedef struct {
  * files afterwards.  Otherwise you will get a spurious failure due to the old version
  * having been generated into a check file.
  */
-#define SAVE_VERSION	30
+#define SAVE_VERSION	31
 
 /*
  * Goes at start of file so saves can be identified by file(1) and the like.
