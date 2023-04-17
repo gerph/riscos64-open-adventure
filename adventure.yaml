@@ -3253,7 +3253,9 @@ turn_thresholds:
     Good grief, don't you *EVER* give up?  Do you realize you've spent
     over 2500 turns at this?  That's another ten points off, a total of
     twenty points lost for taking so long.
-  
+
+# Objects names OBJ_* are not made visible by the map-graph generator.
+# Don't change these casually.
 objects: !!omap
 - NO_OBJECT:
     inventory: !!null
