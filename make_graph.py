@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 """\
-usage: make-graph.py [-a] -d] [-m] [-s]
+usage: make_graph.py [-a] -d] [-m] [-s]
 
 Make a DOT graph of Colossal Cave.
 
