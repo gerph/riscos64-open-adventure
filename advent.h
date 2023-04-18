@@ -65,7 +65,7 @@
  * PROP_STASHED is supposed to map a state property value to a
  * negative range, where the object cannot be picked up but the value
  * can be recovered later.  Various objects get this property when
- * the cave starts to close. On;y seems to be signifucant for the bird 
+ * the cave starts to close. Only seems to be significant for the bird
  * and readable objects, notably the clam/oyster - but the code around
  * those test is difficult to read.
  */
@@ -243,7 +243,7 @@ struct game_t {
     } dwarves[NDWARVES + 1];
     struct {
 #ifdef FOUNDBOOL
-	bool32_t found;	         // has the location of this object bween found?
+	bool32_t found;	         // has the location of this object been found?
 #endif
 	loc_t fixed;             // fixed location of object (if not IS_FREE)
         int32_t prop;            // object state */

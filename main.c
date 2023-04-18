@@ -860,7 +860,7 @@ static bool closecheck(void)
          *  snake is known to have been destroyed and needn't be
          *  carried away from its old "place"), making the various
          *  objects be handled differently.  We also drop all other 
-         *  objects he might be acrrying (lest he have some which
+         *  objects he might be carrying (lest he has some which
          *  could cause trouble, such as the keys).  We describe the
          *  flash of light and trundle back. */
         put(BOTTLE, LOC_NE, EMPTY_BOTTLE);

@@ -69,7 +69,7 @@ check: advent cheat
 	cd tests; $(MAKE) --quiet
 
 # Requires gcov, lcov, libasan6, and libubsan1
-# The last two are Ubuntu names, might vary onb other distributions.
+# The last two are Ubuntu names, might vary on other distributions.
 # After this, run your browser on coverage/open-adventure/index.html
 # to see coverage results. Browse coverage/adventure.yaml.html
 # to see symbol coverage over the YAML file.
@@ -134,7 +134,7 @@ linty: CCFLAGS += -Winit-self
 linty: CCFLAGS += -Wpointer-arith
 linty: advent cheat
 
-# These seem to be more modeern options for enabling coverage testing.
+# These seem to be more modern options for enabling coverage testing.
 # Documenting them here in case a future version bump disables --coverage.
 #debug: CCFLAGS += -ftest-coverage
 #debug: CCFLAGS += -fprofile-arcs
