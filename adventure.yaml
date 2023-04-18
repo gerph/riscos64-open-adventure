@@ -784,7 +784,7 @@ locations: !!omap
           You are in a low n/s passage at a hole in the floor.  The hole goes
           down to an e/w passage.
       short: 'You''re in n/s passage above e/w passage.'
-      maptag: !!null
+      maptag: "Floor hole."
     conditions: {DEEP: true}
     travel: [
       {verbs: [HALL, OUT, SOUTH], action: [goto, LOC_KINGHALL]},
@@ -1730,7 +1730,7 @@ locations: !!omap
     description:
       long: 'You are in a long sloping corridor with ragged sharp walls.'
       short: !!null
-      maptag: !!null
+      maptag: "Sloping corridor"
     conditions: {DEEP: true}
     travel: [
       {verbs: [UPWAR, SHELL], action: [goto, LOC_SHELLROOM]},
@@ -2048,7 +2048,7 @@ locations: !!omap
           roar, so loud that the entire cave seems to be trembling.  Another
           passage leads south, and a low crawl goes east.
       short: 'You''re at junction with warm walls.'
-      maptag: !!null
+      maptag: "Warm junction"
     conditions: {NOARRR: true, DEEP: true}
     sound: LOUD_ROAR
     travel: [
