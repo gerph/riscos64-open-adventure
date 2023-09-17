@@ -24,6 +24,7 @@ DONOTEDIT_COMMENT = "/* Generated from adventure.yaml - do not hand-hack! */\n\n
 
 statedefines = ""
 
+
 def make_c_string(string):
     """Render a Python string into C string literal format."""
     if string is None:
@@ -35,13 +36,15 @@ def make_c_string(string):
     string = '"' + string + '"'
     return string
 
+
 def get_refs(l):
     reflist = [x[0] for x in l]
     ref_str = ""
     for ref in reflist:
         ref_str += "    {},\n".format(ref)
-    ref_str = ref_str[:-1] # trim trailing newline
+    ref_str = ref_str[:-1]  # trim trailing newline
     return ref_str
+
 
 def get_string_group(strings):
     template = """{{
@@ -51,10 +54,13 @@ def get_string_group(strings):
     if strings == []:
         strs = "NULL"
     else:
-        strs = "(const char* []) {" + ", ".join([make_c_string(s) for s in strings]) + "}"
+        strs = (
+            "(const char* []) {" + ", ".join([make_c_string(s) for s in strings]) + "}"
+        )
     n = len(strings)
     sg_str = template.format(strs, n)
     return sg_str
+
 
 def get_arbitrary_messages(arb):
     template = """    {},
@@ -62,8 +68,9 @@ def get_arbitrary_messages(arb):
     arb_str = ""
     for item in arb:
         arb_str += template.format(make_c_string(item[1]))
-    arb_str = arb_str[:-1] # trim trailing newline
+    arb_str = arb_str[:-1]  # trim trailing newline
     return arb_str
+
 
 def get_class_messages(cls):
     template = """    {{
@@ -76,8 +83,9 @@ def get_class_messages(cls):
         threshold = item["threshold"]
         message = make_c_string(item["message"])
         cls_str += template.format(threshold, message)
-    cls_str = cls_str[:-1] # trim trailing newline
+    cls_str = cls_str[:-1]  # trim trailing newline
     return cls_str
+
 
 def get_turn_thresholds(trn):
     template = """    {{
@@ -92,8 +100,9 @@ def get_turn_thresholds(trn):
         point_loss = item["point_loss"]
         message = make_c_string(item["message"])
         trn_str += template.format(threshold, point_loss, message)
-    trn_str = trn_str[:-1] # trim trailing newline
+    trn_str = trn_str[:-1]  # trim trailing newline
     return trn_str
+
 
 def get_locations(loc):
     template = """    {{ // {}: {}
@@ -112,8 +121,9 @@ def get_locations(loc):
         sound = item[1].get("sound", "SILENT")
         loud = "true" if item[1].get("loud") else "false"
         loc_str += template.format(i, item[0], short_d, long_d, sound, loud)
-    loc_str = loc_str[:-1] # trim trailing newline
+    loc_str = loc_str[:-1]  # trim trailing newline
     return loc_str
+
 
 def get_objects(obj):
     template = """    {{ // {}: {}
@@ -154,7 +164,7 @@ def get_objects(obj):
                 descriptions_str += " " * 12 + make_c_string(l_msg) + ",\n"
             for label in attr.get("states", []):
                 labels.append(label)
-            descriptions_str = descriptions_str[:-1] # trim trailing newline
+            descriptions_str = descriptions_str[:-1]  # trim trailing newline
             if labels:
                 global statedefines
                 statedefines += "/* States for %s */\n" % item[0]
@@ -168,21 +178,21 @@ def get_objects(obj):
         else:
             for l_msg in attr["sounds"]:
                 sounds_str += " " * 12 + make_c_string(l_msg) + ",\n"
-            sounds_str = sounds_str[:-1] # trim trailing newline
+            sounds_str = sounds_str[:-1]  # trim trailing newline
         texts_str = ""
         if attr.get("texts") is None:
             texts_str = " " * 12 + "NULL,"
         else:
             for l_msg in attr["texts"]:
                 texts_str += " " * 12 + make_c_string(l_msg) + ",\n"
-            texts_str = texts_str[:-1] # trim trailing newline
+            texts_str = texts_str[:-1]  # trim trailing newline
         changes_str = ""
         if attr.get("changes") is None:
             changes_str = " " * 12 + "NULL,"
         else:
             for l_msg in attr["changes"]:
                 changes_str += " " * 12 + make_c_string(l_msg) + ",\n"
-            changes_str = changes_str[:-1] # trim trailing newline
+            changes_str = changes_str[:-1]  # trim trailing newline
         locs = attr.get("locations", ["LOC_NOWHERE", "LOC_NOWHERE"])
         immovable = attr.get("immovable", False)
         try:
@@ -192,10 +202,23 @@ def get_objects(obj):
             sys.stderr.write("dungeon: unknown object location in %s\n" % locs)
             sys.exit(1)
         treasure = "true" if attr.get("treasure") else "false"
-        obj_str += template.format(i, item[0], words_str, i_msg, locs[0], locs[1], treasure, descriptions_str, sounds_str, texts_str, changes_str)
-    obj_str = obj_str[:-1] # trim trailing newline
+        obj_str += template.format(
+            i,
+            item[0],
+            words_str,
+            i_msg,
+            locs[0],
+            locs[1],
+            treasure,
+            descriptions_str,
+            sounds_str,
+            texts_str,
+            changes_str,
+        )
+    obj_str = obj_str[:-1]  # trim trailing newline
     statedefines += "/* Maximum state value */\n#define MAX_STATE %d\n" % max_state
     return obj_str
+
 
 def get_obituaries(obit):
     template = """    {{
@@ -208,8 +231,9 @@ def get_obituaries(obit):
         query = make_c_string(o["query"])
         yes = make_c_string(o["yes_response"])
         obit_str += template.format(query, yes)
-    obit_str = obit_str[:-1] # trim trailing newline
+    obit_str = obit_str[:-1]  # trim trailing newline
     return obit_str
+
 
 def get_hints(hnt):
     template = """    {{
@@ -229,8 +253,9 @@ def get_hints(hnt):
         question = make_c_string(item["question"])
         hint = make_c_string(item["hint"])
         hnt_str += template.format(number, penalty, turns, question, hint)
-    hnt_str = hnt_str[:-1] # trim trailing newline
+    hnt_str = hnt_str[:-1]  # trim trailing newline
     return hnt_str
+
 
 def get_condbits(locations):
     cnd_str = ""
@@ -242,7 +267,7 @@ def get_condbits(locations):
             if conditions[flag]:
                 flaglist.append(flag)
         line = "|".join([("(1<<COND_%s)" % f) for f in flaglist])
-        trail = "|".join([("(1<<COND_H%s)" % f['name']) for f in hints])
+        trail = "|".join([("(1<<COND_H%s)" % f["name"]) for f in hints])
         if trail:
             line += "|" + trail
         if line.startswith("|"):
@@ -251,6 +276,7 @@ def get_condbits(locations):
             line = "0"
         cnd_str += "    " + line + ",\t// " + name + "\n"
     return cnd_str
+
 
 def get_motions(motions):
     template = """    {{
@@ -271,6 +297,7 @@ def get_motions(motions):
                 if len(word) == 1:
                     ignore += word.upper()
     return mot_str
+
 
 def get_actions(actions):
     template = """    {{
@@ -304,19 +331,21 @@ def get_actions(actions):
             for word in contents["words"]:
                 if len(word) == 1:
                     ignore += word.upper()
-    act_str = act_str[:-1] # trim trailing newline
+    act_str = act_str[:-1]  # trim trailing newline
     return act_str
+
 
 def bigdump(arr):
     out = ""
     for (i, _) in enumerate(arr):
         if i % 10 == 0:
-            if out and out[-1] == ' ':
+            if out and out[-1] == " ":
                 out = out[:-1]
             out += "\n    "
         out += str(arr[i]).lower() + ", "
     out = out[:-2] + "\n"
     return out
+
 
 def buildtravel(locs, objs):
     assert len(locs) <= 300
@@ -337,31 +366,31 @@ def buildtravel(locs, objs):
     # location number (Y), and a list of motion numbers (see section 4).
     # each motion represents a verb which will go to Y if currently at X.
     # Y, in turn, is interpreted as follows.  Let M=Y/1000, N=Y mod 1000.
-    #		If N<=300	it is the location to go to.
-    #		If 300<N<=500	N-300 is used in a computed goto to
-    #					a section of special code.
-    #		If N>500	message N-500 from section 6 is printed,
-    #					and he stays wherever he is.
+    # 		If N<=300	it is the location to go to.
+    # 		If 300<N<=500	N-300 is used in a computed goto to
+    # 					a section of special code.
+    # 		If N>500	message N-500 from section 6 is printed,
+    # 					and he stays wherever he is.
     # Meanwhile, M specifies the conditions on the motion.
-    #		If M=0		it's unconditional.
-    #		If 0<M<100	it is done with M% probability.
-    #		If M=100	unconditional, but forbidden to dwarves.
-    #		If 100<M<=200	he must be carrying object M-100.
-    #		If 200<M<=300	must be carrying or in same room as M-200.
-    #		If 300<M<=400	game.prop(M % 100) must *not* be 0.
-    #		If 400<M<=500	game.prop(M % 100) must *not* be 1.
-    #		If 500<M<=600	game.prop(M % 100) must *not* be 2, etc.
+    # 		If M=0		it's unconditional.
+    # 		If 0<M<100	it is done with M% probability.
+    # 		If M=100	unconditional, but forbidden to dwarves.
+    # 		If 100<M<=200	he must be carrying object M-100.
+    # 		If 200<M<=300	must be carrying or in same room as M-200.
+    # 		If 300<M<=400	game.prop(M % 100) must *not* be 0.
+    # 		If 400<M<=500	game.prop(M % 100) must *not* be 1.
+    # 		If 500<M<=600	game.prop(M % 100) must *not* be 2, etc.
     # If the condition (if any) is not met, then the next *different*
     # "destination" value is used (unless it fails to meet *its* conditions,
     # in which case the next is found, etc.).  Typically, the next dest will
     # be for one of the same verbs, so that its only use is as the alternate
     # destination for those verbs.  For instance:
-    #		15	110022	29	31	34	35	23	43
-    #		15	14	29
+    # 		15	110022	29	31	34	35	23	43
+    # 		15	14	29
     # This says that, from loc 15, any of the verbs 29, 31, etc., will take
     # him to 22 if he's carrying object 10, and otherwise will go to 14.
-    #		11	303008	49
-    #		11	9	50
+    # 		11	303008	49
+    # 		11	9	50
     # This says that, from 11, 49 takes him to 8 unless game.prop[3]=0, in which
     # case he goes to 9.  Verb 50 takes him to 9 regardless of game.prop[3].
     ltravel = []
@@ -372,13 +401,17 @@ def buildtravel(locs, objs):
                 verbmap[word.upper()] = i
         except TypeError:
             pass
+
     def dencode(action, name):
         "Decode a destination number"
         if action[0] == "goto":
             try:
                 return locnames.index(action[1])
             except ValueError:
-                sys.stderr.write("dungeon: unknown location %s in goto clause of %s\n" % (action[1], name))
+                sys.stderr.write(
+                    "dungeon: unknown location %s in goto clause of %s\n"
+                    % (action[1], name)
+                )
                 raise ValueError
         elif action[0] == "special":
             return 300 + action[1]
@@ -386,11 +419,15 @@ def buildtravel(locs, objs):
             try:
                 return 500 + msgnames.index(action[1])
             except ValueError:
-                sys.stderr.write("dungeon: unknown location %s in carry clause of %s\n" % (cond[1], name))
+                sys.stderr.write(
+                    "dungeon: unknown location %s in carry clause of %s\n"
+                    % (cond[1], name)
+                )
         else:
             print(cond)
             raise ValueError
-        return ''	# Pacify pylint
+        return ""  # Pacify pylint
+
     def cencode(cond, name):
         if cond is None:
             return 0
@@ -402,13 +439,19 @@ def buildtravel(locs, objs):
             try:
                 return 100 + objnames.index(cond[1])
             except ValueError:
-                sys.stderr.write("dungeon: unknown object name %s in carry clause of %s\n" % (cond[1], name))
+                sys.stderr.write(
+                    "dungeon: unknown object name %s in carry clause of %s\n"
+                    % (cond[1], name)
+                )
                 sys.exit(1)
         elif cond[0] == "with":
             try:
                 return 200 + objnames.index(cond[1])
             except IndexError:
-                sys.stderr.write("dungeon: unknown object name %s in with clause of %s\n" % (cond[1], name))
+                sys.stderr.write(
+                    "dungeon: unknown object name %s in with clause of %s\n"
+                    % (cond[1], name)
+                )
                 sys.exit(1)
         elif cond[0] == "not":
             try:
@@ -424,11 +467,17 @@ def buildtravel(locs, objs):
                                 state = i
                                 break
                     else:
-                        sys.stderr.write("dungeon: unmatched state symbol %s in not clause of %s\n" % (cond[2], name))
+                        sys.stderr.write(
+                            "dungeon: unmatched state symbol %s in not clause of %s\n"
+                            % (cond[2], name)
+                        )
                         sys.exit(0)
                 return 300 + obj + 100 * state
             except ValueError:
-                sys.stderr.write("dungeon: unknown object name %s in not clause of %s\n" % (cond[1], name))
+                sys.stderr.write(
+                    "dungeon: unknown object name %s in not clause of %s\n"
+                    % (cond[1], name)
+                )
                 sys.exit(1)
         else:
             print(cond)
@@ -438,11 +487,13 @@ def buildtravel(locs, objs):
         if "travel" in loc:
             for rule in loc["travel"]:
                 tt = [i]
-                dest = dencode(rule["action"], name) + 1000 * cencode(rule.get("cond"), name)
+                dest = dencode(rule["action"], name) + 1000 * cencode(
+                    rule.get("cond"), name
+                )
                 tt.append(dest)
                 tt += [motionnames[verbmap[e]].upper() for e in rule["verbs"]]
                 if not rule["verbs"]:
-                    tt.append(1)	# Magic dummy entry for null rules
+                    tt.append(1)  # Magic dummy entry for null rules
                 ltravel.append(tuple(tt))
 
     # At this point the ltravel data is in the Section 3
@@ -463,7 +514,7 @@ def buildtravel(locs, objs):
             travel[-1][-1] = "false" if travel[-1][-1] == "true" else "true"
         while rule:
             cond = newloc // 1000
-            nodwarves = (cond == 100)
+            nodwarves = cond == 100
             if cond == 0:
                 condtype = "cond_goto"
                 condarg1 = condarg2 = 0
@@ -486,7 +537,7 @@ def buildtravel(locs, objs):
             else:
                 condtype = "cond_not"
                 condarg1 = cond % 100
-                condarg2 = (cond - 300) // 100.
+                condarg2 = (cond - 300) // 100.0
             dest = newloc % 1000
             if dest <= 300:
                 desttype = "dest_goto"
@@ -497,18 +548,23 @@ def buildtravel(locs, objs):
             else:
                 desttype = "dest_special"
                 destval = locnames[dest - 300]
-            travel.append([len(tkey)-1,
-                           locnames[len(tkey)-1],
-                           rule.pop(0),
-                           condtype,
-                           condarg1,
-                           condarg2,
-                           desttype,
-                           destval,
-                           "true" if nodwarves else "false",
-                           "false"])
+            travel.append(
+                [
+                    len(tkey) - 1,
+                    locnames[len(tkey) - 1],
+                    rule.pop(0),
+                    condtype,
+                    condarg1,
+                    condarg2,
+                    desttype,
+                    destval,
+                    "true" if nodwarves else "false",
+                    "false",
+                ]
+            )
         travel[-1][-1] = "true"
     return (travel, tkey)
+
 
 def get_travel(travel):
     template = """    {{ // from {}: {}
@@ -525,11 +581,12 @@ def get_travel(travel):
     out = ""
     for entry in travel:
         out += template.format(*entry)
-    out = out[:-1] # trim trailing newline
+    out = out[:-1]  # trim trailing newline
     return out
 
+
 if __name__ == "__main__":
-    with open(YAML_NAME, "r", encoding='ascii', errors='surrogateescape') as f:
+    with open(YAML_NAME, "r", encoding="ascii", errors="surrogateescape") as f:
         db = yaml.safe_load(f)
 
     locnames = [x[0] for x in db["locations"]]
@@ -537,35 +594,38 @@ if __name__ == "__main__":
     objnames = [el[0] for el in db["objects"]]
     motionnames = [el[0] for el in db["motions"]]
 
-    (travel, tkey) = buildtravel(db["locations"],
-                                 db["objects"])
+    (travel, tkey) = buildtravel(db["locations"], db["objects"])
     ignore = ""
     try:
-        with open(H_TEMPLATE_PATH, "r", encoding='ascii', errors='surrogateescape') as htf:
+        with open(
+            H_TEMPLATE_PATH, "r", encoding="ascii", errors="surrogateescape"
+        ) as htf:
             # read in dungeon.h template
             h_template = DONOTEDIT_COMMENT + htf.read()
-        with open(C_TEMPLATE_PATH, "r", encoding='ascii', errors='surrogateescape') as ctf:
+        with open(
+            C_TEMPLATE_PATH, "r", encoding="ascii", errors="surrogateescape"
+        ) as ctf:
             # read in dungeon.c template
             c_template = DONOTEDIT_COMMENT + ctf.read()
     except IOError as e:
-        print('ERROR: reading template failed ({})'.format(e.strerror))
+        print("ERROR: reading template failed ({})".format(e.strerror))
         sys.exit(-1)
 
     c = c_template.format(
-        h_file             = H_NAME,
-        arbitrary_messages = get_arbitrary_messages(db["arbitrary_messages"]),
-        classes            = get_class_messages(db["classes"]),
-        turn_thresholds    = get_turn_thresholds(db["turn_thresholds"]),
-        locations          = get_locations(db["locations"]),
-        objects            = get_objects(db["objects"]),
-        obituaries         = get_obituaries(db["obituaries"]),
-        hints              = get_hints(db["hints"]),
-        conditions         = get_condbits(db["locations"]),
-        motions            = get_motions(db["motions"]),
-        actions            = get_actions(db["actions"]),
-        tkeys              = bigdump(tkey),
-        travel             = get_travel(travel),
-        ignore             = ignore
+        h_file=H_NAME,
+        arbitrary_messages=get_arbitrary_messages(db["arbitrary_messages"]),
+        classes=get_class_messages(db["classes"]),
+        turn_thresholds=get_turn_thresholds(db["turn_thresholds"]),
+        locations=get_locations(db["locations"]),
+        objects=get_objects(db["objects"]),
+        obituaries=get_obituaries(db["obituaries"]),
+        hints=get_hints(db["hints"]),
+        conditions=get_condbits(db["locations"]),
+        motions=get_motions(db["motions"]),
+        actions=get_actions(db["actions"]),
+        tkeys=bigdump(tkey),
+        travel=get_travel(travel),
+        ignore=ignore,
     )
 
     # 0-origin index of birds's last song.  Bird should
@@ -573,29 +633,29 @@ if __name__ == "__main__":
     deathbird = len(dict(db["objects"])["BIRD"]["sounds"]) - 1
 
     h = h_template.format(
-        num_locations      = len(db["locations"])-1,
-        num_objects        = len(db["objects"])-1,
-        num_hints          = len(db["hints"]),
-        num_classes        = len(db["classes"])-1,
-        num_deaths         = len(db["obituaries"]),
-        num_thresholds     = len(db["turn_thresholds"]),
-        num_motions        = len(db["motions"]),
-        num_actions        = len(db["actions"]),
-        num_travel         = len(travel),
-        num_keys           = len(tkey),
-        bird_endstate      = deathbird,
-        arbitrary_messages = get_refs(db["arbitrary_messages"]),
-        locations          = get_refs(db["locations"]),
-        objects            = get_refs(db["objects"]),
-        motions            = get_refs(db["motions"]),
-        actions            = get_refs(db["actions"]),
-        state_definitions  = statedefines
+        num_locations=len(db["locations"]) - 1,
+        num_objects=len(db["objects"]) - 1,
+        num_hints=len(db["hints"]),
+        num_classes=len(db["classes"]) - 1,
+        num_deaths=len(db["obituaries"]),
+        num_thresholds=len(db["turn_thresholds"]),
+        num_motions=len(db["motions"]),
+        num_actions=len(db["actions"]),
+        num_travel=len(travel),
+        num_keys=len(tkey),
+        bird_endstate=deathbird,
+        arbitrary_messages=get_refs(db["arbitrary_messages"]),
+        locations=get_refs(db["locations"]),
+        objects=get_refs(db["objects"]),
+        motions=get_refs(db["motions"]),
+        actions=get_refs(db["actions"]),
+        state_definitions=statedefines,
     )
 
-    with open(H_NAME, "w", encoding='ascii', errors='surrogateescape') as hf:
+    with open(H_NAME, "w", encoding="ascii", errors="surrogateescape") as hf:
         hf.write(h)
 
-    with open(C_NAME, "w", encoding='ascii', errors='surrogateescape') as cf:
+    with open(C_NAME, "w", encoding="ascii", errors="surrogateescape") as cf:
         cf.write(c)
 
 # end

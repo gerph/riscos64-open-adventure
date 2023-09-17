@@ -18,28 +18,41 @@ Make a DOT graph of Colossal Cave.
 
 import sys, getopt, yaml
 
+
 def allalike(loc):
     "Select out loci related to the Maze All Alike"
     return location_lookup[loc]["conditions"].get("ALLALIKE")
+
 
 def alldifferent(loc):
     "Select out loci related to the Maze All Alike"
     return location_lookup[loc]["conditions"].get("ALLDIFFERENT")
 
+
 def surface(loc):
     "Select out surface locations"
     return location_lookup[loc]["conditions"].get("ABOVE")
 
+
 def forest(loc):
     return location_lookup[loc]["conditions"].get("FOREST")
 
+
 def abbreviate(d):
-    m = {"NORTH":"N", "EAST":"E", "SOUTH":"S", "WEST":"W", "UPWAR":"U", "DOWN":"D"}
+    m = {
+        "NORTH": "N",
+        "EAST": "E",
+        "SOUTH": "S",
+        "WEST": "W",
+        "UPWAR": "U",
+        "DOWN": "D",
+    }
     return m.get(d, d)
+
 
 def roomlabel(loc):
     "Generate a room label from the description, if possible"
-    loc_descriptions = location_lookup[loc]['description']
+    loc_descriptions = location_lookup[loc]["description"]
     description = ""
     if debug:
         description = loc[4:]
@@ -51,8 +64,12 @@ def roomlabel(loc):
         if short.startswith("You're "):
             short = short[7:]
         if short.startswith("You are "):
-            short = short[8 :]
-        if short.startswith("in ") or short.startswith("at ") or short.startswith("on "):
+            short = short[8:]
+        if (
+            short.startswith("in ")
+            or short.startswith("at ")
+            or short.startswith("on ")
+        ):
             short = short[3:]
         if short.startswith("the "):
             short = short[4:]
@@ -68,6 +85,7 @@ def roomlabel(loc):
         if loc in startlocs:
             description += "\\n(" + ",".join(startlocs[loc]).lower() + ")"
     return description
+
 
 # A forwarder is a location that you can't actually stop in - when you go there
 # it ships some message (which is the point) then shifts you to a next location.
@@ -85,16 +103,19 @@ def roomlabel(loc):
 #      {verbs: [], action: [goto, LOC_NOWHERE]},
 #    ]
 
+
 def is_forwarder(loc):
     "Is a location a forwarder?"
-    travel = location_lookup[loc]['travel']
-    return len(travel) == 1 and len(travel[0]['verbs']) == 0
+    travel = location_lookup[loc]["travel"]
+    return len(travel) == 1 and len(travel[0]["verbs"]) == 0
+
 
 def forward(loc):
     "Chase a location through forwarding links."
     while is_forwarder(loc):
         loc = location_lookup[loc]["travel"][0]["action"][1]
     return loc
+
 
 def reveal(objname):
     "Should this object be revealed when mapping?"
@@ -105,8 +126,9 @@ def reveal(objname):
     obj = object_lookup[objname]
     return not obj.get("immovable")
 
+
 if __name__ == "__main__":
-    with open("adventure.yaml", "r", encoding='ascii', errors='surrogateescape') as f:
+    with open("adventure.yaml", "r", encoding="ascii", errors="surrogateescape") as f:
         db = yaml.safe_load(f)
 
     location_lookup = dict(db["locations"])
@@ -121,17 +143,17 @@ if __name__ == "__main__":
     subset = allalike
     debug = False
     for (switch, val) in options:
-        if switch == '-a':
+        if switch == "-a":
             subset = lambda loc: True
-        elif switch == '-d':
+        elif switch == "-d":
             subset = alldifferent
-        elif switch == '-f':
+        elif switch == "-f":
             subset = forest
-        elif switch == '-m':
+        elif switch == "-m":
             subset = allalike
-        elif switch == '-s':
+        elif switch == "-s":
             subset = surface
-        elif switch == '-v':
+        elif switch == "-v":
             debug = True
         else:
             sys.stderr.write(__doc__)
@@ -170,7 +192,7 @@ if __name__ == "__main__":
     neighbors = set()
     for loc in nodes:
         for (f, t) in links:
-            if f == 'LOC_NOWHERE' or t == 'LOC_NOWHERE':
+            if f == "LOC_NOWHERE" or t == "LOC_NOWHERE":
                 continue
             if (f == loc and subset(t)) or (t == loc and subset(f)):
                 if loc not in neighbors:
@@ -189,7 +211,7 @@ if __name__ == "__main__":
     # Draw arcs
     for (f, t) in links:
         arc = "%s -> %s" % (f[4:], t[4:])
-        label=",".join(links[(f, t)]).lower()
+        label = ",".join(links[(f, t)]).lower()
         if len(label) > 0:
             arc += ' [label="%s"]' % label
         print("    " + arc)
