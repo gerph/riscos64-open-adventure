@@ -137,7 +137,7 @@ int restore(FILE* fp)
      *  sane initial state.
      *  If ADVENT_NOSAVE is defined, gripe instead. */
 #ifdef ADVENT_NOSAVE
-    rspeak(SAVERESUME_DISABLED)
+    rspeak(SAVERESUME_DISABLED);
     return GO_TOP;
 #endif
 
