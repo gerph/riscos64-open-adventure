@@ -1,5 +1,5 @@
 #! /bin/sh
-# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: MIT-0
 #
 # tapdiffer - Render diff between input and checkfile as a TAP report

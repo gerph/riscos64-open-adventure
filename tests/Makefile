@@ -1,6 +1,6 @@
 # Test-suite makefile for open-adventure
 
-# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 
 # Use absolute path so tests that change working directory still use

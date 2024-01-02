@@ -1,5 +1,5 @@
 = Open Adventure project news =
-// SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+// SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
 1.16: 2023-04-15::

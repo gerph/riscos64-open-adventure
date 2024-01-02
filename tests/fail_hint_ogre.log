@@ -1,5 +1,5 @@
 ## Qualify for ogre hint but fail due to dwarves dead (fuzzed)
-# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE Fails due uninteresting difference in whitespace process. 
 n

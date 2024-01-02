@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 """
 This is the open-adventure dungeon text coverage report generator. It

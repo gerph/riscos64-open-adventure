@@ -1,5 +1,5 @@
 ## Resume from filename withoy the right magic at the front 
-# SPDX-FileCopyrightText: Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 #NOCOMPARE advent430 doesn't have this test
 n
