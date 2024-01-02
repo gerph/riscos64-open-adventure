@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <time.h>
+#include <assert.h>
 
 #include "advent.h"
 
@@ -21,17 +22,10 @@ struct settings_t settings = {
 };
 
 struct game_t game = {
-    .dwarves[1].loc = LOC_KINGHALL,
-    .dwarves[2].loc = LOC_WESTBANK,
-    .dwarves[3].loc = LOC_Y2,
-    .dwarves[4].loc = LOC_ALIKE3,
-    .dwarves[5].loc = LOC_COMPLEX,
-
-    /*  Sixth dwarf is special (the pirate).  He always starts at his
+    /*  Last dwarf is special (the pirate).  He always starts at his
      *  chest's eventual location inside the maze. This loc is saved
      *  in chloc for ref. The dead end in the other maze has its
      *  loc stored in chloc2. */
-    .dwarves[6].loc = LOC_MAZEEND12,
     .chloc   = LOC_MAZEEND12,
     .chloc2  = LOC_DEADEND13,
     .abbnum  = 5,
@@ -51,6 +45,11 @@ int initialise(void)
     srand(time(NULL));
     int seedval = (int)rand();
     set_seed(seedval);
+
+    assert(NDWARVES == NDWARFLOCS);
+    for (int i = 1; i <= NDWARFLOCS; i++) {
+        game.dwarves[i].loc = dwarflocs[i-1];
+    }
 
     for (int i = 1; i <= NOBJECTS; i++) {
         game.objects[i].place = LOC_NOWHERE;

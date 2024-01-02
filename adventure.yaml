@@ -2835,6 +2835,18 @@ locations: !!omap
       {verbs: [], action: [goto, LOC_Y2]},
     ]
 
+# Starting locations of dwarves.
+# Sixth dwarf is special (the pirate).  He always starts at his
+# chest's eventual location inside the maze.
+dwarflocs: [
+    LOC_KINGHALL,
+    LOC_WESTBANK,
+    LOC_Y2,
+    LOC_ALIKE3,
+    LOC_COMPLEX,
+    LOC_MAZEEND12,
+]
+
 arbitrary_messages:  !!omap
 - NO_MESSAGE: !!null
 - CAVE_NEARBY: |-

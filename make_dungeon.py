@@ -626,6 +626,7 @@ if __name__ == "__main__":
         tkeys=bigdump(tkey),
         travel=get_travel(travel),
         ignore=ignore,
+        dwarflocs=", ".join(db["dwarflocs"]) + ",",
     )
 
     # 0-origin index of birds's last song.  Bird should
@@ -650,6 +651,7 @@ if __name__ == "__main__":
         motions=get_refs(db["motions"]),
         actions=get_refs(db["actions"]),
         state_definitions=statedefines,
+        ndwarflocs=str(len(db["dwarflocs"])),
     )
 
     with open(H_NAME, "w", encoding="ascii", errors="surrogateescape") as hf:

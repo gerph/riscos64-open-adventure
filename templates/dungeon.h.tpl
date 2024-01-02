@@ -35,6 +35,10 @@ SPDX-License-Identifier: BSD-2-Clause
 #define COND_HOGRE	20	/* Trying to deal with ogre */
 #define COND_HJADE	21	/* Found all treasures except jade */
 
+/* Count of dwarf starting locations */
+#define NDWARFLOCS {ndwarflocs}
+extern const int dwarflocs[NDWARFLOCS];
+
 typedef struct {{
   const char** strs;
   const int n;
