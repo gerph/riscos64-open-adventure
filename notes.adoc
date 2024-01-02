@@ -45,6 +45,11 @@ form that is (a) readable, and (b) friendly to forward translation to
 future languages.  It has already survived a move from FORTRAN to C; a
 future as a Python or Go translation seems possible, even probable.
 
+Compatibility with the 2.5 source we found has been checked by
+building a version patched minimally to support the seed command and
+running it against the entire test suite, which has 100% code
+coverage.
+
 == Functional changes ==
 
 Bug fixes:
@@ -213,7 +218,7 @@ messages with the objects that conceptually own them.
 We consider this project finished. All issues and TODOs have been
 cleared, behavior has been carefully checked against original ADVENT,
 no future demand for new features is expected, and the test suite has
-100% code coverage.  If new bugs appear the toolchain bit-rots out
+100% code coverage.  If new bugs appear as the toolchain bit-rots out
 from under underneath, we will fix those problems.
 
 // end
