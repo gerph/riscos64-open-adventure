@@ -433,7 +433,7 @@ static void get_vocab_metadata(const char* word, vocab_t* id, word_type_t* type)
 
     ref_num = get_motion_vocab_id(word);
     // Second conjunct is because the magic-word placeholder is a bit special
-    if (ref_num != WORD_NOT_FOUND || ref_num == PART) {
+    if (ref_num != WORD_NOT_FOUND) {
         *id = ref_num;
         *type = MOTION;
         return;
@@ -447,7 +447,7 @@ static void get_vocab_metadata(const char* word, vocab_t* id, word_type_t* type)
     }
 
     ref_num = get_action_vocab_id(word);
-    if (ref_num != WORD_NOT_FOUND) {
+    if (ref_num != WORD_NOT_FOUND && ref_num != PART) {
         *id = ref_num;
         *type = ACTION;
         return;

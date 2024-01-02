@@ -153,7 +153,7 @@ foobar:
 #
 # When adding more tests, bear in mind that any game that continues after a
 # resurrection will need a NOCOMPARE. At some point in the forward port,
-# resurrection was accidentally changed in a way that messed wil the LCG chain.
+# resurrection was accidentally changed in a way that messed with the LCG chain.
 #
 # The *.chk files need not be up-to-date for this to work.
 #
