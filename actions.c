@@ -9,9 +9,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "advent.h"
-#include "dungeon.h"
 #include <inttypes.h>
+
+#include "advent.h"
 
 static phase_codes_t fill(verb_t, obj_t);
 

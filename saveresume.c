@@ -16,7 +16,6 @@
 #include <inttypes.h>
 
 #include "advent.h"
-#include "dungeon.h"
 
 /*
  * Use this to detect endianness mismatch.  Can't be unchanged by byte-swapping.

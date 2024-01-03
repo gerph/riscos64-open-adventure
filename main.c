@@ -14,7 +14,6 @@
 #include <unistd.h>
 #include <editline/readline.h>
 #include "advent.h"
-#include "dungeon.h"
 
 #define DIM(a) (sizeof(a)/sizeof(a[0]))
 
