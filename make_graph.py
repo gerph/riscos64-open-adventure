@@ -144,6 +144,7 @@ if __name__ == "__main__":
     debug = False
     for (switch, val) in options:
         if switch == "-a":
+            # pylint: disable=unnecessary-lambda-assignment
             subset = lambda loc: True
         elif switch == "-d":
             subset = alldifferent
