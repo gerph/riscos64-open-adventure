@@ -54,6 +54,6 @@ const travelop_t travel[] = {{
 const char *ignore = "{ignore}";
 
 /* Dwarf starting locations */
-const int dwarflocs[NDWARFLOCS] = {{{dwarflocs}}};
+const int dwarflocs[NDWARVES] = {{{dwarflocs}}};
 
 /* end */

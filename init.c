@@ -46,8 +46,7 @@ int initialise(void)
     int seedval = (int)rand();
     set_seed(seedval);
 
-    assert(NDWARVES == NDWARFLOCS);
-    for (int i = 1; i <= NDWARFLOCS; i++) {
+    for (int i = 1; i <= NDWARVES; i++) {
         game.dwarves[i].loc = dwarflocs[i-1];
     }
 

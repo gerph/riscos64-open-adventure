@@ -21,7 +21,6 @@
 
 #define LINESIZE       1024
 #define TOKLEN         5          // # outputting characters in a token */
-#define NDWARVES       6          // number of dwarves
 #define PIRATE         NDWARVES   // must be NDWARVES-1 when zero-origin
 #define DALTLC         LOC_NUGGET // alternate dwarf location
 #define INVLIMIT       7          // inventory limit (# of objects)
