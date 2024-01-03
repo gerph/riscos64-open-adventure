@@ -1,8 +1,7 @@
 /*
  * Dungeon types and macros.
  *
- * SPDX-FileCopyrightText: 1977, 2005 by Will Crowther and Don Woods
- * SPDX-FileCopyrightText: 2017 by Eric S. Raymond
+ * SPDX-FileCopyrightText: Copyright, 1977, 2005 by Will Crowther and Don Woods, Copyright 2017 by Eric S. Raymond
  * SPDX-License-Identifier: BSD-2-Clause
  */
 #include <stdio.h>
