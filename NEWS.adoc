@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
-Repository head::
+1.17: 2024-01-02::
   Saying Z'ZZZ at reservoir no longer causes the waters to part and crash.
 
 1.16: 2023-04-15::
