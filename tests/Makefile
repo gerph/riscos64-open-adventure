@@ -124,10 +124,6 @@ tap: count $(SGAMES) $(TEST_TARGETS)
 count:
 	@echo 1..$(words $(TEST_TARGETS))
 
-foobar:
-	exit 1
-
-
 # The following machinery tests the game against a binary made from
 # the advent430 branch To use it, switch to that branch, build the
 # binary, run it once to generate adventure.data, then switch back to
