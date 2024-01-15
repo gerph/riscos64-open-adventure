@@ -139,7 +139,7 @@ whitespace before processing.
 A -r command-line option has been added. When it is given (with a file
 path argument) it is functionally equivalent to a RESTORE command.
 
-An -a command-line option has been added (comditionally on
+An -a command-line option has been added (conditionally on
 ADVENT_AUTOSAVE) for use in BBS door systems.  When this option is
 given, the game roads from the specified filename argument on startup
 and saves to it on quit or a received signal. There is a new nmessage
