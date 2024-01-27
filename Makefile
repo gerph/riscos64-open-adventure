@@ -68,6 +68,9 @@ cheat: $(CHEAT_OBJS) dungeon.o
 check: advent cheat
 	cd tests; $(MAKE) --quiet
 
+reflow:
+	@clang-format --style="{IndentWidth: 8, UseTab: ForIndentation}" -i $$(find . -name "*.[ch]")
+
 # Requires gcov, lcov, libasan6, and libubsan1
 # The last two are Ubuntu names, might vary on other distributions.
 # After this, run your browser on coverage/open-adventure/index.html
