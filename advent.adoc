@@ -1,6 +1,6 @@
 = advent(6) =
 :doctype: manpage
-// SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
+// SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
 == NAME ==

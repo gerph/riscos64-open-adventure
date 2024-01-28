@@ -1,7 +1,7 @@
 /*
  * Initialisation
  *
- * SPDX-FileCopyrightText: Copright 1977, 2005 by Will Crowther and Don Woodsm, Copyright 2017 by Eric S. Raymond
+ * SPDX-FileCopyrightText: (C) 1977, 2005 by Will Crowther and Don Woodsm
  * SPDX-License-Identifier: BSD-2-Clause
  */
 

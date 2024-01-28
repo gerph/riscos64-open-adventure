@@ -1,6 +1,6 @@
 # This image is built by the Gitlab CI pipeline to be used in subsequent
 # pipeline steps.
-# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 
 FROM ubuntu

@@ -4,7 +4,7 @@
  * (ESR) This replaces  a bunch of particularly nasty FORTRAN-derived code;
  * see the history.adoc file in the source distribution for discussion.
  *
- * SPDX-FileCopyrightText: Copyright 1977, 2005 by Will Crowther and Don Woods, Copyright 2017 by Eric S. Raymond
+ * SPDX-FileCopyrightText: (C) 1977, 2005 by Will Crowther and Don Woods
  * SPDX-License-Identifier: BSD-2-Clause
  */
 

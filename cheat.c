@@ -4,7 +4,7 @@
  * savefile(), so we know we're always outputting save files that advent
  * can import.
  *
- * SPDX-FileCopyrightText: Copyright 1977, 2005 by Will Crowther and Don Woods, Copyrighy
+ * SPDX-FileCopyrightText: (C) 1977, 2005 by Will Crowther and Don Woods
  * SPDX-License-Identifier: BSD-2-Clause
  */
 #include <getopt.h>

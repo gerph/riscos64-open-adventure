@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-FileCopyrightText: Copyright Eric S. Raymond <esr@thyrsus.com>
+# SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 # SPDX-License-Identifier: BSD-2-Clause
 """
 This is the open-adventure dungeon generator. It consumes a YAML description of
