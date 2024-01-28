@@ -14,12 +14,11 @@
 
 static phase_codes_t fill(verb_t, obj_t);
 
-static phase_codes_t attack(command_t command)
+static phase_codes_t attack(command_t command) {
 /*  Attack.  Assume target if unambiguous.  "Throw" also links here.
  *  Attackable objects fall into two categories: enemies (snake,
  *  dwarf, etc.)  and others (bird, clam, machine).  Ambiguous if 2
  *  enemies, or no enemies but 2 others. */
-{
     verb_t verb = command.verb;
     obj_t obj = command.obj;
 
@@ -137,9 +136,9 @@ static phase_codes_t attack(command_t command)
 
     if (obj == OGRE) {
         rspeak(OGRE_DODGE);
-        if (atdwrf(game.loc) == 0)
+        if (atdwrf(game.loc) == 0) {
             return GO_CLEAROBJ;
-
+	}
         rspeak(KNIFE_THROWN);
         DESTROY(OGRE);
         int dwarves = 0;
@@ -185,12 +184,11 @@ static phase_codes_t attack(command_t command)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t bigwords(vocab_t id)
+static phase_codes_t bigwords(vocab_t id) {
 /* Only called on FEE FIE FOE FOO (AND FUM).  Advance to next state if given
  * in proper order. Look up foo in special section of vocab to determine which
  * word we've got. Last word zips the eggs back to the giant room (unless
  * already there). */
-{
     int foobar = abs(game.foobar);
 
     /* Only FEE can start a magic-word sequence. */
@@ -219,30 +217,31 @@ static phase_codes_t bigwords(vocab_t id)
             if (game.objects[EGGS].place == LOC_NOWHERE && game.objects[TROLL].place == LOC_NOWHERE
 		&& game.objects[TROLL].prop == TROLL_UNPAID)
                 game.objects[TROLL].prop = TROLL_PAIDONCE;
-            if (HERE(EGGS))
+            if (HERE(EGGS)) {
                 pspeak(EGGS, look, true, EGGS_VANISHED);
-            else if (game.loc == objects[EGGS].plac)
+            } else if (game.loc == objects[EGGS].plac) {
                 pspeak(EGGS, look, true, EGGS_HERE);
-            else
+            } else {
                 pspeak(EGGS, look, true, EGGS_DONE);
+	    }
             move(EGGS, objects[EGGS].plac);
 
             return GO_CLEAROBJ;
         }
     } else {
 	/* Magic-word sequence was started but is incorrect */
-	if (settings.oldstyle || game.seenbigwords)
-	    rspeak(START_OVER);
-	else
+	if (settings.oldstyle || game.seenbigwords) {
+	      rspeak(START_OVER);
+	} else {
 	    rspeak(WELL_POINTLESS);
+	}
         game.foobar = WORD_EMPTY;
         return GO_CLEAROBJ;
     }
 }
 
-static void blast(void)
+static void blast(void) {
 /*  Blast.  No effect unless you've got dynamite, which is a neat trick! */
-{
     if (PROP_IS_NOTFOUND(ROD2) || !game.closed)
         rspeak(REQUIRES_DYNAMITE);
     else {
@@ -260,9 +259,8 @@ static void blast(void)
     }
 }
 
-static phase_codes_t vbreak(verb_t verb, obj_t obj)
+static phase_codes_t vbreak(verb_t verb, obj_t obj) {
 /*  Break.  Only works for mirror in repository and, of course, the vase. */
-{
     switch (obj) {
     case MIRROR:
         if (game.closed) {
@@ -287,26 +285,25 @@ static phase_codes_t vbreak(verb_t verb, obj_t obj)
     return (GO_CLEAROBJ);
 }
 
-static phase_codes_t brief(void)
+static phase_codes_t brief(void) {
 /*  Brief.  Intransitive only.  Suppress full descriptions after first time. */
-{
     game.abbnum = 10000;
     game.detail = 3;
     rspeak(BRIEF_CONFIRM);
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t vcarry(verb_t verb, obj_t obj)
+static phase_codes_t vcarry(verb_t verb, obj_t obj) {
 /*  Carry an object.  Special cases for bird and cage (if bird in cage, can't
  *  take one without the other).  Liquids also special, since they depend on
  *  status of bottle.  Also various side effects, etc. */
-{
     if (obj == INTRANSITIVE) {
         /*  Carry, no object given yet.  OK if only one object present. */
         if (game.locs[game.loc].atloc == NO_OBJECT ||
             game.link[game.locs[game.loc].atloc] != 0 ||
-            atdwrf(game.loc) > 0)
+            atdwrf(game.loc) > 0) {
             return GO_UNKNOWN;
+	}
         obj = game.locs[game.loc].atloc;
     }
 
@@ -362,8 +359,9 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj)
             }
             if (game.objects[BOTTLE].prop == EMPTY_BOTTLE) {
                 return (fill(verb, BOTTLE));
-            } else
+            } else {
                 rspeak(BOTTLE_FULL);
+	    }
             return GO_CLEAROBJ;
         }
         obj = BOTTLE;
@@ -399,8 +397,9 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj)
 
     carry(obj, game.loc);
 
-    if (obj == BOTTLE && LIQUID() != NO_OBJECT)
+    if (obj == BOTTLE && LIQUID() != NO_OBJECT) {
         game.objects[LIQUID()].place = CARRIED;
+    }
 
     if (GSTONE(obj) && !PROP_IS_FOUND(obj)) {
         PROP_SET_FOUND(obj);
@@ -410,9 +409,8 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static int chain(verb_t verb)
+static int chain(verb_t verb) {
 /* Do something to the bear's chain */
-{
     if (verb != LOCK) {
         if (game.objects[BEAR].prop == UNTAMED_BEAR) {
             rspeak(BEAR_BLOCKS);
@@ -462,11 +460,10 @@ static int chain(verb_t verb)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t discard(verb_t verb, obj_t obj)
+static phase_codes_t discard(verb_t verb, obj_t obj) {
 /*  Discard object.  "Throw" also comes here for most objects.  Special cases for
  *  bird (might attack snake or dragon) and cage (might contain bird) and vase.
  *  Drop coins at vending machine for extra batteries. */
-{
     if (obj == ROD && !TOTING(ROD) && TOTING(ROD2)) {
         obj = ROD2;
     }
@@ -482,17 +479,19 @@ static phase_codes_t discard(verb_t verb, obj_t obj)
         game.objects[CAVITY].prop = CAVITY_FULL;
         if (HERE(RUG) && ((obj == EMERALD && game.objects[RUG].prop != RUG_HOVER) ||
                           (obj == RUBY && game.objects[RUG].prop == RUG_HOVER))) {
-            if (obj == RUBY)
-                rspeak(RUG_SETTLES);
-            else if (TOTING(RUG))
-                rspeak(RUG_WIGGLES);
-            else
-                rspeak(RUG_RISES);
+	    if (obj == RUBY) {
+		  rspeak(RUG_SETTLES);
+	    } else if (TOTING(RUG)) {
+		  rspeak(RUG_WIGGLES);
+	    } else {
+		  rspeak(RUG_RISES);
+	    }
             if (!TOTING(RUG) || obj == RUBY) {
                 int k = (game.objects[RUG].prop == RUG_HOVER) ? RUG_FLOOR : RUG_HOVER;
                 game.objects[RUG].prop = k;
-                if (k == RUG_HOVER)
+                if (k == RUG_HOVER) {
                     k = objects[SAPPH].plac;
+		}
                 move(RUG + NOBJECTS, k);
             }
         }
@@ -507,8 +506,9 @@ static phase_codes_t discard(verb_t verb, obj_t obj)
         return GO_CLEAROBJ;
     }
 
-    if (LIQUID() == obj)
+    if (LIQUID() == obj) {
         obj = BOTTLE;
+    }
     if (obj == BOTTLE && LIQUID() != NO_OBJECT) {
         game.objects[LIQUID()].place = LOC_NOWHERE;
     }
@@ -529,8 +529,9 @@ static phase_codes_t discard(verb_t verb, obj_t obj)
             state_change(VASE, AT(PILLOW)
                          ? VASE_WHOLE
                          : VASE_DROPPED);
-            if (game.objects[VASE].prop != VASE_WHOLE)
+            if (game.objects[VASE].prop != VASE_WHOLE) {
                 game.objects[VASE].fixed = IS_FIXED;
+	    }
             drop(obj, game.loc);
             return GO_CLEAROBJ;
         }
@@ -548,13 +549,15 @@ static phase_codes_t discard(verb_t verb, obj_t obj)
         }
         if (HERE(SNAKE)) {
             rspeak(BIRD_ATTACKS);
-            if (game.closed)
+            if (game.closed) {
                 return GO_DWARFWAKE;
+	    }
             DESTROY(SNAKE);
             /* Set game.prop for use by travel options */
             game.objects[SNAKE].prop = SNAKE_CHASED;
-        } else
+        } else {
             rspeak(OK_MAN);
+	}
 
         game.objects[BIRD].prop = FOREST(game.loc) ? BIRD_FOREST_UNCAGED : BIRD_UNCAGED;
         drop(obj, game.loc);
@@ -566,10 +569,9 @@ static phase_codes_t discard(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t drink(verb_t verb, obj_t obj)
+static phase_codes_t drink(verb_t verb, obj_t obj) {
 /*  Drink.  If no object, assume water and look for it here.  If water is in
  *  the bottle, drink that, else must be at a water loc, so drink stream. */
-{
     if (obj == INTRANSITIVE && LIQLOC(game.loc) != WATER &&
         (LIQUID() != WATER || !HERE(BOTTLE))) {
         return GO_UNKNOWN;
@@ -596,10 +598,9 @@ static phase_codes_t drink(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t eat(verb_t verb, obj_t obj)
+static phase_codes_t eat(verb_t verb, obj_t obj) {
 /*  Eat.  Intransitive: assume food if present, else ask what.  Transitive: food
  *  ok, some things lose appetite, rest are ridiculous. */
-{
     switch (obj) {
     case INTRANSITIVE:
         if (!HERE(FOOD))
@@ -626,16 +627,18 @@ static phase_codes_t eat(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t extinguish(verb_t verb, obj_t obj)
+static phase_codes_t extinguish(verb_t verb, obj_t obj) {
 /* Extinguish.  Lamp, urn, dragon/volcano (nice try). */
-{
     if (obj == INTRANSITIVE) {
-        if (HERE(LAMP) && game.objects[LAMP].prop == LAMP_BRIGHT)
-            obj = LAMP;
-        if (HERE(URN) && game.objects[URN].prop == URN_LIT)
-            obj = URN;
-        if (obj == INTRANSITIVE)
-            return GO_UNKNOWN;
+	if (HERE(LAMP) && game.objects[LAMP].prop == LAMP_BRIGHT) {
+	      obj = LAMP;
+	}
+	if (HERE(URN) && game.objects[URN].prop == URN_LIT) {
+	      obj = URN;
+	}
+	if (obj == INTRANSITIVE) {
+	      return GO_UNKNOWN;
+	}
     }
 
     switch (obj) {
@@ -662,26 +665,27 @@ static phase_codes_t extinguish(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t feed(verb_t verb, obj_t obj)
+static phase_codes_t feed(verb_t verb, obj_t obj) {
 /*  Feed.  If bird, no seed.  Snake, dragon, troll: quip.  If dwarf, make him
  *  mad.  Bear, special. */
-{
     switch (obj) {
     case BIRD:
         rspeak(BIRD_PINING);
         break;
     case DRAGON:
-        if (game.objects[DRAGON].prop != DRAGON_BARS)
-            rspeak(RIDICULOUS_ATTEMPT);
-        else
-            rspeak(NOTHING_EDIBLE);
+	if (game.objects[DRAGON].prop != DRAGON_BARS) {
+	      rspeak(RIDICULOUS_ATTEMPT);
+	} else {
+	      rspeak(NOTHING_EDIBLE);
+	}
         break;
     case SNAKE:
         if (!game.closed && HERE(BIRD)) {
             DESTROY(BIRD);
             rspeak(BIRD_DEVOURED);
-        } else
+        } else {
             rspeak(NOTHING_EDIBLE);
+	}
         break;
     case TROLL:
         rspeak(TROLL_VICES);
@@ -690,8 +694,9 @@ static phase_codes_t feed(verb_t verb, obj_t obj)
         if (HERE(FOOD)) {
             game.dflag += 2;
             rspeak(REALLY_MAD);
-        } else
+        } else {
             speak(actions[verb].message);
+	}
         break;
     case BEAR:
         if (game.objects[BEAR].prop == BEAR_DEAD) {
@@ -704,17 +709,19 @@ static phase_codes_t feed(verb_t verb, obj_t obj)
                 game.objects[AXE].fixed = IS_FREE;
                 game.objects[AXE].prop = AXE_HERE;
                 state_change(BEAR, SITTING_BEAR);
-            } else
+            } else {
                 rspeak(NOTHING_EDIBLE);
+	    }
             break;
         }
         speak(actions[verb].message);
         break;
     case OGRE:
-        if (HERE(FOOD))
-            rspeak(OGRE_FULL);
-        else
-            speak(actions[verb].message);
+	if (HERE(FOOD)) {
+	      rspeak(OGRE_FULL);
+	} else {
+	      speak(actions[verb].message);
+	}
         break;
     default:
         rspeak(AM_GAME);
@@ -722,10 +729,9 @@ static phase_codes_t feed(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-phase_codes_t fill(verb_t verb, obj_t obj)
+phase_codes_t fill(verb_t verb, obj_t obj) {
 /*  Fill.  Bottle or urn must be empty, and liquid available.  (Vase
  *  is nasty.) */
-{
     if (obj == VASE) {
         if (LIQLOC(game.loc) == NO_OBJECT) {
             rspeak(FILL_INVALID);
@@ -793,14 +799,14 @@ phase_codes_t fill(verb_t verb, obj_t obj)
     state_change(BOTTLE, (LIQLOC(game.loc) == OIL)
                  ? OIL_BOTTLE
                  : WATER_BOTTLE);
-    if (TOTING(BOTTLE))
+    if (TOTING(BOTTLE)) {
         game.objects[LIQUID()].place = CARRIED;
+    }
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t find(verb_t verb, obj_t obj)
+static phase_codes_t find(verb_t verb, obj_t obj) {
 /* Find.  Might be carrying it, or it might be here.  Else give caveat. */
-{
     if (TOTING(obj)) {
         rspeak(ALREADY_CARRYING);
         return GO_CLEAROBJ;
@@ -822,9 +828,8 @@ static phase_codes_t find(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t fly(verb_t verb, obj_t obj)
+static phase_codes_t fly(verb_t verb, obj_t obj) {
 /* Fly.  Snide remarks unless hovering rug is here. */
-{
     if (obj == INTRANSITIVE) {
         if (!HERE(RUG)) {
             rspeak(FLAP_ARMS);
@@ -865,9 +870,8 @@ static phase_codes_t fly(verb_t verb, obj_t obj)
     return GO_TERMINATE;
 }
 
-static phase_codes_t inven(void)
+static phase_codes_t inven(void) {
 /* Inventory. If object, treat same as find.  Else report on current burden. */
-{
     bool empty = true;
     for (obj_t i = 1; i <= NOBJECTS; i++) {
         if (i == BEAR || !TOTING(i))
@@ -885,9 +889,8 @@ static phase_codes_t inven(void)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t light(verb_t verb, obj_t obj)
+static phase_codes_t light(verb_t verb, obj_t obj) {
 /*  Light.  Applicable only to lamp and urn. */
-{
     if (obj == INTRANSITIVE) {
         int selects = 0;
         if (HERE(LAMP) && game.objects[LAMP].prop == LAMP_DARK && game.limit >= 0) {
@@ -914,8 +917,9 @@ static phase_codes_t light(verb_t verb, obj_t obj)
             break;
         }
         state_change(LAMP, LAMP_BRIGHT);
-        if (game.wzdark)
+        if (game.wzdark) {
             return GO_TOP;
+	}
         break;
     default:
         speak(actions[verb].message);
@@ -923,53 +927,61 @@ static phase_codes_t light(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t listen(void)
+static phase_codes_t listen(void) {
 /*  Listen.  Intransitive only.  Print stuff based on object sound properties. */
-{
     bool soundlatch = false;
     vocab_t sound = locations[game.loc].sound;
     if (sound != SILENT) {
         rspeak(sound);
-        if (!locations[game.loc].loud)
+        if (!locations[game.loc].loud) {
             rspeak(NO_MESSAGE);
+	}
         soundlatch = true;
     }
     for (obj_t i = 1; i <= NOBJECTS; i++) {
-        if (!HERE(i) || objects[i].sounds[0] == NULL || PROP_IS_STASHED_OR_UNSEEN(i))
-            continue;
+	if (!HERE(i) || objects[i].sounds[0] == NULL || PROP_IS_STASHED_OR_UNSEEN(i)) {
+	      continue;
+	}
         int mi =  game.objects[i].prop;
         /* (ESR) Some unpleasant magic on object states here. Ideally
          * we'd have liked the bird to be a normal object that we can
          * use state_change() on; can't do it, because there are
          * actually two different series of per-state birdsounds
          * depending on whether player has drunk dragon's blood. */
-        if (i == BIRD)
+        if (i == BIRD) {
             mi += 3 * game.blooded;
+	}
         pspeak(i, hear, true, mi, game.zzword);
         rspeak(NO_MESSAGE);
-        if (i == BIRD && mi == BIRD_ENDSTATE)
+        if (i == BIRD && mi == BIRD_ENDSTATE) {
             DESTROY(BIRD);
+	}
         soundlatch = true;
     }
-    if (!soundlatch)
+    if (!soundlatch) {
         rspeak(ALL_SILENT);
+    }
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t lock(verb_t verb, obj_t obj)
+static phase_codes_t lock(verb_t verb, obj_t obj) {
 /* Lock, unlock, no object given.  Assume various things if present. */
-{
     if (obj == INTRANSITIVE) {
-        if (HERE(CLAM))
-            obj = CLAM;
-        if (HERE(OYSTER))
-            obj = OYSTER;
-        if (AT(DOOR))
-            obj = DOOR;
-        if (AT(GRATE))
-            obj = GRATE;
-        if (HERE(CHAIN))
-            obj = CHAIN;
+	if (HERE(CLAM)) {
+	      obj = CLAM;
+	}
+	if (HERE(OYSTER)) {
+	      obj = OYSTER;
+	}
+	if (AT(DOOR)) {
+	      obj = DOOR;
+	}
+	if (AT(GRATE)) {
+	      obj = GRATE;
+	}
+	if (HERE(CHAIN)) {
+	      obj = CHAIN;
+	}
         if (obj == INTRANSITIVE) {
             rspeak(NOTHING_LOCKED);
             return GO_CLEAROBJ;
@@ -983,32 +995,35 @@ static phase_codes_t lock(verb_t verb, obj_t obj)
     case CHAIN:
         if (HERE(KEYS)) {
             return chain(verb);
-        } else
+        } else {
             rspeak(NO_KEYS);
+	}
         break;
     case GRATE:
         if (HERE(KEYS)) {
             if (game.closng) {
                 rspeak(EXIT_CLOSED);
-                if (!game.panic)
+                if (!game.panic) {
                     game.clock2 = PANICTIME;
+		}
                 game.panic = true;
             } else {
                 state_change(GRATE, (verb == LOCK) ?
                              GRATE_CLOSED :
                              GRATE_OPEN);
             }
-        } else
+        } else {
             rspeak(NO_KEYS);
+	}
         break;
     case CLAM:
-        if (verb == LOCK)
-            rspeak(HUH_MAN);
-        else if (TOTING(CLAM))
-            rspeak(DROP_CLAM);
-        else if (!TOTING(TRIDENT))
-            rspeak(CLAM_OPENER);
-        else {
+	if (verb == LOCK) {
+	      rspeak(HUH_MAN);
+	} else if (TOTING(CLAM)) {
+	      rspeak(DROP_CLAM);
+	} else if (!TOTING(TRIDENT)) {
+	      rspeak(CLAM_OPENER);
+	} else {
             DESTROY(CLAM);
             drop(OYSTER, game.loc);
             drop(PEARL, LOC_CULDESAC);
@@ -1016,14 +1031,15 @@ static phase_codes_t lock(verb_t verb, obj_t obj)
         }
         break;
     case OYSTER:
-        if (verb == LOCK)
-            rspeak(HUH_MAN);
-        else if (TOTING(OYSTER))
-            rspeak(DROP_OYSTER);
-        else if (!TOTING(TRIDENT))
-            rspeak(OYSTER_OPENER);
-        else
-            rspeak(OYSTER_OPENS);
+	if (verb == LOCK) {
+	      rspeak(HUH_MAN);
+	} else if (TOTING(OYSTER)) {
+	      rspeak(DROP_OYSTER);
+	} else if (!TOTING(TRIDENT)) {
+	      rspeak(OYSTER_OPENER);
+	} else {
+	      rspeak(OYSTER_OPENS);
+	}
         break;
     case DOOR:
         rspeak((game.objects[DOOR].prop == DOOR_UNRUSTED) ? OK_MAN : RUSTY_DOOR);
@@ -1041,14 +1057,15 @@ static phase_codes_t lock(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t pour(verb_t verb, obj_t obj)
+static phase_codes_t pour(verb_t verb, obj_t obj) {
 /*  Pour.  If no object, or object is bottle, assume contents of bottle.
  *  special tests for pouring water or oil on plant or rusty door. */
-{
-    if (obj == BOTTLE || obj == INTRANSITIVE)
-	obj = LIQUID();
-    if (obj == NO_OBJECT)
-        return GO_UNKNOWN;
+    if (obj == BOTTLE || obj == INTRANSITIVE) {
+	  obj = LIQUID();
+    }
+    if (obj == NO_OBJECT) {
+	  return GO_UNKNOWN;
+    }
     if (!TOTING(obj)) {
         speak(actions[verb].message);
         return GO_CLEAROBJ;
@@ -1058,8 +1075,9 @@ static phase_codes_t pour(verb_t verb, obj_t obj)
         rspeak(CANT_POUR);
         return GO_CLEAROBJ;
     }
-    if (HERE(URN) && game.objects[URN].prop == URN_EMPTY)
+    if (HERE(URN) && game.objects[URN].prop == URN_EMPTY) {
         return fill(verb, URN);
+    }
     game.objects[BOTTLE].prop = EMPTY_BOTTLE;
     game.objects[obj].place = LOC_NOWHERE;
     if (!(AT(PLANT) || AT(DOOR))) {
@@ -1084,11 +1102,11 @@ static phase_codes_t pour(verb_t verb, obj_t obj)
     }
 }
 
-static phase_codes_t quit(void)
+static phase_codes_t quit(void) {
 /*  Quit.  Intransitive only.  Verify intent and exit if that's what he wants. */
-{
-    if (yes_or_no(arbitrary_messages[REALLY_QUIT], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN]))
-        terminate(quitgame);
+    if (yes_or_no(arbitrary_messages[REALLY_QUIT], arbitrary_messages[OK_MAN], arbitrary_messages[OK_MAN])) {
+	  terminate(quitgame);
+    }
     return GO_CLEAROBJ;
 }
 
@@ -1098,11 +1116,13 @@ static phase_codes_t read(command_t command)
     if (command.obj == INTRANSITIVE) {
         command.obj = NO_OBJECT;
         for (int i = 1; i <= NOBJECTS; i++) {
-            if (HERE(i) && objects[i].texts[0] != NULL && !PROP_IS_STASHED(i))
-                command.obj = command.obj * NOBJECTS + i;
+	    if (HERE(i) && objects[i].texts[0] != NULL && !PROP_IS_STASHED(i)) {
+		  command.obj = command.obj * NOBJECTS + i;
+	    }
         }
-        if (command.obj > NOBJECTS || command.obj == NO_OBJECT || DARK(game.loc))
+        if (command.obj > NOBJECTS || command.obj == NO_OBJECT || DARK(game.loc)) {
             return GO_UNKNOWN;
+	}
     }
 
     if (DARK(game.loc)) {
@@ -1117,14 +1137,14 @@ static phase_codes_t read(command_t command)
         }
     } else if (objects[command.obj].texts[0] == NULL || PROP_IS_NOTFOUND(command.obj)) {
         speak(actions[command.verb].message);
-    } else
+    } else {
         pspeak(command.obj, study, true, game.objects[command.obj].prop);
+    }
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t reservoir(void)
+static phase_codes_t reservoir(void) {
 /*  Z'ZZZ (word gets recomputed at startup; different each game). */
-{
     if (!AT(RESER) && game.loc != LOC_RESBOTTOM) {
         rspeak(NOTHING_HAPPENS);
         return GO_CLEAROBJ;
@@ -1142,9 +1162,8 @@ static phase_codes_t reservoir(void)
     }
 }
 
-static phase_codes_t rub(verb_t verb, obj_t obj)
+static phase_codes_t rub(verb_t verb, obj_t obj) {
 /* Rub.  Yields various snide remarks except for lit urn. */
-{
     if (obj == URN && game.objects[URN].prop == URN_LIT) {
         DESTROY(URN);
         drop(AMBER, game.loc);
@@ -1160,17 +1179,17 @@ static phase_codes_t rub(verb_t verb, obj_t obj)
     return GO_CLEAROBJ;
 }
 
-static phase_codes_t say(command_t command)
+static phase_codes_t say(command_t command) {
 /* Say.  Echo WD2. Magic words override. */
-{
     if (command.word[1].type == MOTION &&
         (command.word[1].id == XYZZY ||
          command.word[1].id == PLUGH ||
          command.word[1].id == PLOVER)) {
         return GO_WORD2;
     }
-    if (command.word[1].type == ACTION && command.word[1].id == PART)
+    if (command.word[1].type == ACTION && command.word[1].id == PART) {
         return reservoir();
+    }
 
     if (command.word[1].type == ACTION &&
         (command.word[1].id == FEE ||
@@ -1192,12 +1211,11 @@ static phase_codes_t throw_support(vocab_t spk)
     return GO_MOVE;
 }
 
-static phase_codes_t throwit(command_t command)
+static phase_codes_t throwit(command_t command) {
 /*  Throw.  Same as discard unless axe.  Then same as attack except
  *  ignore bird, and if dwarf is present then one might be killed.
  *  (Only way to do so!)  Axe also special for dragon, bear, and
  *  troll.  Treasures special for troll. */
-{
     if (!TOTING(command.obj)) {
         speak(actions[command.verb].message);
         return GO_CLEAROBJ;
@@ -1218,16 +1236,18 @@ static phase_codes_t throwit(command_t command)
         command.obj = BEAR;
         return (feed(command.verb, command.obj));
     }
-    if (command.obj != AXE)
+    if (command.obj != AXE) {
         return (discard(command.verb, command.obj));
-    else {
+    } else {
         if (atdwrf(game.loc) <= 0) {
             if (AT(DRAGON) && game.objects[DRAGON].prop == DRAGON_BARS)
                 return throw_support(DRAGON_SCALES);
-            if (AT(TROLL))
-                return throw_support(TROLL_RETURNS);
-            if (AT(OGRE))
+            if (AT(TROLL)) {
+	        return throw_support(TROLL_RETURNS);
+	    }
+            if (AT(OGRE)) {
                 return throw_support(OGRE_DODGE);
+	    }
             if (HERE(BEAR) && game.objects[BEAR].prop == UNTAMED_BEAR) {
                 /* This'll teach him to throw the axe at the bear! */
                 drop(AXE, game.loc);
@@ -1253,9 +1273,8 @@ static phase_codes_t throwit(command_t command)
     }
 }
 
-static phase_codes_t wake(verb_t verb, obj_t obj)
+static phase_codes_t wake(verb_t verb, obj_t obj) {
 /* Wake.  Only use is to disturb the dwarves. */
-{
     if (obj != DWARF || !game.closed) {
         speak(actions[verb].message);
         return GO_CLEAROBJ;
@@ -1265,9 +1284,8 @@ static phase_codes_t wake(verb_t verb, obj_t obj)
     }
 }
 
-static phase_codes_t seed(verb_t verb, const char *arg)
+static phase_codes_t seed(verb_t verb, const char *arg) {
 /* Set seed */
-{
     int32_t seed = strtol(arg, NULL, 10);
     speak(actions[verb].message, seed);
     set_seed(seed);
@@ -1275,17 +1293,15 @@ static phase_codes_t seed(verb_t verb, const char *arg)
     return GO_TOP;
 }
 
-static phase_codes_t waste(verb_t verb, turn_t turns)
+static phase_codes_t waste(verb_t verb, turn_t turns) {
 /* Burn turns */
-{
     game.limit -= turns;
     speak(actions[verb].message, (int)game.limit);
     return GO_TOP;
 }
 
-static phase_codes_t wave(verb_t verb, obj_t obj)
+static phase_codes_t wave(verb_t verb, obj_t obj) {
 /* Wave.  No effect unless waving rod at fissure or at bird. */
-{
     if (obj != ROD || !TOTING(obj) || (!HERE(BIRD) && (game.closng || !AT(FISSURE)))) {
         speak(((!TOTING(obj)) && (obj != ROD ||
                                   !TOTING(ROD2))) ?
@@ -1325,11 +1341,10 @@ static phase_codes_t wave(verb_t verb, obj_t obj)
     }
 }
 
-phase_codes_t action(command_t command)
+phase_codes_t action(command_t command) {
 /*  Analyse a verb.  Remember what it was, go back for object if second word
  *  unless verb is "say", which snarfs arbitrary second word.
  */
-{
     /* Previously, actions that result in a message, but don't do anything
      * further were called "specials". Now they're handled here as normal
      * actions. If noaction is true, then we spit out the message and return */
@@ -1346,14 +1361,14 @@ phase_codes_t action(command_t command)
          *  they are never actually dropped at any location, but might
          *  be here inside the bottle or urn or as a feature of the
          *  location. */
-        if (HERE(command.obj))
-            /* FALL THROUGH */;
-        else if (command.obj == DWARF && atdwrf(game.loc) > 0)
-            /* FALL THROUGH */;
-        else if (!game.closed && ((LIQUID() == command.obj && HERE(BOTTLE)) ||
-                                  command.obj == LIQLOC(game.loc)))
-            /* FALL THROUGH */;
-        else if (command.obj == OIL && HERE(URN) && game.objects[URN].prop != URN_EMPTY) {
+	if (HERE(command.obj)) {
+	      /* FALL THROUGH */;
+	} else if (command.obj == DWARF && atdwrf(game.loc) > 0) {
+	      /* FALL THROUGH */;
+	} else if (!game.closed && ((LIQUID() == command.obj && HERE(BOTTLE)) ||
+				    command.obj == LIQLOC(game.loc))) {
+	      /* FALL THROUGH */;
+	} else if (command.obj == OIL && HERE(URN) && game.objects[URN].prop != URN_EMPTY) {
             command.obj = URN;
             /* FALL THROUGH */;
         } else if (command.obj == PLANT && AT(PLANT2) && game.objects[PLANT2].prop != PLANT_THIRSTY) {
@@ -1367,26 +1382,29 @@ phase_codes_t action(command_t command)
             command.obj = ROD2;
             /* FALL THROUGH */;
         } else if ((command.verb == FIND ||
-                    command.verb == INVENTORY) && (command.word[1].id == WORD_EMPTY || command.word[1].id == WORD_NOT_FOUND))
+                    command.verb == INVENTORY) && (command.word[1].id == WORD_EMPTY || command.word[1].id == WORD_NOT_FOUND)) {
             /* FALL THROUGH */;
-        else {
+        } else {
             sspeak(NO_SEE, command.word[0].raw);
             return GO_CLEAROBJ;
         }
 
-        if (command.verb != 0)
+        if (command.verb != 0) {
             command.part = transitive;
+	}
     }
 
     switch (command.part) {
     case intransitive:
-        if (command.word[1].raw[0] != '\0' && command.verb != SAY)
-            return GO_WORD2;
-        if (command.verb == SAY)
-            /* KEYS is not special, anything not NO_OBJECT or INTRANSITIVE
-             * will do here. We're preventing interpretation as an intransitive
-             * verb when the word is unknown. */
-            command.obj = command.word[1].raw[0] != '\0' ? KEYS : NO_OBJECT;
+	if (command.word[1].raw[0] != '\0' && command.verb != SAY) {
+	      return GO_WORD2;
+	}
+	if (command.verb == SAY) {
+	      /* KEYS is not special, anything not NO_OBJECT or INTRANSITIVE
+	       * will do here. We're preventing interpretation as an intransitive
+	       * verb when the word is unknown. */
+	      command.obj = command.word[1].raw[0] != '\0' ? KEYS : NO_OBJECT;
+	}
         if (command.obj == NO_OBJECT || command.obj == INTRANSITIVE) {
             /*  Analyse an intransitive verb (ie, no object given yet). */
             switch (command.verb) {
@@ -1522,10 +1540,9 @@ phase_codes_t action(command_t command)
             return rub(command.verb, command.obj);
         case THROW:
             return throwit(command);
-        case QUIT: {
+        case QUIT:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
         case FIND:
             return find(command.verb, command.obj);
         case INVENTORY:
@@ -1537,42 +1554,36 @@ phase_codes_t action(command_t command)
         case BLAST:
             blast();
             return GO_CLEAROBJ;
-        case SCORE: {
+        case SCORE:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
         case FEE:
         case FIE:
         case FOE:
         case FOO:
-        case FUM: {
+        case FUM:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
-        case BRIEF: {
+        case BRIEF:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
         case READ:
             return read(command);
         case BREAK:
             return vbreak(command.verb, command.obj);
         case WAKE:
             return wake(command.verb, command.obj);
-        case SAVE: {
+        case SAVE:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
-        case RESUME: {
+        case RESUME:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
         case FLY:
             return fly(command.verb, command.obj);
-        case LISTEN: {
+        case LISTEN:
             speak(actions[command.verb].message);
             return GO_CLEAROBJ;
-        }
         // LCOV_EXCL_START
         // This case should never happen - here only as placeholder
         case PART:
@@ -1593,3 +1604,5 @@ phase_codes_t action(command_t command)
         BUG(SPEECHPART_NOT_TRANSITIVE_OR_INTRANSITIVE_OR_UNKNOWN); // LCOV_EXCL_LINE
     }
 }
+
+// end

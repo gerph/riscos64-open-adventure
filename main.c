@@ -38,8 +38,9 @@ static void sig_handler(int signo)
     }
 
 #if defined ADVENT_AUTOSAVE
-    if (signo == SIGHUP || signo == SIGTERM)
+    if (signo == SIGHUP || signo == SIGTERM) {
         autosave();
+    }
 #endif
     exit(EXIT_FAILURE);
 }
@@ -71,12 +72,14 @@ char *myreadline(const char *prompt)
 
             char *next = settings.argv[settings.optind++];
 
-            if (settings.scriptfp != NULL && feof(settings.scriptfp))
+            if (settings.scriptfp != NULL && feof(settings.scriptfp)) {
                 fclose(settings.scriptfp);
-            if (strcmp(next, "-") == 0)
+	    }
+            if (strcmp(next, "-") == 0) {
                 settings.scriptfp = stdin; // LCOV_EXCL_LINE
-            else
+            } else {
                 settings.scriptfp = fopen(next, "r");
+	    }
         }
 
         if (isatty(fileno(settings.scriptfp))) {
@@ -102,10 +105,12 @@ static void checkhints(void)
 {
     if (conditions[game.loc] >= game.conds) {
         for (int hint = 0; hint < NHINTS; hint++) {
-            if (game.hints[hint].used)
-                continue;
-            if (!CNDBIT(game.loc, hint + 1 + COND_HBASE))
+	    if (game.hints[hint].used) {
+		  continue;
+	    }
+            if (!CNDBIT(game.loc, hint + 1 + COND_HBASE)) {
                 game.hints[hint].lc = -1;
+	    }
             ++game.hints[hint].lc;
             /*  Come here if he's been int enough at required loc(s) for some
              *  unused hint. */
@@ -115,17 +120,20 @@ static void checkhints(void)
                 switch (hint) {
                 case 0:
                     /* cave */
-                    if (game.objects[GRATE].prop == GRATE_CLOSED && !HERE(KEYS))
-                        break;
+		    if (game.objects[GRATE].prop == GRATE_CLOSED && !HERE(KEYS)) {
+			  break;
+		    }
                     game.hints[hint].lc = 0;
                     return;
                 case 1:	/* bird */
-                    if (game.objects[BIRD].place == game.loc && TOTING(ROD) && game.oldobj == BIRD)
-                        break;
+		    if (game.objects[BIRD].place == game.loc && TOTING(ROD) && game.oldobj == BIRD) {
+			  break;
+		    }
                     return;
                 case 2:	/* snake */
-                    if (HERE(SNAKE) && !HERE(BIRD))
-                        break;
+		    if (HERE(SNAKE) && !HERE(BIRD)) {
+			  break;
+		    }
                     game.hints[hint].lc = 0;
                     return;
                 case 3:	/* maze */
@@ -137,15 +145,17 @@ static void checkhints(void)
                     game.hints[hint].lc = 0;
                     return;
                 case 4:	/* dark */
-                    if (!PROP_IS_NOTFOUND(EMERALD) && PROP_IS_NOTFOUND(PYRAMID))
-                        break;
+		    if (!PROP_IS_NOTFOUND(EMERALD) && PROP_IS_NOTFOUND(PYRAMID)) {
+			  break;
+		    }
                     game.hints[hint].lc = 0;
                     return;
                 case 5:	/* witt */
                     break;
                 case 6:	/* urn */
-                    if (game.dflag == 0)
-                        break;
+		    if (game.dflag == 0) {
+			  break;
+		    }
                     game.hints[hint].lc = 0;
                     return;
                 case 7:	/* woods */
@@ -160,12 +170,14 @@ static void checkhints(void)
                         game.hints[hint].lc = 0;
                         return;
                     }
-                    if (HERE(OGRE) && i == 0)
+                    if (HERE(OGRE) && i == 0) {
                         break;
+		    }
                     return;
                 case 9:	/* jade */
-                    if (game.tally == 1 && PROP_IS_STASHED_OR_UNSEEN(JADE))
-                        break;
+		    if (game.tally == 1 && PROP_IS_STASHED_OR_UNSEEN(JADE)) {
+			  break;
+		    }
                     game.hints[hint].lc = 0;
                     return;
                 default: // LCOV_EXCL_LINE
@@ -175,12 +187,14 @@ static void checkhints(void)
 
                 /* Fall through to hint display */
                 game.hints[hint].lc = 0;
-                if (!yes_or_no(hints[hint].question, arbitrary_messages[NO_MESSAGE], arbitrary_messages[OK_MAN]))
+                if (!yes_or_no(hints[hint].question, arbitrary_messages[NO_MESSAGE], arbitrary_messages[OK_MAN])) {
                     return;
+		}
                 rspeak(HINT_COST, hints[hint].penalty, hints[hint].penalty);
                 game.hints[hint].used = yes_or_no(arbitrary_messages[WANT_HINT], hints[hint].hint, arbitrary_messages[OK_MAN]);
-                if (game.hints[hint].used && game.limit > WARNTIME)
+                if (game.hints[hint].used && game.limit > WARNTIME) {
                     game.limit += WARNTIME * hints[hint].penalty;
+		}
             }
         }
     }
@@ -188,8 +202,9 @@ static void checkhints(void)
 
 static bool spotted_by_pirate(int i)
 {
-    if (i != PIRATE)
-        return false;
+    if (i != PIRATE) {
+	  return false;
+    }
 
     /*  The pirate's spotted him.  Pirate leaves him alone once we've
      *  found chest.  K counts if a treasure is here.  If not, and
@@ -197,21 +212,24 @@ static bool spotted_by_pirate(int i)
      *  that game.objexts,place[CHEST] = LOC_NOWHERE might mean that he's thrown
      *  it to the troll, but in that case he's seen the chest
      *  PROP_IS_FOUND(CHEST) == true. */
-    if (game.loc == game.chloc || !PROP_IS_NOTFOUND(CHEST))
+    if (game.loc == game.chloc || !PROP_IS_NOTFOUND(CHEST)) {
         return true;
+    }
     int snarfed = 0;
     bool movechest = false, robplayer = false;
     for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
-        if (!objects[treasure].is_treasure)
+      if (!objects[treasure].is_treasure) {
             continue;
+      }
         /*  Pirate won't take pyramid from plover room or dark
          *  room (too easy!). */
         if (treasure == PYRAMID && (game.loc == objects[PYRAMID].plac ||
                                     game.loc == objects[EMERALD].plac)) {
             continue;
         }
-        if (TOTING(treasure) || HERE(treasure))
+        if (TOTING(treasure) || HERE(treasure)) {
             ++snarfed;
+	}
         if (TOTING(treasure)) {
             movechest = true;
             robplayer = true;
@@ -233,20 +251,24 @@ static bool spotted_by_pirate(int i)
     } else {
         /* You might get a hint of the pirate's presence even if the
          * chest doesn't move... */
-        if (game.dwarves[PIRATE].oldloc != game.dwarves[PIRATE].loc && PCT(20))
-            rspeak(PIRATE_RUSTLES);
+	if (game.dwarves[PIRATE].oldloc != game.dwarves[PIRATE].loc && PCT(20)) {
+	      rspeak(PIRATE_RUSTLES);
+	}
     }
     if (robplayer) {
         rspeak(PIRATE_POUNCES);
         for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
-            if (!objects[treasure].is_treasure)
-                continue;
+	    if (!objects[treasure].is_treasure) {
+		  continue;
+	    }
             if (!(treasure == PYRAMID && (game.loc == objects[PYRAMID].plac ||
                                           game.loc == objects[EMERALD].plac))) {
-                if (AT(treasure) && game.objects[treasure].fixed == IS_FREE)
-                    carry(treasure, game.loc);
-                if (TOTING(treasure))
-                    drop(treasure, game.chloc);
+		if (AT(treasure) && game.objects[treasure].fixed == IS_FREE) {
+		      carry(treasure, game.loc);
+		}
+		if (TOTING(treasure)) {
+		      drop(treasure, game.chloc);
+		}
             }
         }
     }
@@ -254,9 +276,8 @@ static bool spotted_by_pirate(int i)
     return true;
 }
 
-static bool dwarfmove(void)
+static bool dwarfmove(void) {
 /* Dwarves move.  Return true if player survives, false if he dies. */
-{
     int kk, stick, attack;
     loc_t tk[21];
 
@@ -272,8 +293,9 @@ static bool dwarfmove(void)
      *  steal return toll, and dwarves can't meet the bear.  Also
      *  means dwarves won't follow him into dead end in maze, but
      *  c'est la vie.  They'll wait for him outside the dead end. */
-    if (game.loc == LOC_NOWHERE || FORCED(game.loc) || CNDBIT(game.newloc, COND_NOARRR))
+    if (game.loc == LOC_NOWHERE || FORCED(game.loc) || CNDBIT(game.newloc, COND_NOARRR)) {
         return true;
+    }
 
     /* Dwarf activity level ratchets up */
     if (game.dflag == 0) {
@@ -287,20 +309,23 @@ static bool dwarfmove(void)
      *  replace him with the alternate. */
     if (game.dflag == 1) {
         if (!INDEEP(game.loc) ||
-            (PCT(95) && (!CNDBIT(game.loc, COND_NOBACK) || PCT(85))))
+            (PCT(95) && (!CNDBIT(game.loc, COND_NOBACK) || PCT(85)))) {
             return true;
+	}
         game.dflag = 2;
         for (int i = 1; i <= 2; i++) {
             int j = 1 + randrange(NDWARVES - 1);
-            if (PCT(50))
+            if (PCT(50)) {
                 game.dwarves[j].loc = 0;
+	    }
         }
 
         /* Alternate initial loc for dwarf, in case one of them
         *  starts out on top of the adventurer. */
         for (int i = 1; i <= NDWARVES - 1; i++) {
-            if (game.dwarves[i].loc == game.loc)
-                game.dwarves[i].loc = DALTLC; //
+	    if (game.dwarves[i].loc == game.loc) {
+		  game.dwarves[i].loc = DALTLC;
+	    }
             game.dwarves[i].oldloc = game.dwarves[i].loc;
         }
         rspeak(DWARF_RAN);
@@ -318,8 +343,9 @@ static bool dwarfmove(void)
     attack = 0;
     stick = 0;
     for (int i = 1; i <= NDWARVES; i++) {
-        if (game.dwarves[i].loc == 0)
-            continue;
+	if (game.dwarves[i].loc == 0) {
+	      continue;
+	}
         /*  Fill tk array with all the places this dwarf might go. */
         unsigned int j = 1;
         kk = tkey[game.dwarves[i].loc];
@@ -351,38 +377,46 @@ static bool dwarfmove(void)
             } while
             (!travel[kk++].stop);
         tk[j] = game.dwarves[i].oldloc;
-        if (j >= 2)
+        if (j >= 2) {
             --j;
+	}
         j = 1 + randrange(j);
         game.dwarves[i].oldloc = game.dwarves[i].loc;
         game.dwarves[i].loc = tk[j];
         game.dwarves[i].seen = (game.dwarves[i].seen && INDEEP(game.loc)) ||
                         (game.dwarves[i].loc == game.loc ||
                          game.dwarves[i].oldloc == game.loc);
-        if (!game.dwarves[i].seen)
+        if (!game.dwarves[i].seen) {
             continue;
+	}
         game.dwarves[i].loc = game.loc;
-        if (spotted_by_pirate(i))
+        if (spotted_by_pirate(i)) {
             continue;
+	}
         /* This threatening little dwarf is in the room with him! */
         ++game.dtotal;
         if (game.dwarves[i].oldloc == game.dwarves[i].loc) {
             ++attack;
-            if (game.knfloc >= LOC_NOWHERE)
+            if (game.knfloc >= LOC_NOWHERE) {
                 game.knfloc = game.loc;
-            if (randrange(1000) < 95 * (game.dflag - 2))
+	    }
+            if (randrange(1000) < 95 * (game.dflag - 2)) {
                 ++stick;
+	    }
         }
     }
 
     /*  Now we know what's happening.  Let's tell the poor sucker about it. */
-    if (game.dtotal == 0)
+    if (game.dtotal == 0) {
         return true;
+    }
     rspeak(game.dtotal == 1 ? DWARF_SINGLE : DWARF_PACK, game.dtotal);
-    if (attack == 0)
+    if (attack == 0) {
         return true;
-    if (game.dflag == 2)
+    }
+    if (game.dflag == 2) {
         game.dflag = 3;
+    }
     if (attack > 1) {
         rspeak(THROWN_KNIVES, attack);
         rspeak(stick > 1 ? MULTIPLE_HITS : (stick == 1 ? ONE_HIT : NONE_HIT), stick);
@@ -390,8 +424,9 @@ static bool dwarfmove(void)
         rspeak(KNIFE_THROWN);
         rspeak(stick ? GETS_YOU : MISSES_YOU);
     }
-    if (stick == 0)
+    if (stick == 0) {
         return true;
+    }
     game.oldlc2 = game.loc;
     return false;
 }
@@ -415,9 +450,8 @@ static bool dwarfmove(void)
  *  building (and heaven help him if he tries to xyzzy back into the
  *  cave without the lamp!).  game.oldloc is zapped so he can't just
  *  "retreat". */
-static void croak(void)
+static void croak(void) {
 /*  Okay, he's dead.  Let's get on with it. */
-{
     const char* query = obituaries[game.numdie].query;
     const char* yes_response = obituaries[game.numdie].yes_response;
 
@@ -451,9 +485,8 @@ static void croak(void)
     }
 }
 
-static void describe_location(void)
+static void describe_location(void) {
 /* Describe the location to the user */
-{
     const char* msg = locations[game.loc].description.small;
 
     if (MOD(game.locs[game.loc].abbrev, game.abbnum) == 0 || msg == NO_MESSAGE)
@@ -463,8 +496,9 @@ static void describe_location(void)
         msg = arbitrary_messages[PITCH_DARK];
     }
 
-    if (TOTING(BEAR))
+    if (TOTING(BEAR)) {
         rspeak(TAME_BEAR);
+    }
 
     speak(msg);
 
@@ -473,9 +507,8 @@ static void describe_location(void)
 }
 
 
-static bool traveleq(int a, int b)
+static bool traveleq(int a, int b) {
 /* Are two travel entries equal for purposes of skip after failed condition? */
-{
     return (travel[a].condtype == travel[b].condtype)
            && (travel[a].condarg1 == travel[b].condarg1)
            && (travel[a].condarg2 == travel[b].condarg2)
@@ -494,11 +527,12 @@ static void playermove(int motion)
 {
     int scratchloc, travel_entry = tkey[game.loc];
     game.newloc = game.loc;
-    if (travel_entry == 0)
+    if (travel_entry == 0) {
         BUG(LOCATION_HAS_NO_TRAVEL_ENTRIES); // LCOV_EXCL_LINE
-    if (motion == NUL)
+    }
+    if (motion == NUL) {
         return;
-    else if (motion == BACK) {
+    } else if (motion == BACK) {
         /*  Handle "go back".  Look for verb which goes from game.loc to
          *  game.oldloc, or to game.oldlc2 If game.oldloc has forced-motion.
          *  te_tmp saves entry -> forced loc -> previous loc. */
@@ -545,8 +579,9 @@ static void playermove(int motion)
         /*  Look.  Can't give more detail.  Pretend it wasn't dark
          *  (though it may now be dark) so he won't fall into a
          *  pit while staring into the gloom. */
-        if (game.detail < 3)
-            rspeak(NO_MORE_DETAIL);
+	if (game.detail < 3) {
+	      rspeak(NO_MORE_DETAIL);
+	}
         ++game.detail;
         game.wzdark = false;
         game.locs[game.loc].abbrev = 0;
@@ -626,8 +661,9 @@ static void playermove(int motion)
                     else if (TOTING(condarg1) || (condtype == cond_with && AT(condarg1)))
                         break;
                     /* else fall through to check [not OBJ STATE] */
-                } else if (game.objects[condarg1].prop != condarg2)
+                } else if (game.objects[condarg1].prop != condarg2) {
                     break;
+		}
 
                 /* We arrive here on conditional failure.
                  * Skip to next non-matching destination */
@@ -644,8 +680,9 @@ static void playermove(int motion)
             /* Found an eligible rule, now execute it */
             enum desttype_t desttype = travel[travel_entry].desttype;
             game.newloc = travel[travel_entry].destval;
-            if (desttype == dest_goto)
+            if (desttype == dest_goto) {
                 return;
+	    }
 
             if (desttype == dest_speak) {
                 /* Execute a speak rule */
@@ -710,8 +747,9 @@ static void playermove(int motion)
                         game.newloc = objects[TROLL].plac + objects[TROLL].fixd - game.loc;
                         if (game.objects[TROLL].prop == TROLL_UNPAID)
                             game.objects[TROLL].prop = TROLL_PAIDONCE;
-                        if (!TOTING(BEAR))
+                        if (!TOTING(BEAR)) {
                             return;
+			}
                         state_change(CHASM, BRIDGE_WRECKED);
                         game.objects[TROLL].prop = TROLL_GONE;
                         drop(BEAR, game.newloc);
@@ -731,11 +769,11 @@ static void playermove(int motion)
     (false);
 }
 
-static void lampcheck(void)
+static void lampcheck(void) {
 /* Check game limit and lamp timers */
-{
-    if (game.objects[LAMP].prop == LAMP_BRIGHT)
-        --game.limit;
+    if (game.objects[LAMP].prop == LAMP_BRIGHT) {
+	  --game.limit;
+    }
 
     /*  Another way we can force an end to things is by having the
      *  lamp give out.  When it gets close, we come here to warn him.
@@ -752,30 +790,32 @@ static void lampcheck(void)
              * No tests ever passed the guard, and with the guard removed
              * the game hangs when the lamp limit is reached.
              */
-            if (TOTING(BATTERY))
+            if (TOTING(BATTERY)) {
                 drop(BATTERY, game.loc);
+	    }
 #endif
             game.limit += BATTERYLIFE;
             game.lmwarn = false;
         } else if (!game.lmwarn && HERE(LAMP)) {
             game.lmwarn = true;
-            if (game.objects[BATTERY].prop == DEAD_BATTERIES)
+            if (game.objects[BATTERY].prop == DEAD_BATTERIES) {
                 rspeak(MISSING_BATTERIES);
-            else if (game.objects[BATTERY].place == LOC_NOWHERE)
+            } else if (game.objects[BATTERY].place == LOC_NOWHERE) {
                 rspeak(LAMP_DIM);
-            else
+	    } else {
                 rspeak(GET_BATTERIES);
+	    }
         }
     }
     if (game.limit == 0) {
         game.limit = -1;
         game.objects[LAMP].prop = LAMP_DARK;
-        if (HERE(LAMP))
+        if (HERE(LAMP)) {
             rspeak(LAMP_OUT);
+	}
     }
 }
 
-static bool closecheck(void)
 /*  Handle the closing of the cave.  The cave closes "clock1" turns
  *  after the last treasure has been located (including the pirate's
  *  chest, which may of course never show up).  Note that the
@@ -794,7 +834,7 @@ static bool closecheck(void)
  *  separating him from all the treasures.  Most of these problems
  *  arise from the use of negative prop numbers to suppress the object
  *  descriptions until he's actually moved the objects. */
-{
+static bool closecheck(void) {
     /* If a turn threshold has been met, apply penalties and tell
      * the player about it. */
     for (int i = 0; i < NTHRESHOLDS; ++i) {
@@ -805,8 +845,9 @@ static bool closecheck(void)
     }
 
     /*  Don't tick game.clock1 unless well into cave (and not at Y2). */
-    if (game.tally == 0 && INDEEP(game.loc) && game.loc != LOC_Y2)
+    if (game.tally == 0 && INDEEP(game.loc) && game.loc != LOC_Y2) {
         --game.clock1;
+    }
 
     /*  When the first warning comes, we lock the grate, destroy
      *  the bridge, kill all the dwarves (and the pirate), remove
@@ -833,8 +874,9 @@ static bool closecheck(void)
         move(TROLL2, objects[TROLL].plac);
         move(TROLL2 + NOBJECTS, objects[TROLL].fixd);
         juggle(CHASM);
-        if (game.objects[BEAR].prop != BEAR_DEAD)
+        if (game.objects[BEAR].prop != BEAR_DEAD) {
             DESTROY(BEAR);
+	}
         game.objects[CHAIN].prop = CHAIN_HEAP;
         game.objects[CHAIN].fixed = IS_FREE;
         game.objects[AXE].prop = AXE_HERE;
@@ -885,8 +927,9 @@ static bool closecheck(void)
         game.objects[MIRROR].fixed = LOC_SW;
 
         for (int i = 1; i <= NOBJECTS; i++) {
-            if (TOTING(i))
-                DESTROY(i);
+	    if (TOTING(i)) {
+		  DESTROY(i);
+	    }
         }
 
         rspeak(CAVE_CLOSED);
@@ -898,7 +941,7 @@ static bool closecheck(void)
     return false;
 }
 
-static void listobjects(void)
+static void listobjects(void) {
 /*  Print out descriptions of objects at this location.  If
  *  not closing and property value is negative, tally off
  *  another treasure.  Rug is special case; once seen, its
@@ -906,29 +949,34 @@ static void listobjects(void)
  *  Similarly for chain; game.prop is initially CHAINING_BEAR (locked to
  *  bear).  These hacks are because game.prop=0 is needed to
  *  get full score. */
-{
     if (!DARK(game.loc)) {
         ++game.locs[game.loc].abbrev;
         for (int i = game.locs[game.loc].atloc; i != 0; i = game.link[i]) {
             obj_t obj = i;
-            if (obj > NOBJECTS)
+            if (obj > NOBJECTS) {
                 obj = obj - NOBJECTS;
-            if (obj == STEPS && TOTING(NUGGET))
+	    }
+            if (obj == STEPS && TOTING(NUGGET)) {
                 continue;
+	    }
 	    /* (ESR) Warning: it looks like you could get away with
 	     * running this code only on objects with the treasure
 	     * property set. Nope.  There is mystery here.
 	     */
             if (PROP_IS_STASHED_OR_UNSEEN(obj)) {
-                if (game.closed)
-                    continue;
+		if (game.closed) {
+		      continue;
+		}
                 PROP_SET_FOUND(obj);
-                if (obj == RUG)
+                if (obj == RUG) {
                     game.objects[RUG].prop = RUG_DRAGON;
-                if (obj == CHAIN)
+		}
+                if (obj == CHAIN) {
                     game.objects[CHAIN].prop = CHAINING_BEAR;
-		if (obj == EGGS)
+		}
+		if (obj == EGGS) {
 		    game.seenbigwords = true;
+		}
                 --game.tally;
                 /*  Note: There used to be a test here to see whether the
                  *  player had blown it so badly that he could never ever see
@@ -946,16 +994,16 @@ static void listobjects(void)
                  *  (so goes the rationalisation). */
             }
             int kk = game.objects[obj].prop;
-            if (obj == STEPS)
+            if (obj == STEPS) {
                 kk = (game.loc == game.objects[STEPS].fixed)
                      ? STEPS_UP
                      : STEPS_DOWN;
+	    }
             pspeak(obj, look, true, kk);
         }
     }
 }
 
-static bool preprocess_command(command_t *command)
 /* Pre-processes a command input to see if we need to tease out a few specific cases:
  * - "enter water" or "enter stream":
  *   weird specific case that gets the user wet, and then kicks us back to get another command
@@ -972,13 +1020,14 @@ static bool preprocess_command(command_t *command)
  *
  * Returns true if pre-processing is complete, and we're ready to move to the primary command
  * processing, false otherwise. */
-{
+static bool preprocess_command(command_t *command) {
     if (command->word[0].type == MOTION && command->word[0].id == ENTER
         && (command->word[1].id == STREAM || command->word[1].id == WATER)) {
-        if (LIQLOC(game.loc) == WATER)
-            rspeak(FEET_WET);
-        else
-            rspeak(WHERE_QUERY);
+	if (LIQLOC(game.loc) == WATER) {
+	      rspeak(FEET_WET);
+	} else {
+	      rspeak(WHERE_QUERY);
+	}
     } else {
         if (command->word[0].type == OBJECT) {
             /* From OV to VO form */
@@ -1028,15 +1077,15 @@ static bool preprocess_command(command_t *command)
     return false;
 }
 
-static bool do_move(void)
+static bool do_move(void) {
 /* Actually execute the move to the new location and dwarf movement */
-{
     /*  Can't leave cave once it's closing (except by main office). */
     if (OUTSID(game.newloc) && game.newloc != 0 && game.closng) {
         rspeak(EXIT_CLOSED);
         game.newloc = game.loc;
-        if (!game.panic)
+        if (!game.panic) {
             game.clock2 = PANICTIME;
+	}
         game.panic = true;
     }
 
@@ -1055,11 +1104,13 @@ static bool do_move(void)
     }
     game.loc = game.newloc;
 
-    if (!dwarfmove())
+    if (!dwarfmove()) {
         croak();
+    }
 
-    if (game.loc == LOC_NOWHERE)
+    if (game.loc == LOC_NOWHERE) {
         croak();
+    }
 
     /* The easiest way to get killed is to fall into a pit in
      * pitch darkness. */
@@ -1073,9 +1124,8 @@ static bool do_move(void)
     return true;
 }
 
-static bool do_command(void)
+static bool do_command(void) {
 /* Get and execute a command */
-{
     static command_t command;
     clear_command(&command);
 
@@ -1101,8 +1151,9 @@ static bool do_command(void)
                  *  won't be described until they've been picked up
                  *  and put down separate from their respective
                  *  piles. */
-                if ((PROP_IS_NOTFOUND(OYSTER) || PROP_IS_STASHED(OYSTER)) && TOTING(OYSTER))
-                    pspeak(OYSTER, look, true, 1);
+		if ((PROP_IS_NOTFOUND(OYSTER) || PROP_IS_STASHED(OYSTER)) && TOTING(OYSTER)) {
+		      pspeak(OYSTER, look, true, 1);
+		}
                 for (size_t i = 1; i <= NOBJECTS; i++) {
                     if (TOTING(i) && (PROP_IS_NOTFOUND(i) || PROP_IS_STASHED(i)))
                         game.objects[i].prop = PROP_STASHED(i);
@@ -1112,8 +1163,9 @@ static bool do_command(void)
             /* Check to see if the room is dark. If the knife is here,
              * and it's dark, the knife permanently disappears */
             game.wzdark = DARK(game.loc);
-            if (game.knfloc != LOC_NOWHERE && game.knfloc != game.loc)
+            if (game.knfloc != LOC_NOWHERE && game.knfloc != game.loc) {
                 game.knfloc = LOC_NOWHERE;
+	    }
 
             /* Check some for hints, get input from user, increment
              * turn, and pre-process commands. Keep going until
@@ -1122,8 +1174,9 @@ static bool do_command(void)
                 checkhints();
 
                 /* Get command input from user */
-                if (!get_command_input(&command))
+                if (!get_command_input(&command)) {
                     return false;
+		}
 
                 /* Every input, check "foobar" flag. If zero, nothing's going
                  * on. If pos, make neg. If neg, he skipped a word, so make it
@@ -1136,8 +1189,9 @@ static bool do_command(void)
             }
 
             /* check if game is closed, and exit if it is */
-            if (closecheck() )
+            if (closecheck()) {
                 return true;
+	    }
 
             /* loop until all words in command are processed */
             while (command.state == PREPROCESSED ) {
@@ -1152,12 +1206,14 @@ static bool do_command(void)
 
                 /* Give user hints of shortcuts */
                 if (strncasecmp(command.word[0].raw, "west", sizeof("west")) == 0) {
-                    if (++game.iwest == 10)
-                        rspeak(W_IS_WEST);
+		    if (++game.iwest == 10) {
+			  rspeak(W_IS_WEST);
+		    }
                 }
                 if (strncasecmp(command.word[0].raw, "go", sizeof("go")) == 0 && command.word[1].id != WORD_EMPTY) {
-                    if (++game.igo == 10)
-                        rspeak(GO_UNNEEDED);
+		    if (++game.igo == 10) {
+			  rspeak(GO_UNNEEDED);
+		    }
                 }
 
                 switch (command.word[0].type) {
@@ -1170,10 +1226,11 @@ static bool do_command(void)
                     command.obj = command.word[0].id;
                     break;
                 case ACTION:
-                    if (command.word[1].type == NUMERIC)
-                        command.part = transitive;
-                    else
-                        command.part = intransitive;
+		    if (command.word[1].type == NUMERIC) {
+			  command.part = transitive;
+		    } else {
+			  command.part = intransitive;
+		    }
                     command.verb = command.word[0].id;
                     break;
                 case NUMERIC:
@@ -1275,10 +1332,11 @@ int main(int argc, char *argv[])
 	    break; // LCOV_EXCL_LINE
         case 'l':
             settings.logfp = fopen(optarg, "w");
-            if (settings.logfp == NULL)
+            if (settings.logfp == NULL) {
                 fprintf(stderr,
                         "advent: can't open logfile %s for write\n",
                         optarg);
+	    }
             signal(SIGINT, sig_handler);
             break;
         case 'o':
@@ -1295,10 +1353,11 @@ int main(int argc, char *argv[])
 #elif !defined ADVENT_NOSAVE
         case 'r':
             rfp = fopen(optarg, "r");
-            if (rfp == NULL)
+            if (rfp == NULL) {
                 fprintf(stderr,
                         "advent: can't open save file %s for read\n",
                         optarg);
+	    }
             break;
 #endif
         default:
@@ -1331,8 +1390,9 @@ int main(int argc, char *argv[])
 #if !defined ADVENT_NOSAVE
     if (!rfp) {
         game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU], arbitrary_messages[CAVE_NEARBY], arbitrary_messages[NO_MESSAGE]);
-        if (game.novice)
+        if (game.novice) {
             game.limit = NOVICELIMIT;
+	}
     } else {
         restore(rfp);
 #if defined ADVENT_AUTOSAVE
@@ -1354,18 +1414,21 @@ int main(int argc, char *argv[])
         game.limit = NOVICELIMIT;
 #endif
 
-    if (settings.logfp)
+    if (settings.logfp) {
         fprintf(settings.logfp, "seed %d\n", seedval);
+    }
 
     /* interpret commands until EOF or interrupt */
     for (;;) {
         // if we're supposed to move, move
-        if (!do_move())
-            continue;
+	if (!do_move()) {
+	      continue;
+	}
 
-        // get command
-        if (!do_command())
-            break;
+	  // get command
+	if (!do_command()) {
+	      break;
+	}
     }
     /* show score and exit */
     terminate(quitgame);

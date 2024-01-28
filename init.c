@@ -56,8 +56,9 @@ int initialise(void)
     for (int i = 1; i <= NLOCATIONS; i++) {
         if (!(locations[i].description.big == 0 || tkey[i] == 0)) {
             int k = tkey[i];
-            if (travel[k].motion == HERE)
+            if (travel[k].motion == HERE) {
                 conditions[i] |= (1 << COND_FORCED);
+	    }
         }
     }
 
@@ -77,8 +78,9 @@ int initialise(void)
     for (int i = 1; i <= NOBJECTS; i++) {
         int k = NOBJECTS + 1 - i;
         game.objects[k].fixed = objects[k].fixd;
-        if (objects[k].plac != 0 && objects[k].fixd <= 0)
+        if (objects[k].plac != 0 && objects[k].fixd <= 0) {
             drop(k, objects[k].plac);
+	}
     }
 
     /*  Treasure props are initially STATE_NOTFOUND, and are set to
@@ -88,8 +90,9 @@ int initialise(void)
     for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
         if (objects[treasure].is_treasure) {
             ++game.tally;
-            if (objects[treasure].inventory != 0)
+            if (objects[treasure].inventory != 0) {
                 PROP_SET_NOT_FOUND(treasure);
+	    }
         }
     }
     game.conds = setbit(COND_HBASE);

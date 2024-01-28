@@ -10,10 +10,9 @@
 
 static int mxscor;	/* ugh..the price for having score() not exit. */
 
-int score(enum termination mode)
+int score(enum termination mode) {
 /* mode is 'scoregame' if scoring, 'quitgame' if quitting, 'endgame' if died
  * or won */
-{
     int score = 0;
 
     /*  The present scoring algorithm is as follows:
@@ -39,18 +38,23 @@ int score(enum termination mode)
      *  Give the poor guy 2 points just for finding each treasure. */
     mxscor = 0;
     for (int i = 1; i <= NOBJECTS; i++) {
-        if (!objects[i].is_treasure)
-            continue;
+	if (!objects[i].is_treasure) {
+	      continue;
+	}
         if (objects[i].inventory != 0) {
             int k = 12;
-            if (i == CHEST)
+            if (i == CHEST) {
                 k = 14;
-            if (i > CHEST)
+	    }
+            if (i > CHEST) {
                 k = 16;
-            if (!PROP_IS_STASHED(i) && !PROP_IS_NOTFOUND(i))
+	    }
+            if (!PROP_IS_STASHED(i) && !PROP_IS_NOTFOUND(i)) {
                 score += 2;
-            if (game.objects[i].place == LOC_BUILDING && PROP_IS_FOUND(i))
+	    }
+            if (game.objects[i].place == LOC_BUILDING && PROP_IS_FOUND(i)) {
                 score += k - 2;
+	    }
             mxscor += k;
         }
     }
@@ -63,30 +67,38 @@ int score(enum termination mode)
      *  mundane exits or 133, 134, 135 if he blew it (so to speak). */
     score += (NDEATHS - game.numdie) * 10;
     mxscor += NDEATHS * 10;
-    if (mode == endgame)
+    if (mode == endgame) {
         score += 4;
+    }
     mxscor += 4;
-    if (game.dflag != 0)
+    if (game.dflag != 0) {
         score += 25;
+    }
     mxscor += 25;
-    if (game.closng)
+    if (game.closng) {
         score += 25;
+    }
     mxscor += 25;
     if (game.closed) {
-        if (game.bonus == none)
-            score += 10;
-        if (game.bonus == splatter)
-            score += 25;
-        if (game.bonus == defeat)
-            score += 30;
-        if (game.bonus == victory)
-            score += 45;
+	if (game.bonus == none) {
+	      score += 10;
+	}
+	if (game.bonus == splatter) {
+	      score += 25;
+	}
+	if (game.bonus == defeat) {
+	      score += 30;
+	}
+	if (game.bonus == victory) {
+	      score += 45;
+	}
     }
     mxscor += 45;
 
     /* Did he come to Witt's End as he should? */
-    if (game.objects[MAGAZINE].place == LOC_WITTSEND)
+    if (game.objects[MAGAZINE].place == LOC_WITTSEND) {
         score += 1;
+    }
     mxscor += 1;
 
     /* Round it off. */
@@ -95,13 +107,16 @@ int score(enum termination mode)
 
     /* Deduct for hints/turns/saves. Hints < 4 are special; see database desc. */
     for (int i = 0; i < NHINTS; i++) {
-        if (game.hints[i].used)
-            score = score - hints[i].penalty;
+	if (game.hints[i].used) {
+	      score = score - hints[i].penalty;
+	}
     }
-    if (game.novice)
+    if (game.novice) {
         score -= 5;
-    if (game.clshnt)
+    }
+    if (game.clshnt) {
         score -= 10;
+    }
     score = score - game.trnluz - game.saved;
 
     /* Return to score command if that's where we came from. */
@@ -112,18 +127,19 @@ int score(enum termination mode)
     return score;
 }
 
-void terminate(enum termination mode)
+void terminate(enum termination mode) {
 /* End of game.  Let's tell him all about it. */
-{
     int points = score(mode);
 #if defined ADVENT_AUTOSAVE
     autosave();
 #endif
 
-    if (points + game.trnluz + 1 >= mxscor && game.trnluz != 0)
+    if (points + game.trnluz + 1 >= mxscor && game.trnluz != 0) {
         rspeak(TOOK_LONG);
-    if (points + game.saved + 1 >= mxscor && game.saved != 0)
+    }
+    if (points + game.saved + 1 >= mxscor && game.saved != 0) {
         rspeak(WITHOUT_SUSPENDS);
+    }
     rspeak(TOTAL_SCORE, points, mxscor, game.turns, game.turns);
     for (int i = 1; i <= (int)NCLASSES; i++) {
         if (classes[i].threshold >= points) {
