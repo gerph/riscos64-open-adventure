@@ -221,9 +221,9 @@ struct game_t {
 	/*  dflag controls the level of activation of dwarves:
 	 *	0	No dwarf stuff yet (wait until reaches Hall Of Mists)
 	 *	1	Reached Hall Of Mists, but hasn't met first dwarf
-	 *	2	Met first dwarf, others start moving, no knives thrown
-	 *yet 3	A knife has been thrown (first set always misses) 3+
-	 *Dwarves are mad (increases their accuracy) */
+	 *	2	Met 1t dwarf, others start moving, no knives thrown yet
+	 *      3	A knife has been thrown (first set always misses) 3+
+	 * Dwarves are mad (increases their accuracy) */
 	int32_t dflag;
 
 	int32_t dkill;  // dwarves killed

@@ -27,8 +27,9 @@ struct game_t game = {
 };
 
 int initialise(void) {
-	if (settings.oldstyle)
+	if (settings.oldstyle) {
 		printf("Initialising...\n");
+	}
 
 	srand(time(NULL));
 	int seedval = (int)rand();

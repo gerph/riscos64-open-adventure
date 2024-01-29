@@ -195,7 +195,7 @@ static int word_count(char *str) {
 	int count = 0;
 	int inblanks = true;
 
-	for (char *s = str; *s; s++)
+	for (char *s = str; *s; s++) {
 		if (inblanks) {
 			if (strchr(delims, *s) == 0) {
 				++count;
@@ -206,6 +206,7 @@ static int word_count(char *str) {
 				inblanks = true;
 			}
 		}
+	}
 
 	return (count);
 }
@@ -213,8 +214,9 @@ static int word_count(char *str) {
 static char *get_input(void) {
 	// Set up the prompt
 	char input_prompt[] = PROMPT;
-	if (!settings.prompt)
+	if (!settings.prompt) {
 		input_prompt[0] = '\0';
+	}
 
 	// Print a blank line
 	printf("\n");
@@ -223,8 +225,9 @@ static char *get_input(void) {
 	for (;;) {
 		input = myreadline(input_prompt);
 
-		if (input == NULL) // Got EOF; return with it.
+		if (input == NULL) { // Got EOF; return with it.
 			return (input);
+		}
 		if (input[0] == '#') { // Ignore comments.
 			free(input);
 			continue;
@@ -238,11 +241,13 @@ static char *get_input(void) {
 
 	add_history(input);
 
-	if (!isatty(0))
+	if (!isatty(0)) {
 		echo_input(stdout, input_prompt, input);
+	}
 
-	if (settings.logfp)
+	if (settings.logfp) {
 		echo_input(settings.logfp, "", input);
+	}
 
 	return (input);
 }
@@ -270,8 +275,9 @@ bool silent_yes_or_no(void) {
 
 		free(reply);
 
-		for (int i = 0; i < (int)strlen(firstword); ++i)
+		for (int i = 0; i < (int)strlen(firstword); ++i) {
 			firstword[i] = tolower(firstword[i]);
+		}
 
 		int yes = strncmp("yes", firstword, sizeof("yes") - 1);
 		int y = strncmp("y", firstword, sizeof("y") - 1);
@@ -286,8 +292,9 @@ bool silent_yes_or_no(void) {
 		} else if (no == 0 || n == 0) {
 			outcome = false;
 			break;
-		} else
+		} else {
 			rspeak(PLEASE_ANSWER);
+		}
 	}
 	return (outcome);
 }
@@ -340,8 +347,9 @@ bool yes_or_no(const char *question, const char *yes_response,
 			speak(no_response);
 			outcome = false;
 			break;
-		} else
+		} else {
 			rspeak(PLEASE_ANSWER);
+		}
 	}
 
 	return (outcome);
@@ -357,8 +365,9 @@ static int get_motion_vocab_id(const char *word) {
 			                TOKLEN) == 0 &&
 			    (strlen(word) > 1 ||
 			     strchr(ignore, word[0]) == NULL ||
-			     !settings.oldstyle))
+			     !settings.oldstyle)) {
 				return (i);
+			}
 		}
 	}
 	// If execution reaches here, we didn't find the word.
@@ -372,8 +381,9 @@ static int get_object_vocab_id(const char *word) {
 		    // removed
 		for (int j = 0; j < objects[i].words.n; ++j) {
 			if (strncasecmp(word, objects[i].words.strs[j],
-			                TOKLEN) == 0)
+			                TOKLEN) == 0) {
 				return (i);
+			}
 		}
 	}
 	// If execution reaches here, we didn't find the word.
@@ -529,8 +539,9 @@ bool get_command_input(command_t *command) {
 
 	for (;;) {
 		input = get_input();
-		if (input == NULL)
+		if (input == NULL) {
 			return false;
+		}
 		if (word_count(input) > 2) {
 			rspeak(TWO_WORDS);
 			free(input);
@@ -637,8 +648,9 @@ void carry(obj_t object, loc_t where) {
 		 *
 		 * Possibly this check should be skipped whwn oldstyle is on.
 		 */
-		if (object != BIRD)
+		if (object != BIRD) {
 			++game.holdng;
+		}
 	}
 	if (game.locs[where].atloc == object) {
 		game.locs[where].atloc = game.link[object];
@@ -658,8 +670,8 @@ void drop(obj_t object, loc_t where) {
 	if (object > NOBJECTS) {
 		game.objects[object - NOBJECTS].fixed = where;
 	} else {
-		if (game.objects[object].place == CARRIED)
-			if (object != BIRD)
+		if (game.objects[object].place == CARRIED) {
+			if (object != BIRD) {
 				/* The bird has to be weightless.  This ugly
 				 * hack (and the corresponding code in the carry
 				 * function) brought to you by the fact that
@@ -668,6 +680,8 @@ void drop(obj_t object, loc_t where) {
 				 * the right thing happen.
 				 */
 				--game.holdng;
+			}
+		}
 		game.objects[object].place = where;
 	}
 	if (where == LOC_NOWHERE || where == CARRIED) {

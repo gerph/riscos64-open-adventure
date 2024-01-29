@@ -66,8 +66,9 @@ static phase_codes_t attack(command_t command) {
 				++changes;
 			}
 		}
-		if (changes >= 2)
+		if (changes >= 2) {
 			return GO_UNKNOWN;
+		}
 	}
 
 	if (obj == BIRD) {
@@ -128,8 +129,9 @@ static phase_codes_t attack(command_t command) {
 		drop(BLOOD, LOC_SECRET5);
 		for (obj_t i = 1; i <= NOBJECTS; i++) {
 			if (game.objects[i].place == objects[DRAGON].plac ||
-			    game.objects[i].place == objects[DRAGON].fixd)
+			    game.objects[i].place == objects[DRAGON].fixd) {
 				move(i, LOC_SECRET5);
+			}
 		}
 		game.loc = LOC_SECRET5;
 		return GO_MOVE;
@@ -215,8 +217,9 @@ static phase_codes_t bigwords(vocab_t id) {
 			 * before crossing. */
 			if (game.objects[EGGS].place == LOC_NOWHERE &&
 			    game.objects[TROLL].place == LOC_NOWHERE &&
-			    game.objects[TROLL].prop == TROLL_UNPAID)
+			    game.objects[TROLL].prop == TROLL_UNPAID) {
 				game.objects[TROLL].prop = TROLL_PAIDONCE;
+			}
 			if (HERE(EGGS)) {
 				pspeak(EGGS, look, true, EGGS_VANISHED);
 			} else if (game.loc == objects[EGGS].plac) {
@@ -243,9 +246,9 @@ static phase_codes_t bigwords(vocab_t id) {
 static void blast(void) {
 	/*  Blast.  No effect unless you've got dynamite, which is a neat trick!
 	 */
-	if (PROP_IS_NOTFOUND(ROD2) || !game.closed)
+	if (PROP_IS_NOTFOUND(ROD2) || !game.closed) {
 		rspeak(REQUIRES_DYNAMITE);
-	else {
+	} else {
 		if (HERE(ROD2)) {
 			game.bonus = splatter;
 			rspeak(SPLATTER_MESSAGE);
@@ -274,8 +277,9 @@ static phase_codes_t vbreak(verb_t verb, obj_t obj) {
 		}
 	case VASE:
 		if (game.objects[VASE].prop == VASE_WHOLE) {
-			if (TOTING(VASE))
+			if (TOTING(VASE)) {
 				drop(VASE, game.loc);
+			}
 			state_change(VASE, VASE_BROKEN);
 			game.objects[VASE].fixed = IS_FIXED;
 			break;
@@ -435,8 +439,9 @@ static int chain(verb_t verb) {
 		}
 		game.objects[CHAIN].prop = CHAIN_HEAP;
 		game.objects[CHAIN].fixed = IS_FREE;
-		if (game.objects[BEAR].prop != BEAR_DEAD)
+		if (game.objects[BEAR].prop != BEAR_DEAD) {
 			game.objects[BEAR].prop = CONTENTED_BEAR;
+		}
 
 		switch (game.objects[BEAR].prop) {
 		// LCOV_EXCL_START
@@ -465,8 +470,9 @@ static int chain(verb_t verb) {
 
 	game.objects[CHAIN].prop = CHAIN_FIXED;
 
-	if (TOTING(CHAIN))
+	if (TOTING(CHAIN)) {
 		drop(CHAIN, game.loc);
+	}
 	game.objects[CHAIN].fixed = IS_FIXED;
 
 	rspeak(CHAIN_LOCKED);
@@ -622,8 +628,9 @@ static phase_codes_t eat(verb_t verb, obj_t obj) {
 	 */
 	switch (obj) {
 	case INTRANSITIVE:
-		if (!HERE(FOOD))
+		if (!HERE(FOOD)) {
 			return GO_UNKNOWN;
+		}
 	/* FALLTHRU */
 	case FOOD:
 		DESTROY(FOOD);
@@ -797,8 +804,9 @@ phase_codes_t fill(verb_t verb, obj_t obj) {
 		speak(actions[verb].message);
 		return GO_CLEAROBJ;
 	}
-	if (obj == INTRANSITIVE && !HERE(BOTTLE))
+	if (obj == INTRANSITIVE && !HERE(BOTTLE)) {
 		return GO_UNKNOWN;
+	}
 
 	if (HERE(URN) && game.objects[URN].prop != URN_EMPTY) {
 		rspeak(URN_NOPOUR);
@@ -891,18 +899,21 @@ static phase_codes_t inven(void) {
 	 * burden. */
 	bool empty = true;
 	for (obj_t i = 1; i <= NOBJECTS; i++) {
-		if (i == BEAR || !TOTING(i))
+		if (i == BEAR || !TOTING(i)) {
 			continue;
+		}
 		if (empty) {
 			rspeak(NOW_HOLDING);
 			empty = false;
 		}
 		pspeak(i, touch, false, -1);
 	}
-	if (TOTING(BEAR))
+	if (TOTING(BEAR)) {
 		rspeak(TAME_BEAR);
-	if (empty)
+	}
+	if (empty) {
 		rspeak(NO_CARRY);
+	}
 	return GO_CLEAROBJ;
 }
 
@@ -919,8 +930,9 @@ static phase_codes_t light(verb_t verb, obj_t obj) {
 			obj = URN;
 			selects++;
 		}
-		if (selects != 1)
+		if (selects != 1) {
 			return GO_UNKNOWN;
+		}
 	}
 
 	switch (obj) {
@@ -1181,9 +1193,9 @@ static phase_codes_t reservoir(void) {
 		state_change(RESER, game.objects[RESER].prop == WATERS_PARTED
 		                        ? WATERS_UNPARTED
 		                        : WATERS_PARTED);
-		if (AT(RESER))
+		if (AT(RESER)) {
 			return GO_CLEAROBJ;
-		else {
+		} else {
 			game.oldlc2 = game.loc;
 			game.newloc = LOC_NOWHERE;
 			rspeak(NOT_BRIGHT);
@@ -1266,8 +1278,9 @@ static phase_codes_t throwit(command_t command) {
 	} else {
 		if (atdwrf(game.loc) <= 0) {
 			if (AT(DRAGON) &&
-			    game.objects[DRAGON].prop == DRAGON_BARS)
+			    game.objects[DRAGON].prop == DRAGON_BARS) {
 				return throw_support(DRAGON_SCALES);
+			}
 			if (AT(TROLL)) {
 				return throw_support(TROLL_RETURNS);
 			}
@@ -1357,10 +1370,11 @@ static phase_codes_t wave(verb_t verb, obj_t obj) {
 			           : FREE_FLY);
 			return GO_CLEAROBJ;
 		}
-		if (HERE(BIRD))
+		if (HERE(BIRD)) {
 			rspeak((game.objects[BIRD].prop == BIRD_CAGED)
 			           ? CAGE_FLY
 			           : FREE_FLY);
+		}
 
 		state_change(FISSURE, game.objects[FISSURE].prop == BRIDGED
 		                          ? UNBRIDGED

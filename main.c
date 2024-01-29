@@ -31,8 +31,9 @@ void autosave(void) {
 // exclude from coverage analysis because it requires interactivity to test
 static void sig_handler(int signo) {
 	if (signo == SIGINT) {
-		if (settings.logfp != NULL)
+		if (settings.logfp != NULL) {
 			fflush(settings.logfp);
+		}
 	}
 
 #if defined ADVENT_AUTOSAVE
@@ -145,8 +146,9 @@ static void checkhints(void) {
 					        NO_OBJECT &&
 					    game.locs[game.oldlc2].atloc ==
 					        NO_OBJECT &&
-					    game.holdng > 1)
+					    game.holdng > 1) {
 						break;
+					}
 					game.hints[hint].lc = 0;
 					return;
 				case 4: /* dark */
@@ -170,8 +172,9 @@ static void checkhints(void) {
 					    game.locs[game.oldloc].atloc ==
 					        NO_OBJECT &&
 					    game.locs[game.oldlc2].atloc ==
-					        NO_OBJECT)
+					        NO_OBJECT) {
 						break;
+					}
 					return;
 				case 8: /* ogre */
 					i = atdwrf(game.loc);
@@ -323,8 +326,9 @@ static bool dwarfmove(void) {
 
 	/* Dwarf activity level ratchets up */
 	if (game.dflag == 0) {
-		if (INDEEP(game.loc))
+		if (INDEEP(game.loc)) {
 			game.dflag = 1;
+		}
 		return true;
 	}
 
@@ -373,33 +377,36 @@ static bool dwarfmove(void) {
 		/*  Fill tk array with all the places this dwarf might go. */
 		unsigned int j = 1;
 		kk = tkey[game.dwarves[i].loc];
-		if (kk != 0)
+		if (kk != 0) {
 			do {
 				enum desttype_t desttype = travel[kk].desttype;
 				game.newloc = travel[kk].destval;
 				/* Have we avoided a dwarf encounter? */
-				if (desttype != dest_goto)
+				if (desttype != dest_goto) {
 					continue;
-				else if (!INDEEP(game.newloc))
+				} else if (!INDEEP(game.newloc)) {
 					continue;
-				else if (game.newloc == game.dwarves[i].oldloc)
+				} else if (game.newloc ==
+				           game.dwarves[i].oldloc) {
 					continue;
-				else if (j > 1 && game.newloc == tk[j - 1])
+				} else if (j > 1 && game.newloc == tk[j - 1]) {
 					continue;
-				else if (j >= DIM(tk) - 1)
+				} else if (j >= DIM(tk) - 1) {
 					/* This can't actually happen. */
 					continue; // LCOV_EXCL_LINE
-				else if (game.newloc == game.dwarves[i].loc)
+				} else if (game.newloc == game.dwarves[i].loc) {
 					continue;
-				else if (FORCED(game.newloc))
+				} else if (FORCED(game.newloc)) {
 					continue;
-				else if (i == PIRATE &&
-				         CNDBIT(game.newloc, COND_NOARRR))
+				} else if (i == PIRATE &&
+				           CNDBIT(game.newloc, COND_NOARRR)) {
 					continue;
-				else if (travel[kk].nodwarves)
+				} else if (travel[kk].nodwarves) {
 					continue;
+				}
 				tk[j++] = game.newloc;
 			} while (!travel[kk++].stop);
+		}
 		tk[j] = game.dwarves[i].oldloc;
 		if (j >= 2) {
 			--j;
@@ -502,8 +509,9 @@ static void croak(void) {
 		 * where he died. */
 		game.objects[WATER].place = game.objects[OIL].place =
 		    LOC_NOWHERE;
-		if (TOTING(LAMP))
+		if (TOTING(LAMP)) {
 			game.objects[LAMP].prop = LAMP_DARK;
+		}
 		for (int j = 1; j <= NOBJECTS; j++) {
 			int i = NOBJECTS + 1 - j;
 			if (TOTING(i)) {
@@ -521,8 +529,9 @@ static void describe_location(void) {
 	const char *msg = locations[game.loc].description.small;
 
 	if (MOD(game.locs[game.loc].abbrev, game.abbnum) == 0 ||
-	    msg == NO_MESSAGE)
+	    msg == NO_MESSAGE) {
 		msg = locations[game.loc].description.big;
+	}
 
 	if (!FORCED(game.loc) && DARK(game.loc)) {
 		msg = arbitrary_messages[PITCH_DARK];
@@ -534,8 +543,9 @@ static void describe_location(void) {
 
 	speak(msg);
 
-	if (game.loc == LOC_Y2 && PCT(25) && !game.closng)
+	if (game.loc == LOC_Y2 && PCT(25) && !game.closng) {
 		rspeak(SAYS_PLUGH);
+	}
 }
 
 static bool traveleq(int a, int b) {
@@ -569,8 +579,9 @@ static void playermove(int motion) {
 		 * forced-motion. te_tmp saves entry -> forced loc -> previous
 		 * loc. */
 		motion = game.oldloc;
-		if (FORCED(motion))
+		if (FORCED(motion)) {
 			motion = game.oldlc2;
+		}
 		game.oldlc2 = game.oldloc;
 		game.oldloc = game.loc;
 		if (CNDBIT(game.loc, COND_NOBACK)) {
@@ -591,8 +602,9 @@ static void playermove(int motion) {
 				if (desttype == dest_goto) {
 					if (FORCED(scratchloc) &&
 					    travel[tkey[scratchloc]].destval ==
-					        motion)
+					        motion) {
 						te_tmp = travel_entry;
+					}
 				}
 				if (!travel[travel_entry].stop) {
 					++travel_entry; /* go to next travel
@@ -641,8 +653,9 @@ static void playermove(int motion) {
 	 * indexes the beginning of the motion entries for here (game.loc). */
 	for (;;) {
 		if ((travel[travel_entry].motion == HERE) ||
-		    travel[travel_entry].motion == motion)
+		    travel[travel_entry].motion == motion) {
 			break;
+		}
 		if (travel[travel_entry].stop) {
 			/*  Couldn't find an entry matching the motion word
 			 * passed in.  Various messages depending on word given.
@@ -699,15 +712,17 @@ static void playermove(int motion) {
 					if (condtype == cond_goto ||
 					    condtype == cond_pct) {
 						if (condarg1 == 0 ||
-						    PCT(condarg1))
+						    PCT(condarg1)) {
 							break;
+						}
 						/* else fall through */
 					}
 					/* YAML [with OBJ] clause */
 					else if (TOTING(condarg1) ||
 					         (condtype == cond_with &&
-					          AT(condarg1)))
+					          AT(condarg1))) {
 						break;
+					}
 					/* else fall through to check [not OBJ
 					 * STATE] */
 				} else if (game.objects[condarg1].prop !=
@@ -719,8 +734,9 @@ static void playermove(int motion) {
 				 * Skip to next non-matching destination */
 				int te_tmp = travel_entry;
 				do {
-					if (travel[te_tmp].stop)
+					if (travel[te_tmp].stop) {
 						BUG(CONDITIONAL_TRAVEL_ENTRY_WITH_NO_ALTERATION); // LCOV_EXCL_LINE
+					}
 					++te_tmp;
 				} while (traveleq(travel_entry, te_tmp));
 				travel_entry = te_tmp;
@@ -771,8 +787,10 @@ static void playermove(int motion) {
 					{
 						int te_tmp = travel_entry;
 						do {
-							if (travel[te_tmp].stop)
+							if (travel[te_tmp]
+							        .stop) {
 								BUG(CONDITIONAL_TRAVEL_ENTRY_WITH_NO_ALTERATION); // LCOV_EXCL_LINE
+							}
 							++te_tmp;
 						} while (traveleq(travel_entry,
 						                  te_tmp));
@@ -814,10 +832,11 @@ static void playermove(int motion) {
 						    objects[TROLL].fixd -
 						    game.loc;
 						if (game.objects[TROLL].prop ==
-						    TROLL_UNPAID)
+						    TROLL_UNPAID) {
 							game.objects[TROLL]
 							    .prop =
 							    TROLL_PAIDONCE;
+						}
 						if (!TOTING(BEAR)) {
 							return;
 						}
@@ -962,8 +981,9 @@ static bool closecheck(void) {
 		game.clock1 = -1;
 		game.closng = true;
 		return game.closed;
-	} else if (game.clock1 < 0)
+	} else if (game.clock1 < 0) {
 		--game.clock2;
+	}
 	if (game.clock2 == 0) {
 		/*  Once he's panicked, and clock2 has run out, we come here
 		 *  to set up the storage room.  The room has two locs,
@@ -1159,8 +1179,9 @@ static bool preprocess_command(command_t *command) {
 
 		/* If no word type is given for the first word, we assume it's a
 		 * motion. */
-		if (command->word[0].type == NO_WORD_TYPE)
+		if (command->word[0].type == NO_WORD_TYPE) {
 			command->word[0].type = MOTION;
+		}
 
 		command->state = PREPROCESSED;
 		return true;
@@ -1252,9 +1273,10 @@ static bool do_command(void) {
 				}
 				for (size_t i = 1; i <= NOBJECTS; i++) {
 					if (TOTING(i) && (PROP_IS_NOTFOUND(i) ||
-					                  PROP_IS_STASHED(i)))
+					                  PROP_IS_STASHED(i))) {
 						game.objects[i].prop =
 						    PROP_STASHED(i);
+					}
 				}
 			}
 
@@ -1534,8 +1556,9 @@ int main(int argc, char *argv[]) {
 	game.novice = yes_or_no(arbitrary_messages[WELCOME_YOU],
 	                        arbitrary_messages[CAVE_NEARBY],
 	                        arbitrary_messages[NO_MESSAGE]);
-	if (game.novice)
+	if (game.novice) {
 		game.limit = NOVICELIMIT;
+	}
 #endif
 
 	if (settings.logfp) {

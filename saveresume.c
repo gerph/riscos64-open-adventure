@@ -127,11 +127,13 @@ int resume(void) {
 
 	while (fp == NULL) {
 		char *name = myreadline("\nFile name: ");
-		if (name == NULL)
+		if (name == NULL) {
 			return GO_TOP;
+		}
 		name = strip(name);
-		if (strlen(name) == 0)
+		if (strlen(name) == 0) {
 			return GO_TOP; // LCOV_EXCL_LINE
+		}
 		fp = fopen(name, READ_MODE);
 		if (fp == NULL) {
 			printf("Can't open file %s, try again.\n", name);
