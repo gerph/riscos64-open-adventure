@@ -21,3 +21,5 @@ You can also use pip to install PyYAML: `pip3 install PyYAML`.
 4. Optionally run a regression test on the code with `make check`.
 
 5. Run `./advent` to play.
+
+6. If you want to buld the documentation you will need asciidoctor.
