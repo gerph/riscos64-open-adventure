@@ -70,6 +70,7 @@ check: advent cheat
 
 reflow:
 	@clang-format --style="{IndentWidth: 8, UseTab: ForIndentation}" -i $$(find . -name "*.[ch]")
+	@black --quiet *.py
 
 # Requires gcov, lcov, libasan6, and libubsan1
 # The last two are Ubuntu names, might vary on other distributions.
