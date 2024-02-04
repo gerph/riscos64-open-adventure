@@ -87,15 +87,16 @@ reflow:
 coverage: clean debug
 	cd tests; $(MAKE) coverage --quiet
 
-.SUFFIXES: .adoc .html .6
+# Note: to suppress the footers with timestamps being generated in HTML,
+# we use "-a nofooter".
+# To debug asciidoc problems, you may need to run "xmllint --nonet --noout --valid"
+# on the intermediate XML that throws an error.
+.SUFFIXES: .html .adoc .6
 
-# Requires asciidoc and xsltproc/docbook stylesheets.
 .adoc.6:
-	a2x --doctype manpage --format manpage $<
+	asciidoctor -D. -a nofooter -b manpage $<
 .adoc.html:
-	asciidoc $<
-.adoc:
-	asciidoc $<
+	asciidoctor -D. -a nofooter -a webfonts! $<
 
 html: advent.html history.html hints.html
 
