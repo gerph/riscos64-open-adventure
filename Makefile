@@ -65,7 +65,14 @@ clean:
 cheat: $(CHEAT_OBJS) dungeon.o
 	$(CC) $(CCFLAGS) $(DBX) -o cheat $(CHEAT_OBJS) dungeon.o $(LDFLAGS) $(LIBS)
 
-check: advent cheat
+CSUPPRESSIONS = --suppress=missingIncludeSystem --suppress=invalidscanf
+cppcheck:
+	@-cppcheck -I. --quiet --template gcc -UPROP_SET_SEEN --enable=all $(CSUPPRESSIONS) *.[ch]
+
+pylint:
+	@-pylint --score=n *.py */*.py
+
+check: advent cheat pylint cppcheck
 	cd tests; $(MAKE) --quiet
 
 reflow:
@@ -151,9 +158,3 @@ debug: CCFLAGS += -fsanitize=address
 debug: CCFLAGS += -fsanitize=undefined
 debug: linty
 
-CSUPPRESSIONS = --suppress=missingIncludeSystem --suppress=invalidscanf
-cppcheck:
-	cppcheck -I. --template gcc -UPROP_SET_SEEN --enable=all $(CSUPPRESSIONS) *.[ch]
-
-pylint:
-	@pylint --score=n *.py */*.py
