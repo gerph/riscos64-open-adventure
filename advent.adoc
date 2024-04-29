@@ -62,7 +62,7 @@ argument of '-' is taken as a directive to read from standard input.
 
 The binary save file format is fragile, dependent on your machine's
 endianness, and unlikely to survive through version bumps. There are
-version and emdianness checks when attempting to restore from a save.
+version and endianness checks when attempting to restore from a save.
 
 The input parser was the first attempt *ever* at natural-language
 parsing in a game and has some known deficiencies.  While later text
