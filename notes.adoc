@@ -78,7 +78,11 @@ Bug fixes:
   "eying" for "eyeing", "thresholds" for "threshholds".
 
 * Under odd circumstances (dropping rug or vase outdoors) the game could
-  formerly say "floor" when it should say "ground" (or "dirt", or something).
+  formerly say "floor" when it should say "ground" (or "dirt", or
+  something).
+
+* The "knives vanish" message could formerly be emitted when "I see no
+  knife here." would be appropriate.
 
 Enhancements:
 

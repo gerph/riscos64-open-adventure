@@ -1280,11 +1280,13 @@ static bool do_command(void) {
 				}
 			}
 
-			/* Check to see if the room is dark. If the knife is
-			 * here, and it's dark, the knife permanently disappears
-			 */
+			/* Check to see if the room is dark. */
 			game.wzdark = DARK(game.loc);
-			if (game.knfloc != LOC_NOWHERE &&
+		     
+			/* If the knife is not here it permanently disappears.
+			* Possibly this should fire if the knife is here but
+			* the room is dark? */
+			if (game.knfloc > LOC_NOWHERE &&
 			    game.knfloc != game.loc) {
 				game.knfloc = LOC_NOWHERE;
 			}
