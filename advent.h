@@ -66,7 +66,7 @@
  * can be recovered later.  Various objects get this property when
  * the cave starts to close. Only seems to be significant for the bird
  * and readable objects, notably the clam/oyster - but the code around
- * those test is difficult to read.
+ * those tests is difficult to read.
  */
 #define PROP_STASHIFY(n) (-1 - (n))
 #define PROP_IS_STASHED(obj) (game.objects[obj].prop < STATE_NOTFOUND)
@@ -80,7 +80,7 @@
 #else
 /* (ESR) Only the boldest of adventurers will explore here.  This
  * alternate set of definitions for the macros above was an attempt to
- * break from out of the state encoding a per-object "found" member
+ * break out of the state encoding a per-object "found" member
  * telling whether or not the player has seen the object.
  *
  * What's broken when you try to use thus is
