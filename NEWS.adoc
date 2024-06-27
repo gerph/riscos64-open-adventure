@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
-Repository head::
+1.19: 2024-06-27::
   Ensore that the KNIVES_VANISH message can't issue twice.
 
 1.18: 2024-02-15::
