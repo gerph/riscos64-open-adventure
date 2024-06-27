@@ -170,7 +170,7 @@ oldcompare:
 	echo 1..$(words $(shell ls *.log))) | $(TAPFILTER)
 	@rm *.ochk *-new advent430 adventure.data
 
-# List all NOMPARE tests.
+# List all NOCOMPARE tests.
 residuals:
 	@grep -n NOCOMPARE *.log
 
