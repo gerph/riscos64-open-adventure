@@ -76,13 +76,18 @@ int initialise(void) {
 	/*  Treasure props are initially STATE_NOTFOUND, and are set to
 	 *  STATE_FOUND the first time they are described.  game.tally
 	 *  keeps track of how many are not yet found, so we know when to
-	 *  close the cave. */
-	for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
-		if (objects[treasure].is_treasure) {
+	 *  close the cave.
+	 *  (ESR) Non-trreasures are set to STATE_FOUND explicity so we
+	 *  don't rely on the value of uninitialized storage. This is to
+	 *  make translation to future languages easier. */
+	for (int object = 1; object <= NOBJECTS; object++) {
+		if (objects[object].is_treasure) {
 			++game.tally;
-			if (objects[treasure].inventory != 0) {
-				PROP_SET_NOT_FOUND(treasure);
+			if (objects[object].inventory != NULL) {
+				PROP_SET_NOT_FOUND(object);
 			}
+		} else {
+			PROP_SET_FOUND(object);
 		}
 	}
 	game.conds = setbit(COND_HBASE);
