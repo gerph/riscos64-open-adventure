@@ -82,10 +82,6 @@
  * alternate set of definitions for the macros above was an attempt to
  * break out of the state encoding a per-object "found" member
  * telling whether or not the player has seen the object.
- *
- * What's broken when you try to use thus is
- * OBJECT_IS_STASHED_OR_UNSEEN. The symptom is game.tally getting
- * decremented on non-treasures.
  */
 #define PROP_STASHIFY(n) (-(n))
 #define PROP_IS_INVALID(val) (val < -MAX_STATE || val > MAX_STATE)
