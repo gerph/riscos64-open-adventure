@@ -230,7 +230,7 @@ bool is_valid(struct game_t valgame) {
 	int temp_tally = 0;
 	for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
 		if (objects[treasure].is_treasure) {
-			if (PROP_IS_NOTFOUND2(valgame, treasure)) {
+			if (OBJECT_IS_NOTFOUND2(valgame, treasure)) {
 				++temp_tally;
 			}
 		}

@@ -620,11 +620,11 @@ void put(obj_t object, loc_t where, int pval) {
 	/*  put() is the same as move(), except it returns a value used to set
 	 * up the negated game.prop values for the repository objects. */
 	move(object, where);
-	/* (ESR) Read this in combination with the macro defintions in advebt.h.
+	/* (ESR) Read this in combination with the macro defintions in advent.h.
 	 */
 	game.objects[object].prop = PROP_STASHIFY(pval);
-#ifdef PROP_SET_SEEN
-	PROP_SET_SEEN(object);
+#ifdef OBJECT_SET_SEEN
+	OBJECT_SET_SEEN(object);
 #endif
 }
 

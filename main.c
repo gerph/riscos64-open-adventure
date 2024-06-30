@@ -152,8 +152,8 @@ static void checkhints(void) {
 					game.hints[hint].lc = 0;
 					return;
 				case 4: /* dark */
-					if (!PROP_IS_NOTFOUND(EMERALD) &&
-					    PROP_IS_NOTFOUND(PYRAMID)) {
+					if (!OBJECT_IS_NOTFOUND(EMERALD) &&
+					    OBJECT_IS_NOTFOUND(PYRAMID)) {
 						break;
 					}
 					game.hints[hint].lc = 0;
@@ -188,7 +188,7 @@ static void checkhints(void) {
 					return;
 				case 9: /* jade */
 					if (game.tally == 1 &&
-					    PROP_IS_STASHED_OR_UNSEEN(JADE)) {
+					    OBJECT_IS_STASHED_OR_UNSEEN(JADE)) {
 						break;
 					}
 					game.hints[hint].lc = 0;
@@ -231,8 +231,8 @@ static bool spotted_by_pirate(int i) {
 	 *  tally=1 for an unseen chest, let the pirate be spotted.  Note
 	 *  that game.objexts,place[CHEST] = LOC_NOWHERE might mean that he's
 	 * thrown it to the troll, but in that case he's seen the chest
-	 *  PROP_IS_FOUND(CHEST) == true. */
-	if (game.loc == game.chloc || !PROP_IS_NOTFOUND(CHEST)) {
+	 *  OBJECT_IS_FOUND(CHEST) == true. */
+	if (game.loc == game.chloc || !OBJECT_IS_NOTFOUND(CHEST)) {
 		return true;
 	}
 	int snarfed = 0;
@@ -1061,11 +1061,11 @@ static void listobjects(void) {
 			 * running this code only on objects with the treasure
 			 * property set. Nope.  There is mystery here.
 			 */
-			if (PROP_IS_STASHED_OR_UNSEEN(obj)) {
+			if (OBJECT_IS_STASHED_OR_UNSEEN(obj)) {
 				if (game.closed) {
 					continue;
 				}
-				PROP_SET_FOUND(obj);
+				OBJECT_SET_FOUND(obj);
 				if (obj == RUG) {
 					game.objects[RUG].prop = RUG_DRAGON;
 				}
@@ -1266,16 +1266,16 @@ static bool do_command(void) {
 				 * way objects won't be described until they've
 				 * been picked up and put down separate from
 				 * their respective piles. */
-				if ((PROP_IS_NOTFOUND(OYSTER) ||
-				     PROP_IS_STASHED(OYSTER)) &&
+				if ((OBJECT_IS_NOTFOUND(OYSTER) ||
+				     OBJECT_IS_STASHED(OYSTER)) &&
 				    TOTING(OYSTER)) {
 					pspeak(OYSTER, look, true, 1);
 				}
 				for (size_t i = 1; i <= NOBJECTS; i++) {
-					if (TOTING(i) && (PROP_IS_NOTFOUND(i) ||
-					                  PROP_IS_STASHED(i))) {
+					if (TOTING(i) && (OBJECT_IS_NOTFOUND(i) ||
+					                  OBJECT_IS_STASHED(i))) {
 						game.objects[i].prop =
-						    PROP_STASHED(i);
+						    OBJECT_STASHED(i);
 					}
 				}
 			}

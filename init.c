@@ -84,10 +84,10 @@ int initialise(void) {
 		if (objects[object].is_treasure) {
 			++game.tally;
 			if (objects[object].inventory != NULL) {
-				PROP_SET_NOT_FOUND(object);
+				OBJECT_SET_NOT_FOUND(object);
 			}
 		} else {
-			PROP_SET_FOUND(object);
+			OBJECT_SET_FOUND(object);
 		}
 	}
 	game.conds = setbit(COND_HBASE);

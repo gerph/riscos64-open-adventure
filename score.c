@@ -49,11 +49,11 @@ int score(enum termination mode) {
 			if (i > CHEST) {
 				k = 16;
 			}
-			if (!PROP_IS_STASHED(i) && !PROP_IS_NOTFOUND(i)) {
+			if (!OBJECT_IS_STASHED(i) && !OBJECT_IS_NOTFOUND(i)) {
 				score += 2;
 			}
 			if (game.objects[i].place == LOC_BUILDING &&
-			    PROP_IS_FOUND(i)) {
+			    OBJECT_IS_FOUND(i)) {
 				score += k - 2;
 			}
 			mxscor += k;

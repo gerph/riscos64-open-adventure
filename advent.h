@@ -61,7 +61,7 @@
  * STATE_NOTFOUND is only set on treasures. Non-treasures start the
  * game in STATE_FOUND.
  *
- * PROP_STASHED is supposed to map a state property value to a
+ * OBJECT_STASHED is supposed to map a state property value to a
  * negative range, where the object cannot be picked up but the value
  * can be recovered later.  Various objects get this property when
  * the cave starts to close. Only seems to be significant for the bird
@@ -69,14 +69,14 @@
  * those tests is difficult to read.
  */
 #define PROP_STASHIFY(n) (-1 - (n))
-#define PROP_IS_STASHED(obj) (game.objects[obj].prop < STATE_NOTFOUND)
-#define PROP_IS_NOTFOUND(obj) (game.objects[obj].prop == STATE_NOTFOUND)
-#define PROP_IS_FOUND(obj) (game.objects[obj].prop == STATE_FOUND)
-#define PROP_IS_STASHED_OR_UNSEEN(obj) (game.objects[obj].prop < 0)
-#define PROP_SET_FOUND(obj) (game.objects[obj].prop = STATE_FOUND)
-#define PROP_SET_NOT_FOUND(obj) (game.objects[obj].prop = STATE_NOTFOUND)
-#define PROP_IS_NOTFOUND2(g, o) (g.objects[o].prop == STATE_NOTFOUND)
 #define PROP_IS_INVALID(val) (val < -MAX_STATE - 1 || val > MAX_STATE)
+#define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < STATE_NOTFOUND)
+#define OBJECT_IS_NOTFOUND(obj) (game.objects[obj].prop == STATE_NOTFOUND)
+#define OBJECT_IS_FOUND(obj) (game.objects[obj].prop == STATE_FOUND)
+#define OBJECT_IS_STASHED_OR_UNSEEN(obj) (game.objects[obj].prop < 0)
+#define OBJECT_SET_FOUND(obj) (game.objects[obj].prop = STATE_FOUND)
+#define OBJECT_SET_NOT_FOUND(obj) (game.objects[obj].prop = STATE_NOTFOUND)
+#define OBJECT_IS_NOTFOUND2(g, o) (g.objects[o].prop == STATE_NOTFOUND)
 #else
 /* (ESR) Only the boldest of adventurers will explore here.  This
  * alternate set of definitions for the macros above was an attempt to
@@ -84,27 +84,27 @@
  * telling whether or not the player has seen the object.
  *
  * What's broken when you try to use thus is
- * PROP_IS_STASHED_OR_UNSEEN. The symptom is game.tally getting
+ * OBJECT_IS_STASHED_OR_UNSEEN. The symptom is game.tally getting
  * decremented on non-treasures.
  */
 #define PROP_STASHIFY(n) (-(n))
-#define PROP_IS_STASHED(obj) (game.objects[obj].prop < 0)
-#define PROP_IS_NOTFOUND(obj) (!game.objects[obj].found)
-#define PROP_IS_FOUND(obj)                                                     \
+#define PROP_IS_INVALID(val) (val < -MAX_STATE || val > MAX_STATE)
+#define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < 0)
+#define OBJECT_IS_NOTFOUND(obj) (!game.objects[obj].found)
+#define OBJECT_IS_FOUND(obj)                                                     \
 	(game.objects[obj].found && game.objects[obj].prop == 0)
-#define PROP_IS_STASHED_OR_UNSEEN(obj)                                         \
+#define OBJECT_IS_STASHED_OR_UNSEEN(obj)                                         \
 	(!game.objects[obj].found || game.objects[obj].prop < 0)
-#define PROP_SET_FOUND(obj)                                                    \
+#define OBJECT_SET_FOUND(obj)                                                    \
 	do {                                                                   \
 		game.objects[obj].found = true;                                \
 		game.objects[obj].prop = STATE_FOUND;                          \
 	} while (0)
-#define PROP_SET_NOT_FOUND(obj) game.objects[obj].found = false
-#define PROP_IS_NOTFOUND2(g, o) (!g.objects[o].found)
-#define PROP_IS_INVALID(val) (val < -MAX_STATE || val > MAX_STATE)
-#define PROP_SET_SEEN(obj) game.objects[object].found = true
+#define OBJECT_SET_NOT_FOUND(obj) game.objects[obj].found = false
+#define OBJECT_IS_NOTFOUND2(g, o) (!g.objects[o].found)
+#define OBJECT_SET_SEEN(obj) game.objects[object].found = true
 #endif
-#define PROP_STASHED(obj) PROP_STASHIFY(game.objects[obj].prop)
+#define OBJECT_STASHED(obj) PROP_STASHIFY(game.objects[obj].prop)
 
 #define PROMPT "> "
 

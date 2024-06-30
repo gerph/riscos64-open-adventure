@@ -246,7 +246,7 @@ static phase_codes_t bigwords(vocab_t id) {
 static void blast(void) {
 	/*  Blast.  No effect unless you've got dynamite, which is a neat trick!
 	 */
-	if (PROP_IS_NOTFOUND(ROD2) || !game.closed) {
+	if (OBJECT_IS_NOTFOUND(ROD2) || !game.closed) {
 		rspeak(REQUIRES_DYNAMITE);
 	} else {
 		if (HERE(ROD2)) {
@@ -389,7 +389,7 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj) {
 	}
 
 	if (obj == BIRD && game.objects[BIRD].prop != BIRD_CAGED &&
-	    !PROP_IS_STASHED(BIRD)) {
+	    !OBJECT_IS_STASHED(BIRD)) {
 		if (game.objects[BIRD].prop == BIRD_FOREST_UNCAGED) {
 			DESTROY(BIRD);
 			rspeak(BIRD_CRAP);
@@ -407,7 +407,7 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj) {
 	}
 	if ((obj == BIRD || obj == CAGE) &&
 	    (game.objects[BIRD].prop == BIRD_CAGED ||
-	     PROP_STASHED(BIRD) == BIRD_CAGED)) {
+	     OBJECT_STASHED(BIRD) == BIRD_CAGED)) {
 		/* expression maps BIRD to CAGE and CAGE to BIRD */
 		carry(BIRD + CAGE - obj, game.loc);
 	}
@@ -418,8 +418,8 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj) {
 		game.objects[LIQUID()].place = CARRIED;
 	}
 
-	if (GSTONE(obj) && !PROP_IS_FOUND(obj)) {
-		PROP_SET_FOUND(obj);
+	if (GSTONE(obj) && !OBJECT_IS_FOUND(obj)) {
+		OBJECT_SET_FOUND(obj);
 		game.objects[CAVITY].prop = CAVITY_EMPTY;
 	}
 	rspeak(OK_MAN);
@@ -971,7 +971,7 @@ static phase_codes_t listen(void) {
 	}
 	for (obj_t i = 1; i <= NOBJECTS; i++) {
 		if (!HERE(i) || objects[i].sounds[0] == NULL ||
-		    PROP_IS_STASHED_OR_UNSEEN(i)) {
+		    OBJECT_IS_STASHED_OR_UNSEEN(i)) {
 			continue;
 		}
 		int mi = game.objects[i].prop;
@@ -1151,7 +1151,7 @@ static phase_codes_t read(command_t command)
 		command.obj = NO_OBJECT;
 		for (int i = 1; i <= NOBJECTS; i++) {
 			if (HERE(i) && objects[i].texts[0] != NULL &&
-			    !PROP_IS_STASHED(i)) {
+			    !OBJECT_IS_STASHED(i)) {
 				command.obj = command.obj * NOBJECTS + i;
 			}
 		}
@@ -1175,7 +1175,7 @@ static phase_codes_t read(command_t command)
 			       1); // Not really a sound, but oh well.
 		}
 	} else if (objects[command.obj].texts[0] == NULL ||
-	           PROP_IS_NOTFOUND(command.obj)) {
+	           OBJECT_IS_NOTFOUND(command.obj)) {
 		speak(actions[command.verb].message);
 	} else {
 		pspeak(command.obj, study, true,
@@ -1351,9 +1351,9 @@ static phase_codes_t wave(verb_t verb, obj_t obj) {
 	}
 
 	if (game.objects[BIRD].prop == BIRD_UNCAGED &&
-	    game.loc == game.objects[STEPS].place && PROP_IS_NOTFOUND(JADE)) {
+	    game.loc == game.objects[STEPS].place && OBJECT_IS_NOTFOUND(JADE)) {
 		drop(JADE, game.loc);
-		PROP_SET_FOUND(JADE);
+		OBJECT_SET_FOUND(JADE);
 		--game.tally;
 		rspeak(NECKLACE_FLY);
 		return GO_CLEAROBJ;
