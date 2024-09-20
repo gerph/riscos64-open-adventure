@@ -514,8 +514,7 @@ static void tokenize(char *raw, command_t *cmd) {
 	 * possible an emulation of the original UI.
 	 */
 	if (settings.oldstyle) {
-		cmd->word[0].raw[TOKLEN + TOKLEN] =
-		    cmd->word[1].raw[TOKLEN + TOKLEN] = '\0';
+		cmd->word[0].raw[TOKLEN] = cmd->word[1].raw[TOKLEN] = '\0';
 		for (size_t i = 0; i < strlen(cmd->word[0].raw); i++) {
 			cmd->word[0].raw[i] = toupper(cmd->word[0].raw[i]);
 		}
