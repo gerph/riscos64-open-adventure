@@ -81,7 +81,7 @@ char *myreadline(const char *prompt) {
 			}
 		}
 
-		if (isatty(fileno(settings.scriptfp))) {
+		if (isatty(fileno(settings.scriptfp)) && !settings.oldstyle) {
 			free(buf);               // LCOV_EXCL_LINE
 			return readline(prompt); // LCOV_EXCL_LINE
 		} else {
