@@ -10,7 +10,7 @@
 # We define a bunch of YAML structures:
 #
 # motions: Motion words, grouped into synonyms.  The 'oldstyle'
-#    attribute, if false, means that single-letter synonyms should be
+#    attribute, if false, means that single-letter synonyms should not be
 #    accepted in oldstyle mode; it defaults to true.
 #
 # actions: Action words, grouped into synonyms, and their corresponding
