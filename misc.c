@@ -495,8 +495,8 @@ static void tokenize(char *raw, command_t *cmd) {
 	memset(&cmd->word[1].raw, '\0', sizeof(cmd->word[1].raw));
 
 	/* Bound prefix on the %s would be needed to prevent buffer
-	 * overflow.  but we shortstop this more simply by making each
-	 * raw-input buffer as int as the entire input buffer. */
+	 * overflow. We shortstop this more simply by making each
+	 * raw-input buffer as long as the entire input buffer. */
 	sscanf(raw, "%s%s", cmd->word[0].raw, cmd->word[1].raw);
 
 	/* (ESR) In oldstyle mode, simulate the uppercasing and truncating
