@@ -512,9 +512,14 @@ static void tokenize(char *raw, command_t *cmd) {
 	 * in their tools. On the other, not simulating this misbehavior
 	 * goes against the goal of making oldstyle as accurate as
 	 * possible an emulation of the original UI.
+	 *
+	 * The definition of TRUNCLEN is dubious. It accurately reflects the
+	 * FORTRAN, but it's possible that was a bug and the proper definition
+	 * is (TOKLEN).
 	 */
+#define TRUNCLEN (TOKLEN + TOKLEN)
 	if (settings.oldstyle) {
-		cmd->word[0].raw[TOKLEN] = cmd->word[1].raw[TOKLEN] = '\0';
+		cmd->word[0].raw[TRUNCLEN] = cmd->word[1].raw[TRUNCLEN] = '\0';
 		for (size_t i = 0; i < strlen(cmd->word[0].raw); i++) {
 			cmd->word[0].raw[i] = toupper(cmd->word[0].raw[i]);
 		}
