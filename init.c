@@ -1,7 +1,7 @@
 /*
  * Initialisation
  *
- * SPDX-FileCopyrightText: (C) 1977, 2005 by Will Crowther and Don Woodsm
+ * SPDX-FileCopyrightText: (C) 1977, 2005 by Will Crowther and Don Woods
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
