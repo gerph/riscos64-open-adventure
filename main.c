@@ -1272,8 +1272,9 @@ static bool do_command(void) {
 					pspeak(OYSTER, look, true, 1);
 				}
 				for (size_t i = 1; i <= NOBJECTS; i++) {
-					if (TOTING(i) && (OBJECT_IS_NOTFOUND(i) ||
-					                  OBJECT_IS_STASHED(i))) {
+					if (TOTING(i) &&
+					    (OBJECT_IS_NOTFOUND(i) ||
+					     OBJECT_IS_STASHED(i))) {
 						game.objects[i].prop =
 						    OBJECT_STASHED(i);
 					}
@@ -1282,10 +1283,10 @@ static bool do_command(void) {
 
 			/* Check to see if the room is dark. */
 			game.wzdark = DARK(game.loc);
-		     
+
 			/* If the knife is not here it permanently disappears.
-			* Possibly this should fire if the knife is here but
-			* the room is dark? */
+			 * Possibly this should fire if the knife is here but
+			 * the room is dark? */
 			if (game.knfloc > LOC_NOWHERE &&
 			    game.knfloc != game.loc) {
 				game.knfloc = LOC_NOWHERE;

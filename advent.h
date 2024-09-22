@@ -87,11 +87,11 @@
 #define PROP_IS_INVALID(val) (val < -MAX_STATE || val > MAX_STATE)
 #define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < 0)
 #define OBJECT_IS_NOTFOUND(obj) (!game.objects[obj].found)
-#define OBJECT_IS_FOUND(obj)                                                     \
+#define OBJECT_IS_FOUND(obj)                                                   \
 	(game.objects[obj].found && game.objects[obj].prop == 0)
-#define OBJECT_IS_STASHED_OR_UNSEEN(obj)                                         \
+#define OBJECT_IS_STASHED_OR_UNSEEN(obj)                                       \
 	(!game.objects[obj].found || game.objects[obj].prop < 0)
-#define OBJECT_SET_FOUND(obj)                                                    \
+#define OBJECT_SET_FOUND(obj)                                                  \
 	do {                                                                   \
 		game.objects[obj].found = true;                                \
 		game.objects[obj].prop = STATE_FOUND;                          \
