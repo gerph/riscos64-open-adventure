@@ -257,7 +257,7 @@ struct game_t {
 		bool32_t found; // has the location of this object been found?
 #endif
 		loc_t fixed;  // fixed location of object (if not IS_FREE)
-		int32_t prop; // object state */
+		int32_t prop; // object state
 		loc_t place;  // location of object
 	} objects[NOBJECTS + 1];
 	struct {

@@ -77,7 +77,7 @@ int initialise(void) {
 	 *  STATE_FOUND the first time they are described.  game.tally
 	 *  keeps track of how many are not yet found, so we know when to
 	 *  close the cave.
-	 *  (ESR) Non-trreasures are set to STATE_FOUND explicity so we
+	 *  (ESR) Non-treasures are set to STATE_FOUND explicitly so we
 	 *  don't rely on the value of uninitialized storage. This is to
 	 *  make translation to future languages easier. */
 	for (int object = 1; object <= NOBJECTS; object++) {
