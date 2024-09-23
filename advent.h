@@ -47,7 +47,6 @@
 #define IS_FIXED -1
 #define IS_FREE 0
 
-#ifndef FOUNDBOOL
 /* (ESR) It is fitting that translation of the original ADVENT should
  * have left us a maze of twisty little conditionals that resists all
  * understanding.  Setting and use of what is now the per-object state
@@ -78,29 +77,6 @@
 #define OBJECT_SET_NOT_FOUND(obj) (game.objects[obj].prop = STATE_NOTFOUND)
 #define OBJECT_IS_NOTFOUND2(g, o) (g.objects[o].prop == STATE_NOTFOUND)
 #define OBJECT_STATE_EQUALS(obj, pval) ((game.objects[obj].prop == pval) || (game.objects[obj].prop == PROP_STASHIFY(pval))) 
-#else
-/* (ESR) Only the boldest of adventurers will explore here.  This
- * alternate set of definitions for the macros above was an attempt to
- * break out of the state encoding a per-object "found" member
- * telling whether or not the player has seen the object.
- */
-#define PROP_STASHIFY(n) (-(n))
-#define PROP_IS_INVALID(val) (val < -MAX_STATE || val > MAX_STATE)
-#define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < 0)
-#define OBJECT_IS_NOTFOUND(obj) (!game.objects[obj].found)
-#define OBJECT_IS_FOUND(obj)                                                   \
-	(game.objects[obj].found && game.objects[obj].prop == 0)
-#define OBJECT_IS_STASHED_OR_UNSEEN(obj)                                       \
-	(!game.objects[obj].found || game.objects[obj].prop < 0)
-#define OBJECT_SET_FOUND(obj)                                                  \
-	do {                                                                   \
-		game.objects[obj].found = true;                                \
-		game.objects[obj].prop = STATE_FOUND;                          \
-	} while (0)
-#define OBJECT_SET_NOT_FOUND(obj) game.objects[obj].found = false
-#define OBJECT_IS_NOTFOUND2(g, o) (!g.objects[o].found)
-#define OBJECT_SET_SEEN(obj) game.objects[object].found = true
-#endif
 #define OBJECT_STASHIFY(obj, pval) game.objects[obj].prop = PROP_STASHIFY(pval)
 
 #define PROMPT "> "
@@ -254,9 +230,6 @@ struct game_t {
 		loc_t oldloc; // prior loc of each dwarf, initially garbage
 	} dwarves[NDWARVES + 1];
 	struct {
-#ifdef FOUNDBOOL
-		bool32_t found; // has the location of this object been found?
-#endif
 		loc_t fixed;  // fixed location of object (if not IS_FREE)
 		int32_t prop; // object state
 		loc_t place;  // location of object
