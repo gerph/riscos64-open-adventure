@@ -329,8 +329,7 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj) {
 	if (game.objects[obj].fixed != IS_FREE) {
 		switch (obj) {
 		case PLANT:
-			/* Next guard tests whether plant is tiny or stashed */
-			rspeak(game.objects[PLANT].prop <= PLANT_THIRSTY
+			rspeak((game.objects[PLANT].prop == PLANT_THIRSTY || OBJECT_IS_STASHED(PLANT))
 			           ? DEEP_ROOTS
 			           : YOU_JOKING);
 			break;
