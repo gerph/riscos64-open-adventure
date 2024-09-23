@@ -640,7 +640,7 @@ static void playermove(int motion) {
 	} else if (motion == CAVE) {
 		/*  Cave.  Different messages depending on whether above ground.
 		 */
-		rspeak((OUTSID(game.loc) && game.loc != LOC_GRATE)
+		rspeak((OUTSIDE(game.loc) && game.loc != LOC_GRATE)
 		           ? FOLLOW_STREAM
 		           : NEED_DETAIL);
 		return;
@@ -1193,7 +1193,7 @@ static bool preprocess_command(command_t *command) {
 static bool do_move(void) {
 	/* Actually execute the move to the new location and dwarf movement */
 	/*  Can't leave cave once it's closing (except by main office). */
-	if (OUTSID(game.newloc) && game.newloc != 0 && game.closng) {
+	if (OUTSIDE(game.newloc) && game.newloc != 0 && game.closng) {
 		rspeak(EXIT_CLOSED);
 		game.newloc = game.loc;
 		if (!game.panic) {
