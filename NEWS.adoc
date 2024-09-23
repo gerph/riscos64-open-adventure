@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
-Repository head::
+1.20: 2024-09-23::
   Make oldstyle correctly suppress line editing.
 
 1.19: 2024-06-27::

@@ -66,6 +66,8 @@
  * the cave starts to close. Only seems to be significant for the bird
  * and readable objects, notably the clam/oyster - but the code around
  * those tests is difficult to read.
+ *
+ * All tests of the prop member are done with either these macros or ==.
  */
 #define OBJECT_IS_NOTFOUND(obj) (game.objects[obj].prop == STATE_NOTFOUND)
 #define OBJECT_IS_FOUND(obj) (game.objects[obj].prop == STATE_FOUND)
