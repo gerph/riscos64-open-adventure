@@ -61,7 +61,7 @@
  * STATE_NOTFOUND is only set on treasures. Non-treasures start the
  * game in STATE_FOUND.
  *
- * OBJECT_STASHED is supposed to map a state property value to a
+ * PROP_STASHIFY is supposed to map a state property value to a
  * negative range, where the object cannot be picked up but the value
  * can be recovered later.  Various objects get this property when
  * the cave starts to close. Only seems to be significant for the bird
@@ -100,7 +100,6 @@
 #define OBJECT_IS_NOTFOUND2(g, o) (!g.objects[o].found)
 #define OBJECT_SET_SEEN(obj) game.objects[object].found = true
 #endif
-#define OBJECT_STASHED(obj) PROP_STASHIFY(game.objects[obj].prop)
 
 #define PROMPT "> "
 
