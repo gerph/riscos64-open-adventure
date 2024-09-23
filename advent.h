@@ -77,6 +77,7 @@
 #define OBJECT_SET_FOUND(obj) (game.objects[obj].prop = STATE_FOUND)
 #define OBJECT_SET_NOT_FOUND(obj) (game.objects[obj].prop = STATE_NOTFOUND)
 #define OBJECT_IS_NOTFOUND2(g, o) (g.objects[o].prop == STATE_NOTFOUND)
+#define OBJECT_STATE_EQUALS(obj, pval) ((game.objects[obj].prop == pval) || (game.objects[obj].prop == PROP_STASHIFY(pval))) 
 #else
 /* (ESR) Only the boldest of adventurers will explore here.  This
  * alternate set of definitions for the macros above was an attempt to

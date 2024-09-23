@@ -406,8 +406,7 @@ static phase_codes_t vcarry(verb_t verb, obj_t obj) {
 		game.objects[BIRD].prop = BIRD_CAGED;
 	}
 	if ((obj == BIRD || obj == CAGE) &&
-	    (game.objects[BIRD].prop == BIRD_CAGED ||
-	     PROP_STASHIFY(game.objects[BIRD].prop) == BIRD_CAGED)) {
+	    OBJECT_STATE_EQUALS(BIRD, BIRD_CAGED)) {
 		/* expression maps BIRD to CAGE and CAGE to BIRD */
 		carry(BIRD + CAGE - obj, game.loc);
 	}
