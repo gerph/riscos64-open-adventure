@@ -970,7 +970,7 @@ static phase_codes_t listen(void) {
 	}
 	for (obj_t i = 1; i <= NOBJECTS; i++) {
 		if (!HERE(i) || objects[i].sounds[0] == NULL ||
-		    OBJECT_IS_STASHED_OR_UNSEEN(i)) {
+		    OBJECT_IS_STASHED(i) || OBJECT_IS_NOTFOUND(i)) {
 			continue;
 		}
 		int mi = game.objects[i].prop;

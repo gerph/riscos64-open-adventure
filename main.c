@@ -188,7 +188,7 @@ static void checkhints(void) {
 					return;
 				case 9: /* jade */
 					if (game.tally == 1 &&
-					    OBJECT_IS_STASHED_OR_UNSEEN(JADE)) {
+					    (OBJECT_IS_STASHED(JADE) || OBJECT_IS_NOTFOUND(JADE))) {
 						break;
 					}
 					game.hints[hint].lc = 0;
@@ -1061,7 +1061,7 @@ static void listobjects(void) {
 			 * running this code only on objects with the treasure
 			 * property set. Nope.  There is mystery here.
 			 */
-			if (OBJECT_IS_STASHED_OR_UNSEEN(obj)) {
+			if (OBJECT_IS_STASHED(i) || OBJECT_IS_NOTFOUND(obj)) {
 				if (game.closed) {
 					continue;
 				}

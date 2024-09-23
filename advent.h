@@ -67,17 +67,16 @@
  * and readable objects, notably the clam/oyster - but the code around
  * those tests is difficult to read.
  */
-#define PROP_STASHIFY(n) (-1 - (n))
-#define PROP_IS_INVALID(val) (val < -MAX_STATE - 1 || val > MAX_STATE)
-#define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < STATE_NOTFOUND)
 #define OBJECT_IS_NOTFOUND(obj) (game.objects[obj].prop == STATE_NOTFOUND)
 #define OBJECT_IS_FOUND(obj) (game.objects[obj].prop == STATE_FOUND)
-#define OBJECT_IS_STASHED_OR_UNSEEN(obj) (game.objects[obj].prop < 0)
 #define OBJECT_SET_FOUND(obj) (game.objects[obj].prop = STATE_FOUND)
 #define OBJECT_SET_NOT_FOUND(obj) (game.objects[obj].prop = STATE_NOTFOUND)
 #define OBJECT_IS_NOTFOUND2(g, o) (g.objects[o].prop == STATE_NOTFOUND)
-#define OBJECT_STATE_EQUALS(obj, pval) ((game.objects[obj].prop == pval) || (game.objects[obj].prop == PROP_STASHIFY(pval))) 
+#define PROP_IS_INVALID(val) (val < -MAX_STATE - 1 || val > MAX_STATE)
+#define PROP_STASHIFY(n) (-1 - (n))
 #define OBJECT_STASHIFY(obj, pval) game.objects[obj].prop = PROP_STASHIFY(pval)
+#define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < STATE_NOTFOUND)
+#define OBJECT_STATE_EQUALS(obj, pval) ((game.objects[obj].prop == pval) || (game.objects[obj].prop == PROP_STASHIFY(pval))) 
 
 #define PROMPT "> "
 
