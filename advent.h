@@ -76,7 +76,9 @@
 #define PROP_STASHIFY(n) (-1 - (n))
 #define OBJECT_STASHIFY(obj, pval) game.objects[obj].prop = PROP_STASHIFY(pval)
 #define OBJECT_IS_STASHED(obj) (game.objects[obj].prop < STATE_NOTFOUND)
-#define OBJECT_STATE_EQUALS(obj, pval) ((game.objects[obj].prop == pval) || (game.objects[obj].prop == PROP_STASHIFY(pval))) 
+#define OBJECT_STATE_EQUALS(obj, pval)                                         \
+	((game.objects[obj].prop == pval) ||                                   \
+	 (game.objects[obj].prop == PROP_STASHIFY(pval)))
 
 #define PROMPT "> "
 

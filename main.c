@@ -188,7 +188,8 @@ static void checkhints(void) {
 					return;
 				case 9: /* jade */
 					if (game.tally == 1 &&
-					    (OBJECT_IS_STASHED(JADE) || OBJECT_IS_NOTFOUND(JADE))) {
+					    (OBJECT_IS_STASHED(JADE) ||
+					     OBJECT_IS_NOTFOUND(JADE))) {
 						break;
 					}
 					game.hints[hint].lc = 0;
@@ -1275,7 +1276,8 @@ static bool do_command(void) {
 					if (TOTING(i) &&
 					    (OBJECT_IS_NOTFOUND(i) ||
 					     OBJECT_IS_STASHED(i))) {
-						OBJECT_STASHIFY(i, game.objects[i].prop);
+						OBJECT_STASHIFY(
+						    i, game.objects[i].prop);
 					}
 				}
 			}
