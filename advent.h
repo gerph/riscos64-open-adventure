@@ -83,24 +83,24 @@
 #define PROMPT "> "
 
 /*
- * DESTROY(N)   = Get rid of an item by putting it in LOC_NOWHERE
- * MOD(N,M)     = Arithmetic modulus
- * TOTING(OBJ)  = true if the OBJ is being carried
- * AT(OBJ)      = true if on either side of two-placed object
- * HERE(OBJ)    = true if the OBJ is at "LOC" (or is being carried)
- * CNDBIT(L,N)  = true if COND(L) has bit n set (bit 0 is units bit)
- * LIQUID()     = object number of liquid in bottle
- * LIQLOC(LOC)  = object number of liquid (if any) at LOC
- * FORCED(LOC)  = true if LOC moves without asking for input (COND=2)
- * DARK(LOC)    = true if location "LOC" is dark
- * PCT(N)       = true N% of the time (N integer from 0 to 100)
- * GSTONE(OBJ)  = true if OBJ is a gemstone
- * FOREST(LOC)  = true if LOC is part of the forest
- * OUTSIDE(LOC) = true if location not in the cave
- * INSIDE(LOC)  = true if location is in the cave or the building at the
- *                beginning of the game
- * INDEEP(LOC)  = true if location is in the Hall of Mists or deeper
- * BUG(X)       = report bug and exit
+ * DESTROY(N)     = Get rid of an item by putting it in LOC_NOWHERE
+ * MOD(N,M)       = Arithmetic modulus
+ * TOTING(OBJ)    = true if the OBJ is being carried
+ * AT(OBJ)        = true if on either side of two-placed object
+ * HERE(OBJ)      = true if the OBJ is at "LOC" (or is being carried)
+ * CNDBIT(L,N)    = true if COND(L) has bit n set (bit 0 is units bit)
+ * LIQUID()       = object number of liquid in bottle
+ * LIQLOC(LOC)    = object number of liquid (if any) at LOC
+ * FORCED(LOC)    = true if LOC moves without asking for input (COND=2)
+ * IS_DARK_HERE() = true if location "LOC" is dark
+ * PCT(N)         = true N% of the time (N integer from 0 to 100)
+ * GSTONE(OBJ)    = true if OBJ is a gemstone
+ * FOREST(LOC)    = true if LOC is part of the forest
+ * OUTSIDE(LOC)   = true if location not in the cave
+ * INSIDE(LOC)    = true if location is in the cave or the building at the
+ *                  beginning of the game
+ * INDEEP(LOC)    = true if location is in the Hall of Mists or deeper
+ * BUG(X)         = report bug and exit
  */
 #define DESTROY(N) move(N, LOC_NOWHERE)
 #define MOD(N, M) ((N) % (M))
@@ -118,7 +118,7 @@
 	(CNDBIT((LOC), COND_FLUID) ? CNDBIT((LOC), COND_OILY) ? OIL : WATER    \
 	                           : NO_OBJECT)
 #define FORCED(LOC) CNDBIT(LOC, COND_FORCED)
-#define DARK(DUMMY)                                                            \
+#define IS_DARK_HERE()                                                         \
 	(!CNDBIT(game.loc, COND_LIT) &&                                        \
 	 (game.objects[LAMP].prop == LAMP_DARK || !HERE(LAMP)))
 #define PCT(N) (randrange(100) < (N))

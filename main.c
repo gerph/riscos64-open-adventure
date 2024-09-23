@@ -534,7 +534,7 @@ static void describe_location(void) {
 		msg = locations[game.loc].description.big;
 	}
 
-	if (!FORCED(game.loc) && DARK(game.loc)) {
+	if (!FORCED(game.loc) && IS_DARK_HERE()) {
 		msg = arbitrary_messages[PITCH_DARK];
 	}
 
@@ -1047,7 +1047,7 @@ static void listobjects(void) {
 	 *  Similarly for chain; game.prop is initially CHAINING_BEAR (locked to
 	 *  bear).  These hacks are because game.prop=0 is needed to
 	 *  get full score. */
-	if (!DARK(game.loc)) {
+	if (!IS_DARK_HERE()) {
 		++game.locs[game.loc].abbrev;
 		for (int i = game.locs[game.loc].atloc; i != 0;
 		     i = game.link[i]) {
@@ -1229,7 +1229,7 @@ static bool do_move(void) {
 
 	/* The easiest way to get killed is to fall into a pit in
 	 * pitch darkness. */
-	if (!FORCED(game.loc) && DARK(game.loc) && game.wzdark &&
+	if (!FORCED(game.loc) && IS_DARK_HERE() && game.wzdark &&
 	    PCT(PIT_KILL_PROB)) {
 		rspeak(PIT_FALL);
 		game.oldlc2 = game.loc;
@@ -1283,7 +1283,7 @@ static bool do_command(void) {
 			}
 
 			/* Check to see if the room is dark. */
-			game.wzdark = DARK(game.loc);
+			game.wzdark = IS_DARK_HERE();
 
 			/* If the knife is not here it permanently disappears.
 			 * Possibly this should fire if the knife is here but

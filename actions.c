@@ -676,7 +676,7 @@ static phase_codes_t extinguish(verb_t verb, obj_t obj) {
 		break;
 	case LAMP:
 		state_change(LAMP, LAMP_DARK);
-		rspeak(DARK(game.loc) ? PITCH_DARK : NO_MESSAGE);
+		rspeak(IS_DARK_HERE() ? PITCH_DARK : NO_MESSAGE);
 		break;
 	case DRAGON:
 	case VOLCANO:
@@ -1155,12 +1155,12 @@ static phase_codes_t read(command_t command)
 			}
 		}
 		if (command.obj > NOBJECTS || command.obj == NO_OBJECT ||
-		    DARK(game.loc)) {
+		    IS_DARK_HERE()) {
 			return GO_UNKNOWN;
 		}
 	}
 
-	if (DARK(game.loc)) {
+	if (IS_DARK_HERE()) {
 		sspeak(NO_SEE, command.word[0].raw);
 	} else if (command.obj == OYSTER) {
 		if (!TOTING(OYSTER) || !game.closed) {
