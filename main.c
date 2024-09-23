@@ -1275,8 +1275,7 @@ static bool do_command(void) {
 					if (TOTING(i) &&
 					    (OBJECT_IS_NOTFOUND(i) ||
 					     OBJECT_IS_STASHED(i))) {
-						game.objects[i].prop =
-						    PROP_STASHIFY(game.objects[i].prop);
+						OBJECT_STASHIFY(i, game.objects[i].prop);
 					}
 				}
 			}

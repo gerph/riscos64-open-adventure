@@ -625,7 +625,7 @@ void put(obj_t object, loc_t where, int pval) {
 	/* put() is the same as move(), except the object is stashed and
 	 * can no longer be picked up. */
 	move(object, where);
-	game.objects[object].prop = PROP_STASHIFY(pval);
+	OBJECT_STASHIFY(object, pval);
 #ifdef OBJECT_SET_SEEN
 	OBJECT_SET_SEEN(object);
 #endif

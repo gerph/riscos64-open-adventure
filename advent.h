@@ -100,6 +100,7 @@
 #define OBJECT_IS_NOTFOUND2(g, o) (!g.objects[o].found)
 #define OBJECT_SET_SEEN(obj) game.objects[object].found = true
 #endif
+#define OBJECT_STASHIFY(obj, pval) game.objects[obj].prop = PROP_STASHIFY(pval)
 
 #define PROMPT "> "
 
