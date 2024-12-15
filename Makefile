@@ -11,10 +11,104 @@ VERS=$(shell sed -n <NEWS.adoc '/^[0-9]/s/:.*//p' | head -1)
 .PHONY: debug indent release refresh dist linty html clean
 .PHONY: check coverage
 
-CC?=gcc
+
+TARGET ?= advent
+
+CROSS_ROOT = ${shell echo $$CROSS_ROOT}
+
+ALL_TARGETS = advent
+
+
+targetted:
+	make ${TARGET},ff8 TARGET=${TARGET}
+
+all:
+	for i in ${ALL_TARGETS} ; do make $$i,ff8 TARGET=$$i || exit $$? ; done
+
+shell: dockcross-linux-arm64
+	./dockcross-linux-arm64 bash
+
+dockcross-linux-arm64:
+	docker run --rm dockcross/linux-arm64:latest > dockcross-linux-arm64
+	chmod +x dockcross-linux-arm64
+
+clean:
+
+CRT_OBJS = 	${CLIBDIR}/libcrt.a
+
+ifeq (${CROSS_ROOT},)
+# If we're outside the docker container, re-run ourselves inside the container
+
+CLIBDIR = $(shell realpath ~/projects/RO/riscos64-simple-binaries/clib/export)
+
+ifneq ($(filter-out all shell dockcross-linux-arm64 clean,${MAKECMDGOALS}),)
+# The command wasn't one of our invocation commands above
+.PHONY: ${MAKECMDGOALS}
+${MAKECMDGOALS}: dockcross-linux-arm64 ${CRT_OBJS}
+	./dockcross-linux-arm64 --args "-v ${CLIBDIR}:/ro64/clib" -- bash -c "cd . && make ${MAKECMDGOALS} TARGET=${TARGET}"
+else
+.PHONY: ${DEFAULT_GOAL}
+${DEFAULT_GOAL}: dockcross-linux-arm64 ${CRT_OBJS}
+	./dockcross-linux-arm64 --args "-v ${CLIBDIR}:/ro64/clib" -- bash -c "cd . && make ${MAKECMDGOALS} TARGET=${TARGET}"
+endif
+
+${CLIBDIR}/libcrt.a:
+	@echo C library has not been exported >&2
+	@echo Use 'make export' in the clib directory >&2
+	@false
+
+else
+# We are within the docker container
+
+CLIBDIR = /ro64/clib
+
+USE_FUNC_SIGNATURE ?= 1
+
+# Remove the flags that might make code think it's compiling for linux system.
+CFLAGS = -U__linux -U__linux__ -U__unix__ -U__unix -Ulinux -Uunix -U__gnu_linux__
+
+# Add the definitions to indicate that we're compiling for RISC OS
+CFLAGS += -D__riscos -D__riscos64
+
+# Allow us to build without assuming the standard library is present
+CFLAGS += -nostdlib -ffreestanding -march=armv8-a
+#CFLAGS += -nostdlib -ffreestanding -march=armv8-a+nofp
+
+# Add the exports directory to those things we'll build with
+CFLAGS += -I${CLIBDIR}/C -I${CLIBDIR}/Lib/ -I${CLIBDIR}
+
+# Options to allow function signatures to appear RISC OS-like
+ifeq (${USE_FUNC_SIGNATURE},1)
+CFLAGS += -fpatchable-function-entry=10,10
+endif
+
+# Optimisation options
+CFLAGS += -O1
+
+# Options for this build
+CFLAGS += -I.
+
+# Assembler flags
+AFLAGS = -march=armv8-a
+
+# Flags for the linker
+LDFLAGS = -T ${CLIBDIR}/linker/aif.lnk -e _aif64_entry
+
+CC = aarch64-unknown-linux-gnu-gcc
+AS = aarch64-unknown-linux-gnu-as
+LD = aarch64-unknown-linux-gnu-ld
+AR = aarch64-unknown-linux-gnu-ar
+OBJCOPY = aarch64-unknown-linux-gnu-objcopy
+OBJDUMP = aarch64-unknown-linux-gnu-objdump
+
+
+
+
 CCFLAGS+=-std=c99 -Wall -Wextra -D_DEFAULT_SOURCE -DVERSION=\"$(VERS)\" -O2 -D_FORTIFY_SOURCE=2 -fstack-protector-all $(CFLAGS) -g $(EXTRA)
+ifeq (false,)
 LIBS=$(shell pkg-config --libs libedit)
 INC+=$(shell pkg-config --cflags libedit)
+endif
 
 # LLVM/Clang on macOS seems to need -ledit flag for linking
 UNAME_S := $(shell uname -s)
@@ -22,7 +116,9 @@ ifeq ($(UNAME_S),Darwin)
     LIBS += -ledit
 endif
 
-OBJS=main.o init.o actions.o score.o misc.o saveresume.o
+OBJS=main.o init.o actions.o score.o misc.o saveresume.o dungeon.o
+OBJS+=extras.o \
+		extras-rand.o extras-random.o
 CHEAT_OBJS=cheat.o init.o actions.o score.o misc.o saveresume.o
 SOURCES=$(OBJS:.o=.c) advent.h adventure.yaml Makefile control make_dungeon.py templates/*.tpl
 
@@ -53,6 +149,7 @@ dungeon.c dungeon.h: make_dungeon.py adventure.yaml advent.h templates/*.tpl
 	./make_dungeon.py
 
 clean:
+	-rm -f *.o *.a *.bin *,ff8 *.map
 	rm -f *.o advent cheat *.html *.gcno *.gcda
 	rm -f dungeon.c dungeon.h
 	rm -f README advent.6 MANIFEST *.tar.gz
@@ -156,3 +253,23 @@ debug: CCFLAGS += -fsanitize=address
 debug: CCFLAGS += -fsanitize=undefined
 debug: linty
 
+
+
+${TARGET}.bin: ${CLIBDIR}/linker/aif.lnk ${OBJS} ${CRT_OBJS}
+	${LD} ${OBJS} ${CRT_OBJS} ${LDFLAGS} -o $@
+
+${TARGET}.syms: ${TARGET}.bin
+	${OBJDUMP} -t $? > $@
+
+ifeq (${USE_FUNC_SIGNATURE},1)
+${TARGET},ff8: ${TARGET}.bin ${TARGET}.syms
+	${OBJCOPY} -O binary -j .text ${TARGET}.bin $@
+	python ${CLIBDIR}/bin/riscos_symbols.py ${TARGET}.syms $@
+else
+${TARGET},ff8: ${TARGET}.bin
+	${OBJCOPY} -O binary -j .text ${TARGET}.bin $@
+endif
+
+
+
+endif
