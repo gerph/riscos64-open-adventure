@@ -18,6 +18,9 @@ CROSS_ROOT = ${shell echo $$CROSS_ROOT}
 
 ALL_TARGETS = advent
 
+CLIB_VERSION = 0.10
+CLIB_URL = https://github.com/gerph/riscos64-simple-binaries/releases/download/v${CLIB_VERSION}/RISCOS64-CLib-${CLIB_VERSION}.zip
+
 
 targetted:
 	make ${TARGET},ff8 TARGET=${TARGET}
@@ -33,13 +36,13 @@ dockcross-linux-arm64:
 	chmod +x dockcross-linux-arm64
 
 clean:
-
-CRT_OBJS = 	${CLIBDIR}/libcrt.a
+	-rm -rf *.o *.a *.bin *,ff8 *.map clib
 
 ifeq (${CROSS_ROOT},)
 # If we're outside the docker container, re-run ourselves inside the container
 
-CLIBDIR = $(shell realpath ~/projects/RO/riscos64-simple-binaries/clib/export)
+CLIBDIR = $(shell realpath clib)
+CRT_OBJS = clib/libcrt.a
 
 ifneq ($(filter-out all shell dockcross-linux-arm64 clean,${MAKECMDGOALS}),)
 # The command wasn't one of our invocation commands above
@@ -52,15 +55,19 @@ ${DEFAULT_GOAL}: dockcross-linux-arm64 ${CRT_OBJS}
 	./dockcross-linux-arm64 --args "-v ${CLIBDIR}:/ro64/clib" -- bash -c "cd . && make ${MAKECMDGOALS} TARGET=${TARGET}"
 endif
 
-${CLIBDIR}/libcrt.a:
-	@echo C library has not been exported >&2
-	@echo Use 'make export' in the clib directory >&2
-	@false
+clib/clib-${CLIB_VERSION}.zip:
+	mkdir -p clib
+	wget -O clib/clib-${CLIB_VERSION}.zip "${CLIB_URL}"
+
+clib/libcrt.a: clib/clib-${CLIB_VERSION}.zip
+	cd clib && unzip -u clib-${CLIB_VERSION}.zip
 
 else
 # We are within the docker container
 
 CLIBDIR = /ro64/clib
+
+CRT_OBJS = 	${CLIBDIR}/libcrt.a
 
 USE_FUNC_SIGNATURE ?= 1
 

@@ -40,18 +40,19 @@ jobs:
 
       - name: Build the archive
         run: |
-          zip -9r ../../RISCOS64-Adventure.zip *,ff8
+          zip -9r RISCOS64-Adventure.zip *,ff8
 
       - name: Give the output a versioned name
         id: version
         run: |
-          # FIXME: This is the base version, not the RISC OS version
+          # Note: This is the base version, not the RISC OS version
           version=$(sed -n <NEWS.adoc '/^[0-9]/s/:.*//p' | head -1)
-          #if [[ -f VersionNum ]] ; then
-          #    version=$(sed '/MajorVersion / ! d ; s/.*MajorVersion *"\(.*\)"/\1/' VersionNum)
-          #else
-          #    version=$(git rev-parse --short HEAD)
-          #fi
+          # Now was add the RISC OS version.
+          if [[ -f VersionNum ]] ; then
+              version=${version}ro$(sed '/MajorVersion / ! d ; s/.*MajorVersion *"\(.*\)"/\1/' VersionNum)
+          else
+              version=$(git rev-parse --short HEAD)
+          fi
           echo "This is version: $version"
           leafname="RISCOS64-Adventure-$version.zip"
           mv RISCOS64-Adventure.zip "RISCOS64-Adventure-$version.zip"
