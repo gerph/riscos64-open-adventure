@@ -116,9 +116,12 @@ ifeq ($(UNAME_S),Darwin)
     LIBS += -ledit
 endif
 
+VPATH = getopt editline
+
 OBJS=main.o init.o actions.o score.o misc.o saveresume.o dungeon.o
 OBJS+=extras.o \
-		extras-rand.o extras-random.o
+		getopt.o \
+		readline.o
 CHEAT_OBJS=cheat.o init.o actions.o score.o misc.o saveresume.o
 SOURCES=$(OBJS:.o=.c) advent.h adventure.yaml Makefile control make_dungeon.py templates/*.tpl
 

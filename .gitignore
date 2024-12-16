@@ -15,3 +15,6 @@ MANIFEST
 cheat
 advent.info
 coverage/*
+
+*,ff8
+dockcross-linux-arm64
