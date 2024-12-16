@@ -18,7 +18,7 @@ CROSS_ROOT = ${shell echo $$CROSS_ROOT}
 
 ALL_TARGETS = advent
 
-CLIB_VERSION = 0.10
+CLIB_VERSION = 0.11
 CLIB_URL = https://github.com/gerph/riscos64-simple-binaries/releases/download/v${CLIB_VERSION}/RISCOS64-CLib-${CLIB_VERSION}.zip
 
 
@@ -34,9 +34,6 @@ shell: dockcross-linux-arm64
 dockcross-linux-arm64:
 	docker run --rm dockcross/linux-arm64:latest > dockcross-linux-arm64
 	chmod +x dockcross-linux-arm64
-
-clean:
-	-rm -rf *.o *.a *.bin *,ff8 *.map clib
 
 ifeq (${CROSS_ROOT},)
 # If we're outside the docker container, re-run ourselves inside the container
@@ -159,7 +156,7 @@ dungeon.c dungeon.h: make_dungeon.py adventure.yaml advent.h templates/*.tpl
 	./make_dungeon.py
 
 clean:
-	-rm -f *.o *.a *.bin *,ff8 *.map
+	-rm -f *.o *.a *.bin *,ff8 *.map clib
 	rm -f *.o advent cheat *.html *.gcno *.gcda
 	rm -f dungeon.c dungeon.h
 	rm -f README advent.6 MANIFEST *.tar.gz
