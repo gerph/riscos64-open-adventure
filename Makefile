@@ -18,7 +18,7 @@ CROSS_ROOT = ${shell echo $$CROSS_ROOT}
 
 ALL_TARGETS = advent
 
-CLIB_VERSION = 0.11
+CLIB_VERSION = 0.13
 CLIB_URL = https://github.com/gerph/riscos64-simple-binaries/releases/download/v${CLIB_VERSION}/RISCOS64-CLib-${CLIB_VERSION}.zip
 
 
@@ -86,6 +86,9 @@ ifeq (${USE_FUNC_SIGNATURE},1)
 CFLAGS += -fpatchable-function-entry=10,10
 endif
 
+# Position independant code allows relocation
+CFLAGS += -fPIC
+
 # Optimisation options
 CFLAGS += -O1
 
@@ -104,8 +107,8 @@ LD = aarch64-unknown-linux-gnu-ld
 AR = aarch64-unknown-linux-gnu-ar
 OBJCOPY = aarch64-unknown-linux-gnu-objcopy
 OBJDUMP = aarch64-unknown-linux-gnu-objdump
-
-
+ROSYMBOLS = ${CLIBDIR}/bin/riscos64-addsignatures
+RORELOC = ${CLIBDIR}/bin/riscos64-mkreloc
 
 
 CCFLAGS+=-std=c99 -Wall -Wextra -D_DEFAULT_SOURCE -DVERSION=\"$(VERS)\" -O2 -D_FORTIFY_SOURCE=2 -fstack-protector-all $(CFLAGS) -g $(EXTRA)
@@ -263,18 +266,22 @@ debug: linty
 
 
 ${TARGET}.bin: ${CLIBDIR}/linker/aif.lnk ${OBJS} ${CRT_OBJS}
-	${LD} ${OBJS} ${CRT_OBJS} ${LDFLAGS} -o $@
+	${LD} -r ${OBJS} ${CRT_OBJS} ${LDFLAGS} -o $@.tmp
+	${OBJDUMP} --reloc --syms --wide $@.tmp > $@.syms
+	${RORELOC} $@.syms $@.reloc
+	${LD} ${OBJS} $@.reloc ${CRT_OBJS} ${LDFLAGS} -o $@
+	${RM} $@.tmp $@.syms $@.reloc
 
 ${TARGET}.syms: ${TARGET}.bin
 	${OBJDUMP} -t $? > $@
 
 ifeq (${USE_FUNC_SIGNATURE},1)
 ${TARGET},ff8: ${TARGET}.bin ${TARGET}.syms
-	${OBJCOPY} -O binary -j .text ${TARGET}.bin $@
-	python ${CLIBDIR}/bin/riscos_symbols.py ${TARGET}.syms $@
+	${OBJCOPY} -O binary -j .text -j .rodata -j .data -j .data.rel -j .data.rel ${TARGET}.bin $@
+	python ${ROSYMBOLS} ${TARGET}.syms $@
 else
 ${TARGET},ff8: ${TARGET}.bin
-	${OBJCOPY} -O binary -j .text ${TARGET}.bin $@
+	${OBJCOPY} -O binary -j .text -j .rodata -j .data -j .data.rel -j .data.rel ${TARGET}.bin $@
 endif
 
 
