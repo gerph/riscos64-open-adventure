@@ -18,8 +18,8 @@ CROSS_ROOT = ${shell echo $$CROSS_ROOT}
 
 ALL_TARGETS = advent
 
-CLIB_VERSION = 0.13
-CLIB_URL = https://github.com/gerph/riscos64-simple-binaries/releases/download/v${CLIB_VERSION}/RISCOS64-CLib-${CLIB_VERSION}.zip
+CLIB_VERSION = 0.23
+CLIB_URL = https://github.com/gerph/riscos64-clib/releases/download/v${CLIB_VERSION}/RISCOS64-CLib-${CLIB_VERSION}.zip
 
 
 targetted:
