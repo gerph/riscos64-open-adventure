@@ -68,7 +68,7 @@ char *myreadline(const char *prompt) {
 				return NULL;
 			}
 
-			char *next = settings.argv[settings.optind++];
+			const char *next = settings.argv[settings.optind++];
 
 			if (settings.scriptfp != NULL &&
 			    feof(settings.scriptfp)) {
@@ -76,10 +76,15 @@ char *myreadline(const char *prompt) {
 			}
 			if (strcmp(next, "-") == 0) {
 				settings.scriptfp = stdin; // LCOV_EXCL_LINE
-			} else {
-				settings.scriptfp = fopen(next, "r");
+				} else {
+					settings.scriptfp = fopen(next, "r");
+					if (settings.scriptfp == NULL) {
+						fprintf(stderr, "Can't open script %s\n",
+						        next);
+						continue;
+					}
+				}
 			}
-		}
 
 		if (isatty(fileno(settings.scriptfp)) && !settings.oldstyle) {
 			free(buf);               // LCOV_EXCL_LINE
@@ -1457,7 +1462,7 @@ int main(int argc, char *argv[]) {
 	const char *opts = "dl:oa:";
 	const char *usage =
 	    "Usage: %s [-l logfilename] [-o] [-a filename] [script...]\n";
-	FILE *rfp = NULL;
+	const FILE *rfp = NULL;
 	const char *autosave_filename = NULL;
 #elif !defined ADVENT_NOSAVE
 	const char *opts = "dl:or:";
